@@ -19,6 +19,8 @@ public class User {
     @JsonIgnore
     private String password;
 
+    private String token;
+
     @Column(nullable = false)
     private String firstname;
 
@@ -50,6 +52,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getFirstname() {
