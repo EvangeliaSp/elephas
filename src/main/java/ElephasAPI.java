@@ -12,10 +12,8 @@ import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-// @SpringBootApplication instead of @EnableAutoConfiguration and @ComponentScan
 @EnableSwagger2
 @EnableAutoConfiguration
-//@SpringBootApplication
 @ComponentScan({"controllers"})
 public class ElephasAPI extends SpringBootServletInitializer {
 
