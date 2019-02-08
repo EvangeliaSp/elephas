@@ -15,7 +15,7 @@ import javax.validation.Valid;
 import java.security.MessageDigest;
 
 @RestController
-@RequestMapping("/user")
+//@RequestMapping("/user")
 @CrossOrigin("*")
 public class UserController {
 
@@ -23,10 +23,9 @@ public class UserController {
     //@Qualifier("userService")
     private UserService userService;
 
-    @RequestMapping(value="/index", method={RequestMethod.GET},headers="Accept=application/xml")
-    public void findAll() {
-        System.out.println("Hello Elephas!");
-        //return ResponseEntity.status(HttpStatus.OK).body("{\"message\":\"userexists\"}");
+    @RequestMapping("/")
+    public String home(){
+        return "Hello World!";
     }
 
     @RequestMapping(value = "/create", method = {RequestMethod.POST}, produces = {MediaType.APPLICATION_JSON_VALUE})
