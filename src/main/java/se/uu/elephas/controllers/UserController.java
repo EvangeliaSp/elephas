@@ -3,6 +3,7 @@ package se.uu.elephas.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -70,21 +71,24 @@ public class UserController {
 
         return user.isPresent()
                 ? ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user.get()))
-                : ResponseEntity.status(HttpStatus.NOT_FOUND).body("User does not exist.");
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with id " + id + " does not exist.");
 
     }
 
-//    @RequestMapping(value = "/findById", method = {RequestMethod.GET})
-//    public ResponseEntity<String> delete(
-//            @RequestParam("id") @Valid Long id
-//    ) throws JsonProcessingException {
-//
-//        Optional<User> user = userService.getById(id);
-//
-//        return user.isPresent()
-//                ? ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user.get()))
-//                : ResponseEntity.status(HttpStatus.NOT_FOUND).body("User does not exist.");
-//
-//    }
+    @RequestMapping(value = "/delete", method = {RequestMethod.DELETE})
+    public ResponseEntity<String> delete(
+            @RequestParam("id") @Valid Long id
+    ) throws EmptyResultDataAccessException {
+
+        try {
+            userService.delete(id);
+        } catch (EmptyResultDataAccessException e) {
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with id " + id + " not found.");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body("Account of user " + id + " deleted successfully.");
+
+    }
 
 }

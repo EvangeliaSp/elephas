@@ -10,4 +10,6 @@ public interface UserService {
 
     Object getById(Long id);
 
+    void delete(Long id);
+
 }
