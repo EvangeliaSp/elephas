@@ -2,6 +2,7 @@ package se.uu.elephas.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ import java.security.MessageDigest;
 //import se.uu.elephas.services.UserService;
 
 @RestController
-//@RequestMapping("/user")
+@RequestMapping("/user")
 @CrossOrigin("*")
 public class UserController {
 
@@ -50,11 +51,19 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "/get", method = {RequestMethod.GET})
-    public ResponseEntity<String> get() {
-        return ResponseEntity.status(HttpStatus.OK).body("Hello");
-
-
-    }
+//    @RequestMapping(value = "/all", method = {RequestMethod.GET})
+//    public ResponseEntity<String> findAll() {
+//
+//        Page<User> users = userService.findAll();
+//        if (users)
+////        try {
+////            a = userService.findAll();
+////        } catch (ConstraintViolationException e) {
+//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User cannot be created.");
+////        }
+//
+//        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user));
+//
+//    }
 
 }
