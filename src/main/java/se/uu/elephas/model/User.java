@@ -1,11 +1,9 @@
-package model;
+package se.uu.elephas.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -13,11 +11,18 @@ import javax.validation.constraints.NotBlank;
 public class User {
 
     @Id
+    @GeneratedValue
+    private Long id;
+
+    @Email
+    @Column(unique = true)
     private String email;
 
     @NotBlank
-    @JsonIgnore
+    //@JsonIgnore
     private String password;
+
+    private String token;
 
     @Column(nullable = false)
     private String firstname;
@@ -36,6 +41,14 @@ public class User {
         this.lastname = lastname;
     }
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public String getEmail() {
         return email;
     }
@@ -50,6 +63,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 
     public String getFirstname() {
