@@ -5,10 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import se.uu.elephas.model.User;
 import se.uu.elephas.repository.UserRepository;
 import se.uu.elephas.services.UserService;
@@ -37,8 +34,9 @@ public class UserController {
         return "Hello Elephas!";
     }
 
-    @RequestMapping(value = "/create", method = {RequestMethod.POST}, produces = {MediaType.APPLICATION_JSON_VALUE})
-    public ResponseEntity<String> create(User user) throws Exception {
+
+    @RequestMapping(value = "/create", method = {RequestMethod.POST})
+    public ResponseEntity<String> create(@RequestBody User user) throws Exception {
 
         MessageDigest md = MessageDigest.getInstance("MD5");
 
