@@ -1,4 +1,4 @@
-package model;
+package se.uu.elephas.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

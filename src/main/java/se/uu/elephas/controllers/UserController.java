@@ -1,18 +1,26 @@
-package controllers;
+package se.uu.elephas.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import model.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-import services.UserService;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+import se.uu.elephas.model.User;
+import se.uu.elephas.repository.UserRepository;
+import se.uu.elephas.services.UserService;
+import se.uu.elephas.services.UserServiceImpl;
+//import se.uu.elephas.services.UserService;
+//import se.uu.elephas.services.UserServiceImpl;
 
 import javax.validation.ConstraintViolationException;
-import javax.validation.Valid;
 import java.security.MessageDigest;
+
+//import se.uu.elephas.model.User;
+//import se.uu.elephas.services.UserService;
 
 @RestController
 //@RequestMapping("/user")
@@ -20,12 +28,13 @@ import java.security.MessageDigest;
 public class UserController {
 
     @Autowired
+//    private UserRepository userRepository;
     //@Qualifier("userService")
-    private UserService userService;
+    private UserServiceImpl userService;
 
     @RequestMapping("/")
     public String home(){
-        return "Hello World!";
+        return "Hello Elephas!";
     }
 
     @RequestMapping(value = "/create", method = {RequestMethod.POST}, produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -41,6 +50,13 @@ public class UserController {
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user));
 
+    }
+
+    @RequestMapping(value = "/get", method = {RequestMethod.GET})
+    public ResponseEntity<String> get() {
+        return ResponseEntity.status(HttpStatus.OK).body("Hello");
+
 
     }
+
 }
