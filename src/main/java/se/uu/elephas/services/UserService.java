@@ -8,4 +8,6 @@ public interface UserService {
 
     Object create(User user, MessageDigest md);
 
+    Object getById(Long id);
+
 }

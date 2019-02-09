@@ -10,6 +10,7 @@ import se.uu.elephas.repository.UserRepository;
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+import java.util.Optional;
 
 @Service//("userService")
 //@Transactional
@@ -35,11 +36,13 @@ public class UserServiceImpl implements UserService {
         random.nextBytes(bytes);
         String token = bytes.toString();
         user.setToken(token);
-        Object ur = userRepository.save(user);
-        return (ur);
+
+        return (userRepository.save(user));
 
     }
 
-//sta
+    public Optional<User> getById(Long id) {
+        return(userRepository.findById(id));
+    }
 
 }

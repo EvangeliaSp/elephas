@@ -1,24 +1,19 @@
 package se.uu.elephas.controllers;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.uu.elephas.model.User;
-import se.uu.elephas.repository.UserRepository;
-import se.uu.elephas.services.UserService;
 import se.uu.elephas.services.UserServiceImpl;
-//import se.uu.elephas.services.UserService;
-//import se.uu.elephas.services.UserServiceImpl;
 
 import javax.validation.ConstraintViolationException;
+import javax.validation.Valid;
 import java.security.MessageDigest;
+import java.util.Optional;
 
-//import se.uu.elephas.model.User;
-//import se.uu.elephas.services.UserService;
 
 @RestController
 @RequestMapping("/user")
@@ -63,6 +58,32 @@ public class UserController {
 ////        }
 //
 //        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user));
+//
+//    }
+
+    @RequestMapping(value = "/findById", method = {RequestMethod.GET})
+    public ResponseEntity<String> findById(
+            @RequestParam("id") @Valid Long id
+        ) throws JsonProcessingException {
+
+        Optional<User> user = userService.getById(id);
+
+        return user.isPresent()
+                ? ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user.get()))
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).body("User does not exist.");
+
+    }
+
+//    @RequestMapping(value = "/findById", method = {RequestMethod.GET})
+//    public ResponseEntity<String> delete(
+//            @RequestParam("id") @Valid Long id
+//    ) throws JsonProcessingException {
+//
+//        Optional<User> user = userService.getById(id);
+//
+//        return user.isPresent()
+//                ? ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user.get()))
+//                : ResponseEntity.status(HttpStatus.NOT_FOUND).body("User does not exist.");
 //
 //    }
 
