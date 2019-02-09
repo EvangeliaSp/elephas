@@ -11,7 +11,7 @@ import java.util.Optional;
 
 @Repository
 //@Transactional
-public interface UserRepository extends CrudRepository<User, String> {
+public interface UserRepository extends CrudRepository<User, Long> {
 
     Page<User> findAll(Pageable pageable);
 

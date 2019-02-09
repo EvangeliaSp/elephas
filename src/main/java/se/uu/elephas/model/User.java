@@ -2,10 +2,8 @@ package se.uu.elephas.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Entity
@@ -13,10 +11,15 @@ import javax.validation.constraints.NotBlank;
 public class User {
 
     @Id
+    @GeneratedValue
+    private Long id;
+
+    @Email
+    @Column(unique = true)
     private String email;
 
     @NotBlank
-    @JsonIgnore
+    //@JsonIgnore
     private String password;
 
     private String token;
@@ -36,6 +39,14 @@ public class User {
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getEmail() {
