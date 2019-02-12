@@ -10,6 +10,7 @@ import se.uu.elephas.repository.UserRepository;
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
+import java.util.Optional;
 
 @Service//("userService")
 //@Transactional
@@ -35,11 +36,41 @@ public class UserServiceImpl implements UserService {
         random.nextBytes(bytes);
         String token = bytes.toString();
         user.setToken(token);
-        Object ur = userRepository.save(user);
-        return (ur);
+
+        return (userRepository.save(user));
 
     }
 
-//sta
+    public Optional<User> getById(Long id) {
+        return(userRepository.findById(id));
+    }
+
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
+
+    // TODO: try-catch or if-else in case that user does not exist
+    // TODO: create token from new password
+    public Object update(User newUser, Long id) {
+        newUser.setId(id);
+        Optional<User> optUser = userRepository.findById(id);
+
+        if (optUser.isPresent()) {
+            User user = optUser.get();
+            if (newUser.getEmail() == null)
+                newUser.setEmail(user.getEmail());
+
+            if (newUser.getPassword() == null)
+                newUser.setPassword(user.getPassword());
+
+            if (newUser.getFirstname() == null)
+                newUser.setFirstname(user.getFirstname());
+
+            if (newUser.getLastname() == null)
+                newUser.setLastname(user.getLastname());
+        }
+
+        return (userRepository.save(newUser));
+    }
 
 }
