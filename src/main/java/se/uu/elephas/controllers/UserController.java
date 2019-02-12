@@ -22,8 +22,6 @@ import java.util.Optional;
 public class UserController {
 
     @Autowired
-//    private UserRepository userRepository;
-    //@Qualifier("userService")
     private UserServiceImpl userService;
 
     @RequestMapping("/")
