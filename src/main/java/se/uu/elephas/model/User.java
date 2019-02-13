@@ -1,6 +1,5 @@
 package se.uu.elephas.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -30,37 +29,36 @@ public class User {
     @Column(nullable = false)
     private String lastname;
 
-    @Column(name = "country")
+    @Column(nullable = false)
     private String country;
 
-    @Column(name = "streetName")
-    private String streetName;
+    @Column(nullable = false)
+    private String streetname;
 
 
+    @Column(nullable = false)
+    private String zipcode;
 
-    @Column(name = "zipCode")
-    private String zipCode;
-
-    @Column(name = "telephone")
+    @Column(nullable = false)
     private String telephone;
 
-    @Column(name = "streetNumber")
-    private int streetNumber;
+    @Column(nullable = false)
+    private int streetnumber;
 
 
     public User() {
 
     }
 
-    public User(String email, String password, String firstname, String lastname, String streetName, int streetNumber, String zipCode,
+    public User(String email, String password, String firstname, String lastname, String streetname, int streetnumber, String zipcode,
                 String country, String telephone) {
         this.email = email;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.streetName = streetName;
-        this.streetNumber = streetNumber;
-        this.zipCode = zipCode;
+        this.streetname = streetname;
+        this.streetnumber = streetnumber;
+        this.zipcode = zipcode;
         this.country = country;
         this.telephone = telephone;
     }
@@ -116,11 +114,11 @@ public class User {
 
 
     public String getStreetName() {
-        return streetName;
+        return streetname;
     }
 
     public void setStreetName(String streetName) {
-        this.streetName = streetName;
+        this.streetname = streetName;
     }
 
     public String getCountry() {
@@ -132,11 +130,11 @@ public class User {
     }
 
     public String getZipCode() {
-        return zipCode;
+        return zipcode;
     }
 
-    public void setZipCode(String zipCode) {
-        this.zipCode = zipCode;
+    public void setZipCode(String zipcode) {
+        this.zipcode = zipcode;
     }
 
     public String getTelephone() {
@@ -148,10 +146,10 @@ public class User {
     }
 
     public int getStreetNumber() {
-        return streetNumber;
+        return streetnumber;
     }
 
-    public void setStreetNumber(int streetNumber) {
-        this.streetNumber = streetNumber;
+    public void setStreetNumber(int streetnumber) {
+        this.streetnumber = streetnumber;
     }
 }
