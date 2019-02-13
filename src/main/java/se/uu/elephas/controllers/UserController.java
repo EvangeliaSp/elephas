@@ -13,6 +13,7 @@ import se.uu.elephas.services.UserServiceImpl;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Optional;
 
 
@@ -33,7 +34,7 @@ public class UserController {
     @RequestMapping(value = "/create", method = {RequestMethod.POST})
     public ResponseEntity<String> create(
             @RequestBody User user)
-            throws Exception {
+            throws NoSuchAlgorithmException, JsonProcessingException {
 
         MessageDigest md = MessageDigest.getInstance("MD5");
 
@@ -116,6 +117,21 @@ public class UserController {
         Iterable<User> users = userService.getAll();
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(users));
+    }
+
+    @RequestMapping(value = "login", method = {RequestMethod.POST})
+    public ResponseEntity<String> login(
+            @RequestParam String email,
+            @RequestParam String password)
+            throws NoSuchAlgorithmException, JsonProcessingException {
+
+        MessageDigest md = MessageDigest.getInstance("MD5");
+
+        Optional<User> user = userService.login(email, password, md);
+
+        return user.isPresent()
+                ? ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user.get())) : ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("");
+
     }
 
 }
