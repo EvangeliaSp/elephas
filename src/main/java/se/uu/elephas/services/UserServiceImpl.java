@@ -36,7 +36,6 @@ public class UserServiceImpl implements UserService {
         random.nextBytes(bytes);
         String token = bytes.toString();
         user.setToken(token);
-
         return (userRepository.save(user));
 
     }
@@ -51,9 +50,9 @@ public class UserServiceImpl implements UserService {
 
     // TODO: try-catch or if-else in case that user does not exist
     // TODO: create token from new password
-    public Object update(User newUser, Long id) {
-        newUser.setId(id);
-        Optional<User> optUser = userRepository.findById(id);
+    public Object update(User newUser, Long userId) {
+        newUser.setuserId(userId);
+        Optional<User> optUser = userRepository.findById(userId);
 
         if (optUser.isPresent()) {
             User user = optUser.get();
@@ -68,6 +67,26 @@ public class UserServiceImpl implements UserService {
 
             if (newUser.getLastname() == null)
                 newUser.setLastname(user.getLastname());
+
+            if (newUser.getCountry() == null)
+                newUser.setCountry(user.getCountry());
+
+            if (newUser.getStreetName() == null)
+                newUser.setStreetName(user.getStreetName());
+
+            if (newUser.getStreetNumber() == 0)
+                newUser.setStreetNumber(user.getStreetNumber());
+
+            if (newUser.getTelephone() == null)
+                newUser.setTelephone(user.getTelephone());
+
+            if (newUser.getStreetNumber() == 0)
+                newUser.setStreetNumber(user.getStreetNumber());
+
+            if (newUser.getZipCode() ==null)
+                newUser.setZipCode(user.getZipCode());
+
+
         }
 
         return (userRepository.save(newUser));
