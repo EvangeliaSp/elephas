@@ -109,4 +109,13 @@ public class UserController {
 
     }
 
+    @RequestMapping(value = "all", method = {RequestMethod.GET})
+    public ResponseEntity<String> findAll()
+            throws JsonProcessingException {
+
+        Iterable<User> users = userService.getAll();
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(users));
+    }
+
 }
