@@ -77,4 +77,16 @@ public class UserServiceImpl implements UserService {
     public Iterable<User> getAll() {
         return userRepository.findAll();
     }
+
+    public Optional<User> login(String email, String password, MessageDigest md) {
+
+        String content = password;
+
+        md.update(content.getBytes());
+        byte[] digest = md.digest();
+        String hashed = DatatypeConverter.printHexBinary(digest);
+
+        return userRepository.findByEmailAndPassword(email, hashed);
+
+    }
 }
