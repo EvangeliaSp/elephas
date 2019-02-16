@@ -34,8 +34,8 @@ public class Order {
     public Order() {}
 
     // Constructor of basket
-    public Order(Long idUser, Boolean confirm, float sum) {
-//        this.idUser = idUser;
+    public Order(User userByOrderId, Boolean confirm, float sum) {
+        this.userByOrderId = userByOrderId;
         this.confirm = confirm;
         this.sum = sum;
     }
