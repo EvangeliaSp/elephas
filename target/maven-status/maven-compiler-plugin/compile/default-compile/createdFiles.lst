@@ -1,0 +1,6 @@
+se/uu/elephas/model/User.class
+se/uu/elephas/controllers/UserController.class
+se/uu/elephas/repository/UserRepository.class
+se/uu/elephas/ElephasAPI.class
+se/uu/elephas/services/UserService.class
+se/uu/elephas/services/UserServiceImpl.class
