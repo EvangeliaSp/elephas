@@ -1,15 +1,14 @@
 package se.uu.elephas.model;
 
-enum Status {
-    COMPLETED (1),
-    CANCELLED(2),
-    SHIPPED(3),
-    IN_PROGRESS(4)
+enum PaymentType {
+    CREDIT_CARD(1),
+    PAYPAL(2),
+    SWISH(3)
     ;
 
     private final int value;
 
-    Status(int value) {
+    PaymentType(int value) {
         this.value = value;
     }
 
