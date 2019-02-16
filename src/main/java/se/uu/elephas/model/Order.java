@@ -13,7 +13,7 @@ public class Order {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long idOrder;
 
 //    @Column(nullable = false)
 //    private Long idUser;
@@ -45,11 +45,11 @@ public class Order {
     }
 
     public Long getIdOrder() {
-        return this.id;
+        return this.idOrder;
     }
 
     public void setIdOrder(Long id) {
-        this.id = id;
+        this.idOrder = id;
     }
 
     public Boolean getConfirm() {

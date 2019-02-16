@@ -38,11 +38,11 @@ public class OrderServiceImpl implements OrderService {
 //    public Optional<Order> getByIdOrder(Long idOrder) {
 //        return(orderRepository.findByIdOrder(idOrder));
 //    }
-//
-//    public Iterable<Order> getByIdUser(Long idUser) {
-//        return orderRepository.findByIdUser(idUser);
-//    }
-//
+
+    public Iterable<Order> getByIdUser(Long idUser) {
+        return orderRepository.findByIdUser(idUser);
+    }
+
 //    public Iterable<Order> getAllOrders() {
 //        return orderRepository.findAll();
 //

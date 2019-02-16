@@ -23,5 +23,6 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     /* Returns all orders */
     Page<Order> findAll(Pageable pageable);
 
+    Iterable<Order> findOrdersByUser
     // TODO: addToBasket
 }

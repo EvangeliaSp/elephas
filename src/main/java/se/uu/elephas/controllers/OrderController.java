@@ -5,10 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import se.uu.elephas.model.Order;
 import se.uu.elephas.services.OrderServiceImpl;
 
@@ -22,7 +19,7 @@ public class OrderController {
     @Autowired
     private OrderServiceImpl orderService;
 
-    @RequestMapping(value = "/create")
+    @RequestMapping(value = "/create", method = {RequestMethod.POST})
     public ResponseEntity<String> create(
             @RequestParam("userId") @Valid Long userId)
             throws JsonProcessingException {
@@ -50,18 +47,18 @@ public class OrderController {
 //
 //    }
 
-//    @RequestMapping(value = "/findByIdUser", method = {RequestMethod.GET})
-//    public ResponseEntity<String> findByIdUser(
-//            @RequestParam("idUser") @Valid Long idUser)
-//            throws JsonProcessingException {
-//
-//        //TODO: it's something wrong with this. Maybe have a look at the return types, Pageable/Iterable
-//        Iterable<Order> orders = orderService.getByIdUser(idUser);
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
-//
-//    }
-//
+    @RequestMapping(value = "/findByIdUser", method = {RequestMethod.GET})
+    public ResponseEntity<String> findByIdUser(
+            @RequestParam("idUser") @Valid Long idUser)
+            throws JsonProcessingException {
+
+        //TODO: it's something wrong with this. Maybe have a look at the return types, Pageable/Iterable
+        Iterable<Order> orders = orderService.getByIdUser(idUser);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
+
+    }
+
 //    @RequestMapping(value = "all", method = {RequestMethod.GET})
 //    public ResponseEntity<String> findAll()
 //            throws JsonProcessingException {
