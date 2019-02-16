@@ -5,9 +5,11 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_table")
 public class User {
 
     @Id
@@ -30,6 +32,10 @@ public class User {
     @Column(nullable = false)
     private String lastname;
 
+    @OneToMany(mappedBy = "userByOrderId", cascade = CascadeType.ALL)
+    private List<Order> orders;
+
+
     public User() {
 
     }
@@ -39,6 +45,7 @@ public class User {
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.orders.forEach(x -> x.setUser(this));
     }
 
     public Long getId() {
@@ -87,5 +94,13 @@ public class User {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

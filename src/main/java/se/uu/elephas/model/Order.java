@@ -4,33 +4,38 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 @Entity
-@Table(name = "order")
+@Table(name = "order_table")
 public class Order {
 
     @Id
     @GeneratedValue
     private Long id;
 
-    @Column(nullable = false)
-    private Long idUser;
+//    @Column(nullable = false)
+//    private Long idUser;
 
-    private Boolean confirm; //FIXME: how to represent tinyint?
+    private Boolean confirm;
 
     private float sum;
 
     private Timestamp date;
 
-    private int status; //FIXME: how to represent enum?
+    private int status;
 
     private Boolean paymentStatus;
 
     private int paymentType;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User userByOrderId;
+
+
     public Order() {}
 
     // Constructor of basket
     public Order(Long idUser, Boolean confirm, float sum) {
-        this.idUser = idUser;
+//        this.idUser = idUser;
         this.confirm = confirm;
         this.sum = sum;
     }
@@ -41,14 +46,6 @@ public class Order {
 
     public void setIdOrder(Long id) {
         this.id = id;
-    }
-
-    public Long getIdUser() {
-        return this.idUser;
-    }
-
-    public void setIdUser(Long id) {
-        this.idUser = id;
     }
 
     public Boolean getConfirm() {
@@ -117,5 +114,13 @@ public class Order {
 
     public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType.getValue();
+    }
+
+    public User getUser() {
+        return userByOrderId;
+    }
+
+    public void setUser(User userByOrderId) {
+        this.userByOrderId = userByOrderId;
     }
 }
