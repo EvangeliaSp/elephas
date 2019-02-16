@@ -11,7 +11,7 @@ public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int idProduct;
+    private Long idProduct;
 
     @Column(nullable = false)
     private int type;
@@ -36,7 +36,7 @@ public class Product {
 
     }
 
-    public Product(int idProduct, int type, int material, int color, char description, float price, float discount) {
+    public Product(Long idProduct, int type, int material, int color, char description, float price, float discount) {
         this.idProduct = idProduct;
         this.type = type;
         this.material = material;
@@ -46,11 +46,11 @@ public class Product {
         this.discount = discount;
     }
 
-    public int getIdProduct() {
+    public Long getIdProduct() {
         return idProduct;
     }
 
-    public void setIdProduct(int idProduct) {
+    public void setIdProduct(Long idProduct) {
         this.idProduct = idProduct;
     }
 
