@@ -1,34 +1,33 @@
-//package se.uu.elephas.model;
-//
-//import org.springframework.data.annotation.Id;
-//
-//import javax.persistence.*;
-//
-//@Entity
-//@Table (name="product_table")
-//public class Product {
-//
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.IDENTITY)
-//    private Long idProduct;
-//
-//    @Column(nullable = false)
+package se.uu.elephas.model;
+
+import org.springframework.data.annotation.Id;
+
+import javax.persistence.*;
+
+@Entity
+@Table (name="product_table")
+public class Product {
+
+    @Id
+    @GeneratedValue
+    private Long idProduct;
+
+//    //@Column(nullable = false)
 //    private int type;
 //
-//    @Column(nullable = false)
+//    //@Column(nullable = false)
 //    private int material;
 //
-//    @Column(nullable = false)
+//    //@Column(nullable = false)
 //    private int color;
-//
+
 //    @Lob
 //    @Column(length = 6000, columnDefinition = "Text")
 //    private char description;
 //
 //    @Column(columnDefinition="Decimal(10,2) default '100.00'")
 //    private float price;
-//
-//    @Column
+
 //    private float discount;
 //
 //    public Product() {
@@ -40,8 +39,8 @@
 //        this.type = type;
 //        this.material = material;
 //        this.color = color;
-//        this.description = description;
-//        this.price = price;
+////        this.description = description;
+////        this.price = price;
 //        this.discount = discount;
 //    }
 //
@@ -67,17 +66,17 @@
 //
 //    public int getColor() {return color;}
 //
-//    public void setColor(int color) {this.color = color;}
-//
-//    public char getDescription() {return description;}
-//
-//    public void setDescription(char description) {this.description = description;}
-//
-//    public float getPrice() {return price;}
-//
-//    public void setPrice(float price) {this.price = price;}
+////    public void setColor(int color) {this.color = color;}
+////
+////    public char getDescription() {return description;}
+////
+////    public void setDescription(char description) {this.description = description;}
+////
+////    public float getPrice() {return price;}
+////
+////    public void setPrice(float price) {this.price = price;}
 //
 //    public float getDiscount() {return discount;}
 //
 //    public void setDiscount(float discount) {this.discount = discount;}
-//}
+}
