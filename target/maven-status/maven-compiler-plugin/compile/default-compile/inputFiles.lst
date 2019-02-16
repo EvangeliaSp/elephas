@@ -1,0 +1,6 @@
+/home/mikaela/elephas/src/main/java/se/uu/elephas/ElephasAPI.java
+/home/mikaela/elephas/src/main/java/se/uu/elephas/repository/UserRepository.java
+/home/mikaela/elephas/src/main/java/se/uu/elephas/controllers/UserController.java
+/home/mikaela/elephas/src/main/java/se/uu/elephas/services/UserService.java
+/home/mikaela/elephas/src/main/java/se/uu/elephas/services/UserServiceImpl.java
+/home/mikaela/elephas/src/main/java/se/uu/elephas/model/User.java
