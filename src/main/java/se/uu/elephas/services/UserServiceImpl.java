@@ -1,6 +1,7 @@
 package se.uu.elephas.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,7 +17,8 @@ import java.util.Optional;
 //@Transactional
 public class UserServiceImpl implements UserService {
 
-    public UserServiceImpl() {}
+    public UserServiceImpl() {
+    }
 
     @Autowired
     private UserRepository userRepository;
@@ -36,12 +38,26 @@ public class UserServiceImpl implements UserService {
         random.nextBytes(bytes);
         String token = bytes.toString();
         user.setToken(token);
-        return (userRepository.save(user));
 
+
+        try {
+            return userRepository.save(user);
+
+        } catch (DataIntegrityViolationException e) {
+            System.out.println("User Already Exists");
+        }
+        return null;
     }
 
+
     public Optional<User> getById(Long id) {
-        return(userRepository.findById(id));
+        String mpa = userRepository.findById(id).toString();
+        System.out.println(mpa);
+        return (userRepository.findById(id));
+    }
+
+    public Iterable<User> getAll() {
+        return userRepository.findAll();
     }
 
     public void delete(Long id) {
@@ -83,7 +99,7 @@ public class UserServiceImpl implements UserService {
             if (newUser.getStreetNumber() == 0)
                 newUser.setStreetNumber(user.getStreetNumber());
 
-            if (newUser.getZipCode() ==null)
+            if (newUser.getZipCode() == null)
                 newUser.setZipCode(user.getZipCode());
 
 
