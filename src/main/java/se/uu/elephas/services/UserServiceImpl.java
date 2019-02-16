@@ -51,8 +51,7 @@ public class UserServiceImpl implements UserService {
 
 
     public Optional<User> getById(Long id) {
-        String mpa = userRepository.findById(id).toString();
-        System.out.println(mpa);
+   
         return (userRepository.findById(id));
     }
 
