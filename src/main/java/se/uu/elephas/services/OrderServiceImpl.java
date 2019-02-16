@@ -1,37 +1,50 @@
 package se.uu.elephas.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import se.uu.elephas.model.Order;
+import se.uu.elephas.model.User;
 import se.uu.elephas.repository.OrderRepository;
+import se.uu.elephas.repository.UserRepository;
 
-import javax.xml.bind.DatatypeConverter;
-import java.security.MessageDigest;
-import java.security.SecureRandom;
-import java.util.List;
 import java.util.Optional;
 
-@Service//("orderService")
-//@Transactional
+@Service
 public class OrderServiceImpl implements OrderService {
 
     public OrderServiceImpl() {}
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
     private OrderRepository orderRepository;
 
-    public Optional<Order> getByIdOrder(Long idOrder) {
-        return(orderRepository.findByIdOrder(idOrder));
+    public Object create(Long userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+
+        if (optionalUser.isPresent()) {
+
+            User user = optionalUser.get();
+            Order order = new Order(user, false, 0);
+            return orderRepository.save(order);
+
+        }
+
+        return null;
+
     }
 
-    public Iterable<Order> getByIdUser(Long idUser) {
-        return orderRepository.findByIdUser(idUser);
-    }
-
-    public Iterable<Order> getAllOrders() {
-        return orderRepository.findAll();
-        
-    }
+//    public Optional<Order> getByIdOrder(Long idOrder) {
+//        return(orderRepository.findByIdOrder(idOrder));
+//    }
+//
+//    public Iterable<Order> getByIdUser(Long idUser) {
+//        return orderRepository.findByIdUser(idUser);
+//    }
+//
+//    public Iterable<Order> getAllOrders() {
+//        return orderRepository.findAll();
+//
+//    }
 }
