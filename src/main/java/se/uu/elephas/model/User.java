@@ -33,6 +33,7 @@ public class User {
     private String lastname;
 
     @OneToMany(mappedBy = "userByOrderId", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Order> orders;
 
 

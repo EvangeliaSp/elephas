@@ -31,7 +31,7 @@ public class OrderController {
         Order order = (Order) orderService.create(userId);
         if (order == null)
        // } catch (ConstraintViolationException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User cannot be created.");
+            return ResponseEntity.status(HttpStatus.OK).body("User cannot be created.");
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order));
 
