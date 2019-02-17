@@ -59,15 +59,15 @@ public class OrderController {
 //
 //    }
 
-//    @RequestMapping(value = "findByUser", method = {RequestMethod.GET})
-//    public ResponseEntity<String> findAll(
-//            @RequestParam("idUser") @Valid Long idUser)
-//            throws JsonProcessingException {
-//
-//        Iterable<Order> orders = orderService.getOrdersByIdUser(idUser);
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
-//    }
+    @RequestMapping(value = "findByUser", method = {RequestMethod.GET})
+    public ResponseEntity<String> findAll(
+            @RequestParam("idUser") @Valid Long idUser)
+            throws JsonProcessingException {
+
+        Iterable<Order> orders = orderService.getOrdersByUser(idUser);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
+    }
 
     @RequestMapping(value = "all", method = {RequestMethod.GET})
     public ResponseEntity<String> findAll()

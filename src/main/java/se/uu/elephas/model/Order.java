@@ -32,14 +32,14 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
-    private User userByOrderId;
+    private User orderUser;
 
 
     public Order() {}
 
     // Constructor of basket
-    public Order(User userByOrderId, Boolean confirm, float sum) {
-        this.userByOrderId = userByOrderId;
+    public Order(User orderUser, Boolean confirm, float sum) {
+        this.orderUser = orderUser;
         this.confirm = confirm;
         this.sum = sum;
     }
@@ -120,11 +120,11 @@ public class Order {
         this.paymentType = paymentType.getValue();
     }
 
-    public User getUser() {
-        return userByOrderId;
+    public User getOrderUser() {
+        return orderUser;
     }
 
-    public void setUser(User userByOrderId) {
-        this.userByOrderId = userByOrderId;
+    public void setOrderUser(User orderUser) {
+        this.orderUser = orderUser;
     }
 }

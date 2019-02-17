@@ -32,7 +32,7 @@ public class User {
     @Column(nullable = false)
     private String lastname;
 
-    @OneToMany(mappedBy = "userByOrderId", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "orderUser", cascade = CascadeType.ALL)
     @JsonIgnore
     private List<Order> orders;
 
@@ -46,7 +46,7 @@ public class User {
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.orders.forEach(x -> x.setUser(this));
+        this.orders.forEach(x -> x.setOrderUser(this));
     }
 
     public Long getIdUser() {
