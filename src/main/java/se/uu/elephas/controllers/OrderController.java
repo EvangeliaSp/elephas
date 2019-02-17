@@ -27,8 +27,7 @@ public class OrderController {
 
         Order order = (Order) orderService.create(userId);
         if (order == null)
-       // } catch (ConstraintViolationException e) {
-            return ResponseEntity.status(HttpStatus.OK).body("Cannot create order.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create order. User with id " + userId + " not found.");
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order));
 
