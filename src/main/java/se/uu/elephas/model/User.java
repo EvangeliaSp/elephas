@@ -33,17 +33,16 @@ public class User {
     private String country;
 
     @Column(nullable = false)
-    private String streetname;
-
+    private String streetName;
 
     @Column(nullable = false)
-    private String zipcode;
+    private int streetNumber;
+
+    @Column(nullable = false)
+    private String zipCode;
 
     @Column(nullable = false)
     private String telephone;
-
-    @Column(nullable = false)
-    private int streetnumber;
 
 
     public User() {
@@ -56,9 +55,9 @@ public class User {
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
-        this.streetname = streetname;
-        this.streetnumber = streetnumber;
-        this.zipcode = zipcode;
+        this.streetName = streetname;
+        this.streetNumber = streetnumber;
+        this.zipCode = zipcode;
         this.country = country;
         this.telephone = telephone;
     }
@@ -114,11 +113,11 @@ public class User {
 
 
     public String getStreetName() {
-        return streetname;
+        return streetName;
     }
 
     public void setStreetName(String streetName) {
-        this.streetname = streetName;
+        this.streetName = streetName;
     }
 
     public String getCountry() {
@@ -130,11 +129,11 @@ public class User {
     }
 
     public String getZipCode() {
-        return zipcode;
+        return zipCode;
     }
 
     public void setZipCode(String zipcode) {
-        this.zipcode = zipcode;
+        this.zipCode = zipcode;
     }
 
     public String getTelephone() {
@@ -146,10 +145,10 @@ public class User {
     }
 
     public int getStreetNumber() {
-        return streetnumber;
+        return streetNumber;
     }
 
-    public void setStreetNumber(int streetnumber) {
-        this.streetnumber = streetnumber;
+    public void setStreetNumber(int streetNumber) {
+        this.streetNumber = streetNumber;
     }
 }
