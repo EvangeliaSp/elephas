@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import se.uu.elephas.model.Order;
+import se.uu.elephas.model.User;
 
 import java.util.Optional;
 
@@ -23,6 +24,6 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     /* Returns all orders */
     Page<Order> findAll(Pageable pageable);
 
-    Iterable<Order> findOrdersByUser
+//    Iterable<Order> findOrdersByUser(User user);
     // TODO: addToBasket
 }

@@ -28,7 +28,7 @@ public class OrderController {
         Order order = (Order) orderService.create(userId);
         if (order == null)
        // } catch (ConstraintViolationException e) {
-            return ResponseEntity.status(HttpStatus.OK).body("User cannot be created.");
+            return ResponseEntity.status(HttpStatus.OK).body("Cannot create order.");
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order));
 
@@ -47,24 +47,34 @@ public class OrderController {
 //
 //    }
 
-    @RequestMapping(value = "/findByIdUser", method = {RequestMethod.GET})
-    public ResponseEntity<String> findByIdUser(
-            @RequestParam("idUser") @Valid Long idUser)
-            throws JsonProcessingException {
-
-        //TODO: it's something wrong with this. Maybe have a look at the return types, Pageable/Iterable
-        Iterable<Order> orders = orderService.getByIdUser(idUser);
-
-        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
-
-    }
-
-//    @RequestMapping(value = "all", method = {RequestMethod.GET})
-//    public ResponseEntity<String> findAll()
+//    @RequestMapping(value = "/findByIdUser", method = {RequestMethod.GET})
+//    public ResponseEntity<String> findByIdUser(
+//            @RequestParam("idUser") @Valid Long idUser)
 //            throws JsonProcessingException {
 //
-//        Iterable<Order> orders = orderService.getAllOrders();
+//        //TODO: it's something wrong with this. Maybe have a look at the return types, Pageable/Iterable
+//        Iterable<Order> orders = orderService.getByIdUser(idUser);
+//
+//        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
+//
+//    }
+
+//    @RequestMapping(value = "findByUser", method = {RequestMethod.GET})
+//    public ResponseEntity<String> findAll(
+//            @RequestParam("idUser") @Valid Long idUser)
+//            throws JsonProcessingException {
+//
+//        Iterable<Order> orders = orderService.getOrdersByIdUser(idUser);
 //
 //        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
 //    }
+
+    @RequestMapping(value = "all", method = {RequestMethod.GET})
+    public ResponseEntity<String> findAll()
+            throws JsonProcessingException {
+
+        Iterable<Order> orders = orderService.getAllOrders();
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
+    }
 }

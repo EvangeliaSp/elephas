@@ -20,5 +20,4 @@ public interface UserRepository extends CrudRepository<User, Long> {
 
     Optional<User> findById(Long id);
 
-    Iterable<Order> fi
 }

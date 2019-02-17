@@ -21,6 +21,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderRepository orderRepository;
 
     public Object create(Long userId) {
+
         Optional<User> optionalUser = userRepository.findById(userId);
 
         if (optionalUser.isPresent()) {
@@ -38,13 +39,23 @@ public class OrderServiceImpl implements OrderService {
 //    public Optional<Order> getByIdOrder(Long idOrder) {
 //        return(orderRepository.findByIdOrder(idOrder));
 //    }
-
-    public Iterable<Order> getByIdUser(Long idUser) {
-        return orderRepository.findByIdUser(idUser);
-    }
-
-//    public Iterable<Order> getAllOrders() {
-//        return orderRepository.findAll();
+//
+//    public Iterable<Order> getOrdersByIdUser(Long userId) {
+//
+//        Optional<User> optionalUser = userRepository.findById(userId);
+//
+//        if (optionalUser.isPresent()) {
+//
+//            User user = optionalUser.get();
+//            return orderRepository.findOrdersByUser(user);
+//        }
+//
+//        return null;
 //
 //    }
+
+    public Iterable<Order> getAllOrders() {
+        return orderRepository.findAll();
+
+    }
 }

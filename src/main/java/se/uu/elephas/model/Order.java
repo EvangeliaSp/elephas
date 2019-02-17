@@ -48,8 +48,8 @@ public class Order {
         return this.idOrder;
     }
 
-    public void setIdOrder(Long id) {
-        this.idOrder = id;
+    public void setIdOrder(Long idOrder) {
+        this.idOrder = idOrder;
     }
 
     public Boolean getConfirm() {
