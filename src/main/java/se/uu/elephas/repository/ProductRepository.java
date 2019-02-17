@@ -5,6 +5,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import se.uu.elephas.model.Product;
+import se.uu.elephas.model.User;
 
 import java.util.Optional;
 
@@ -12,6 +13,8 @@ import java.util.Optional;
 @Repository
 public interface ProductRepository extends CrudRepository<Product, Long> {
 
+
+    Optional<Product> findById(Long idProduct);
 //    Page<Product> findAll(Pageable pageable);
 //
 //    Optional<Product> findByIdProduct(Long idProduct);
