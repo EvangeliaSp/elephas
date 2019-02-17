@@ -48,10 +48,6 @@ public class UserServiceImpl implements UserService {
         return(userRepository.findById(id));
     }
 
-    public Iterable<User> getAll() {
-        return userRepository.findAll();
-    }
-
     public void delete(Long id) {
         userRepository.deleteById(id);
     }
