@@ -13,9 +13,9 @@ public class OrderItem {
     private int quantity;
 
 
-//    @ManyToOne
-//    @JoinColumn(name = "order_id", nullable = false)
-//    private Order
+    @ManyToOne
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order sourceOrder;
 
     //@OneToOne
 //    @JoinColumn(name = "product_id")
@@ -24,6 +24,10 @@ public class OrderItem {
 
 
     public OrderItem() {}
+
+    public OrderItem(Order sourceOrder) {
+        this.sourceOrder = sourceOrder;
+    }
 
     public Long getIdOrderItem() {
         return idOrderItem;
