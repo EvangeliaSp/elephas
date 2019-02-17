@@ -3,6 +3,7 @@ package se.uu.elephas.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -40,7 +41,9 @@ public class UserController {
         try {
             userService.create(user, md);
         } catch (ConstraintViolationException e) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User cannot be created.");
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Cannot create user.");
+        } catch (DataIntegrityViolationException de) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Cannot create user.");
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user));

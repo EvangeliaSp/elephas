@@ -23,7 +23,7 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public Object create(User user, MessageDigest md) {
+    public Object create(User user, MessageDigest md) throws DataIntegrityViolationException {
 
         String content = user.getPassword();
 
@@ -39,14 +39,8 @@ public class UserServiceImpl implements UserService {
         String token = bytes.toString();
         user.setToken(token);
 
+        return userRepository.save(user);
 
-        try {
-            return userRepository.save(user);
-
-        } catch (DataIntegrityViolationException e) {
-            System.out.println("User Already Exists");
-        }
-        return null;
     }
 
 
