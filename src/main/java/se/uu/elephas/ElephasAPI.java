@@ -42,6 +42,11 @@ public class ElephasAPI extends SpringBootServletInitializer {
 //                .build();
 //    }
 
+    //    @Bean
+//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
         return application.sources(ElephasAPI.class);
