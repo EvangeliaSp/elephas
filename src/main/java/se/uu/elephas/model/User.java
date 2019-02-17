@@ -1,6 +1,5 @@
 package se.uu.elephas.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -12,7 +11,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long userId;
 
     @Email
     @Column(unique = true)
@@ -30,23 +29,46 @@ public class User {
     @Column(nullable = false)
     private String lastname;
 
+    @Column(nullable = false)
+    private String country;
+
+    @Column(nullable = false)
+    private String streetName;
+
+    @Column(nullable = false)
+    private int streetNumber;
+
+    @Column(nullable = false)
+    private String zipCode;
+
+    @Column(nullable = false)
+    private String telephone;
+
+
     public User() {
 
     }
 
-    public User(String email, String password, String firstname, String lastname) {
+    public User(String email, String password, String firstname, String lastname, String streetname, int streetnumber, String zipcode,
+                String country, String telephone) {
         this.email = email;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
+        this.streetName = streetname;
+        this.streetNumber = streetnumber;
+        this.zipCode = zipcode;
+        this.country = country;
+        this.telephone = telephone;
     }
 
-    public Long getId() {
-        return id;
+
+    public Long getuserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setuserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getEmail() {
@@ -87,5 +109,46 @@ public class User {
 
     public void setLastname(String lastname) {
         this.lastname = lastname;
+    }
+
+
+    public String getStreetName() {
+        return streetName;
+    }
+
+    public void setStreetName(String streetName) {
+        this.streetName = streetName;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(String zipcode) {
+        this.zipCode = zipcode;
+    }
+
+    public String getTelephone() {
+        return telephone;
+    }
+
+    public void setTelephone(String telephone) {
+        this.telephone = telephone;
+    }
+
+    public int getStreetNumber() {
+        return streetNumber;
+    }
+
+    public void setStreetNumber(int streetNumber) {
+        this.streetNumber = streetNumber;
     }
 }
