@@ -1,6 +1,7 @@
 package se.uu.elephas.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,12 +18,13 @@ import java.util.Optional;
 //@Transactional
 public class UserServiceImpl implements UserService {
 
-    public UserServiceImpl() {}
+    public UserServiceImpl() {
+    }
 
     @Autowired
     private UserRepository userRepository;
 
-    public Object create(User user, MessageDigest md) {
+    public Object create(User user, MessageDigest md) throws DataIntegrityViolationException {
 
         String content = user.getPassword();
 
@@ -38,12 +40,13 @@ public class UserServiceImpl implements UserService {
         String token = bytes.toString();
         user.setToken(token);
 
-        return (userRepository.save(user));
+        return userRepository.save(user);
 
     }
 
     public Optional<User> getById(Long id) {
-        return(userRepository.findById(id));
+   
+        return (userRepository.findById(id));
     }
 
     public void delete(Long id) {
@@ -53,7 +56,7 @@ public class UserServiceImpl implements UserService {
     // TODO: try-catch or if-else in case that user does not exist
     // TODO: create token from new password
     public Object update(User newUser, Long id) {
-        newUser.setId(id);
+        newUser.setIdUser(id);
         Optional<User> optUser = userRepository.findById(id);
 
         if (optUser.isPresent()) {
@@ -69,6 +72,26 @@ public class UserServiceImpl implements UserService {
 
             if (newUser.getLastname() == null)
                 newUser.setLastname(user.getLastname());
+
+            if (newUser.getCountry() == null)
+                newUser.setCountry(user.getCountry());
+
+            if (newUser.getStreetName() == null)
+                newUser.setStreetName(user.getStreetName());
+
+            if (newUser.getStreetNumber() == 0)
+                newUser.setStreetNumber(user.getStreetNumber());
+
+            if (newUser.getTelephone() == null)
+                newUser.setTelephone(user.getTelephone());
+
+            if (newUser.getStreetNumber() == 0)
+                newUser.setStreetNumber(user.getStreetNumber());
+
+            if (newUser.getZipCode() == null)
+                newUser.setZipCode(user.getZipCode());
+
+
         }
 
         return (userRepository.save(newUser));
