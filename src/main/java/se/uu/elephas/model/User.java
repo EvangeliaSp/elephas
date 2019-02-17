@@ -14,7 +14,7 @@ public class User {
 
     @Id
     @GeneratedValue
-    private Long id;
+    private Long idUser;
 
     @Email
     @Column(unique = true)
@@ -49,12 +49,12 @@ public class User {
         this.orders.forEach(x -> x.setUser(this));
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 
     public String getEmail() {
