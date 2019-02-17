@@ -1,17 +1,21 @@
 package se.uu.elephas.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "user")
+@Table(name = "user_table")
 public class User {
 
     @Id
     @GeneratedValue
-    private Long userId;
+    private Long idUser;
 
     @Email
     @Column(unique = true)
@@ -44,6 +48,10 @@ public class User {
     @Column(nullable = false)
     private String telephone;
 
+    @OneToMany(mappedBy = "orderUser", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<Order> orders;
+
 
     public User() {
 
@@ -60,15 +68,15 @@ public class User {
         this.zipCode = zipcode;
         this.country = country;
         this.telephone = telephone;
+        this.orders.forEach(x -> x.setOrderUser(this));
     }
 
-
-    public Long getuserId() {
-        return userId;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setuserId(Long userId) {
-        this.userId = userId;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 
     public String getEmail() {
@@ -150,5 +158,13 @@ public class User {
 
     public void setStreetNumber(int streetNumber) {
         this.streetNumber = streetNumber;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 }

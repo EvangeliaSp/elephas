@@ -44,7 +44,6 @@ public class UserServiceImpl implements UserService {
 
     }
 
-
     public Optional<User> getById(Long id) {
    
         return (userRepository.findById(id));
@@ -56,9 +55,9 @@ public class UserServiceImpl implements UserService {
 
     // TODO: try-catch or if-else in case that user does not exist
     // TODO: create token from new password
-    public Object update(User newUser, Long userId) {
-        newUser.setuserId(userId);
-        Optional<User> optUser = userRepository.findById(userId);
+    public Object update(User newUser, Long id) {
+        newUser.setIdUser(id);
+        Optional<User> optUser = userRepository.findById(id);
 
         if (optUser.isPresent()) {
             User user = optUser.get();
