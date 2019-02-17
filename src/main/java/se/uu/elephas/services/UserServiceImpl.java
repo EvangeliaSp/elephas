@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
     // TODO: try-catch or if-else in case that user does not exist
     // TODO: create token from new password
     public Object update(User newUser, Long id) {
-        newUser.setId(id);
+        newUser.setIdUser(id);
         Optional<User> optUser = userRepository.findById(id);
 
         if (optUser.isPresent()) {
