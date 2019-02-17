@@ -45,7 +45,8 @@ public class UserServiceImpl implements UserService {
     }
 
     public Optional<User> getById(Long id) {
-        return(userRepository.findById(id));
+   
+        return (userRepository.findById(id));
     }
 
     public void delete(Long id) {
