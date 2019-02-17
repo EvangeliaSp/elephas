@@ -10,4 +10,7 @@ public interface ProductService {
 
     Optional<Product> getById(Long idProduct);
 
+   // Iterable<Product> getAll();
+
+
 }

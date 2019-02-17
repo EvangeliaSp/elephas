@@ -19,9 +19,9 @@ public class Product {
     //@Column(nullable = false)
     private int color;
 
-    @Lob
+//    @Lob
     @Column(length = 6000, columnDefinition = "Text")
-    private char description;
+    private String description;
 
     //@Column(columnDefinition="Decimal(10,2) default '100.00'")
     @Column(columnDefinition="Decimal(10,2)")
@@ -33,7 +33,7 @@ public class Product {
 
     }
 
-    public Product(Long idProduct, int type, int material, int color, char description, float price, float discount) {
+    public Product(Long idProduct, int type, int material, int color, String description, float price, float discount) {
         this.idProduct = idProduct;
         this.type = type;
         this.material = material;
@@ -67,9 +67,9 @@ public class Product {
 
     public void setColor(int color) {this.color = color;}
 
-    public char getDescription() {return description;}
+    public String getDescription() {return description;}
 
-    public void setDescription(char description) {this.description = description;}
+    public void setDescription(String description) {this.description = description;}
 
     public float getPrice() {return price;}
 

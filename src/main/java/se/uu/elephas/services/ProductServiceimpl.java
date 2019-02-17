@@ -23,7 +23,47 @@ public class ProductServiceimpl implements ProductService {
     public Optional<Product> getById(Long idProduct) {
         return(productRepository.findById(idProduct));
     }
+//
+//    public Iterable<Product> getAll() {
+//        return productRepository.findAll();
+//    }
 
+
+    public Iterable<Product> getByParam(Integer type, Integer material, Integer color) {
+
+        if (type==null && material==null && color==null) {
+            return productRepository.findAll();
+        }
+
+        else if (type==null && material==null) {
+            return productRepository.findByColor(color);
+        }
+
+        else if (type==null && color==null) {
+            return productRepository.findByMaterial(material);
+        }
+
+        else if (material==null && color==null) {
+            return productRepository.findByType(type);
+        }
+
+        else if (type==null) {
+            return(productRepository.findByMaterialAndColor(material, color));
+        }
+
+        else if (material==null) {
+            return(productRepository.findByTypeAndColor(type, color));
+        }
+
+        else if (color==null) {
+            return(productRepository.findByTypeAndMaterial(type, material));
+
+        }
+
+        else {
+            return(productRepository.findByTypeAndMaterialAndColor(type, material, color));
+        }
+    }
 
 
 }
