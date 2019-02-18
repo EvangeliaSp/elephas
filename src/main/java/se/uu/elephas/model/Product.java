@@ -81,4 +81,13 @@ public class Product {
     public float getDiscount() {return discount;}
 
     public void setDiscount(float discount) {this.discount = discount;}
+
+    public OrderItem getOrderItem() {
+        return orderItem;
+    }
+
+    public void setOrderItem(OrderItem orderItem) {
+        this.orderItem = orderItem;
+    }
+
 }

@@ -24,8 +24,10 @@ public class OrderItem {
 
     public OrderItem() {}
 
-    public OrderItem(Order sourceOrder) {
+    public OrderItem(Order sourceOrder, Product product) {
+        this.quantity = 1;
         this.sourceOrder = sourceOrder;
+        this.product = product;
     }
 
     public Long getIdOrderItem() {
@@ -42,5 +44,21 @@ public class OrderItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    public Order getSourceOrder() {
+        return sourceOrder;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setSourceOrder(Order sourceOrder) {
+        this.sourceOrder = sourceOrder;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 }
