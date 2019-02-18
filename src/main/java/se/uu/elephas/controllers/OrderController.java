@@ -68,6 +68,27 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
     }
 
+    @RequestMapping(value = "addToBasket", method = {RequestMethod.POST})
+    public ResponseEntity<String> addToBasket(
+        @RequestParam("idUser") @Valid Long idUser,
+        @RequestParam("productId") @Valid Long idProduct)
+        throws JsonProcessingException {
+            Order basket = orderService.getUserBasket(idUser);
+            if (basket == null)
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create basket. User with id " + idUser + " not found.");
+            //TODO: fix this when orderItem is done
+            /*
+            if (orderItem is not in basket) {
+                add orderItem to basket
+            } else {
+                increase quantity of orderItem
+            }
+            */
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(basket));
+        }
+    
+
+
     @RequestMapping(value = "all", method = {RequestMethod.GET})
     public ResponseEntity<String> findAll()
             throws JsonProcessingException {

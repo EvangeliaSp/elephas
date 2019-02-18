@@ -58,4 +58,26 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findAll();
 
     }
+
+    public Order getUserBasket(Long userId) {
+
+        Order userBasket = findUserBasket(userId);
+        if (userBasket == null) {
+            // create new order
+            userBasket = (Order) create(userId);
+        }
+        return userBasket;
+
+    }
+    
+    private Order findUserBasket(Long userId) {
+        Iterable<Order> orders = getOrdersByUser(userId);
+        if (orders != null) { 
+            for(Order order : orders) {
+                // assuming there is only one order that has confirm == false
+                if (order.getConfirm() == false) return order;
+            }
+        }
+        return null;
+    }
 }
