@@ -47,14 +47,6 @@ public class ProductController {
 
     }
 
-//    @RequestMapping(value = "all", method = {RequestMethod.GET})
-//    public ResponseEntity<String> findAll()
-//            throws JsonProcessingException {
-//
-//        Iterable<Product> products = productService.getAll();
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(products));
-//    }
 
     @RequestMapping(value = "/findBy", method = {RequestMethod.GET})
     public ResponseEntity<String> findByFilter(
