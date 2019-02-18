@@ -29,6 +29,10 @@ public class Product {
 
     private float discount;
 
+    @OneToOne(mappedBy = "product")
+    private OrderItem orderItem;
+
+
     public Product() {
 
     }

@@ -17,10 +17,9 @@ public class OrderItem {
     @JoinColumn(name = "order_id", nullable = false)
     private Order sourceOrder;
 
-    //@OneToOne
-//    @JoinColumn(name = "product_id")
-//    @RestResource(path = "libraryAddress", rel="address")
-    //private Product product;
+    @OneToOne
+    @JoinColumn(name = "product_id", nullable = false)
+    private Product product;
 
 
     public OrderItem() {}

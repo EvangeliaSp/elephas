@@ -67,10 +67,4 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
     }
 
-    @RequestMapping(value = "addToBasket", method = {RequestMethod.POST})
-    public ResponseEntity<String> addToBasket(
-            @RequestParam ("idProduct") @Valid Long idProduct) {
-
-        return ResponseEntity.status(HttpStatus.OK).body("");
-    }
 }
