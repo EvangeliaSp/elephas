@@ -56,7 +56,7 @@ public class ProductServiceimpl implements ProductService {
         }
 
         else {
-            return(productRepository.findByTypeInAndMaterialAndColorIn(type, material, color));
+            return(productRepository.findByTypeInAndMaterialInAndColorIn(type, material, color));
         }
     }
 

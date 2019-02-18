@@ -17,7 +17,7 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
     Iterable<Product> findAll();
 
-    Iterable<Product> findByTypeInAndMaterialAndColorIn(List<Integer> type, List<Integer> material, List<Integer> color);
+    Iterable<Product> findByTypeInAndMaterialInAndColorIn(List<Integer> type, List<Integer> material, List<Integer> color);
 
     Iterable<Product> findByMaterialInAndColorIn(List<Integer> material, List<Integer> color);
 
