@@ -19,8 +19,8 @@ public class Color {
         this.name = name;
     }
 
-    public int getIdMaterial() {return idColor;}
-    public void setIdType(int idType) {this.idColor = idType;}
+    public int getIdColor() {return idColor;}
+    public void setIdColor(int idType) {this.idColor = idColor;}
 
     public String getName() {return name;}
     public void setName() {this.name = name;}

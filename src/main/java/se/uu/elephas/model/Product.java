@@ -33,8 +33,7 @@ public class Product {
 
     }
 
-    public Product(Long idProduct, int type, int material, int color, String description, float price, float discount) {
-        this.idProduct = idProduct;
+    public Product(int type, int material, int color, String description, float price, float discount) {
         this.type = type;
         this.material = material;
         this.color = color;

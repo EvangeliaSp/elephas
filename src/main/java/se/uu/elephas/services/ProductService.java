@@ -2,6 +2,7 @@ package se.uu.elephas.services;
 
 import se.uu.elephas.model.Product;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface ProductService {
@@ -10,7 +11,6 @@ public interface ProductService {
 
     Optional<Product> getById(Long idProduct);
 
-   // Iterable<Product> getAll();
-
+    Iterable<Product> getByParam(List<Integer> type, List<Integer> material, List<Integer> color);
 
 }

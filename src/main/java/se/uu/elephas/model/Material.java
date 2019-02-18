@@ -20,7 +20,7 @@ public class Material {
     }
 
     public int getIdMaterial() {return idMaterial;}
-    public void setIdType(int idType) {this.idMaterial = idType;}
+    public void setIdMaterial(int idType) {this.idMaterial = idMaterial;}
 
     public String getName() {return name;}
     public void setName() {this.name = name;}

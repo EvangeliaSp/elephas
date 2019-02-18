@@ -10,6 +10,7 @@ import se.uu.elephas.model.Product;
 import se.uu.elephas.services.ProductServiceimpl;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -23,7 +24,9 @@ public class ProductController {
     private boolean required;
 
     @RequestMapping(value = "/create", method = {RequestMethod.POST})
-    public ResponseEntity<String> create(@RequestBody Product product)  throws com.fasterxml.jackson.core.JsonProcessingException {
+    public ResponseEntity<String> create(
+            @RequestBody Product product)
+            throws com.fasterxml.jackson.core.JsonProcessingException {
 
             productService.create(product);
 
@@ -55,9 +58,9 @@ public class ProductController {
 
     @RequestMapping(value = "/findBy", method = {RequestMethod.GET})
     public ResponseEntity<String> findByFilter(
-            @RequestParam(required = false) @Valid Integer type,
-            @RequestParam(required = false) @Valid Integer material,
-            @RequestParam(required = false) @Valid Integer color)
+            @RequestParam(required = false) @Valid List<Integer> type,
+            @RequestParam(required = false) @Valid List<Integer> material,
+            @RequestParam(required = false) @Valid List<Integer> color)
             throws JsonProcessingException {
 
         Iterable<Product> products = productService.getByParam(type, material, color);

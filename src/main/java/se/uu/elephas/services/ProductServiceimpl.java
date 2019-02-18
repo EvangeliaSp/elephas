@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import se.uu.elephas.model.Product;
 import se.uu.elephas.repository.ProductRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -23,45 +24,39 @@ public class ProductServiceimpl implements ProductService {
     public Optional<Product> getById(Long idProduct) {
         return(productRepository.findById(idProduct));
     }
-//
-//    public Iterable<Product> getAll() {
-//        return productRepository.findAll();
-//    }
 
-
-    public Iterable<Product> getByParam(Integer type, Integer material, Integer color) {
+    public Iterable<Product> getByParam(List<Integer> type, List<Integer> material, List<Integer> color) {
 
         if (type==null && material==null && color==null) {
             return productRepository.findAll();
         }
 
         else if (type==null && material==null) {
-            return productRepository.findByColor(color);
+            return productRepository.findByColorIn(color);
         }
 
         else if (type==null && color==null) {
-            return productRepository.findByMaterial(material);
+            return productRepository.findByMaterialIn(material);
         }
 
         else if (material==null && color==null) {
-            return productRepository.findByType(type);
+            return productRepository.findByTypeIn(type);
         }
 
         else if (type==null) {
-            return(productRepository.findByMaterialAndColor(material, color));
+            return(productRepository.findByMaterialInAndColorIn(material, color));
         }
 
         else if (material==null) {
-            return(productRepository.findByTypeAndColor(type, color));
+            return(productRepository.findByTypeInAndColorIn(type, color));
         }
 
         else if (color==null) {
-            return(productRepository.findByTypeAndMaterial(type, material));
-
+            return(productRepository.findByTypeInAndMaterialIn(type, material));
         }
 
         else {
-            return(productRepository.findByTypeAndMaterialAndColor(type, material, color));
+            return(productRepository.findByTypeInAndMaterialAndColorIn(type, material, color));
         }
     }
 
