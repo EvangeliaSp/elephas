@@ -21,7 +21,7 @@
     </properties>
 
     <!--<properties>-->
-        <!--<java.version>1.8</java.version>-->
+    <!--<java.version>1.8</java.version>-->
     <!--</properties>-->
 
     <dependencies>
@@ -49,9 +49,9 @@
 
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-web -->
         <!--<dependency>-->
-            <!--<groupId>org.springframework</groupId>-->
-            <!--<artifactId>spring-web</artifactId>-->
-            <!--<version>4.3.11.RELEASE</version>-->
+        <!--<groupId>org.springframework</groupId>-->
+        <!--<artifactId>spring-web</artifactId>-->
+        <!--<version>4.3.11.RELEASE</version>-->
         <!--</dependency>-->
 
         <dependency>
