@@ -23,7 +23,7 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
 //    Iterable<Order> findByOrderUser(User user);
 
-    Iterable<Order> findByOrderUserAndAndConfirm(User user, Boolean confirm);
+    Iterable<Order> findByOrderUserAndConfirm(User user, Boolean confirm);
 
     /* Returns all orders */
     Page<Order> findAll(Pageable pageable);

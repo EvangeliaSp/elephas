@@ -47,7 +47,7 @@ public class OrderServiceImpl implements OrderService {
         if (optionalUser.isPresent()) {
 
             User user = optionalUser.get();
-            return orderRepository.findByOrderUserAndAndConfirm(user, false);
+            return orderRepository.findByOrderUserAndConfirm(user, false);
         }
 
         return null;
@@ -60,7 +60,7 @@ public class OrderServiceImpl implements OrderService {
         if (optionalUser.isPresent()) {
 
             User user = optionalUser.get();
-            return orderRepository.findByOrderUserAndAndConfirm(user, true);
+            return orderRepository.findByOrderUserAndConfirm(user, true);
         }
 
         return null;
@@ -69,6 +69,23 @@ public class OrderServiceImpl implements OrderService {
 
     public Iterable<Order> getAllOrders() {
         return orderRepository.findAll();
+
+    }
+
+    public Order proceedOrder(Long idUser) {
+
+        Optional<User> optionalUser = userRepository.findById(idUser);
+
+        if (optionalUser.isPresent()) {
+
+            User user = optionalUser.get();
+            Order order = orderRepository.findByOrderUserAndConfirm(user, false).iterator().next();
+            order.setConfirm(true);
+            orderRepository.save(order);
+            return order;
+        }
+
+        return null;
 
     }
 }

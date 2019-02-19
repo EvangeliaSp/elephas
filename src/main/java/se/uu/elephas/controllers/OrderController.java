@@ -76,4 +76,30 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
     }
 
+    @RequestMapping(value = "proceed", method = {RequestMethod.PATCH})
+    public ResponseEntity<String> proceed(
+            @RequestParam("idUser") @Valid Long idUser)
+            throws JsonProcessingException {
+
+        Order order = orderService.proceedOrder(idUser);
+        if (order == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create order. User with id " + idUser + " not found.");
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order));
+
+    }
+
+//    @RequestMapping(value = "findOrderItems", method = {RequestMethod.GET})
+//    public ResponseEntity<String> findOrderItems(
+//            @RequestParam("idOrder") @Valid Long idOrder)
+//            throws JsonProcessingException {
+//
+//        Order order = orderService.proceedOrder(idUser);
+//        if (order == null)
+//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create order. User with id " + idUser + " not found.");
+//
+//        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order));
+//
+//    }
+
 }

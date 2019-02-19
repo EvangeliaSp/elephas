@@ -17,6 +17,8 @@ public interface OrderService {
 
     Iterable<Order> getAllOrders();
 
+    Order proceedOrder(Long idUser);
+
 
     //TODO: updateOrder
     //TODO: deleteOrder
