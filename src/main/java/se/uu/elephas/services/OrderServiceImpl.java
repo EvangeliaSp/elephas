@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import se.uu.elephas.model.Order;
 import se.uu.elephas.model.OrderItem;
 import se.uu.elephas.model.User;
+import se.uu.elephas.model.Product;
 import se.uu.elephas.repository.OrderRepository;
+import se.uu.elephas.repository.ProductRepository;
 import se.uu.elephas.repository.OrderItemRepository;
 import se.uu.elephas.repository.UserRepository;
 
@@ -26,6 +28,8 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderItemRepository orderItemRepository;
 
+    @Autowired ProductRepository productRepository;
+
     public Object create(Long userId) {
 
         Optional<User> optionalUser = userRepository.findById(userId);
@@ -41,6 +45,20 @@ public class OrderServiceImpl implements OrderService {
         return null;
 
     }
+
+    public Object createOrderItem(Order order, Long productId) {
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+        
+        if (optionalProduct.isPresent()) {
+
+            Product product = optionalProduct.get();
+            OrderItem orderItem = new OrderItem(order, product);
+            return orderItemRepository.save(orderItem);
+        }
+
+        return null;
+    }
+
 
     public OrderItem findProductInOrder(Long orderId, Long productId) {
         Iterable<OrderItem> orderItems = getOrderItemsByOrderId(orderId);
@@ -108,5 +126,11 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         return null;
+    }
+
+    public Object increaseQuantityOfOrderItem(OrderItem orderItem) {
+        int currentQuantity = orderItem.getQuantity();
+        orderItem.setQuantity(currentQuantity + 1);
+        return orderItemRepository.save(orderItem);
     }
 }

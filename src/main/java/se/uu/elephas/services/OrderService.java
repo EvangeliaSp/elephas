@@ -13,6 +13,9 @@ public interface OrderService {
     Iterable<Order> getAllOrders();
     Order getUserBasket(Long userId);
     OrderItem findProductInOrder(Long orderId, Long productId);
+    Object createOrderItem(Order order, Long productId);
+    Object increaseQuantityOfOrderItem(OrderItem orderItem);
+
     //TODO: createOrder
     //TODO: updateOrder
     //TODO: deleteOrder

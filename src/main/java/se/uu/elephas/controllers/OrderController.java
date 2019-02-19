@@ -63,15 +63,22 @@ public class OrderController {
         @RequestParam("idUser") @Valid Long idUser,
         @RequestParam("productId") @Valid Long idProduct)
         throws JsonProcessingException {
+            
             Order basket = orderService.getUserBasket(idUser);
             if (basket == null)
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create basket. User with id " + idUser + " not found.");
-            //TODO: fix this when orderItem is done
+            
             OrderItem item = orderService.findProductInOrder(basket.getIdOrder(), idProduct);
             if (item == null) {
                 // add orderItem to basket
+                item = (OrderItem) orderService.createOrderItem(basket, idProduct);
+                if (item == null)
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create orderItem.");
             } else {
                 // increase quantity of orderItem
+                item = (OrderItem) orderService.increaseQuantityOfOrderItem(item);   
+                if (item == null)
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot increase quantity of orderItem.");
             }
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(basket));
         }
