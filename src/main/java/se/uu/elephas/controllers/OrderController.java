@@ -95,8 +95,24 @@ public class OrderController {
             throws JsonProcessingException {
 
         Iterable<OrderItem> orderItems = orderService.getOrderItems(idOrder);
+
         if (orderItems == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found order with id " + idOrder);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orderItems));
+
+    }
+
+    @RequestMapping(value = "increase", method = {RequestMethod.PATCH})
+    public ResponseEntity<String> increaseQuantity(
+            @RequestParam("idOrder") @Valid Long idOrder,
+            @RequestParam("idItem") @Valid Long idItem)
+            throws JsonProcessingException {
+
+        Iterable<OrderItem> orderItems = orderService.increaseOrderItemQuantity(idOrder, idItem);
+
+        if (orderItems == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found order item with id " + idItem);
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orderItems));
 

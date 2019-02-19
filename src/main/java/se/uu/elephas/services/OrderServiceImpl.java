@@ -110,4 +110,32 @@ public class OrderServiceImpl implements OrderService {
         return null;
     }
 
+    public Iterable<OrderItem> increaseOrderItemQuantity(Long idOrder, Long idItem) {
+
+        Optional<OrderItem> orderItemOptional = orderItemRepository.findById(idItem);
+
+        if (orderItemOptional.isPresent()) {
+
+            OrderItem orderItem = orderItemOptional.get();
+
+            orderItem.setQuantity(orderItem.getQuantity()-1);
+
+            if (orderItem.getQuantity() == 0)
+                orderItemRepository.deleteById(idItem);
+        }
+
+        Optional<Order> optionalOrder = orderRepository.findByIdOrder(idOrder);
+
+        if (optionalOrder.isPresent()) {
+
+            Order order = optionalOrder.get();
+
+            return orderItemRepository.findBySourceOrder(order);
+
+        }
+
+        return null;
+
+    }
+
 }
