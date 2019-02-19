@@ -3,7 +3,6 @@ package se.uu.elephas.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.uu.elephas.model.Order;
-import se.uu.elephas.model.OrderItem;
 import se.uu.elephas.model.User;
 import se.uu.elephas.repository.OrderItemRepository;
 import se.uu.elephas.repository.OrderRepository;
@@ -40,6 +39,10 @@ public class OrderServiceImpl implements OrderService {
 
         return null;
 
+    }
+
+    public Optional<Order> getOrder(Long idOrder) {
+        return orderRepository.findById(idOrder);
     }
 
     public Iterable<Order> getBasketOfUser(Long idUser) {

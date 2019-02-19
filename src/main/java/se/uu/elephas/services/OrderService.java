@@ -8,9 +8,8 @@ import java.util.Optional;
 public interface OrderService {
 
     Object create(Long userId);
-//   Optional<Order> getByIdOrder(Long idOrder);
-//   Iterable<Order> getByIdUser(Long idUser);
 
+    Optional<Order> getOrder(Long idOrder);
 
     Iterable<Order> getBasketOfUser(Long idUser);
 

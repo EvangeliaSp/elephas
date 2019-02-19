@@ -12,6 +12,7 @@ import se.uu.elephas.services.OrderItemServiceImpl;
 import se.uu.elephas.services.OrderServiceImpl;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/order")
@@ -39,18 +40,18 @@ public class OrderController {
 
     }
 
-//    @RequestMapping(value = "/findByIdOrder", method = {RequestMethod.GET})
-//    public ResponseEntity<String> findByIdOrder(
-//            @RequestParam("idOrder") @Valid Long idOrder)
-//            throws JsonProcessingException {
-//
-//        Optional<Order> order = orderService.getByIdOrder(idOrder);
-//
-//        return order.isPresent()
-//                ? ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order.get()))
-//                : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order with id " + idOrder + " does not exist.");
-//
-//    }
+    @RequestMapping(value = "/findByIdOrder", method = {RequestMethod.GET})
+    public ResponseEntity<String> findOrder(
+            @RequestParam("idOrder") @Valid Long idOrder)
+            throws JsonProcessingException {
+
+        Optional<Order> order = orderService.getOrder(idOrder);
+
+        return order.isPresent()
+                ? ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order.get()))
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order with id " + idOrder + " does not exist.");
+
+    }
 
     @RequestMapping(value = "showBasket", method = {RequestMethod.GET})
     public ResponseEntity<String> showBasket(

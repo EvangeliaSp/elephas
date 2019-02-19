@@ -12,8 +12,6 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends CrudRepository<Order, Long> {
 
-//    Iterable<Order> findByOrderUser(User user);
-
     Optional<Order> findByIdOrder(Long idOrder);
 
     Iterable<Order> findByOrderUserAndConfirm(User user, Boolean confirm);
@@ -21,6 +19,4 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
     /* Returns all orders */
     Page<Order> findAll(Pageable pageable);
 
-
-    // TODO: addToBasket
 }
