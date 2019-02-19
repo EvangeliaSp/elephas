@@ -1,11 +1,10 @@
 package se.uu.elephas.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Entity
 @Table(name = "order_table")
@@ -14,9 +13,6 @@ public class Order {
     @Id
     @GeneratedValue
     private Long idOrder;
-
-//    @Column(nullable = false)
-//    private Long idUser;
 
     private Boolean confirm;
 
@@ -29,6 +25,10 @@ public class Order {
     private Boolean paymentStatus;
 
     private int paymentType;
+
+    @OneToMany(mappedBy = "sourceOrder", cascade = CascadeType.ALL)
+    @JsonIgnore
+    private List<OrderItem> orderItems;
 
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false)
@@ -118,6 +118,14 @@ public class Order {
 
     public void setPaymentType(PaymentType paymentType) {
         this.paymentType = paymentType.getValue();
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 
     public User getOrderUser() {
