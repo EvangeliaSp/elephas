@@ -42,10 +42,6 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
-//    public Optional<Order> getByIdOrder(Long idOrder) {
-//        return(orderRepository.findByIdOrder(idOrder));
-//    }
-
     public Iterable<Order> getBasketOfUser(Long idUser) {
 
         Optional<User> optionalUser = userRepository.findById(idUser);
@@ -89,49 +85,6 @@ public class OrderServiceImpl implements OrderService {
             order.setConfirm(true);
             orderRepository.save(order);
             return order;
-        }
-
-        return null;
-
-    }
-
-    public Iterable<OrderItem> getOrderItems(Long idOrder) {
-
-        Optional<Order> optionalOrder = orderRepository.findByIdOrder(idOrder);
-
-        if (optionalOrder.isPresent()) {
-
-            Order order = optionalOrder.get();
-
-            return orderItemRepository.findBySourceOrder(order);
-
-        }
-
-        return null;
-    }
-
-    public Iterable<OrderItem> increaseOrderItemQuantity(Long idOrder, Long idItem) {
-
-        Optional<OrderItem> orderItemOptional = orderItemRepository.findById(idItem);
-
-        if (orderItemOptional.isPresent()) {
-
-            OrderItem orderItem = orderItemOptional.get();
-
-            orderItem.setQuantity(orderItem.getQuantity()-1);
-
-            if (orderItem.getQuantity() == 0)
-                orderItemRepository.deleteById(idItem);
-        }
-
-        Optional<Order> optionalOrder = orderRepository.findByIdOrder(idOrder);
-
-        if (optionalOrder.isPresent()) {
-
-            Order order = optionalOrder.get();
-
-            return orderItemRepository.findBySourceOrder(order);
-
         }
 
         return null;

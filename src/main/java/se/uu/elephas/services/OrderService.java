@@ -20,7 +20,4 @@ public interface OrderService {
 
     Order proceedOrder(Long idUser);
 
-    // TODO: Move it to a new service for order items (OrderItemService)
-    Iterable<OrderItem> getOrderItems(Long idOrder);
-
 }

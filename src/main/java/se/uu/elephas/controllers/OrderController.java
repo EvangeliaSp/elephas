@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.uu.elephas.model.Order;
 import se.uu.elephas.model.OrderItem;
+import se.uu.elephas.services.OrderItemServiceImpl;
 import se.uu.elephas.services.OrderServiceImpl;
 
 import javax.validation.Valid;
@@ -19,6 +20,10 @@ public class OrderController {
 
     @Autowired
     private OrderServiceImpl orderService;
+
+    @Autowired
+    private OrderItemServiceImpl orderItemService;
+
 
     @RequestMapping(value = "/create", method = {RequestMethod.POST})
     public ResponseEntity<String> create(
@@ -94,7 +99,7 @@ public class OrderController {
             @RequestParam("idOrder") @Valid Long idOrder)
             throws JsonProcessingException {
 
-        Iterable<OrderItem> orderItems = orderService.getOrderItems(idOrder);
+        Iterable<OrderItem> orderItems = orderItemService.getOrderItems(idOrder);
 
         if (orderItems == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found order with id " + idOrder);
@@ -109,7 +114,7 @@ public class OrderController {
             @RequestParam("idItem") @Valid Long idItem)
             throws JsonProcessingException {
 
-        Iterable<OrderItem> orderItems = orderService.increaseOrderItemQuantity(idOrder, idItem);
+        Iterable<OrderItem> orderItems = orderItemService.increaseOrderItemQuantity(idOrder, idItem);
 
         if (orderItems == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found order item with id " + idItem);
