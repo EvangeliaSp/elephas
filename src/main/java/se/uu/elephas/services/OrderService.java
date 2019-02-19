@@ -1,6 +1,7 @@
 package se.uu.elephas.services;
 
 import se.uu.elephas.model.Order;
+import se.uu.elephas.model.OrderItem;
 
 import java.util.Optional;
 
@@ -19,8 +20,7 @@ public interface OrderService {
 
     Order proceedOrder(Long idUser);
 
-
-    //TODO: updateOrder
-    //TODO: deleteOrder
+    // TODO: Move it to a new service for order items (OrderItemService)
+    Iterable<OrderItem> getOrderItems(Long idOrder);
 
 }

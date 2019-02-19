@@ -83,23 +83,23 @@ public class OrderController {
 
         Order order = orderService.proceedOrder(idUser);
         if (order == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create order. User with id " + idUser + " not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot proceed basket to order. User with id " + idUser + " not found.");
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order));
 
     }
 
-//    @RequestMapping(value = "findOrderItems", method = {RequestMethod.GET})
-//    public ResponseEntity<String> findOrderItems(
-//            @RequestParam("idOrder") @Valid Long idOrder)
-//            throws JsonProcessingException {
-//
-//        Order order = orderService.proceedOrder(idUser);
-//        if (order == null)
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create order. User with id " + idUser + " not found.");
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order));
-//
-//    }
+    @RequestMapping(value = "findOrderItems", method = {RequestMethod.GET})
+    public ResponseEntity<String> findOrderItems(
+            @RequestParam("idOrder") @Valid Long idOrder)
+            throws JsonProcessingException {
+
+        Iterable<OrderItem> orderItems = orderService.getOrderItems(idOrder);
+        if (orderItems == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found order with id " + idOrder);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orderItems));
+
+    }
 
 }
