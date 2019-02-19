@@ -40,6 +40,19 @@ public class OrderServiceImpl implements OrderService {
 //        return(orderRepository.findByIdOrder(idOrder));
 //    }
 
+    public Iterable<Order> getBasketOfUser(Long idUser) {
+
+        Optional<User> optionalUser = userRepository.findById(idUser);
+
+        if (optionalUser.isPresent()) {
+
+            User user = optionalUser.get();
+            return orderRepository.findByOrderUserAndAndConfirm(user, false);
+        }
+
+        return null;
+    }
+
     public Iterable<Order> getOrdersByUser(Long userId) {
 
         Optional<User> optionalUser = userRepository.findById(userId);
@@ -47,7 +60,7 @@ public class OrderServiceImpl implements OrderService {
         if (optionalUser.isPresent()) {
 
             User user = optionalUser.get();
-            return orderRepository.findByOrderUser(user);
+            return orderRepository.findByOrderUserAndAndConfirm(user, true);
         }
 
         return null;

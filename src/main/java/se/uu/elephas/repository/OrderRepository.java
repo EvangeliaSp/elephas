@@ -21,7 +21,9 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 //    /* Returns one order */
 //    Optional<Order> findByIdOrder(Long idOrder);
 
-        Iterable<Order> findByOrderUser(User user);
+//    Iterable<Order> findByOrderUser(User user);
+
+    Iterable<Order> findByOrderUserAndAndConfirm(User user, Boolean confirm);
 
     /* Returns all orders */
     Page<Order> findAll(Pageable pageable);
