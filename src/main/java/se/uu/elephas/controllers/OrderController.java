@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.uu.elephas.model.Order;
+import se.uu.elephas.model.OrderItem;
 import se.uu.elephas.services.OrderServiceImpl;
 
 import javax.validation.Valid;
@@ -46,17 +47,6 @@ public class OrderController {
 //
 //    }
 
-//    @RequestMapping(value = "/findByIdUser", method = {RequestMethod.GET})
-//    public ResponseEntity<String> findByIdUser(
-//            @RequestParam("idUser") @Valid Long idUser)
-//            throws JsonProcessingException {
-//
-//        //TODO: it's something wrong with this. Maybe have a look at the return types, Pageable/Iterable
-//        Iterable<Order> orders = orderService.getByIdUser(idUser);
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
-//
-//    }
 
     @RequestMapping(value = "findByUser", method = {RequestMethod.GET})
     public ResponseEntity<String> findAll(
@@ -76,4 +66,5 @@ public class OrderController {
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
     }
+
 }
