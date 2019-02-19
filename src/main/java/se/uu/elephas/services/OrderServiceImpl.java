@@ -87,6 +87,19 @@ public class OrderServiceImpl implements OrderService {
 //        return(orderRepository.findByIdOrder(idOrder));
 //    }
 
+    public Iterable<Order> getBasketOfUser(Long idUser) {
+
+        Optional<User> optionalUser = userRepository.findById(idUser);
+
+        if (optionalUser.isPresent()) {
+
+            User user = optionalUser.get();
+            return orderRepository.findByOrderUserAndConfirm(user, false);
+        }
+
+        return null;
+    }
+
     public Iterable<Order> getOrdersByUser(Long userId) {
 
         Optional<User> optionalUser = userRepository.findById(userId);
@@ -94,7 +107,7 @@ public class OrderServiceImpl implements OrderService {
         if (optionalUser.isPresent()) {
 
             User user = optionalUser.get();
-            return orderRepository.findByOrderUser(user);
+            return orderRepository.findByOrderUserAndConfirm(user, true);
         }
 
         return null;
@@ -106,31 +119,27 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
-    public Order getUserBasket(Long userId) {
-
-        Order userBasket = findUserBasket(userId);
-        if (userBasket == null) {
-            // create new order
-            userBasket = (Order) create(userId);
-        }
-        return userBasket;
-
-    }
-    
-    private Order findUserBasket(Long userId) {
-        Iterable<Order> orders = getOrdersByUser(userId);
-        if (orders != null) { 
-            for(Order order : orders) {
-                // assuming there is only one order that has confirm == false
-                if (order.getConfirm() == false) return order;
-            }
-        }
-        return null;
-    }
 
     public Object increaseQuantityOfOrderItem(OrderItem orderItem) {
         int currentQuantity = orderItem.getQuantity();
         orderItem.setQuantity(currentQuantity + 1);
         return orderItemRepository.save(orderItem);
+    }
+
+    public Order proceedOrder(Long idUser) {
+
+        Optional<User> optionalUser = userRepository.findById(idUser);
+
+        if (optionalUser.isPresent()) {
+
+            User user = optionalUser.get();
+            Order order = orderRepository.findByOrderUserAndConfirm(user, false).iterator().next();
+            order.setConfirm(true);
+            orderRepository.save(order);
+            return order;
+        }
+
+        return null;
+
     }
 }
