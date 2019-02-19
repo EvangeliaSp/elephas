@@ -1,6 +1,7 @@
 package se.uu.elephas.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table (name="product_table")
@@ -29,8 +30,8 @@ public class Product {
 
     private float discount;
 
-    @OneToOne(mappedBy = "product")
-    private OrderItem orderItem;
+    @OneToMany(mappedBy = "product")
+    private List<OrderItem> orderItems;
 
 
     public Product() {
@@ -82,12 +83,11 @@ public class Product {
 
     public void setDiscount(float discount) {this.discount = discount;}
 
-    public OrderItem getOrderItem() {
-        return orderItem;
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
     }
 
-    public void setOrderItem(OrderItem orderItem) {
-        this.orderItem = orderItem;
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
-
 }
