@@ -67,13 +67,12 @@ public class OrderController {
             if (basket == null)
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create basket. User with id " + idUser + " not found.");
             //TODO: fix this when orderItem is done
-            /*
-            if (orderItem is not in basket) {
-                add orderItem to basket
+            OrderItem item = orderService.findProductInOrder(basket.getIdOrder(), idProduct);
+            if (item == null) {
+                // add orderItem to basket
             } else {
-                increase quantity of orderItem
+                // increase quantity of orderItem
             }
-            */
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(basket));
         }
     

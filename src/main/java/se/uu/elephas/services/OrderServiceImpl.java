@@ -3,9 +3,12 @@ package se.uu.elephas.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.uu.elephas.model.Order;
+import se.uu.elephas.model.OrderItem;
 import se.uu.elephas.model.User;
 import se.uu.elephas.repository.OrderRepository;
+import se.uu.elephas.repository.OrderItemRepository;
 import se.uu.elephas.repository.UserRepository;
+
 
 import java.util.Optional;
 
@@ -19,6 +22,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private OrderRepository orderRepository;
+
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
     public Object create(Long userId) {
 
@@ -34,6 +40,29 @@ public class OrderServiceImpl implements OrderService {
 
         return null;
 
+    }
+
+    public OrderItem findProductInOrder(Long orderId, Long productId) {
+        Iterable<OrderItem> orderItems = getOrderItemsByOrderId(orderId);
+        if (orderItems != null) {
+            for (OrderItem orderItem : orderItems) {
+                if (orderItem.getProduct().getIdProduct() == productId)
+                return orderItem;
+            }
+        }
+        return null;
+    }
+
+    private Iterable<OrderItem> getOrderItemsByOrderId(Long orderId) {
+
+        Optional<Order> optionalOrder = orderRepository.findById(orderId);
+
+        if (optionalOrder.isPresent()) {
+            Order order = optionalOrder.get();
+            Iterable<OrderItem> orderItems = orderItemRepository.findBySourceOrder(order);
+            return orderItems;
+        }
+       return null;
     }
 
 //    public Optional<Order> getByIdOrder(Long idOrder) {
