@@ -42,10 +42,10 @@ public class OrderItemServiceImpl implements OrderItemService {
 
             OrderItem orderItem = orderItemOptional.get();
 
-            orderItem.setQuantity(orderItem.getQuantity()-1);
+            orderItem.setQuantity(orderItem.getQuantity()+1);
 
-            if (orderItem.getQuantity() == 0)
-                orderItemRepository.deleteById(idItem);
+//            if (orderItem.getQuantity() == 0)
+//                orderItemRepository.deleteById(idItem);
         }
 
         return this.getOrderItems(idOrder);
