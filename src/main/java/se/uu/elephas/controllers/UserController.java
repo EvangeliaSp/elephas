@@ -113,7 +113,7 @@ public class UserController {
 
     }
 
-    @RequestMapping(value = "all", method = {RequestMethod.GET})
+    @RequestMapping(value = "/all", method = {RequestMethod.GET})
     public ResponseEntity<String> findAll()
             throws JsonProcessingException {
 
@@ -122,7 +122,7 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(users));
     }
 
-    @RequestMapping(value = "login", method = {RequestMethod.POST})
+    @RequestMapping(value = "/login", method = {RequestMethod.POST})
     public ResponseEntity<String> login(
             @RequestParam String email,
             @RequestParam String password)
