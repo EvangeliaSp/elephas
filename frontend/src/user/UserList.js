@@ -38,7 +38,7 @@ class UserList extends Component<{}, any> {
             <div>
                 <Header/>
                 {/*<table className="table table-striped table-bordered table-sm" datapagesize="5">*/}
-                <table class="table table-striped " datapagesize="5">
+                <table class="table table-striped ">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
