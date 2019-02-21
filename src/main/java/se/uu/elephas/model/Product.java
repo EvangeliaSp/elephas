@@ -1,6 +1,7 @@
 package se.uu.elephas.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table (name="product_table")
@@ -34,6 +35,11 @@ public class Product {
 
     @Column(columnDefinition="varchar(256)")
     private String url;
+
+
+    @OneToMany(mappedBy = "product")
+    private List<OrderItem> orderItems;
+
 
     public Product() {
 
@@ -93,4 +99,12 @@ public class Product {
     public String getUrl() { return url; }
 
     public void setUrl(String url) { this.url = url; }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
 }
