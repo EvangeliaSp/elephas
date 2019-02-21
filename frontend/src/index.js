@@ -6,12 +6,14 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'react-bootstrap-table/dist/react-bootstrap-table.min.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import Login from "./user/login/Login";
 import UserList from "./user/UserList";
 
 ReactDOM.render(
     <Router>
         <div>
             <Route exact path='/user/' component={App} />
+            <Route path="/user/login" exact component={Login} />
             <Route path='/user/all' component={UserList} />
         </div>
     </Router>,
