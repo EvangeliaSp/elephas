@@ -11,3 +11,4 @@ frontend/package-lock.json
 .factorypath
 .project
 bin/
+node_modules
