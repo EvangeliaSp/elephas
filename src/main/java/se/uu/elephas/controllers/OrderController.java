@@ -8,9 +8,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.uu.elephas.model.Order;
 import se.uu.elephas.model.OrderItem;
+import se.uu.elephas.services.OrderItemServiceImpl;
 import se.uu.elephas.services.OrderServiceImpl;
 
 import javax.validation.Valid;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/order")
@@ -19,6 +21,10 @@ public class OrderController {
 
     @Autowired
     private OrderServiceImpl orderService;
+
+    @Autowired
+    private OrderItemServiceImpl orderItemService;
+
 
     @RequestMapping(value = "/create", method = {RequestMethod.POST})
     public ResponseEntity<String> create(
@@ -34,18 +40,18 @@ public class OrderController {
 
     }
 
-//    @RequestMapping(value = "/findByIdOrder", method = {RequestMethod.GET})
-//    public ResponseEntity<String> findByIdOrder(
-//            @RequestParam("idOrder") @Valid Long idOrder)
-//            throws JsonProcessingException {
-//
-//        Optional<Order> order = orderService.getByIdOrder(idOrder);
-//
-//        return order.isPresent()
-//                ? ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order.get()))
-//                : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order with id " + idOrder + " does not exist.");
-//
-//    }
+    @RequestMapping(value = "/findByIdOrder", method = {RequestMethod.GET})
+    public ResponseEntity<String> findOrder(
+            @RequestParam("idOrder") @Valid Long idOrder)
+            throws JsonProcessingException {
+
+        Optional<Order> order = orderService.getOrder(idOrder);
+
+        return order.isPresent()
+                ? ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order.get()))
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order with id " + idOrder + " does not exist.");
+
+    }
 
     @RequestMapping(value = "showBasket", method = {RequestMethod.GET})
     public ResponseEntity<String> showBasket(
@@ -85,7 +91,7 @@ public class OrderController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create orderItem.");
             } else {
                 // increase quantity of orderItem
-                item = (OrderItem) orderService.increaseQuantityOfOrderItem(item);   
+                item = (OrderItem) orderItemService.increaseOrderItemQuantity(basket.getIdOrder(), item.getIdOrderItem());   
                 if (item == null)
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot increase quantity of orderItem.");
             }
@@ -110,23 +116,39 @@ public class OrderController {
 
         Order order = orderService.proceedOrder(idUser);
         if (order == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create order. User with id " + idUser + " not found.");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot proceed basket to order. User with id " + idUser + " not found.");
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order));
 
     }
 
-//    @RequestMapping(value = "findOrderItems", method = {RequestMethod.GET})
-//    public ResponseEntity<String> findOrderItems(
-//            @RequestParam("idOrder") @Valid Long idOrder)
-//            throws JsonProcessingException {
-//
-//        Order order = orderService.proceedOrder(idUser);
-//        if (order == null)
-//            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create order. User with id " + idUser + " not found.");
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order));
-//
-//    }
+    @RequestMapping(value = "findOrderItems", method = {RequestMethod.GET})
+    public ResponseEntity<String> findOrderItems(
+            @RequestParam("idOrder") @Valid Long idOrder)
+            throws JsonProcessingException {
+
+        Iterable<OrderItem> orderItems = orderItemService.getOrderItems(idOrder);
+
+        if (orderItems == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found order with id " + idOrder);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orderItems));
+
+    }
+
+    @RequestMapping(value = "increase", method = {RequestMethod.PATCH})
+    public ResponseEntity<String> increaseQuantity(
+            @RequestParam("idOrder") @Valid Long idOrder,
+            @RequestParam("idItem") @Valid Long idItem)
+            throws JsonProcessingException {
+
+        Iterable<OrderItem> orderItems = orderItemService.increaseOrderItemQuantity(idOrder, idItem);
+
+        if (orderItems == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found order item with id " + idItem);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orderItems));
+
+    }
 
 }

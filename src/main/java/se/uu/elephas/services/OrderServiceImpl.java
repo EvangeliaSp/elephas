@@ -83,9 +83,10 @@ public class OrderServiceImpl implements OrderService {
        return null;
     }
 
-//    public Optional<Order> getByIdOrder(Long idOrder) {
-//        return(orderRepository.findByIdOrder(idOrder));
-//    }
+
+    public Optional<Order> getOrder(Long idOrder) {
+        return orderRepository.findById(idOrder);
+    }
 
     public Iterable<Order> getBasketOfUser(Long idUser) {
 
@@ -120,12 +121,6 @@ public class OrderServiceImpl implements OrderService {
     }
 
 
-    public Object increaseQuantityOfOrderItem(OrderItem orderItem) {
-        int currentQuantity = orderItem.getQuantity();
-        orderItem.setQuantity(currentQuantity + 1);
-        return orderItemRepository.save(orderItem);
-    }
-
     public Order proceedOrder(Long idUser) {
 
         Optional<User> optionalUser = userRepository.findById(idUser);
@@ -142,4 +137,5 @@ public class OrderServiceImpl implements OrderService {
         return null;
 
     }
+
 }
