@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import logo from './elephas2.jpg';
+import logo from './logo2.png';
 import './App.css';
 
 class App extends React.Component {
@@ -17,9 +17,16 @@ class App extends React.Component {
 class Header extends React.Component {
     render() {
         return (
+            <div>
+
             <div className="header">
+                <a href="#default" className="logo"> <img src={logo} alt="Logo"
+                                                          style={{width: "46px", height: "60px"}}/>
+                </a>
 
                 <div className="header-right">
+
+
                     <a className="active" href="#home">Home</a>
                     <a href="#bracelets">Bracelets</a>
                     <a href="#rings">Rings</a>
@@ -41,6 +48,8 @@ class Header extends React.Component {
                     </div>
                 </div>
             </div>
+            </div>
+
 
 
         );
