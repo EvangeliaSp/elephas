@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 import Avatar from 'react-avatar';
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 class UserList extends Component<{}, any> {
 
@@ -33,35 +35,32 @@ class UserList extends Component<{}, any> {
             return <p>Loading...</p>
 
         return (
-            <table id="dtBasicExample" class="table table-striped table-bordered table-sm" datapagesize="5">
-                <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Avatar</th>
-                    <th scope="col">Firstname</th>
-                    <th scope="col">Lastname</th>
-                    <th scope="col">Email</th>
-                </tr>
-                </thead>
-                <tbody>
-                {users.map(user => (
-                    <tr key={user.id}>
-                        <th scope="row">{user.idUser}</th>
-                        <td><Avatar name={user.firstname+" "+user.lastname} round size="35" /></td>
-                        <td>{user.firstname}</td>
-                        <td>{user.lastname}</td>
-                        <td>{user.email}</td>
+            <div>
+                <Header/>
+                <table class="table table-striped table-bordered table-sm" datapagesize="5">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Avatar</th>
+                        <th scope="col">Firstname</th>
+                        <th scope="col">Lastname</th>
+                        <th scope="col">Email</th>
                     </tr>
-                ))}
-                </tbody>
-            </table>
-            // {/*<BootstrapTable data={ users } striped hover condensed pagination>*/}
-            //     {/*<TableHeaderColumn dataField='idUser' isKey dataAlign="center">Id</TableHeaderColumn>*/}
-            //     {/*<TableHeaderColumn dataformat={<Avatar name="Eva Sp" />} dataFormat={ this.imageFormatter } dataAlign="center">Avatar</TableHeaderColumn>*/}
-            //     {/*<TableHeaderColumn dataField='firstname' dataAlign="center">Firstname</TableHeaderColumn>*/}
-            //     {/*<TableHeaderColumn dataField='lastname' dataAlign="center">Lastname</TableHeaderColumn>*/}
-            //     {/*<TableHeaderColumn dataField='email' dataAlign="center">Email</TableHeaderColumn>*/}
-            // {/*</BootstrapTable>*/}
+                    </thead>
+                    <tbody>
+                    {users.map(user => (
+                        <tr key={user.id}>
+                            <th scope="row">{user.idUser}</th>
+                            <td><Avatar name={user.firstname+" "+user.lastname} round size="35" /></td>
+                            <td>{user.firstname}</td>
+                            <td>{user.lastname}</td>
+                            <td>{user.email}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+                <Footer/>
+            </div>
         );
     }
 }
