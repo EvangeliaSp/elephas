@@ -30,6 +30,13 @@ public class Product {
 
     private float discount;
 
+    @Column(columnDefinition="varchar(255)")
+    private String name;
+
+    @Column(columnDefinition="varchar(256)")
+    private String url;
+
+
     @OneToMany(mappedBy = "product")
     private List<OrderItem> orderItems;
 
@@ -38,13 +45,15 @@ public class Product {
 
     }
 
-    public Product(int type, int material, int color, String description, float price, float discount) {
+    public Product(int type, int material, int color, String description, float price, float discount, String name, String url) {
         this.type = type;
         this.material = material;
         this.color = color;
         this.description = description;
         this.price = price;
         this.discount = discount;
+        this.name = name;
+        this.name = url;
     }
 
     public Long getIdProduct() {
@@ -82,6 +91,14 @@ public class Product {
     public float getDiscount() {return discount;}
 
     public void setDiscount(float discount) {this.discount = discount;}
+
+    public String getName() { return name; }
+
+    public void setName(String name) {this.name = name; }
+
+    public String getUrl() { return url; }
+
+    public void setUrl(String url) { this.url = url; }
 
     public List<OrderItem> getOrderItems() {
         return orderItems;
