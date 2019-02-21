@@ -12,7 +12,7 @@ import UserList from "./user/UserList";
 ReactDOM.render(
     <Router>
         <div>
-            <Route exact path='/user/' component={App} />
+            <Route exact path='/' component={App} />
             <Route path="/user/login" exact component={Login} />
             <Route path='/user/all' component={UserList} />
         </div>
