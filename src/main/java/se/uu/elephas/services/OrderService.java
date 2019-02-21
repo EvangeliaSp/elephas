@@ -19,4 +19,8 @@ public interface OrderService {
 
     Order proceedOrder(Long idUser);
 
+    OrderItem findProductInOrder(Long orderId, Long productId);
+    
+    Object createOrderItem(Order order, Long productId);
+
 }

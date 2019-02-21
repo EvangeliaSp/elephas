@@ -4,6 +4,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 import se.uu.elephas.model.Order;
 import se.uu.elephas.model.OrderItem;
+import se.uu.elephas.model.Order;
 
 import java.util.Optional;
 
