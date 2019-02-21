@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
-class ProductList extends Component<{}, any> {
+class ProductList extends Component {
 
     state = {};
 
-    constructor(props: any) {
-        super(props);
+    constructor() {
+        super();
 
         this.state = {
             products: [],
@@ -21,7 +21,7 @@ class ProductList extends Component<{}, any> {
     loadProductsFromServer = () => {
         this.setState({isLoading: true});
 
-        fetch('/product/all')
+        fetch('/product/findBy')
             .then(response => response.json())
             .then(data => this.setState({products: data, isLoading: false}))
     };
@@ -36,7 +36,7 @@ class ProductList extends Component<{}, any> {
             <BootstrapTable data={ products } striped hover condensed pagination>
                 <TableHeaderColumn dataField='idProduct' isKey dataAlign="center">ID</TableHeaderColumn>
                 <TableHeaderColumn dataField='type' dataAlign="center">Type</TableHeaderColumn>
-                <TableHeaderColumn dataField='material' dataAlign="center">MAterial</TableHeaderColumn>
+                <TableHeaderColumn dataField='material' dataAlign="center">Material</TableHeaderColumn>
                 <TableHeaderColumn dataField='color' dataAlign="center">Color</TableHeaderColumn>
                 <TableHeaderColumn dataField='description' dataAlign="center">Description</TableHeaderColumn>
                 <TableHeaderColumn dataField='price' dataAlign="center">Price</TableHeaderColumn>

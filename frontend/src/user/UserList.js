@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import {BootstrapTable, TableHeaderColumn} from 'react-bootstrap-table';
 
-class UserList extends Component<{}, any> {
+class UserList extends Component {
 
     state = {};
 
-    constructor(props: any) {
-        super(props);
+    constructor() {
+        super();
 
         this.state = {
             users: [],

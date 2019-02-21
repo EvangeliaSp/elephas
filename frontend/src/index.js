@@ -8,6 +8,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Login from "./user/login/Login";
 import UserList from "./user/UserList";
+import ProductList from "./product/ProductList";
 
 ReactDOM.render(
     <Router>
@@ -15,6 +16,7 @@ ReactDOM.render(
             <Route exact path='/user/' component={App} />
             <Route path="/user/login" exact component={Login} />
             <Route path='/user/all' component={UserList} />
+            <Route path='/product/findBy' component={ProductList} />
         </div>
     </Router>,
     //<App/>,
