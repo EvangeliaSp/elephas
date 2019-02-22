@@ -51,4 +51,8 @@ public class OrderItemServiceImpl implements OrderItemService {
         return this.getOrderItems(idOrder);
 
     }
+
+    public void delete(Long idOrderItem) {
+        orderItemRepository.deleteById(idOrderItem);
+    }
 }

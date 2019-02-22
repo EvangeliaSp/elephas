@@ -8,4 +8,6 @@ public interface OrderItemService {
 
     Iterable<OrderItem> increaseOrderItemQuantity(Long idOrder, Long idItem);
 
+    void delete (Long idOrderItem);
+
 }

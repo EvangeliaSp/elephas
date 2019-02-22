@@ -97,6 +97,22 @@ public class OrderController {
             }
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(basket));
         }
+
+    @RequestMapping(value = "/removeFromBasket", method = {RequestMethod.DELETE})
+    public ResponseEntity<String> removeFromBasket (
+          //  @RequestParam("idUser") @Valid Long idUser,
+          //  @RequestParam("idOrder") @Valid Long idOrder,
+            @RequestParam("idOrderItem") @Valid Long idOrderItem)
+            throws JsonProcessingException {
+
+       // Order basket = (Order) orderService.getBasketOfUser(idUser).iterator().next();
+        //if (basket == null)
+           // return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create basket. User with id " + idUser + " not found.");
+      //  OrderItem item = orderService.findProductInOrder(basket.getIdOrder(), idProduct);
+        orderItemService.delete(idOrderItem);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(idOrderItem));
+    }
     
 
 
