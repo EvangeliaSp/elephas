@@ -8,6 +8,8 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Login from "./user/login/Login";
 import UserList from "./user/UserList";
+import Profile from "./user/profile/Profile";
+import User from "./user/profile/User";
 
 ReactDOM.render(
     <Router>
@@ -15,6 +17,7 @@ ReactDOM.render(
             <Route exact path='/' component={App} />
             <Route path="/user/login" exact component={Login} />
             <Route path='/user/all' component={UserList} />
+            <Route path='/user/findById/:id' component={User}/>
         </div>
     </Router>,
     //<App/>,

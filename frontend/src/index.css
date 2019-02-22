@@ -63,7 +63,8 @@
 .footer {
     overflow: hidden;
     background-color: #F3F3F5;
-    position: relative;
+    position: fixed; bottom: 0px;
+    /*position: relative;*/
     bottom: 0;
     width: 100%;
     float: left;
