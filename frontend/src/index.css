@@ -3,6 +3,7 @@
     background-color: white;
 }
 
+
 .header a.logo {
     position: absolute;
     left: 50px;
@@ -72,8 +73,8 @@
 .footer {
     overflow: hidden;
     background-color: white;
-    position: relative;
-    bottom: 0;
+    position: fixed;
+    bottom: 0px;
     width: 100%;
     float: left;
     color: #92af75;
@@ -82,7 +83,15 @@
     text-decoration: none;
     font-size: 18px;
     /*line-height: 25px;*/
-    font-family: "Calibri";
+    font-family: "Trebuchet MS";
+    padding-bottom: 1%;
+}
+
+.fb {
+    overflow: hidden;
+    background-color: white;
+    position: fixed;
+    right:0px;
 }
 
 /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
