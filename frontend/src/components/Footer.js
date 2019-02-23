@@ -1,11 +1,20 @@
 import {Component} from "react";
 import React from "react";
+import logo from "../logo2.png";
 
 class Footer extends Component {
     render() {
         return (
             <div className="footer">
-                <i className="far fa-copyright"> Copyright 2019</i>
+                <div>
+                    <img src={logo} alt="Logo"
+                         style={{width: "10px", height: "12px"}}/>
+                    &nbsp;
+
+
+                    Konstantina Manousaki
+                </div>
+
                 <div><a href="https://www.instagram.com/elephas_heart_made_jewelry/" target="_blank"> <i
                     className="fab fa-instagram" style={{color: "#92af75"}}></i></a>
                     &nbsp;
@@ -14,10 +23,11 @@ class Footer extends Component {
                                                                                           style={{color: "#92af75"}}></i>
                     </a>
                 </div>
-
-                <div>Elephas - Konstantina Manousaki</div>
+                <i className="far fa-copyright"> Copyright 2019</i>
 
             </div>
+
+
         )
     }
 }

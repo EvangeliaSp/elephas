@@ -1,6 +1,16 @@
 .header {
     overflow: hidden;
-    background-color: #F3F3F5;
+    background-color: white;
+}
+
+
+.header a.logo {
+    position: absolute;
+    left: 50px;
+    width: 200px;
+    height: 150px;
+    top: 1px;
+    pointer-events: none;
 }
 
 /* Style the header links */
@@ -8,7 +18,7 @@
     float: left;
     color: #92af75;
     text-align: center;
-    padding: 25px;
+    padding: 20px;
     text-decoration: none;
     font-size: 18px;
     line-height: 25px;
@@ -62,19 +72,26 @@
 
 .footer {
     overflow: hidden;
-    background-color: #F3F3F5;
-    position: fixed; bottom: 0px;
-    /*position: relative;*/
-    bottom: 0;
+    background-color: white;
+    position: fixed;
+    bottom: 0px;
     width: 100%;
     float: left;
     color: #92af75;
     text-align: center;
-    padding: 4px;
+    padding: 3px;
     text-decoration: none;
     font-size: 18px;
-/*/line-height: 25px;/*/
-    font-family: "Calibri";
+    /*line-height: 25px;*/
+    font-family: "Trebuchet MS";
+    padding-bottom: 1%;
+}
+
+.fb {
+    overflow: hidden;
+    background-color: white;
+    position: fixed;
+    right:0px;
 }
 
 /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
