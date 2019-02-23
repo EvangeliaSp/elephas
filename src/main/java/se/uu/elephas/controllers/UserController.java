@@ -66,9 +66,9 @@ public class UserController {
 //
 //    }
 
-    @RequestMapping(value = "/findById", method = {RequestMethod.GET})
+    @RequestMapping(value = "/findById/{id}", method = {RequestMethod.GET})
     public ResponseEntity<String> findById(
-            @RequestParam("id") @Valid Long id)
+            @PathVariable("id") @Valid Long id)
             throws JsonProcessingException {
 
         Optional<User> user = userService.getById(id);
