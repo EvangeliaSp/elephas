@@ -15,9 +15,9 @@ ReactDOM.render(
     <Router>
         <div>
             <Route exact path='/' component={App} />
-            <Route path="/user/login" exact component={Login} />
+            <Route path="/user/login" exact component={Profile} />
             <Route path='/user/all' component={UserList} />
-            <Route path='/user/findById/:id' component={User}/>
+            {/*<Route path='/user/findById/(:id)' component={User}/>*/}
         </div>
     </Router>,
     //<App/>,
