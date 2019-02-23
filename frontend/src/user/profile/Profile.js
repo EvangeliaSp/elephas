@@ -16,24 +16,24 @@ class Profile extends Component {
     constructor(props, context) {
         super(props, context);
         this.state = {
+            user: '',
             key: 'profile',
         };
     }
 
-    render() {
-        // const photo = 'https://api-cdn.spott.tv/rest/v004/image/images/e91f9cad-a70c-4f75-9db4-6508c37cd3c0?width=587&height=599'
-        // const userName = 'Harvey Specter'
-        // const location = 'New York, USA'
+    componentDidMount() {
+        this.loadUserFromServer()
+    }
 
-        // const comments = [
-        //     {
-        //         id: '1',
-        //         photo: 'https://api-cdn.spott.tv/rest/v004/image/images/e91f9cad-a70c-4f75-9db4-6508c37cd3c0?width=587&height=599',
-        //         userName: 'Mike Ross',
-        //         content: 'Lorem ipsum dolor sit amet enim. Etiam ullamcorper. Suspendisse a pellentesque dui, non felis. Maecenas malesuada elit lectus felis, malesuada ultricies. Curabitur et ligula. ',
-        //         createdAt: 1543858000000
-        //     }
-        // ]
+    loadUserFromServer = () => {
+        const { id } = this.props.match.params
+        fetch(`/user/findById/${id}`)
+            .then(response => response.json())
+            .then(data => this.setState({user: data}))
+    };
+
+    render() {
+        const  {user, key} = this.state
 
         return (
             <div>
@@ -61,7 +61,7 @@ class Profile extends Component {
                             <div className="row">
                                 <div className="col-xs-12 col-sm-3 center">
                         <span className="profile-picture">
-                            <Avatar className="editable img-responsive" alt=" Avatar" id="avatar2" name="R Sp" size="150"/>
+                            <Avatar className="editable img-responsive" alt=" Avatar" id="avatar2" name={user.firstname+' '+user.lastname} size="150"/>
                         </span>
 
                                     <div className="space space-4"></div>
@@ -70,16 +70,16 @@ class Profile extends Component {
 
                                 <div className="col-xs-12 col-sm-9">
                                     <h4 className="blue">
-                                        <span className="middle">Evangelia Spachou</span>
+                                        <span className="middle">{user.firstname+' '+user.lastname} </span>
 
                                     </h4>
 
                                     <div className="profile-user-info">
                                         <div className="profile-info-row">
-                                            <div className="profile-info-name"> Username</div>
+                                            <div className="profile-info-name"> Email</div>
 
                                             <div className="profile-info-value">
-                                                <span>evasp</span>
+                                                <span>{user.email}</span>
                                             </div>
                                         </div>
 
@@ -87,33 +87,28 @@ class Profile extends Component {
                                             <div className="profile-info-name"> Location</div>
 
                                             <div className="profile-info-value">
-                                                <i className="fa fa-map-marker light-orange bigger-110"></i>
-                                                <span>Uppsala</span>
-                                                <span>Sweden</span>
+                                                {/*<i className="fa fa-map-marker light-orange bigger-110"></i>*/}
+                                                <span>{user.city}</span>
+                                                <span>{user.country}</span>
                                             </div>
                                         </div>
 
                                         <div className="profile-info-row">
-                                            <div className="profile-info-name"> Age</div>
+                                            <div className="profile-info-name"> Address</div>
 
                                             <div className="profile-info-value">
-                                                <span>??</span>
+                                                {/*<i className="fa fa-map-marker light-orange bigger-110"></i>*/}
+                                                <span>{user.streetName}</span>
+                                                <span>{user.streetNumber}</span>
+                                                <span>{user.zipCode}</span>
                                             </div>
                                         </div>
 
                                         <div className="profile-info-row">
-                                            <div className="profile-info-name"> Joined</div>
+                                            <div className="profile-info-name"> Telephone</div>
 
                                             <div className="profile-info-value">
-                                                <span>2010/06/20</span>
-                                            </div>
-                                        </div>
-
-                                        <div className="profile-info-row">
-                                            <div className="profile-info-name"> Last Online</div>
-
-                                            <div className="profile-info-value">
-                                                <span>3 hours ago</span>
+                                                <span>{user.telephone}</span>
                                             </div>
                                         </div>
                                     </div>
