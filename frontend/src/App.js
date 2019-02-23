@@ -4,7 +4,7 @@ import Header from "./components/Header"
 import logo from './elephas2.jpg';
 import './App.css';
 
-class App extends React.Component<{}, any> {
+class App extends Component {
     render() {
         return (
             <div>
