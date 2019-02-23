@@ -3,11 +3,11 @@ import Avatar from 'react-avatar';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
-class UserList extends Component<{}, any> {
+class UserList extends Component {
 
     state = {};
 
-    constructor(props: any) {
+    constructor(props) {
         super(props);
 
         this.state = {
