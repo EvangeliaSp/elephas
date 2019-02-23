@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 
-class User extends React.Component {
+class User extends Component {
 
     state = {};
 
     constructor(props) {
         super(props);
         this.state = {
-            users: []
+            users: this.loadUserFromServer.data
         }
         // this.deleteUser = this.deleteUser.bind(this);
     }
@@ -21,25 +21,28 @@ class User extends React.Component {
     }
 
     loadUserFromServer = () => {
-        fetch('/user/findById/:id')
+        fetch('/user/findById/:id=59')
             .then(response => response.json())
             .then(data => this.setState({user: data}))
     };
 
     render() {
         return (
-            <tr>
-                <td>{this.props.user.email}</td>
-                <td>{this.props.user.firstname}</td>
-                <td>{this.props.user.lastname}</td>
-                <td>{this.props.user.streetName}</td>
-                <td>{this.props.user.streetNumber}</td>
-                <td>{this.props.user.zipCode}</td>
-                <td>{this.props.user.country}</td>
-                <td>{this.props.user.telephone}</td>
+            <div>
+            <tr>{this.props.user}</tr>
+            {/*<tr key={this.props.user.id}>*/}
+                {/*<td>{this.props.user.email}</td>*/}
+                {/*<td>{this.props.user.firstname}</td>*/}
+                {/*<td>{this.props.user.lastname}</td>*/}
+                {/*<td>{this.props.user.streetName}</td>*/}
+                {/*<td>{this.props.user.streetNumber}</td>*/}
+                {/*<td>{this.props.user.zipCode}</td>*/}
+                {/*<td>{this.props.user.country}</td>*/}
+                {/*<td>{this.props.user.telephone}</td>*/}
 
-                {/*<td><button className="btn btn-danger btn-xs" onClick={this.deleteUser}>Delete</button></td>*/}
-            </tr>
+                {/*/!*<td><button className="btn btn-danger btn-xs" onClick={this.deleteUser}>Delete</button></td>*!/*/}
+            {/*</tr>*/}
+            </div>
         );
     }
 }
