@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import Avatar from 'react-avatar';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+// import Container from 'react-bootstrap/Container';
+// import Row from 'react-bootstrap/Row';
+// import Col from 'react-bootstrap/Col';
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-import "react-tabs/style/react-tabs.css";
+// import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+// import "react-tabs/style/react-tabs.css";
 import './Profile.css'
 
 // import UserProfile from 'react-user-profile'
@@ -37,21 +37,119 @@ class Profile extends Component {
 
         return (
             <div>
-            {/*<Header/>*/}
-                <Tabs
-                    id="controlled-tab-example"
-                    activeKey={this.state.key}
-                    onSelect={key => this.setState({ key })}
-                >
-                    <Tab eventKey="profile" title="Profile">
+            <Header/>
+            <div id="user-profile-2" className="user-profile">
+                <div className="tabbable">
+                    <ul className="nav nav-tabs padding-18">
+                        <li className="active">
+                            <a data-toggle="tab" href="#home">
+                                <i className="green ace-icon fa fa-user bigger-120"></i>
+                                Profile
+                            </a>
+                        </li>
 
-                    </Tab>
-                    <Tab eventKey="contact" title="Orders" disabled>
+                        <li>
+                            <a data-toggle="tab" href="#pictures">
+                                <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
+                                Orders
+                            </a>
+                        </li>
+                    </ul>
 
-                    </Tab>
-                </Tabs>
+                    <div className="tab-content no-border padding-24">
+                        <div id="home" className="tab-pane in active">
+                            <div className="row">
+                                <div className="col-xs-12 col-sm-3 center">
+                        <span className="profile-picture">
+                            <Avatar className="editable img-responsive" alt=" Avatar" id="avatar2" name="R Sp" size="150"/>
+                        </span>
 
-            {/*<Footer/>*/}
+                                    <div className="space space-4"></div>
+
+                                </div>
+
+                                <div className="col-xs-12 col-sm-9">
+                                    <h4 className="blue">
+                                        <span className="middle">Evangelia Spachou</span>
+
+                                    </h4>
+
+                                    <div className="profile-user-info">
+                                        <div className="profile-info-row">
+                                            <div className="profile-info-name"> Username</div>
+
+                                            <div className="profile-info-value">
+                                                <span>evasp</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="profile-info-row">
+                                            <div className="profile-info-name"> Location</div>
+
+                                            <div className="profile-info-value">
+                                                <i className="fa fa-map-marker light-orange bigger-110"></i>
+                                                <span>Uppsala</span>
+                                                <span>Sweden</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="profile-info-row">
+                                            <div className="profile-info-name"> Age</div>
+
+                                            <div className="profile-info-value">
+                                                <span>??</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="profile-info-row">
+                                            <div className="profile-info-name"> Joined</div>
+
+                                            <div className="profile-info-value">
+                                                <span>2010/06/20</span>
+                                            </div>
+                                        </div>
+
+                                        <div className="profile-info-row">
+                                            <div className="profile-info-name"> Last Online</div>
+
+                                            <div className="profile-info-value">
+                                                <span>3 hours ago</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div className="space-20"></div>
+
+                            <div className="row">
+                                <div className="col-xs-12 col-sm-6">
+                                    <div className="widget-box transparent">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div id="pictures" className="tab-pane">
+                            <ul className="ace-thumbnails">
+                                <li>
+                                    <a href="#" data-rel="colorbox">
+                                        <img alt="150x150" src="http://lorempixel.com/200/200/nature/1/"/>
+                                        <div className="text">
+                                            <div className="inner">Sample Caption on Hover</div>
+                                        </div>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <Footer/>
             </div>
 
         );
