@@ -38,6 +38,9 @@ public class User {
     private String country;
 
     @Column(nullable = false)
+    private String city;
+
+    @Column(nullable = false)
     private String streetName;
 
     @Column(nullable = false)
@@ -135,6 +138,14 @@ public class User {
 
     public void setCountry(String country) {
         this.country = country;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getZipCode() {
