@@ -73,6 +73,33 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
     }
 
+    @RequestMapping(value = "addToBasket", method = {RequestMethod.POST})
+    public ResponseEntity<String> addToBasket(
+        @RequestParam("idUser") @Valid Long idUser,
+        @RequestParam("productId") @Valid Long idProduct)
+        throws JsonProcessingException {
+            
+            Order basket = (Order) orderService.getBasketOfUser(idUser).iterator().next(); // assuming a user only has one basket
+            if (basket == null)
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create basket. User with id " + idUser + " not found.");
+            
+            OrderItem item = orderService.findProductInOrder(basket.getIdOrder(), idProduct);
+            if (item == null) {
+                // add orderItem to basket
+                item = (OrderItem) orderService.createOrderItem(basket, idProduct);
+                if (item == null)
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create orderItem.");
+            } else {
+                // increase quantity of orderItem
+                item = (OrderItem) orderItemService.increaseOrderItemQuantity(basket.getIdOrder(), item.getIdOrderItem());   
+                if (item == null)
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot increase quantity of orderItem.");
+            }
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(basket));
+        }
+    
+
+
     @RequestMapping(value = "all", method = {RequestMethod.GET})
     public ResponseEntity<String> findAll()
             throws JsonProcessingException {

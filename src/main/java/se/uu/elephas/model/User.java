@@ -22,6 +22,7 @@ public class User {
     private String email;
 
     @NotBlank
+    @Column(columnDefinition="varchar(255)")
     //@JsonIgnore
     private String password;
 
