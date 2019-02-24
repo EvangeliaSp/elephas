@@ -21,9 +21,11 @@ class ProductList extends Component {
     loadProductsFromServer = () => {
         this.setState({isLoading: true});
 
-        fetch('/product/xxxxxx')
-            .then(response => response.json())
-            .then(data => this.setState({products: data, isLoading: false}))
+        fetch('/product/xxxxx')
+            //.then(response => response.json())
+            //.then(data => this.setState({products: data, isLoading: false}))
+            .then(res => res.text())          // convert to plain text
+            .then(text => console.log(text))  // then log it out
     };
 
     render() {

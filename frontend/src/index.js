@@ -8,7 +8,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import Login from "./user/login/Login";
 import UserList from "./user/UserList";
-// import ProductList from "./product/ProductList"; //NOTE: just to show a list of products
+//import ProductList from "./product/ProductList"; //NOTE: just to show a list of products
 import ProductGrid from "./product/ProductGrid";
 
 ReactDOM.render(
