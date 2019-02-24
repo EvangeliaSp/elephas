@@ -62,6 +62,7 @@ class Content extends React.Component {
             <div>
                 <div className="fb">
                     <iframe
+                        title="This is a unique title"
                         src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Felephasjewelry&width=600&colorscheme=light&show_faces=true&border_color&stream=true&header=true&height=435"
                         scrolling="yes"
                         style={{
