@@ -40,7 +40,7 @@ class Header extends React.Component {
                               integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
                               crossOrigin="anonymous"/>
                         <div className="user">
-                            <a href="#cart"> <i class="fas fa-shopping-cart" rel="stylesheet"></i> </a>
+                            <a href="#cart"> <i className="fas fa-shopping-cart" rel="stylesheet"></i> </a>
                         </div>
                         <div className="cart">
                             <a href="#user"> <i className="fas fa-user"></i> </a>
@@ -72,7 +72,7 @@ class Content extends React.Component {
                             background: "white",
                         }}
 
-                        allowTransparency="true"></iframe>
+                        allowtransparency="true"></iframe>
 
                 </div>
             </div>
