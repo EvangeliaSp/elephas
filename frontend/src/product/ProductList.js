@@ -21,7 +21,7 @@ class ProductList extends Component {
     loadProductsFromServer = () => {
         this.setState({isLoading: true});
 
-        fetch('/product/findBy')
+        fetch('/product/xxxxxx')
             .then(response => response.json())
             .then(data => this.setState({products: data, isLoading: false}))
     };
