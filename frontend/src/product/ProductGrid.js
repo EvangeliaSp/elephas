@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
 import elephas2 from './../elephas2.jpg';
 
 class ProductGrid extends Component {
@@ -37,13 +38,15 @@ class ProductGrid extends Component {
             <Card style={{ marginBottom: '2rem'}}>
                 <Card.Img variant="top" src={elephas2} />
                 <Card.Body>
-                    <Card.Title>{product.description}</Card.Title> 
+                    <Card.Title>{product.name}</Card.Title> 
                     <Card.Text>
-                        {product.description}
+                        {product.description}<br/>
+                        
                     </Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                <small className="text-muted">Last updated 3 mins ago</small>
+                {product.price} kr
+                <Button variant="primary" href="#addToBasket" style={{float:'right'}}>Add to basket</Button>
                 </Card.Footer>
             </Card>
             </div>
