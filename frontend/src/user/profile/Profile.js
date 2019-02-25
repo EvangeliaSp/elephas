@@ -1,12 +1,7 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import Avatar from 'react-avatar';
-// import Container from 'react-bootstrap/Container';
-// import Row from 'react-bootstrap/Row';
-// import Col from 'react-bootstrap/Col';
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-// import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
-// import "react-tabs/style/react-tabs.css";
 import './Profile.css'
 
 // import UserProfile from 'react-user-profile'
@@ -18,6 +13,7 @@ class Profile extends Component {
         this.state = {
             user: '',
             key: 'profile',
+            path: ''
         };
     }
 
@@ -27,13 +23,14 @@ class Profile extends Component {
 
     loadUserFromServer = () => {
         const { id } = this.props.match.params
+        const { pathLink } = `/user/findById/${id}`
         fetch(`/user/findById/${id}`)
             .then(response => response.json())
-            .then(data => this.setState({user: data}))
+            .then(data => this.setState({user: data, path: pathLink}))
     };
 
     render() {
-        const  {user, key} = this.state
+        const  {user, key, path} = this.state
 
         return (
             <div>
