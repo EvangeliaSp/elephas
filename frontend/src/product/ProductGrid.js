@@ -9,8 +9,8 @@ class ProductGrid extends Component {
 
     state = {};
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             products: [],
@@ -25,7 +25,7 @@ class ProductGrid extends Component {
     loadProductsFromServer = () => {
         this.setState({isLoading: true});
 
-        fetch('/product/findBy')
+        fetch(`/product/findBy${this.props.location.search}`)
             .then(response => response.json())
             .then(data => this.setState({products: data, isLoading: false}))
     };
