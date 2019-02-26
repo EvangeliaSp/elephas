@@ -67,7 +67,7 @@ class ProductGrid extends Component {
             <div>
                 <Header/>
                 <Container>
-                    <Row>
+                    <Row style={{marginBottom:'5rem'}}>
                 {
                     products.map((product) => {
                         return this.ProductCard(product);
