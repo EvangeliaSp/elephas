@@ -1,9 +1,13 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput } from 'mdbreact';
+import Header from "../../components/Header";
+import Footer from "../../components/Footer";
 
 const Login = () => {
     return (
-        <MDBContainer>
+        <div>
+            {/*<Header/>*/}
+            <MDBContainer>
             <MDBRow>
                 <MDBCol md="6">
                     <MDBCard>
@@ -55,6 +59,8 @@ const Login = () => {
                 </MDBCol>
             </MDBRow>
         </MDBContainer>
+            <Footer/>
+        </div>
     );
 };
 

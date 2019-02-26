@@ -10,14 +10,17 @@ import Login from "./user/login/Login";
 import UserList from "./user/UserList";
 //import ProductList from "./product/ProductList"; //NOTE: just to show a list of products
 import ProductGrid from "./product/ProductGrid";
+import Profile from "./user/profile/Profile";
 
 ReactDOM.render(
     <Router>
         <div>
-            <Route exact path='/user/' component={App} />
+            <Route exact path='/' component={App} />
             <Route path="/user/login" exact component={Login} />
             <Route path='/user/all' component={UserList} />
             <Route path='/product/findBy' component={ProductGrid} />
+            <Route path='/user/findById/:id' component={Profile}/>
+            <Route path='/user/findById/:id#pictures' component={UserList}/>
         </div>
     </Router>,
     //<App/>,
