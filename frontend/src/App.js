@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import logo from './logo2.png';
 import './App.css';
+import product1 from './product2.jpg'
 
 class App extends React.Component {
     render() {
@@ -60,19 +61,22 @@ class Content extends React.Component {
     render() {
         return (
             <div>
+                <div className="elephants">
+                    <img src={product1} alt="Elephas"/>
+                </div>
                 <div className="fb">
-                    <iframe
-                        src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Felephasjewelry&width=600&colorscheme=light&show_faces=true&border_color&stream=true&header=true&height=435"
-                        scrolling="yes"
-                        style={{
-                            border: "none",
-                            overflow: "hidden",
-                            width: "500px",
-                            height: "400px",
-                            background: "white",
-                        }}
+                    {/*<iframe*/}
+                    {/*src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Felephasjewelry&width=600&colorscheme=light&show_faces=true&border_color&stream=true&header=true&height=435"*/}
+                    {/*scrolling="yes"*/}
+                    {/*style={{*/}
+                    {/*border: "none",*/}
+                    {/*overflow: "hidden",*/}
+                    {/*width: "500px",*/}
+                    {/*height: "400px",*/}
+                    {/*background: "white",*/}
+                    {/*}}*/}
 
-                        allowTransparency="true"></iframe>
+                    {/*allowTransparency="true"></iframe>*/}
 
                 </div>
             </div>
@@ -86,7 +90,7 @@ class Footer extends Component {
             <div className="footer">
                 <div>
                     <img src={logo} alt="Logo"
-                         style={{width: "10px", height: "12px"}}/>
+                         style={{width: "0.625em", height: "0.750em"}}/>
                     &nbsp;
 
 
@@ -101,7 +105,16 @@ class Footer extends Component {
                                                                                           style={{color: "#92af75"}}></i>
                     </a>
                 </div>
+                <div><i className="fab fa-cc-visa"></i>
+                    &nbsp;
+                    &nbsp;
+                    <i className="fab fa-cc-mastercard"></i>
+                    &nbsp;
+                    &nbsp;
+                    <i class="fab fa-cc-paypal"></i>
+                </div>
                 <i className="far fa-copyright"> Copyright 2019</i>
+
 
             </div>
 
