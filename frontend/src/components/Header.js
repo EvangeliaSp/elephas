@@ -15,11 +15,11 @@ class Header extends Component {
                     <div className="header-right">
 
 
-                        <a className="active" href="#home">Home</a>
+                        <a className="active" href="/">Home</a>
                         <a href="/product/findBy?type=1">Bracelets</a>
                         <a href="/product/findBy?type=2">Rings</a>
                         <a href="/product/findBy?type=4">Necklaces</a>
-                        <a href="/product/findBy?type=2">Earrings</a>
+                        <a href="/product/findBy?type=3">Earrings</a>
 
                         <a href="#contact">Contact</a>
                         <a href="#about">About</a>
