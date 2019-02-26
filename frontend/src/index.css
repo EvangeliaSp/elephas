@@ -70,6 +70,13 @@
     top: 9px;
 }
 
+.elephants{
+    overflow: hidden;
+    padding-top: 3px;
+    width: 100%;
+    text-align: center;
+}
+
 .footer {
     overflow: hidden;
     background-color: white;
