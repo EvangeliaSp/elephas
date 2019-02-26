@@ -16,10 +16,10 @@ class Header extends Component {
 
 
                         <a className="active" href="#home">Home</a>
-                        <a href="#bracelets">Bracelets</a>
-                        <a href="#rings">Rings</a>
-                        <a href="#necklaces">Necklaces</a>
-                        <a href="#earrings">Earrings</a>
+                        <a href="/product/findBy?type=1">Bracelets</a>
+                        <a href="/product/findBy?type=2">Rings</a>
+                        <a href="/product/findBy?type=4">Necklaces</a>
+                        <a href="/product/findBy?type=2">Earrings</a>
 
                         <a href="#contact">Contact</a>
                         <a href="#about">About</a>
