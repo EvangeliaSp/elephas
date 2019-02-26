@@ -61,6 +61,26 @@
     top: 9px;
 }
 
+*.icon-grey {
+    color: grey
+}
+
+.badge[data-count]:after {
+    position: relative;
+    font-family: "Calibri";
+    height: 2rem;
+    content: attr(data-count);
+    bottom: 1rem;
+    right: 0.1rem;
+    width: 2rem;
+    text-align: center;
+    line-height: 2rem;;
+    font-size: 1rem;
+    border-radius: 100%;
+    color: #b2b7b2;
+    border: 1px;
+}
+
 .cart {
     font-size: 30px;
     position: absolute;
@@ -68,6 +88,8 @@
     width: 135px;
     height: 150px;
     top: 9px;
+    color: #92af75;
+
 }
 
 .footer {
@@ -91,7 +113,7 @@
     overflow: hidden;
     background-color: white;
     position: fixed;
-    right:0px;
+    right: 0px;
 }
 
 /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */

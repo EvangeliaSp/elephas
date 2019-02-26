@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import logo from './logo2.png';
 import './App.css';
 
+const d = 6;
+
+
 class App extends React.Component {
     render() {
         return (
@@ -15,8 +18,10 @@ class App extends React.Component {
 }
 
 class Header extends React.Component {
+
     render() {
         return (
+
             <div>
 
                 <div className="header">
@@ -40,7 +45,13 @@ class Header extends React.Component {
                               integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
                               crossOrigin="anonymous"/>
                         <div className="user">
-                            <a href="#cart"> <i class="fas fa-shopping-cart" rel="stylesheet"></i> </a>
+                            <a href="#cart">
+                            <span className="fas fa-shopping-cart icon-grey badge" data-count={d}
+                                  style={{color: "#92af75"}}>
+
+                            </span>
+                            </a>
+
                         </div>
                         <div className="cart">
                             <a href="#user"> <i className="fas fa-user"></i> </a>
