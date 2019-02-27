@@ -9,7 +9,6 @@ import * as serviceWorker from './serviceWorker';
 import Login from "./user/login/Login";
 import UserList from "./user/UserList";
 import Profile from "./user/profile/Profile";
-import FormsPage from "./user/FormsPage"
 
 ReactDOM.render(
     <Router>
@@ -19,7 +18,6 @@ ReactDOM.render(
             <Route path='/user/all' component={UserList} />
             <Route path='/user/findById/:id' component={Profile}/>
             <Route path='/user/findById/:id#pictures' component={UserList}/>
-            <Route path='/user/form' component={FormsPage}/>
         </div>
     </Router>,
     //<App/>,
