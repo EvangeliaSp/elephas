@@ -20,7 +20,6 @@ ReactDOM.render(
             <Route path='/user/all' component={UserList} />
             <Route path='/product/findBy' component={ProductGrid} />
             <Route path='/user/findById/:id' component={Profile}/>
-            <Route path='/user/findById/:id#pictures' component={UserList}/>
         </div>
     </Router>,
     //<App/>,
