@@ -12,20 +12,11 @@ import java.util.Optional;
 @Repository
 public interface OrderRepository extends CrudRepository<Order, Long> {
 
-    //TODO: is this methods supposed to return 'Optional'?
-    /* Return all orders for a user */
-//    Page<Order> findByIdUser(Long idUser);
-//
-//    Page<Order> findByIdUserAndConfirm(Long idUser, Integer confirm);
-//
-//    /* Returns one order */
-//    Optional<Order> findByIdOrder(Long idOrder);
+    Optional<Order> findByIdOrder(Long idOrder);
 
-        Iterable<Order> findByOrderUser(User user);
+    Iterable<Order> findByOrderUserAndConfirm(User user, Boolean confirm);
 
     /* Returns all orders */
     Page<Order> findAll(Pageable pageable);
 
-
-    // TODO: addToBasket
 }
