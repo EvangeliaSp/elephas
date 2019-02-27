@@ -1,7 +1,9 @@
 import React, {Component} from "react";
+import { Redirect } from 'react-router-dom'
 import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput } from 'mdbreact';
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import UserList from "../UserList";
 
 
 class Login extends Component{
@@ -14,31 +16,55 @@ class Login extends Component{
     state = {
         email: '',
         password: '',
-        user: ''
+        user: '',
+        redirect: false
+    };
+
+    handleRedirect(response) {
+        if (response.ok) {
+            console.log(`User ${this.state.email} logged in successfully.`);
+            return (<Redirect to='/user/all'/>)
+
+        } else {
+            console.log(`User ${this.state.email} CANNOT log in.`);
+        }
     };
 
     submitHandler = event => {
         var formData = new FormData();
         formData.append("email", this.state.email);
         formData.append("password", this.state.password)
+
         const options = {
             method: 'POST',
-            body: formData//"email=rozaaa@gmail.com=&password=123"
+            body: formData,
+            redirect: 'follow'
         }
         event.preventDefault();
         event.target.className += " was-validated";
-        // const email = this.state.email
-        // const password = this.state.password
         fetch('/user/login', options)
+            // .then(response => this.handleRedirect(response))
             .then(response =>
-        {
-            if (response.ok) {
-                console.log("OKay");
-                return response.json();
-            } else {
-                console.log("NOT OKay");
-            }
-        })
+                    response.json()
+            )
+            .then(data => this.setState({user: data, redirect: true}))
+        // {
+            // if (response.ok) {
+            //     console.log(`User ${this.state.email} logged in successfully.`);
+            //     response.json().then(data => this.setState({user: data}))
+            //     console.log(`User ${this.state.user.email} yeahhh.`);
+            //     // response.json();
+            // } else {
+            //     console.log(`User ${this.state.email} CANNOT log in.`);
+            // }
+        // })
+
+            // .then(response => response.json())
+            // .then(data => {  this.setState({user: data}) })
+            // .then( _ => <Redirect to={{UserList}}/>)
+                // this.setState({user: data}),
+                // return(<Redirect to={UserList}/>)
+            // )
     };
 
     changeHandler = event => {
@@ -46,6 +72,10 @@ class Login extends Component{
     };
 
    render() {
+       if (this.state.redirect) {
+           const { to } = {to: {pathname: `/user/findById/${this.state.user.idUser}`}}
+           return <Redirect to={ to }/>
+       }
         return (
             <div>
                 <Header/>
@@ -107,6 +137,9 @@ class Login extends Component{
                     </MDBBtn>
                     </MDBContainer>
                 </form>
+
+                <div>{this.state.user.idUser}</div>
+
                 <Footer/>
             </div>
 
