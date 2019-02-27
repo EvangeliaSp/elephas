@@ -6,10 +6,10 @@
 
 .header a.logo {
     position: absolute;
-    left: 50px;
-    width: 200px;
-    height: 150px;
-    top: 1px;
+    left: 3.125em;
+    width: 12.5em;
+    height: 9.375em;
+    top: 0.063em;
     pointer-events: none;
 }
 
@@ -18,10 +18,10 @@
     float: left;
     color: #92af75;
     text-align: center;
-    padding: 20px;
+    padding: 1.250em;
     text-decoration: none;
-    font-size: 18px;
-    line-height: 25px;
+    font-size: 1.125em;
+    line-height: 1.563em;
     font-family: "Calibri";
 }
 
@@ -50,38 +50,45 @@
 
 .user {
     /*float: right;*/
-    font-size: 20px;
+    font-size: 1.250em;
     /*width: 0%;*/
     /*margin-top: 15px;*/
     /*margin-right: 15px;*/
     position: absolute;
-    right: 10px;
-    width: 200px;
-    height: 150px;
-    top: 9px;
+    right: 0.625em;
+    width: 12.500em;
+    height: 9.375em;
+    top: 0.563em;
 }
 
 .cart {
-    font-size: 30px;
+    font-size: 1.250em;
     position: absolute;
-    right: 1px;
-    width: 135px;
-    height: 150px;
-    top: 9px;
+    right: 0.063em;
+    width: 8.438em;
+    height: 9.375em;
+    top: 0.563em;
+}
+
+.elephants {
+    overflow: hidden;
+    padding-top: 0.188em;
+    width: 100%;
+    text-align: center;
 }
 
 .footer {
     overflow: hidden;
     background-color: white;
     position: fixed;
-    bottom: 0px;
+    bottom: 0;
     width: 100%;
     float: left;
     color: #92af75;
     text-align: center;
-    padding: 3px;
+    padding: 0.188em;
     text-decoration: none;
-    font-size: 18px;
+    font-size: 1.125em;
     /*line-height: 25px;*/
     font-family: "Trebuchet MS";
     padding-bottom: 1%;
@@ -91,11 +98,11 @@
     overflow: hidden;
     background-color: white;
     position: fixed;
-    right:0px;
+    right: 0;
 }
 
 /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 800px) {
     .header a {
         float: none;
         display: block;

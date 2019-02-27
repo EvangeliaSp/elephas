@@ -7,7 +7,7 @@ class Header extends Component {
         return (
             <div>
 
-                <div className="header">
+                <div className="header" style={{marginBottom: '3rem'}}>
                     <a href="#default" className="logo"> <img src={logo} alt="Logo"
                                                               style={{width: "46px", height: "60px"}}/>
                     </a>
@@ -15,11 +15,11 @@ class Header extends Component {
                     <div className="header-right">
 
 
-                        <a className="active" href="#home">Home</a>
-                        <a href="#bracelets">Bracelets</a>
-                        <a href="#rings">Rings</a>
-                        <a href="#necklaces">Necklaces</a>
-                        <a href="#earrings">Earrings</a>
+                        <a className="active" href="/">Home</a>
+                        <a href="/product/findBy?type=1">Bracelets</a>
+                        <a href="/product/findBy?type=2">Rings</a>
+                        <a href="/product/findBy?type=4">Necklaces</a>
+                        <a href="/product/findBy?type=3">Earrings</a>
 
                         <a href="#contact">Contact</a>
                         <a href="#about">About</a>
@@ -28,7 +28,7 @@ class Header extends Component {
                               integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
                               crossOrigin="anonymous"/>
                         <div className="user">
-                            <a href="#cart"> <i class="fas fa-shopping-cart" rel="stylesheet"></i> </a>
+                            <a href="#cart"> <i className="fas fa-shopping-cart" rel="stylesheet"></i> </a>
                         </div>
                         <div className="cart">
                             <a href="#user"> <i className="fas fa-user"></i> </a>

@@ -1,8 +1,6 @@
 .idea/
 target/
 *.iml
-frontend/package.json
-frontend/package-lock.json
 
 # for visual studio code
 .vscode
