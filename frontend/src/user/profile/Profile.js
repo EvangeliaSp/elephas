@@ -142,7 +142,7 @@ class Profile extends Component {
     usersOrderList(orders) {
         return (
             <div id="orders" className={this.setClassName("#orders", "tab-pane")}>
-                <table class="table table-striped ">
+                <table className="table table-striped ">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -175,7 +175,7 @@ class Profile extends Component {
     
 
     render() {
-        const  {user, orders, key, path} = this.state
+        const  {user, orders} = this.state
 
         return (
             <div>
