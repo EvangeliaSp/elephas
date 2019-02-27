@@ -75,45 +75,49 @@ public class OrderController {
 
     @RequestMapping(value = "addToBasket", method = {RequestMethod.POST})
     public ResponseEntity<String> addToBasket(
-        @RequestParam("idUser") @Valid Long idUser,
-        @RequestParam("productId") @Valid Long idProduct)
-        throws JsonProcessingException {
-            
-            Order basket = (Order) orderService.getBasketOfUser(idUser).iterator().next(); // assuming a user only has one basket
-            if (basket == null)
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create basket. User with id " + idUser + " not found.");
-            
-            OrderItem item = orderService.findProductInOrder(basket.getIdOrder(), idProduct);
-            if (item == null) {
-                // add orderItem to basket
-                item = (OrderItem) orderService.createOrderItem(basket, idProduct);
-                if (item == null)
+            @RequestParam("idUser") @Valid Long idUser,
+            @RequestParam("productId") @Valid Long idProduct)
+            throws JsonProcessingException {
+
+        Order basket = (Order) orderService.getBasketOfUser(idUser).iterator().next(); // assuming a user only has one basket
+        System.out.println(basket);
+        if (basket == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create basket. User with id " + idUser + " not found.");
+
+        OrderItem item = orderService.findProductInOrder(basket.getIdOrder(), idProduct);
+        if (item == null) {
+            // add orderItem to basket
+            item = (OrderItem) orderService.createOrderItem(basket, idProduct);
+            if (item == null)
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create orderItem.");
-            } else {
-                // increase quantity of orderItem
-                item = (OrderItem) orderItemService.increaseOrderItemQuantity(basket.getIdOrder(), item.getIdOrderItem());   
-                if (item == null)
+        } else {
+            // increase quantity of orderItem
+            item = (OrderItem) orderItemService.increaseOrderItemQuantity(basket.getIdOrder(), item.getIdOrderItem());
+            System.out.println(basket);
+            System.out.println(item);
+            if (item == null)
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot increase quantity of orderItem.");
-            }
-        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(basket));
         }
 
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(item));
+    }
+
     @RequestMapping(value = "/removeFromBasket", method = {RequestMethod.DELETE})
-    public ResponseEntity<String> removeFromBasket (
-          //  @RequestParam("idUser") @Valid Long idUser,
-          //  @RequestParam("idOrder") @Valid Long idOrder,
+    public ResponseEntity<String> removeFromBasket(
+            //  @RequestParam("idUser") @Valid Long idUser,
+            //  @RequestParam("idOrder") @Valid Long idOrder,
             @RequestParam("idOrderItem") @Valid Long idOrderItem)
             throws JsonProcessingException {
 
-       // Order basket = (Order) orderService.getBasketOfUser(idUser).iterator().next();
+        // Order basket = (Order) orderService.getBasketOfUser(idUser).iterator().next();
         //if (basket == null)
-           // return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create basket. User with id " + idUser + " not found.");
-      //  OrderItem item = orderService.findProductInOrder(basket.getIdOrder(), idProduct);
+        // return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create basket. User with id " + idUser + " not found.");
+        //  OrderItem item = orderService.findProductInOrder(basket.getIdOrder(), idProduct);
         orderItemService.delete(idOrderItem);
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(idOrderItem));
     }
-    
 
 
     @RequestMapping(value = "all", method = {RequestMethod.GET})

@@ -27,7 +27,7 @@ public class UserController {
     private UserServiceImpl userService;
 
     @RequestMapping("/")
-    public String home(){
+    public String home() {
         return "Hello Elephas!";
     }
 
