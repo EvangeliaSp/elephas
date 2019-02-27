@@ -34,6 +34,15 @@ public class UserController {
 
     @RequestMapping(value = "/create", method = {RequestMethod.POST})
     public ResponseEntity<String> create(
+            @RequestParam("firstname") @Valid String firstname,
+            @RequestParam("lastname") @Valid String lastname,
+            @RequestParam("password") @Valid String password,
+            @RequestParam("email") @Valid String email,
+            @RequestParam("streetName") @Valid String streetName,
+            @RequestParam("streetNumber") @Valid String streetNumber,
+            @RequestParam("country") @Valid String country,
+            @RequestParam("zipCode") @Valid String zipCode,
+            @RequestParam("telephone") @Valid String telephone,
             @RequestBody User user)
             throws NoSuchAlgorithmException, JsonProcessingException {
 

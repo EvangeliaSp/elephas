@@ -7,10 +7,10 @@ class FormsPage extends React.Component {
         lastname: "",
         password: "",
         email: "",
-        street_name: "",
-        street_number: "",
+        streetName: "",
+        streetNumber: "",
         country: "",
-        zip_code: "",
+        zipCode: "",
         telephone: ""
     };
 
@@ -119,7 +119,7 @@ class FormsPage extends React.Component {
                                 Street Name
                             </label>
                             <input
-                                value={this.state.street_name}
+                                value={this.state.streetName}
                                 onChange={this.changeHandler}
                                 type="text"
                                 id="defaultFormRegisterPasswordEx4"
@@ -141,7 +141,7 @@ class FormsPage extends React.Component {
                                 Street number
                             </label>
                             <input
-                                value={this.state.street_number}
+                                value={this.state.streetNumber}
                                 onChange={this.changeHandler}
                                 type="text"
                                 id="defaultFormRegisterPasswordEx4"
@@ -185,7 +185,7 @@ class FormsPage extends React.Component {
                                 Zip code
                             </label>
                             <input
-                                value={this.state.zip_code}
+                                value={this.state.zipCode}
                                 onChange={this.changeHandler}
                                 type="text"
                                 id="defaultFormRegisterPasswordEx4"
@@ -247,5 +247,4 @@ class FormsPage extends React.Component {
         );
     }
 }
-
 export default FormsPage;
