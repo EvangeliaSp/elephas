@@ -30,7 +30,7 @@ class Footer extends Component {
                     <i className="fab fa-cc-mastercard"></i>
                     &nbsp;
                     &nbsp;
-                    <i class="fab fa-cc-paypal"></i>
+                    <i className="fab fa-cc-paypal"></i>
                 </div>
                 
                 <i className="far fa-copyright"> Copyright 2019</i>
