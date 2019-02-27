@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import logo from './logo2.png';
 import './App.css';
 
-const d = 6;
-
 
 class App extends React.Component {
     render() {
@@ -18,6 +16,28 @@ class App extends React.Component {
 }
 
 class Header extends React.Component {
+    state = {
+        d: ''
+    }
+
+    // d=0;
+
+
+    componentDidMount() {
+        this.getBasketSize();
+    }
+
+    getBasketSize = () => {
+        const {idUser} = 0;
+            // this.props.match.params;
+        fetch(`/order/cartSize/${idUser}`)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    d: data
+                })
+            })
+    }
 
     render() {
         return (
@@ -46,7 +66,7 @@ class Header extends React.Component {
                               crossOrigin="anonymous"/>
                         <div className="user">
                             <a href="#cart">
-                            <span className="fas fa-shopping-cart icon-grey badge" data-count={d}
+                            <span className="fas fa-shopping-cart icon-grey badge" data-count={this.state.d}
                                   style={{color: "#92af75"}}>
 
                             </span>

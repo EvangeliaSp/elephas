@@ -17,7 +17,8 @@ import java.util.Optional;
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    public OrderServiceImpl() {}
+    public OrderServiceImpl() {
+    }
 
     @Autowired
     private UserRepository userRepository;
@@ -28,7 +29,8 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private OrderItemRepository orderItemRepository;
 
-    @Autowired ProductRepository productRepository;
+    @Autowired
+    ProductRepository productRepository;
 
     public Object create(Long userId) {
 
@@ -48,7 +50,7 @@ public class OrderServiceImpl implements OrderService {
 
     public Object createOrderItem(Order order, Long productId) {
         Optional<Product> optionalProduct = productRepository.findById(productId);
-        
+
         if (optionalProduct.isPresent()) {
 
             Product product = optionalProduct.get();
@@ -65,7 +67,7 @@ public class OrderServiceImpl implements OrderService {
         if (orderItems != null) {
             for (OrderItem orderItem : orderItems) {
                 if (orderItem.getProduct().getIdProduct() == productId)
-                return orderItem;
+                    return orderItem;
             }
         }
         return null;
@@ -80,7 +82,7 @@ public class OrderServiceImpl implements OrderService {
             Iterable<OrderItem> orderItems = orderItemRepository.findBySourceOrder(order);
             return orderItems;
         }
-       return null;
+        return null;
     }
 
 
@@ -136,6 +138,16 @@ public class OrderServiceImpl implements OrderService {
 
         return null;
 
+    }
+
+    public int sizeCart(Long idUser){
+        Order basket=getBasketOfUser(idUser).iterator().next();
+        Iterable<OrderItem> cart =getOrderItemsByOrderId(basket.getIdOrder());
+        int mycounter=0;
+        for (OrderItem item:cart){
+            mycounter = mycounter + 1*item.getQuantity();
+        }
+        return mycounter;
     }
 
 }
