@@ -23,6 +23,16 @@ class Footer extends Component {
                                                                                           style={{color: "#92af75"}}></i>
                     </a>
                 </div>
+
+                <div><i className="fab fa-cc-visa"></i>
+                    &nbsp;
+                    &nbsp;
+                    <i className="fab fa-cc-mastercard"></i>
+                    &nbsp;
+                    &nbsp;
+                    <i class="fab fa-cc-paypal"></i>
+                </div>
+                
                 <i className="far fa-copyright"> Copyright 2019</i>
 
             </div>

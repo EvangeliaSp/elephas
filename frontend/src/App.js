@@ -3,6 +3,7 @@ import Footer from "./components/Footer"
 import Header from "./components/Header"
 import logo from './logo2.png';
 import './App.css';
+import product1 from './product2.jpg'
 
 class App extends Component {
     render() {
@@ -23,27 +24,28 @@ class Content extends React.Component {
     render() {
         return (
             <div>
+                <div className="elephants">
+                    <img src={product1} alt="Elephas"/>
+                </div>
                 <div className="fb">
-                    <iframe
-                        title="This is a unique title"
-                        src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Felephasjewelry&width=600&colorscheme=light&show_faces=true&border_color&stream=true&header=true&height=435"
-                        scrolling="yes"
-                        style={{
-                            border: "none",
-                            overflow: "hidden",
-                            width: "500px",
-                            height: "400px",
-                            background: "white",
-                        }}
+                    {/*<iframe*/}
+                    {/*src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Felephasjewelry&width=600&colorscheme=light&show_faces=true&border_color&stream=true&header=true&height=435"*/}
+                    {/*scrolling="yes"*/}
+                    {/*style={{*/}
+                    {/*border: "none",*/}
+                    {/*overflow: "hidden",*/}
+                    {/*width: "500px",*/}
+                    {/*height: "400px",*/}
+                    {/*background: "white",*/}
+                    {/*}}*/}
 
-                        allowtransparency="true"></iframe>
+                    {/*allowTransparency="true"></iframe>*/}
 
                 </div>
             </div>
         );
     }
 }
-
 
 
 export default App;
