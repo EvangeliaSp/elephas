@@ -129,12 +129,44 @@ class Login extends Component{
                                 Please provide a valid password.
                             </div>
                             <div className="valid-feedback">Looks good!</div>
+
                         </MDBCol>
                     </MDBRow>
 
-                    <MDBBtn color="primary" type="submit">
-                        Log in
-                    </MDBBtn>
+                    <MDBRow>
+                        <MDBCol md="4" className="mb-3">
+                        <p className="font-small grey-text d-flex justify-content-end">
+                            Forgot
+                            <a
+                                href="#!"
+                                className="dark-grey-text font-weight-bold ml-1"
+                            >
+                                Password?
+                            </a>
+                        </p>
+                        </MDBCol>
+                    </MDBRow>
+
+                    <MDBRow>
+                        <MDBCol md="4" className="mb-3">
+                        <MDBBtn color="primary" type="submit">
+                            Log in
+                        </MDBBtn>
+                        </MDBCol>
+                    </MDBRow>
+                    <MDBRow>
+                        <MDBCol md="4" className="mb-3">
+                        <p className="font-small grey-text d-flex justify-content-center">
+                            Don't have an account?
+                            <a
+                                href="#!"
+                                className="dark-grey-text font-weight-bold ml-1"
+                            >
+                                Sign up
+                            </a>
+                        </p>
+                        </MDBCol>
+                    </MDBRow>
                     </MDBContainer>
                 </form>
 
