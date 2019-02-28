@@ -92,7 +92,7 @@ public class OrderController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create orderItem.");
         } else {
             // increase quantity of orderItem
-            item = (OrderItem) orderItemService.increaseOrderItemQuantity(basket.getIdOrder(), item.getIdOrderItem());
+            item = orderItemService.increaseOrderItemQuantity(basket.getIdOrder(), item.getIdOrderItem());
             if (item == null)
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot increase quantity of orderItem.");
         }
@@ -103,18 +103,23 @@ public class OrderController {
 
     @RequestMapping(value = "/removeFromBasket", method = {RequestMethod.DELETE})
     public ResponseEntity<String> removeFromBasket(
-            //  @RequestParam("idUser") @Valid Long idUser,
-            //  @RequestParam("idOrder") @Valid Long idOrder,
+            @RequestParam("idUser") @Valid Long idUser,
             @RequestParam("idOrderItem") @Valid Long idOrderItem)
             throws JsonProcessingException {
 
-        // Order basket = (Order) orderService.getBasketOfUser(idUser).iterator().next();
-        //if (basket == null)
-        // return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create basket. User with id " + idUser + " not found.");
-        //  OrderItem item = orderService.findProductInOrder(basket.getIdOrder(), idProduct);
-        orderItemService.delete(idOrderItem);
+        Order basket = orderService.getBasketOfUser(idUser).iterator().next();
+        if (basket == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot find basket. User with id " + idUser + " not found.");
 
-        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(idOrderItem));
+        OrderItem item = orderItemService.findItemInOrderItems(basket.getIdOrder(), idOrderItem);
+
+        if (item != null) {
+            orderItemService.delete(idOrderItem);
+            basket = orderService.getBasketOfUser(idUser).iterator().next();
+            return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(basket));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot remove order item with id " + idOrderItem + ". It is not found.");
+        }
     }
 
 

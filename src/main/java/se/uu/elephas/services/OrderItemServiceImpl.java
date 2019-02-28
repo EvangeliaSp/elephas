@@ -34,6 +34,18 @@ public class OrderItemServiceImpl implements OrderItemService {
         return null;
     }
 
+    public OrderItem findItemInOrderItems(Long idOrder, Long idItem) {
+
+        Iterable<OrderItem> orderItems = this.getOrderItems(idOrder);
+
+        for (OrderItem orderItem: orderItems) {
+            if (orderItem.getIdOrderItem() == idItem)
+                return orderItem;
+        }
+
+        return null;
+    }
+
     public OrderItem increaseOrderItemQuantity(Long idOrder, Long idItem) {
 
         Optional<OrderItem> orderItemOptional = orderItemRepository.findById(idItem);
