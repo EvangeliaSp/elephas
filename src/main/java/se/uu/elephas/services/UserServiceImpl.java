@@ -76,6 +76,9 @@ public class UserServiceImpl implements UserService {
             if (newUser.getCountry() == null)
                 newUser.setCountry(user.getCountry());
 
+            if (newUser.getCity() == null)
+                newUser.setCity(user.getCity());
+
             if (newUser.getStreetName() == null)
                 newUser.setStreetName(user.getStreetName());
 
