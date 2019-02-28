@@ -68,6 +68,31 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     }
 
+    public OrderItem decreaseOrderItemQuantity(Long idOrder, Long idItem) {
+
+        Optional<OrderItem> orderItemOptional = orderItemRepository.findById(idItem);
+
+        if (orderItemOptional.isPresent()) {
+
+            OrderItem orderItem = orderItemOptional.get();
+
+            orderItem.setQuantity(orderItem.getQuantity()-1);
+
+            if (orderItem.getQuantity() == 0) {
+                orderItemRepository.deleteById(idItem);
+                return null;
+            }
+
+            orderItemRepository.save(orderItem);
+
+            return orderItem;
+
+        }
+
+        return null;
+
+    }
+
     public void delete(Long idOrderItem) {
         orderItemRepository.deleteById(idOrderItem);
     }

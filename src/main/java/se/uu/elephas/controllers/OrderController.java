@@ -161,16 +161,41 @@ public class OrderController {
 
     @RequestMapping(value = "increase", method = {RequestMethod.PATCH})
     public ResponseEntity<String> increaseQuantity(
-            @RequestParam("idOrder") @Valid Long idOrder,
+            @RequestParam("idUser") @Valid Long idUser,
             @RequestParam("idItem") @Valid Long idItem)
             throws JsonProcessingException {
 
-        OrderItem orderItem = orderItemService.increaseOrderItemQuantity(idOrder, idItem);
+        Order basket = orderService.getBasketOfUser(idUser).iterator().next();
+        if (basket == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot find basket. User with id " + idUser + " not found.");
+
+
+        OrderItem orderItem = orderItemService.increaseOrderItemQuantity(basket.getIdOrder(), idItem);
 
         if (orderItem == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found order item with id " + idItem);
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orderItem));
+
+    }
+
+    @RequestMapping(value = "decrease", method = {RequestMethod.PATCH})
+    public ResponseEntity<String> decreaseQuantity(
+            @RequestParam("idUser") @Valid Long idUser,
+            @RequestParam("idItem") @Valid Long idItem)
+            throws JsonProcessingException {
+
+        Order basket = orderService.getBasketOfUser(idUser).iterator().next();
+        if (basket == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot find basket. User with id " + idUser + " not found.");
+
+
+        OrderItem orderItem = orderItemService.decreaseOrderItemQuantity(basket.getIdOrder(), idItem);
+
+        if (orderItem != null)
+            return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orderItem));
+
+        return ResponseEntity.status(HttpStatus.OK).body("Order item with id " + idItem + " removed from basket.");
 
     }
 

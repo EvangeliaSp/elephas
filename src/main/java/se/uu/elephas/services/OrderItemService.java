@@ -10,6 +10,8 @@ public interface OrderItemService {
 
     OrderItem increaseOrderItemQuantity(Long idOrder, Long idItem);
 
+    OrderItem decreaseOrderItemQuantity(Long idOrder, Long idItem);
+
     void delete (Long idOrderItem);
 
 }
