@@ -19,8 +19,6 @@ class App extends Component {
 }
 
 
-
-
 class Content extends React.Component {
     render() {
         return (
@@ -29,7 +27,9 @@ class Content extends React.Component {
                     <img src={product1} alt="Elephas"/>
                 </div>
                 <div className="intro">Welcome to Elephas.. HeartMade Jewelry since 2016</div>
-                <div className="bestSeller">Most Recent Products</div>
+                <div className="topLine">
+                    <div className="bestSeller">Featured Products</div>
+                </div>
                 <div className="fb">
                     {/*<iframe*/}
                     {/*src="http://www.facebook.com/plugins/likebox.php?href=http%3A%2F%2Fwww.facebook.com%2Felephasjewelry&width=600&colorscheme=light&show_faces=true&border_color&stream=true&header=true&height=435"*/}
@@ -49,7 +49,6 @@ class Content extends React.Component {
         );
     }
 }
-
 
 
 export default App;

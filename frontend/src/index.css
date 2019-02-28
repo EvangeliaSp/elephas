@@ -86,15 +86,22 @@
     font-size: 3em;
 }
 
+.topLine{
+
+}
+
 
 .bestSeller{
     overflow: hidden;
-    padding-top: 0.188em;
     width: 100%;
     text-align: center;
-    font-family: 'Calibri';
-    color: black;
-    font-size: 1.5em;
+    color: #A38884;
+    font-family: 'Brush Script MT';
+    font-size: 2em;
+    margin-top: 0px;
+    text-decoration: underline overline;
+
+
 }
 
 .footer {

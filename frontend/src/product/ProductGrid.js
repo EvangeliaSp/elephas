@@ -35,30 +35,31 @@ class ProductGrid extends Component {
 
     ProductCard(product) {
         //TODO: Product name instead of card title
-        return(
+        return (
             <div key={product.idProduct} className="col-sm-6 col-lg-4">
-            <Card style={{ marginBottom: '2rem'}}>
-                <Card.Img variant="top" src={elephas2} />
-                <Card.Body>
-                    <Card.Title>{product.name}</Card.Title> 
-                    <Card.Text>
-                        {product.description}<br/>
-                        
-                    </Card.Text>
-                </Card.Body>
-                <Card.Footer>
-                {product.price} kr
-                <Button variant="primary" href="#addToBasket" style={{float:'right'}}>Add to basket</Button>
-                </Card.Footer>
-            </Card>
+                <Card style={{marginBottom: '2rem'}}>
+                    <Card.Img variant="top"  src={product.url}
+                              style={{ height:`20rem` }}
+                    />
+                    <Card.Body>
+                        <Card.Title>{product.name}</Card.Title>
+                        <Card.Text>
+                            {product.description}<br/>
+
+                        </Card.Text>
+                    </Card.Body>
+                    <Card.Footer>
+                        {product.price} kr
+                        <Button variant="primary" href="#addToBasket" style={{float: 'right'}}>Add to basket</Button>
+                    </Card.Footer>
+                </Card>
             </div>
         );
     }
 
- 
 
     render() {
-        const  {products, isLoading} = this.state
+        const {products, isLoading} = this.state
 
         if (isLoading)
             return <p>Loading...</p>
@@ -67,13 +68,13 @@ class ProductGrid extends Component {
             <div>
                 <Header/>
                 <Container>
-                    <Row style={{marginBottom:'7rem'}}>
-                {
-                    products.map((product) => {
-                        return this.ProductCard(product);
-                    
-                    })
-                }
+                    <Row style={{marginBottom: '7rem'}}>
+                        {
+                            products.map((product) => {
+                                return this.ProductCard(product);
+
+                            })
+                        }
                     </Row>
                 </Container>
                 <Footer/>
