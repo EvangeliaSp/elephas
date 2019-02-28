@@ -63,7 +63,7 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
     }
 
-    @RequestMapping(value = "userOrders", method = {RequestMethod.GET})
+    @RequestMapping(value = "/userOrders", method = {RequestMethod.GET})
     public ResponseEntity<String> findUserOrdersAll(
             @RequestParam("idUser") @Valid Long idUser)
             throws JsonProcessingException {
