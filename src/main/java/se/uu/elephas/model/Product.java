@@ -1,5 +1,7 @@
 package se.uu.elephas.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -36,8 +38,8 @@ public class Product {
     @Column(columnDefinition="varchar(256)")
     private String url;
 
-
     @OneToMany(mappedBy = "product")
+    @JsonIgnore
     private List<OrderItem> orderItems;
 
 
