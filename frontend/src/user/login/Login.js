@@ -1,17 +1,11 @@
 import React, {Component} from "react";
 import { Redirect } from 'react-router-dom'
-import { MDBContainer, MDBRow, MDBCol, MDBBtn, MDBCard, MDBCardBody, MDBInput } from 'mdbreact';
+import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import UserList from "../UserList";
 
 
 class Login extends Component{
-
-    // constructor(props) {
-    //     super(props);
-    //
-    // }
 
     state = {
         email: '',
