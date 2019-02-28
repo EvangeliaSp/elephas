@@ -34,7 +34,7 @@ public class OrderItemServiceImpl implements OrderItemService {
         return null;
     }
 
-    public Iterable<OrderItem> increaseOrderItemQuantity(Long idOrder, Long idItem) {
+    public OrderItem increaseOrderItemQuantity(Long idOrder, Long idItem) {
 
         Optional<OrderItem> orderItemOptional = orderItemRepository.findById(idItem);
 
@@ -44,11 +44,15 @@ public class OrderItemServiceImpl implements OrderItemService {
 
             orderItem.setQuantity(orderItem.getQuantity()+1);
 
+            orderItemRepository.save(orderItem);
+
+            return orderItem;
+
 //            if (orderItem.getQuantity() == 0)
 //                orderItemRepository.deleteById(idItem);
         }
 
-        return this.getOrderItems(idOrder);
+        return null;
 
     }
 
