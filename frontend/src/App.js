@@ -4,12 +4,14 @@ import Header from "./components/Header"
 import logo from './logo2.png';
 import './App.css';
 import product1 from './product2.jpg'
+import DraftHeader from "./components/DraftHeader";
 
 class App extends Component {
     render() {
         return (
             <div>
-                <Header/>
+                {/*<Header/>*/}
+                <DraftHeader/>
                 <Content/>
                 <Footer/>
             </div>
