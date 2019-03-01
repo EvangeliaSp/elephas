@@ -1,5 +1,7 @@
 package se.uu.elephas.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -30,14 +32,14 @@ public class Product {
 
     private float discount;
 
-    @Column(columnDefinition="varchar(255)")
+    @Column(columnDefinition="varchar(127)")
     private String name;
 
-    @Column(columnDefinition="varchar(256)")
+    @Column(columnDefinition="varchar(511)")
     private String url;
 
-
     @OneToMany(mappedBy = "product")
+    @JsonIgnore
     private List<OrderItem> orderItems;
 
 

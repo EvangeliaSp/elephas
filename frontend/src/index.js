@@ -11,6 +11,7 @@ import UserList from "./user/UserList";
 //import ProductList from "./product/ProductList"; //NOTE: just to show a list of products
 import ProductGrid from "./product/ProductGrid";
 import Profile from "./user/profile/Profile";
+import Register from "./user/Register";
 
 ReactDOM.render(
     <Router>
@@ -20,6 +21,7 @@ ReactDOM.render(
             <Route path='/user/all' component={UserList} />
             <Route path='/product/findBy' component={ProductGrid} />
             <Route path='/user/findById/:id' component={Profile}/>
+            <Route path='/user/register' component={Register}/>
         </div>
     </Router>,
     //<App/>,
