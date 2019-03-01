@@ -1,16 +1,8 @@
-// server.js
-import { sessionService, sessionReducer } from 'redux-react-session';
-import { combineReducers, createStore } from 'redux';
+import { combineReducers } from 'redux';
+import { sessionReducer } from 'redux-react-session';
 
-// ...
-app.use((req, res) => {
-    const reducer = combineReducers({
-        session: sessionReducer
-    });
-    // Create a new Redux store instance
-    const store = createStore(reducer);
-
-    sessionService.initServerSession(store, req);
-    // ...
-}
-// ...
+const reducers = {
+    // ... your other reducers here ...
+    session: sessionReducer
+};
+const reducer = combineReducers(reducers);
