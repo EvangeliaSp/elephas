@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import {MDBRow, MDBCol, MDBBtn} from "mdbreact";
-//import Header from "../../components/Header";
-//import Footer from "../../components/Footer";
+import { Redirect } from 'react-router-dom'
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 class FormsPage extends Component {
 
@@ -15,7 +16,9 @@ class FormsPage extends Component {
         country: '',
         city: '',
         zipCode: '',
-        telephone: ''
+        telephone: '',
+        redirect: false,
+        user: ''
     };
 
 
@@ -32,13 +35,9 @@ class FormsPage extends Component {
         event.preventDefault();
         event.target.className += " was-validated";
 
-
         fetch('/user/create', options)
-        // .then(response => this.handleRedirect(response))
-            .then(response =>
-                response.json()
-            )
-        //     .then(data => this.setState({user: data, redirect: true}))
+            .then(response => response.json())
+            .then(data => this.setState({user: data, redirect: true}))
 
     };
 
@@ -47,7 +46,13 @@ class FormsPage extends Component {
     };
 
     render() {
+        if (this.state.redirect) {
+            const { to } = {to: {pathname: `/user/findById/${this.state.user.idUser}`}}
+            return <Redirect to={ to }/>
+        }
         return (
+            <div>
+                <Header/>
             <div class="container">
                 <form
                     className="needs-validation"
@@ -132,6 +137,27 @@ class FormsPage extends Component {
                     <MDBRow>
                         <MDBCol md="3" className="mb-3">
                             <label
+                                htmlFor="defaultFormRegisterCountry7"
+                                className="grey-text"
+                            >
+                                City
+                            </label>
+                            <input
+                                value={this.state.city}
+                                onChange={this.changeHandler}
+                                type="text"
+                                id="defaultFormRegisterCountry7"
+                                className="form-control"
+                                name="city"
+                                placeholder="City"
+                                required
+                            />
+                            <div className="invalid-feedback">
+                                Please provide a valid country.
+                            </div>
+                        </MDBCol>
+                        <MDBCol md="3" className="mb-3">
+                            <label
                                 htmlFor="defaultFormRegisterStNameEx5"
                                 className="grey-text"
                             >
@@ -174,6 +200,29 @@ class FormsPage extends Component {
                         </MDBCol>
                         <MDBCol md="3" className="mb-3">
                             <label
+                                htmlFor="defaultFormRegisterZip8"
+                                className="grey-text"
+                            >
+                                Zip code
+                            </label>
+                            <input
+                                value={this.state.zipCode}
+                                onChange={this.changeHandler}
+                                type="text"
+                                id="defaultFormRegisterZip8"
+                                className="form-control"
+                                name="zipCode"
+                                placeholder="Zip code"
+                                required
+                            />
+                            <div className="invalid-feedback">
+                                Please provide a valid zip code
+                            </div>
+                        </MDBCol>
+                    </MDBRow>
+                    <MDBRow>
+                        <MDBCol md="3" className="mb-3">
+                            <label
                                 htmlFor="defaultFormRegisterCountry7"
                                 className="grey-text"
                             >
@@ -195,29 +244,6 @@ class FormsPage extends Component {
                         </MDBCol>
                         <MDBCol md="3" className="mb-3">
                             <label
-                                htmlFor="defaultFormRegisterZip8"
-                                className="grey-text"
-                            >
-                                Zip code
-                            </label>
-                            <input
-                                value={this.state.zipCode}
-                                onChange={this.changeHandler}
-                                type="number"
-                                id="defaultFormRegisterZip8"
-                                className="form-control"
-                                name="zipCode"
-                                placeholder="Zip code"
-                                required
-                            />
-                            <div className="invalid-feedback">
-                                Please provide a valid zip code
-                            </div>
-                        </MDBCol>
-                    </MDBRow>
-                    <MDBRow>
-                        <MDBCol md="3" className="mb-3">
-                            <label
                                 htmlFor="defaultFormRegisterTel9"
                                 className="grey-text"
                             >
@@ -237,27 +263,7 @@ class FormsPage extends Component {
                                 Please provide a valid telephone number.
                             </div>
                         </MDBCol>
-                        <MDBCol md="3" className="mb-3">
-                            <label
-                                htmlFor="defaultFormRegisterCountry7"
-                                className="grey-text"
-                            >
-                                City
-                            </label>
-                            <input
-                                value={this.state.city}
-                                onChange={this.changeHandler}
-                                type="text"
-                                id="defaultFormRegisterCountry7"
-                                className="form-control"
-                                name="city"
-                                placeholder="City"
-                                required
-                            />
-                            <div className="invalid-feedback">
-                                Please provide a valid country.
-                            </div>
-                        </MDBCol>
+
                     </MDBRow>
                     <MDBCol md="6" className="mb-3">
                         <div className="custom-control custom-checkbox pl-3">
@@ -280,6 +286,8 @@ class FormsPage extends Component {
                         Submit Form
                     </MDBBtn>
                 </form>
+            </div>
+                <Footer/>
             </div>
         );
     }
