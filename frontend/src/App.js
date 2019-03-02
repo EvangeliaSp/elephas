@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import Footer from "./components/Footer"
 import Header from "./components/Header"
-import logo from './logo2.png';
 import './App.css';
 import product1 from './product2.jpg'
 
