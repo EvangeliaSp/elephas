@@ -4,6 +4,7 @@ import {ButtonToolbar, ListGroupItem} from "react-bootstrap";
 import Header from "../components/Header";
 import {Container, MDBBtn} from "mdbreact";
 import './ShowCart.css'
+import Footer from "../components/Footer";
 
 class ShowCart extends Component {
 
@@ -14,7 +15,8 @@ class ShowCart extends Component {
 
         this.state = {
             items: [],
-            isLoading: true
+            isLoading: true,
+            total: this.totalCost()
         }
     }
 
@@ -66,8 +68,21 @@ class ShowCart extends Component {
 
     }
 
+    totalCost = () => {
+        const options = {
+            method: 'GET'
+        };
+
+        fetch(`/order/total/81`, options)
+            .then(response =>
+                response.json()
+            )
+            .then(data => this.setState({total: data}))
+
+    };
+
     render() {
-        const  {items, isLoading} = this.state
+        const  {items, isLoading, total} = this.state
 
         if (isLoading)
             return <p>Loading...</p>
@@ -88,21 +103,31 @@ class ShowCart extends Component {
                                 <td><img src={"https://i.pinimg.com/originals/96/f5/91/96f5916ce8fcc48004451e9a4895fd68.jpg"} width="200" height="100"/>  </td>
                                 <td>{item.name}</td>
                                 <td>{item.price} kr</td>
-                                <td><ButtonToolbar>
-                                    <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleDecrease(81, item.id) } }>-</MDBBtn>
-                                    <ListGroupItem>{item.quantity}</ListGroupItem>
-                                    <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleIncrease(81, item.id) } }>+</MDBBtn>
-                                </ButtonToolbar>
-
-                                    </td>
+                                <td>
+                                    <ButtonToolbar>
+                                        <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleDecrease(81, item.id) } }>-</MDBBtn>
+                                        <ListGroupItem>{item.quantity}</ListGroupItem>
+                                        <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleIncrease(81, item.id) } }>+</MDBBtn>
+                                    </ButtonToolbar>
+                                </td>
                                 <td><b>{item.quantity*item.price} kr</b></td>
                                 <td><MDBBtn color={"danger"} variant="primary" onClick={() => { this.handleDelete(81, item.id) } } >Remove</MDBBtn></td>
                             </tr>
                         ))}
+                        <br/>
+                        <tr>
+                            <td>Total <h4><b>{total} kr</b></h4></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td><MDBBtn outline color="danger" variant="primary" >Continue Shopping</MDBBtn></td>
+                            <td><MDBBtn color={"success"} variant="primary" >Check out</MDBBtn></td>
+                        </tr>
                         </tbody>
                     </table>
                 </div>
                 </Container>
+                {/*<Footer/>*/}
             </div>
         );
     }
