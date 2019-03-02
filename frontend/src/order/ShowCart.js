@@ -5,6 +5,7 @@ import Header from "../components/Header";
 import {Container, MDBBtn} from "mdbreact";
 import './ShowCart.css'
 import Footer from "../components/Footer";
+import ProductGrid from "../product/ProductGrid";
 
 class ShowCart extends Component {
 
@@ -16,7 +17,8 @@ class ShowCart extends Component {
         this.state = {
             items: [],
             isLoading: true,
-            total: this.totalCost()
+            total: this.totalCost(),
+            continueShop: false
         }
     }
 
@@ -81,11 +83,23 @@ class ShowCart extends Component {
 
     };
 
+    continueShopping = () => {
+        this.setState({
+            continueShop: !this.state.continueShop
+        })
+    }
+
     render() {
-        const  {items, isLoading, total} = this.state
+        const  {items, isLoading, total, continueShop} = this.state
 
         if (isLoading)
             return <p>Loading...</p>
+
+        if (continueShop) {
+            const { to } = {to: {pathname: '/product/findBy'}}
+            return <Redirect to={ to }/>
+
+        }
 
         return (
             <div>
@@ -120,8 +134,8 @@ class ShowCart extends Component {
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td><MDBBtn outline color="danger" variant="primary" >Continue Shopping</MDBBtn></td>
-                            <td><MDBBtn color={"success"} variant="primary" >Check out</MDBBtn></td>
+                            <td><MDBBtn outline color="danger" variant="primary" onClick={this.continueShopping} >Continue Shopping</MDBBtn></td>
+                            <td><MDBBtn color="success" variant="primary" >Check out</MDBBtn></td>
                         </tr>
                         </tbody>
                     </table>
