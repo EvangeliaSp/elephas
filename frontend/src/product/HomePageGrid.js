@@ -59,6 +59,7 @@ class HomePageGrid extends Component {
     render() {
         const {products, isLoading} = this.state
 
+
         if (isLoading)
             return <p>Loading...</p>
 
@@ -70,7 +71,7 @@ class HomePageGrid extends Component {
                         {
 
 
-                            products.slice(0,6).map((product) => {
+                            products.slice(products.length-6, products.length).map((product) => {
                                 return this.ProductCard(product);
 
                             })
