@@ -2,7 +2,7 @@ package se.uu.elephas.model;
 
 public class BasketItem {
 
-    private Long idOrderItem;
+    private Long id;
 
     private String name;
 
@@ -14,8 +14,8 @@ public class BasketItem {
 
     private float discount;
 
-    public BasketItem(Long idOrderItem, String name, String url, int quantity, float price, float discount) {
-        this.idOrderItem = idOrderItem;
+    public BasketItem(Long id, String name, String url, int quantity, float price, float discount) {
+        this.id = id;
         this.name = name;
         this.url = url;
         this.quantity = quantity;
@@ -23,12 +23,12 @@ public class BasketItem {
         this.discount = discount;
     }
 
-    public Long getIdOrderItem() {
-        return idOrderItem;
+    public Long getId() {
+        return id;
     }
 
-    public void setIdOrderItem(Long idOrderItem) {
-        this.idOrderItem = idOrderItem;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -37,6 +37,14 @@ public class BasketItem {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     public int getQuantity() {
