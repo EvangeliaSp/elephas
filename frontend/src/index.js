@@ -12,6 +12,7 @@ import UserList from "./user/UserList";
 import ProductGrid from "./product/ProductGrid";
 import Profile from "./user/profile/Profile";
 import Register from "./user/Register";
+import ShowCart from "./order/ShowCart";
 
 ReactDOM.render(
     <Router>
@@ -22,6 +23,7 @@ ReactDOM.render(
             <Route path='/product/findBy' component={ProductGrid} />
             <Route path='/user/findById/:id' component={Profile}/>
             <Route path='/user/register' component={Register}/>
+            <Route path='/order/cart' component={ShowCart}/>
         </div>
     </Router>,
     //<App/>,
