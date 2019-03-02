@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import Footer from "./components/Footer"
 import Header from "./components/Header"
-import logo from './logo2.png';
 import './App.css';
 import product1 from './product2.jpg'
+import HomePageGrid from "./product/HomePageGrid";
 
 
 class App extends Component {
@@ -12,6 +12,8 @@ class App extends Component {
             <div>
                 <Header/>
                 <Content/>
+                <HomePageGrid/>
+
                 <Footer/>
             </div>
         );
@@ -29,6 +31,9 @@ class Content extends React.Component {
                 <div className="intro">Welcome to Elephas.. HeartMade Jewelry since 2016</div>
                 <div className="topLine">
                     <div className="bestSeller">Featured Products</div>
+                    <div>
+                    </div>
+
                 </div>
                 <div className="fb">
                     {/*<iframe*/}
@@ -45,6 +50,7 @@ class Content extends React.Component {
                     {/*allowTransparency="true"></iframe>*/}
 
                 </div>
+
             </div>
         );
     }
