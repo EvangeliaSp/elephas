@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Header from "../components/Header";
-import Footer from "../components/Footer";
-import {BootstrapTable, TableHeaderColumn} from "react-bootstrap-table";
+import {MDBBtn} from "mdbreact";
+import './ShowCart.css'
 
 class ShowCart extends Component {
 
@@ -37,13 +37,23 @@ class ShowCart extends Component {
         return (
             <div>
                 <Header/>
-                <BootstrapTable data={ items } striped hover condensed pagination>
-                    <TableHeaderColumn dataField='idOrderItem' isKey dataAlign="center">ID</TableHeaderColumn>
-                    <TableHeaderColumn dataField='quantity' dataAlign="center">Quantity</TableHeaderColumn>
-                    <TableHeaderColumn dataField='price' dataAlign="center">Price</TableHeaderColumn>
-                    {/*<TableHeaderColumn dataField='discount' dataAlign="center">Discount</TableHeaderColumn>*/}
-                </BootstrapTable>
-                <Footer/>
+                <div>
+                    <table className="table table-striped ">
+
+                        <tbody>
+                        {items.map(item => (
+                            <tr key={item.id}>
+                                <td><img src={"https://i.pinimg.com/originals/96/f5/91/96f5916ce8fcc48004451e9a4895fd68.jpg"} width="200" height="100"/>  </td>
+                                <td>{item.name}</td>
+                                <td>{item.price} kr</td>
+                                <td>{item.quantity}</td>
+                                <td>{item.quantity*item.price} kr</td>
+                                <td><MDBBtn color={"danger"} variant="primary" href="#addToBasket" >Remove</MDBBtn></td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
         );
     }
