@@ -116,7 +116,7 @@ class ShowCart extends Component {
             return <Redirect to={ to }/>
         }
 
-        if (items.length===0 || items==null)
+        if (items.length===0)
             return (
                 <div>
                     <Header/>
