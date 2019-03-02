@@ -217,4 +217,19 @@ public class OrderController {
 
     }
 
+    @RequestMapping(value = "total/{idUser}", method = {RequestMethod.GET})
+    public ResponseEntity<String> getTotal(
+            @PathVariable("idUser") @Valid Long idUser)
+            throws JsonProcessingException {
+
+        Order basket = orderService.getBasketOfUser(idUser).iterator().next();
+
+        if (basket == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Basket of user with id " + idUser + " not found.");
+
+        int total = orderItemService.getTotalCost(basket.getIdOrder());
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(total));
+
+    }
+
 }

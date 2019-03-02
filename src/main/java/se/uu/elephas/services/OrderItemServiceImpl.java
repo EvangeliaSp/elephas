@@ -120,4 +120,15 @@ public class OrderItemServiceImpl implements OrderItemService {
         return basketItems;
 
     }
+
+    public int getTotalCost(Long idOrder) {
+        int total = 0;
+        List<BasketItem> basketItems = this.getCartOrderItems(idOrder);
+
+        for (BasketItem basketItem: basketItems) {
+            total += basketItem.getQuantity()*basketItem.getPrice();
+        }
+
+        return total;
+    }
 }
