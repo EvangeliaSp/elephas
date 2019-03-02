@@ -5,7 +5,6 @@ import Header from "../components/Header";
 import {Container, MDBBtn} from "mdbreact";
 import './ShowCart.css'
 import Footer from "../components/Footer";
-import ProductGrid from "../product/ProductGrid";
 
 class ShowCart extends Component {
 
@@ -117,7 +116,7 @@ class ShowCart extends Component {
             return <Redirect to={ to }/>
         }
 
-        if (items.length==0 || items==null)
+        if (items.length===0 || items==null)
             return (
                 <div>
                     <Header/>
