@@ -51,21 +51,6 @@ public class UserController {
 
     }
 
-//    @RequestMapping(value = "/all", method = {RequestMethod.GET})
-//    public ResponseEntity<String> findAll() {
-//
-//        Page<User> users = userService.findAll();
-//        if (users)
-////        try {
-////            a = userService.findAll();
-////        } catch (ConstraintViolationException e) {
-//            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User cannot be created.");
-////        }
-//
-//        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(user));
-//
-//    }
-
     @RequestMapping(value = "/findById/{id}", method = {RequestMethod.GET})
     public ResponseEntity<String> findById(
             @PathVariable("id") @Valid Long id)
