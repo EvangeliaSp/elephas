@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.uu.elephas.model.User;
+import se.uu.elephas.services.OrderServiceImpl;
 import se.uu.elephas.services.UserServiceImpl;
 
 import javax.validation.ConstraintViolationException;
@@ -26,6 +27,9 @@ public class UserController {
     @Autowired
     private UserServiceImpl userService;
 
+    @Autowired
+    private OrderServiceImpl orderService;
+
     @RequestMapping("/")
     public String home() {
         return "Hello Elephas!";
@@ -40,7 +44,8 @@ public class UserController {
         MessageDigest md = MessageDigest.getInstance("MD5");
 
         try {
-            userService.create(user, md);
+            User userObject = (User) userService.create(user, md);
+            orderService.create(userObject.getIdUser());
         } catch (ConstraintViolationException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Cannot create user.");
         } catch (DataIntegrityViolationException de) {
