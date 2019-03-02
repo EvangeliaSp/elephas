@@ -18,7 +18,8 @@ class ShowCart extends Component {
             items: [],
             isLoading: true,
             total: this.totalCost(),
-            continueShop: false
+            continueRedirect: false,
+            proceedRedirect: false
         }
     }
 
@@ -80,26 +81,72 @@ class ShowCart extends Component {
                 response.json()
             )
             .then(data => this.setState({total: data}))
-
     };
 
     continueShopping = () => {
         this.setState({
-            continueShop: !this.state.continueShop
+            continueRedirect: !this.state.continueRedirect
         })
-    }
+    };
+
+    proceedOrder = (idUser) => {
+        const options = {
+            method: 'PATCH'
+        };
+
+        fetch(`/order/proceed?idUser=${idUser}`, options)
+            .then(response =>
+                response.json()
+            )
+            .then(data => this.setState({proceedRedirect: !this.state.proceedRedirect}))
+    };
 
     render() {
-        const  {items, isLoading, total, continueShop} = this.state
+        const  {items, isLoading, total, continueRedirect, proceedRedirect} = this.state
 
         if (isLoading)
-            return <p>Loading...</p>
+            return (<p>Loading...</p>);
 
-        if (continueShop) {
+        if (continueRedirect) {
             const { to } = {to: {pathname: '/product/findBy'}}
             return <Redirect to={ to }/>
-
         }
+
+        if (proceedRedirect) {
+            const { to } = {to: {pathname: '/'}}
+            return <Redirect to={ to }/>
+        }
+
+        if (items.length==0 || items==null)
+            return (
+                <div>
+                    <Header/>
+                    <br/>
+                    <Container>
+                        <div>
+                            <table className="table table-striped ">
+                                <tHeader><h3 align="center"><b>Shopping cart</b></h3></tHeader>
+
+                                <tbody>
+                                <br/><br/>
+                                <tr>
+                                    <h4><b>Your shopping cart is empty.</b></h4>
+                                </tr>
+                                <br/>
+                                <tr>
+                                    <td>Total <h4><b>{total} kr</b></h4></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td><MDBBtn outline color="primary" variant="primary" onClick={this.continueShopping} >Continue Shopping</MDBBtn></td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </Container>
+                    <Footer/>
+                </div>
+            );
 
         return (
             <div>
@@ -134,8 +181,8 @@ class ShowCart extends Component {
                             <td></td>
                             <td></td>
                             <td></td>
-                            <td><MDBBtn outline color="danger" variant="primary" onClick={this.continueShopping} >Continue Shopping</MDBBtn></td>
-                            <td><MDBBtn color="success" variant="primary" >Check out</MDBBtn></td>
+                            <td><MDBBtn outline color="primary" variant="primary" onClick={this.continueShopping} >Continue Shopping</MDBBtn></td>
+                            <td><MDBBtn color="success" variant="primary" onClick={() => this.proceedOrder(81)} >Check out</MDBBtn></td>
                         </tr>
                         </tbody>
                     </table>
