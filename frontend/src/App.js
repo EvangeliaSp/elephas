@@ -16,21 +16,23 @@ class App extends React.Component {
 }
 
 class Header extends React.Component {
-    state = {
-        d: ''
+
+    state = {};
+
+    constructor() {
+        super();
+
+        this.state = {
+            d: this.getBasketSize(81)
+        }
     }
 
-    // d=0;
-
-
-    componentDidMount() {
-        this.getBasketSize();
-    }
-
-    getBasketSize = () => {
-        const {idUser} = 0;
-            // this.props.match.params;
-        fetch(`/order/cartSize/${idUser}`)
+    getBasketSize = (idUser) => {
+        const options = {
+            method: 'GET'
+        };
+        // this.props.match.params;
+        fetch(`/order/cartSize/${idUser}`, options)
             .then(response => response.json())
             .then(data => {
                 this.setState({
