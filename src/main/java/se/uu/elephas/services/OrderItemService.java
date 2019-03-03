@@ -6,6 +6,12 @@ public interface OrderItemService {
 
     Iterable<OrderItem> getOrderItems(Long idOrder);
 
-    Iterable<OrderItem> increaseOrderItemQuantity(Long idOrder, Long idItem);
+    OrderItem findItemInOrderItems(Long idOrder, Long idItem);
+
+    OrderItem increaseOrderItemQuantity(Long idOrder, Long idItem);
+
+    OrderItem decreaseOrderItemQuantity(Long idOrder, Long idItem);
+
+    void delete (Long idOrderItem);
 
 }

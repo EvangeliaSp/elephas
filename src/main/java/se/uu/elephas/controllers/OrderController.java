@@ -31,7 +31,6 @@ public class OrderController {
             @RequestParam("userId") @Valid Long userId)
             throws JsonProcessingException {
 
-
         Order order = (Order) orderService.create(userId);
         if (order == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create order. User with id " + userId + " not found.");
@@ -79,7 +78,8 @@ public class OrderController {
             @RequestParam("productId") @Valid Long idProduct)
             throws JsonProcessingException {
 
-        Order basket = (Order) orderService.getBasketOfUser(idUser).iterator().next(); // assuming a user only has one basket
+        Order basket = orderService.getBasketOfUser(idUser).iterator().next(); // assuming a user only has one basket
+
         if (basket == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create basket. User with id " + idUser + " not found.");
 
@@ -91,13 +91,35 @@ public class OrderController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot create orderItem.");
         } else {
             // increase quantity of orderItem
-            item = (OrderItem) orderItemService.increaseOrderItemQuantity(basket.getIdOrder(), item.getIdOrderItem());
+            item = orderItemService.increaseOrderItemQuantity(basket.getIdOrder(), item.getIdOrderItem());
             if (item == null)
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot increase quantity of orderItem.");
         }
-        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(basket));
+
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(item));
     }
 
+    @RequestMapping(value = "/removeFromBasket", method = {RequestMethod.DELETE})
+    public ResponseEntity<String> removeFromBasket(
+            @RequestParam("idUser") @Valid Long idUser,
+            @RequestParam("idOrderItem") @Valid Long idOrderItem)
+            throws JsonProcessingException {
+
+        Order basket = orderService.getBasketOfUser(idUser).iterator().next();
+        if (basket == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot find basket. User with id " + idUser + " not found.");
+
+        OrderItem item = orderItemService.findItemInOrderItems(basket.getIdOrder(), idOrderItem);
+
+        if (item != null) {
+            orderItemService.delete(idOrderItem);
+            basket = orderService.getBasketOfUser(idUser).iterator().next();
+            return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(basket));
+        } else {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot remove order item with id " + idOrderItem + ". It is not found.");
+        }
+    }
 
     @RequestMapping(value = "all", method = {RequestMethod.GET})
     public ResponseEntity<String> findAll()
@@ -114,7 +136,8 @@ public class OrderController {
             throws JsonProcessingException {
 
         Order order = orderService.proceedOrder(idUser);
-        if (order == null)
+        Order basket = (Order) orderService.create(idUser);
+        if (order == null || basket == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot proceed basket to order. User with id " + idUser + " not found.");
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order));
@@ -135,18 +158,43 @@ public class OrderController {
 
     }
 
-    @RequestMapping(value = "/increase", method = {RequestMethod.PATCH})
+    @RequestMapping(value = "increase", method = {RequestMethod.PATCH})
     public ResponseEntity<String> increaseQuantity(
-            @RequestParam("idOrder") @Valid Long idOrder,
+            @RequestParam("idUser") @Valid Long idUser,
             @RequestParam("idItem") @Valid Long idItem)
             throws JsonProcessingException {
 
-        Iterable<OrderItem> orderItems = orderItemService.increaseOrderItemQuantity(idOrder, idItem);
+        Order basket = orderService.getBasketOfUser(idUser).iterator().next();
+        if (basket == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot find basket. User with id " + idUser + " not found.");
 
-        if (orderItems == null)
+
+        OrderItem orderItem = orderItemService.increaseOrderItemQuantity(basket.getIdOrder(), idItem);
+
+        if (orderItem == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found order item with id " + idItem);
 
-        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orderItems));
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orderItem));
+
+    }
+
+    @RequestMapping(value = "decrease", method = {RequestMethod.PATCH})
+    public ResponseEntity<String> decreaseQuantity(
+            @RequestParam("idUser") @Valid Long idUser,
+            @RequestParam("idItem") @Valid Long idItem)
+            throws JsonProcessingException {
+
+        Order basket = orderService.getBasketOfUser(idUser).iterator().next();
+        if (basket == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot find basket. User with id " + idUser + " not found.");
+
+
+        OrderItem orderItem = orderItemService.decreaseOrderItemQuantity(basket.getIdOrder(), idItem);
+
+        if (orderItem != null)
+            return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orderItem));
+
+        return ResponseEntity.status(HttpStatus.OK).body("Order item with id " + idItem + " removed from basket.");
 
     }
 
