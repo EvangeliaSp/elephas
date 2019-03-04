@@ -3,6 +3,31 @@ import React from "react";
 import logo from "../logo2.png";
 
 class Header extends Component {
+
+    state = {};
+
+    constructor() {
+        super();
+
+        this.state = {
+            d: this.getBasketSize(81)
+        }
+    }
+
+    getBasketSize = (idUser) => {
+        const options = {
+            method: 'GET'
+        };
+
+        fetch(`/order/cartSize/${idUser}`, options)
+            .then(response => response.json())
+            .then(data => {
+                this.setState({
+                    d: data
+                })
+            })
+    };
+
     render() {
         return (
             <div>
@@ -28,7 +53,7 @@ class Header extends Component {
                               integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
                               crossOrigin="anonymous"/>
                         <div className="user">
-                            <a href="#cart"> <i className="fas fa-shopping-cart" rel="stylesheet"></i> </a>
+                            <a href="#cart"> <i className="fas fa-shopping-cart icon-grey" data-count={this.state.d} rel="stylesheet"></i> </a>
                         </div>
                         <div className="cart">
                             <a href="#user"> <i className="fas fa-user"></i> </a>

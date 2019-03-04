@@ -61,6 +61,26 @@
     top: 0.563em;
 }
 
+*.icon-grey {
+    color: grey
+}
+
+.badge[data-count]:after {
+    position: relative;
+    font-family: "Calibri";
+    height: 2rem;
+    content: attr(data-count);
+    bottom: 1rem;
+    right: 0.1rem;
+    width: 2rem;
+    text-align: center;
+    line-height: 2rem;;
+    font-size: 1rem;
+    border-radius: 100%;
+    color: #b2b7b2;
+    border: 1px;
+}
+
 .cart {
     font-size: 1.250em;
     position: absolute;
@@ -68,6 +88,7 @@
     width: 8.438em;
     height: 9.375em;
     top: 0.563em;
+    color: #92af75;
 }
 
 .elephants {

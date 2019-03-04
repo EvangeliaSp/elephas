@@ -138,4 +138,14 @@ public class OrderServiceImpl implements OrderService {
 
     }
 
+    public int sizeCart(Long idUser) {
+        Order basket=getBasketOfUser(idUser).iterator().next();
+        Iterable<OrderItem> cart =getOrderItemsByOrderId(basket.getIdOrder());
+        int mycounter=0;
+        for (OrderItem item:cart){
+            mycounter = mycounter + 1*item.getQuantity();
+        }
+        return mycounter;
+    }
+
 }

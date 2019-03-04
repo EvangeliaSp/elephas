@@ -23,4 +23,6 @@ public interface OrderService {
     
     Object createOrderItem(Order order, Long productId);
 
+    int sizeCart(Long idUser);
+
 }
