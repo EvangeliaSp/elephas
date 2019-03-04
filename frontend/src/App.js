@@ -1,17 +1,14 @@
 import React, {Component} from 'react';
 import Footer from "./components/Footer"
 import Header from "./components/Header"
-import logo from './logo2.png';
 import './App.css';
 import product1 from './product2.jpg'
-import DraftHeader from "./components/DraftHeader";
 
 class App extends Component {
     render() {
         return (
             <div>
-                {/*<Header/>*/}
-                <DraftHeader/>
+                <Header/>
                 <Content/>
                 <Footer/>
             </div>
