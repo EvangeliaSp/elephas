@@ -138,7 +138,8 @@ public class OrderController {
             throws JsonProcessingException {
 
         Order order = orderService.proceedOrder(idUser);
-        if (order == null)
+        Order basket = (Order) orderService.create(idUser);
+        if (order == null || basket == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot proceed basket to order. User with id " + idUser + " not found.");
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order));
