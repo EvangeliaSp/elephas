@@ -31,16 +31,16 @@ class Header extends Component {
     render() {
         return (
             <div>
-                <div className="header">
+                <div className="header"  style={{marginBottom: '3rem'}}>
                     <a href="#default" className="logo"> <img src={logo} alt="Logo"
                                                               style={{width: "46px", height: "60px"}}/>
                     </a>
                     <div className="header-right">
-                        <a className="active" href="#home">Home</a>
-                        <a href="#bracelets">Bracelets</a>
-                        <a href="#rings">Rings</a>
-                        <a href="#necklaces">Necklaces</a>
-                        <a href="#earrings">Earrings</a>
+                        <a className="active" href="/">Home</a>
+                        <a href="/product/findBy?type=1">Bracelets</a>
+                        <a href="/product/findBy?type=2">Rings</a>
+                        <a href="/product/findBy?type=4">Necklaces</a>
+                        <a href="/product/findBy?type=3">Earrings</a>
 
                         <a href="#contact">Contact</a>
                         <a href="#about">About</a>
