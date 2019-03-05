@@ -53,6 +53,7 @@ class FormsPage extends Component {
                 <form
                     className="needs-validation"
                     onSubmit={this.submitHandler}
+                    style={{marginBottom: "9rem"}}
                     noValidate
                 >
                     <MDBRow>
