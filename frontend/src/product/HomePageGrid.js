@@ -3,10 +3,8 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import Header from './../components/Header';
-import Footer from './../components/Footer';
 
-class ProductGrid extends Component {
+class HomePageGrid extends Component {
 
     state = {};
 
@@ -26,7 +24,7 @@ class ProductGrid extends Component {
     loadProductsFromServer = () => {
         this.setState({isLoading: true});
 
-        fetch(`/product/findBy${this.props.location.search}`)
+        fetch(`/product/findBy`)
             .then(response => response.json())
             .then(data => this.setState({products: data, isLoading: false}))
     };
@@ -38,17 +36,16 @@ class ProductGrid extends Component {
             <div key={product.idProduct} className="col-sm-6 col-lg-4">
                 <Card style={{marginBottom: '2rem'}}>
                     <a href={"/product/findById/" + product.idProduct}>
-                        <Card.Img variant="top"  src={product.url}
-                                style={{ height:`20rem` }}
+                        <Card.Img variant="top" src={product.url}
+                                style={{height: `20rem`}}
                         />
                     </a>
                     <Card.Body>
-                        <Card.Title>  
+                        <Card.Title>
                             <a href={"/product/findById/" + product.idProduct} style={{color: "black"}}>
-                                {product.name}
+                                    {product.name}
                             </a>
                         </Card.Title>
-            
                         <Card.Text>
                             {product.description}<br/>
 
@@ -67,26 +64,28 @@ class ProductGrid extends Component {
     render() {
         const {products, isLoading} = this.state
 
+
         if (isLoading)
             return <p>Loading...</p>
 
+
         return (
             <div>
-                <Header/>
                 <Container>
                     <Row style={{marginBottom: '7rem'}}>
                         {
-                            products.map((product) => {
+
+
+                            products.slice(products.length-6, products.length).map((product) => {
                                 return this.ProductCard(product);
 
                             })
                         }
                     </Row>
                 </Container>
-                <Footer/>
             </div>
         );
     }
 }
 
-export default ProductGrid;
+export default HomePageGrid;

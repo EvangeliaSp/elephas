@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-bootstrap-table/dist/react-bootstrap-table.min.css';
@@ -13,6 +13,7 @@ import ProductGrid from "./product/ProductGrid";
 import Profile from "./user/profile/Profile";
 import Register from "./user/Register";
 import ShowCart from "./order/ShowCart";
+import ProductDetail from "./product/ProductDetail";
 
 ReactDOM.render(
     <Router>
@@ -21,6 +22,7 @@ ReactDOM.render(
             <Route path="/user/loginForm" exact component={Login} />
             <Route path='/user/all' component={UserList} />
             <Route path='/product/findBy' component={ProductGrid} />
+            <Route path='/product/findById/:id' component={ProductDetail} />
             <Route path='/user/findById/:id' component={Profile}/>
             <Route path='/user/register' component={Register}/>
             <Route path='/order/cart' component={ShowCart}/>

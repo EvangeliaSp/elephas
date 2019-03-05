@@ -3,6 +3,8 @@ import Footer from "./components/Footer"
 import Header from "./components/Header"
 import './App.css';
 import product1 from './product2.jpg'
+import HomePageGrid from "./product/HomePageGrid";
+
 
 class App extends Component {
     render() {
@@ -10,13 +12,13 @@ class App extends Component {
             <div>
                 <Header/>
                 <Content/>
+                <HomePageGrid/>
+
                 <Footer/>
             </div>
         );
     }
 }
-
-
 
 
 class Content extends React.Component {
@@ -25,6 +27,13 @@ class Content extends React.Component {
             <div>
                 <div className="elephants">
                     <img src={product1} alt="Elephas"/>
+                </div>
+                <div className="intro">Welcome to Elephas.. HeartMade Jewelry since 2016</div>
+                <div className="topLine">
+                    <div className="bestSeller">Featured Products</div>
+                    <div>
+                    </div>
+
                 </div>
                 <div className="fb">
                     {/*<iframe*/}
@@ -41,6 +50,7 @@ class Content extends React.Component {
                     {/*allowTransparency="true"></iframe>*/}
 
                 </div>
+
             </div>
         );
     }

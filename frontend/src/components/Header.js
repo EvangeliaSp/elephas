@@ -1,21 +1,24 @@
 import {Component} from "react";
 import React from "react";
 import logo from "../logo2.png";
+// import NavLink from "./components/nav_link";
+
 
 class Header extends Component {
     render() {
         return (
             <div>
-
                 <div className="header" style={{marginBottom: '3rem'}}>
                     <a href="#default" className="logo"> <img src={logo} alt="Logo"
                                                               style={{width: "46px", height: "60px"}}/>
                     </a>
 
                     <div className="header-right">
+                        <nav>
 
 
-                        <a className="active" href="/">Home</a>
+
+                        <a href="http://localhost:3000/">Home</a>
                         <a href="/product/findBy?type=1">Bracelets</a>
                         <a href="/product/findBy?type=2">Rings</a>
                         <a href="/product/findBy?type=4">Necklaces</a>
@@ -30,15 +33,13 @@ class Header extends Component {
                         <div className="user">
                             <a href="/order/cart"> <i className="fas fa-shopping-cart" rel="stylesheet"></i> </a>
                         </div>
-                        <div className="cart">
+                        <nav className="cart">
                             <a href="#user"> <i className="fas fa-user"></i> </a>
-
-                        </div>
+                        </nav>
+                        </nav>
                     </div>
                 </div>
             </div>
-
-
         );
     }
 }
