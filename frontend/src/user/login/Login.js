@@ -3,6 +3,7 @@ import { Redirect } from 'react-router-dom'
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
+import { sessionService } from 'redux-react-session';
 
 
 class Login extends Component{
@@ -36,12 +37,48 @@ class Login extends Component{
         }
         event.preventDefault();
         event.target.className += " was-validated";
+        const response = fetch('/user/login', options)
+        // const responsePromise = new Promise( resolve => setTimeout(resolve(response), 1000))
         fetch('/user/login', options)
             // .then(response => this.handleRedirect(response))
-            .then(response =>
-                    response.json()
+        // response
+        //     .then(resp => {
+                    // const { token } = resp;
+                    // console.log(resp)
+                    // resp.json()
+                    // sessionService.saveSession({ token })
+                    //     .then(() => {
+                    //         sessionService.saveUser(response.data)
+                    //             .then(() => this.setState({user: resp.data, redirect: true}))
+                        // }).catch(err => console.error(err));
+                // }
+            .then(response => {
+                const { token } = response;
+                sessionService.saveSession({ token })
+                    .then( () => {
+                        this.setState({user: response.data, redirect: true})
+                        sessionService.saveUser(response.data)
+                            .then(() => console.log("User saved"))
+                            .catch(err => console.error(err));
+                        }
+                    ).catch(err => console.error(err));
+
+                }
             )
-            .then(data => this.setState({user: data, redirect: true}))
+            // .then(data => {
+            //         this.setState({user: data, redirect: true})
+            //
+            //             .then(() => {
+            //                 sessionService.saveUser(data)
+            //                     .then(() => console.log("User saved"))
+            //             })
+            //
+            //     }
+            //
+            // )
+            // .then(() => {sessionService.saveUser(response.data)})
+
+
         // {
             // if (response.ok) {
             //     console.log(`User ${this.state.email} logged in successfully.`);
@@ -68,6 +105,7 @@ class Login extends Component{
    render() {
        if (this.state.redirect) {
            const { to } = {to: {pathname: `/user/findById/${this.state.user.idUser}`}}
+           // return(<div>this.state.user</div>);
            return <Redirect to={ to }/>
        }
         return (
