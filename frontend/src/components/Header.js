@@ -26,7 +26,7 @@ class Header extends Component {
                     <div className="header-right">
                         <nav>
 
-                        <NavLink to="/" className={this.setClassName("", "")}>Home</NavLink>
+                        <NavLink exact to="/" >Home</NavLink>
                         <NavLink to="/product#bracelets" className={this.setClassName("#bracelets", "")}>Bracelets</NavLink>
                         <NavLink to="/product#rings" className={this.setClassName("#rings", "")}>Rings</NavLink>
                         <NavLink to="/product#necklaces" className={this.setClassName("#necklaces", "")}>Necklaces</NavLink>
