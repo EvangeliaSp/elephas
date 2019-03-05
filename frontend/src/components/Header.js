@@ -20,13 +20,12 @@ class Header extends Component {
 
 
                         <a href="http://localhost:3000/">Home</a>
-                        <a href="/product/findBy?type=1">Bracelets</a>
-                        <a href="/product/findBy?type=2">Rings</a>
-                        <a href="/product/findBy?type=4">Necklaces</a>
-                        <a href="/product/findBy?type=3">Earrings</a>
+                        <a href="http://localhost:3000/product/findBy?type=1">Bracelets</a>
+                        <a href="http://localhost:3000/product/findBy?type=2">Rings</a>
+                        <a href="http://localhost:3000/product/findBy?type=4">Necklaces</a>
+                        <a href="http://localhost:3000/product/findBy?type=3">Earrings</a>
 
-                        <a href="#contact">Contact</a>
-                        <a href="#about">About</a>
+                        <a href="http://localhost:3000/about">About</a>
 
                         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
                               integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
@@ -35,7 +34,7 @@ class Header extends Component {
                             <a href="#cart"> <i className="fas fa-shopping-cart" rel="stylesheet"></i> </a>
                         </div>
                         <div className="cart">
-                            <a href="#user"> <i className="fas fa-user"></i> </a>
+                            <a href="http://localhost:3000/user"> <i className="fas fa-user"></i> </a>
 
                         </div>
                         </nav>

@@ -60,7 +60,10 @@ class ProductDetail extends Component {
         const  {product, isLoading} = this.state
 
         if (isLoading)
-            return <p>Loading...</p>
+             return <div className="loading">
+            <div className="loader"></div>
+        </div>
+
 
         return (
             <div>

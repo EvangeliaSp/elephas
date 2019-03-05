@@ -13,6 +13,7 @@ import ProductGrid from "./product/ProductGrid";
 import Profile from "./user/profile/Profile";
 import Register from "./user/Register";
 import ProductDetail from "./product/ProductDetail";
+import About from "./components/About";
 
 ReactDOM.render(
     <Router>
@@ -24,6 +25,8 @@ ReactDOM.render(
             <Route path='/product/findById/:id' component={ProductDetail} />
             <Route path='/user/findById/:id' component={Profile}/>
             <Route path='/user/register' component={Register}/>
+            <Route path='/about' component={About}/>
+
         </div>
     </Router>,
     //<App/>,
