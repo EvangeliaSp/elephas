@@ -10,19 +10,19 @@ class Login extends Component{
     state = {
         email: '',
         password: '',
-        user: '',
-        redirect: false
+        // user: '',
+        // redirect: false
     };
 
-    handleRedirect(response) {
-        if (response.ok) {
-            console.log(`User ${this.state.email} logged in successfully.`);
-            return (<Redirect to='/user/all'/>)
-
-        } else {
-            console.log(`User ${this.state.email} CANNOT log in.`);
-        }
-    };
+    // handleRedirect(response) {
+    //     if (response.ok) {
+    //         console.log(`User ${this.state.email} logged in successfully.`);
+    //         return (<Redirect to='/user/all'/>)
+    //
+    //     } else {
+    //         console.log(`User ${this.state.email} CANNOT log in.`);
+    //     }
+    // };
 
     submitHandler = event => {
         var formData = new FormData();
@@ -44,7 +44,8 @@ class Login extends Component{
                 localStorage.setItem("email", data.email);
                 localStorage.setItem("firstname", data.firstname);
                 localStorage.setItem("lastname", data.lastname);
-                this.setState({redirect: true})
+                window.location.href=`/user/findById/${data.idUser}`;
+                // this.setState({redirect: true})
             })
     };
 
@@ -53,11 +54,11 @@ class Login extends Component{
     };
 
    render() {
-       if (this.state.redirect) {
-           const idUser = localStorage.getItem('idUser');
-           const { to } = {to: {pathname: `/user/findById/${idUser}`}};
-           return <Redirect to={ to }/>
-       }
+       // if (this.state.redirect) {
+       //     const idUser = localStorage.getItem('idUser');
+       //     const { to } = {to: {pathname: `/user/findById/${idUser}`}};
+       //     return <Redirect to={ to }/>
+       // }
         return (
             <div>
                 <Header/>

@@ -33,9 +33,9 @@ class Header extends Component {
                         </div>
                         <nav className="cart">
                             <a href="#user"> <i className="fas fa-user"></i> </a>
-                            <ul>
-                                <li><a href="/user/loginForm">Log In</a></li>
-                            </ul>
+                            {/*<ul>*/}
+                                {/*<li><a href="/user/loginForm">Log In</a></li>*/}
+                            {/*</ul>*/}
 
                         </nav>
                     </div>
