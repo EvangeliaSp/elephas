@@ -17,9 +17,6 @@ class ProductGrid extends Component {
             currentProducts: []
         }
     }
-    componentWillMount() {
-        console.log("product grid willMount");
-    }
 
     filterProductsType(hash, allProducts) {
         var typeNumber;
@@ -30,16 +27,12 @@ class ProductGrid extends Component {
                 case "#earrings": typeNumber = 3; break;
                 default: typeNumber = 0; break;
             }
-            //console.log("all:", allProducts);
-            const filteredList = allProducts.filter(prod => {return prod.type === typeNumber});
-        //console.log("filteredList:", filteredList);
+        const filteredList = allProducts.filter(prod => {return prod.type === typeNumber});
         return filteredList;
     }
     componentWillReceiveProps(nextProps) {
-        //console.log("will recieve props");
         const hash = nextProps.location.hash
         if(hash !== this.props.location.hash) {
-            //console.log("new props incoming! ", nextProps);
             const {products} = this.state;
             const crnt = this.filterProductsType(hash, products);
             this.setState({currentProducts: crnt});
@@ -62,7 +55,6 @@ class ProductGrid extends Component {
 
 
     ProductCard(product) {
-        //TODO: Product name instead of card title
         return (
             <div key={product.idProduct} className="col-sm-6 col-lg-4">
                 <Card style={{marginBottom: '2rem'}}>

@@ -7,10 +7,8 @@ import {NavLink} from "react-router-dom";
 class Header extends Component {
     setClassName = (str, oldName) => {
         if (str === window.location.hash) {
-            //console.log("returning active for str/hash: ", str, window.location.hash);
             return oldName + "active";
         } 
-            
         return oldName;
     }
     
