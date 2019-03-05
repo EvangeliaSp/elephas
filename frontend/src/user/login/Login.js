@@ -1,9 +1,8 @@
 import React, {Component} from "react";
-import { Redirect } from 'react-router-dom'
-import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
+import {Redirect} from 'react-router-dom'
+import {MDBBtn, MDBCol, MDBContainer, MDBRow} from 'mdbreact';
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
-import { sessionService } from 'redux-react-session';
 
 
 class Login extends Component{
@@ -37,65 +36,16 @@ class Login extends Component{
         }
         event.preventDefault();
         event.target.className += " was-validated";
-        const response = fetch('/user/login', options)
-        // const responsePromise = new Promise( resolve => setTimeout(resolve(response), 1000))
         fetch('/user/login', options)
-            // .then(response => this.handleRedirect(response))
-        // response
-        //     .then(resp => {
-                    // const { token } = resp;
-                    // console.log(resp)
-                    // resp.json()
-                    // sessionService.saveSession({ token })
-                    //     .then(() => {
-                    //         sessionService.saveUser(response.data)
-                    //             .then(() => this.setState({user: resp.data, redirect: true}))
-                        // }).catch(err => console.error(err));
-                // }
-            .then(response => {
-                const { token } = response;
-                sessionService.saveSession({ token })
-                    .then( () => {
-                        this.setState({user: response.data, redirect: true})
-                        sessionService.saveUser(response.data)
-                            .then(() => console.log("User saved"))
-                            .catch(err => console.error(err));
-                        }
-                    ).catch(err => console.error(err));
-
-                }
-            )
-            // .then(data => {
-            //         this.setState({user: data, redirect: true})
-            //
-            //             .then(() => {
-            //                 sessionService.saveUser(data)
-            //                     .then(() => console.log("User saved"))
-            //             })
-            //
-            //     }
-            //
-            // )
-            // .then(() => {sessionService.saveUser(response.data)})
-
-
-        // {
-            // if (response.ok) {
-            //     console.log(`User ${this.state.email} logged in successfully.`);
-            //     response.json().then(data => this.setState({user: data}))
-            //     console.log(`User ${this.state.user.email} yeahhh.`);
-            //     // response.json();
-            // } else {
-            //     console.log(`User ${this.state.email} CANNOT log in.`);
-            // }
-        // })
-
-            // .then(response => response.json())
-            // .then(data => {  this.setState({user: data}) })
-            // .then( _ => <Redirect to={{UserList}}/>)
-                // this.setState({user: data}),
-                // return(<Redirect to={UserList}/>)
-            // )
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                localStorage.setItem("idUser", data.idUser);
+                localStorage.setItem("email", data.email);
+                localStorage.setItem("firstname", data.firstname);
+                localStorage.setItem("lastname", data.lastname);
+                this.setState({redirect: true})
+            })
     };
 
     changeHandler = event => {
@@ -104,8 +54,8 @@ class Login extends Component{
 
    render() {
        if (this.state.redirect) {
-           const { to } = {to: {pathname: `/user/findById/${this.state.user.idUser}`}}
-           // return(<div>this.state.user</div>);
+           const idUser = localStorage.getItem('idUser');
+           const { to } = {to: {pathname: `/user/findById/${idUser}`}};
            return <Redirect to={ to }/>
        }
         return (
@@ -201,15 +151,10 @@ class Login extends Component{
                     </MDBRow>
                     </MDBContainer>
                 </form>
-
-                <div>{this.state.user.idUser}</div>
-
                 <Footer/>
             </div>
-
-    );
-};
-
+        );
+    };
 }
 
 export default Login;
