@@ -16,10 +16,38 @@ class ProductGrid extends Component {
 
         this.state = {
             products: [],
-            isLoading: true
+            isLoading: true,
+            currentProducts: []
         }
     }
+    componentWillMount() {
+        console.log("product grid willMount");
+    }
 
+    filterProductsType(hash, allProducts) {
+        var typeNumber;
+        switch (hash) {
+                case "#bracelets": typeNumber = 1; break;
+                case "#rings": typeNumber = 2; break;
+                case "#necklaces": typeNumber = 4; break;
+                case "#earrings": typeNumber = 3; break;
+                default: typeNumber = 0; break;
+            }
+            //console.log("all:", allProducts);
+            const filteredList = allProducts.filter(prod => {return prod.type === typeNumber});
+        //console.log("filteredList:", filteredList);
+        return filteredList;
+    }
+    componentWillReceiveProps(nextProps) {
+        //console.log("will recieve props");
+        const hash = nextProps.location.hash
+        if(hash !== this.props.location.hash) {
+            //console.log("new props incoming! ", nextProps);
+            const {products} = this.state;
+            const crnt = this.filterProductsType(hash, products);
+            this.setState({currentProducts: crnt});
+        }
+    }
     componentDidMount() {
         this.loadProductsFromServer()
     }
@@ -27,9 +55,12 @@ class ProductGrid extends Component {
     loadProductsFromServer = () => {
         this.setState({isLoading: true});
 
-        fetch(`/product/findBy${this.props.location.search}`)
+        fetch(`/product/findBy`)
             .then(response => response.json())
-            .then(data => this.setState({products: data, isLoading: false}))
+            .then(data => {
+                const crnt = this.filterProductsType(this.props.location.hash, data);
+                this.setState({products: data, isLoading: false, currentProducts: crnt}); 
+            })
     };
 
 
@@ -59,25 +90,25 @@ class ProductGrid extends Component {
 
 
     render() {
-        const {products, isLoading} = this.state
+        const {currentProducts, isLoading} = this.state
 
         if (isLoading)
             return <p>Loading...</p>
 
         return (
             <div>
-                <Header/>
+                
                 <Container>
                     <Row style={{marginBottom: '7rem'}}>
                         {
-                            products.map((product) => {
+                            currentProducts.map((product) => {
                                 return this.ProductCard(product);
 
                             })
                         }
                     </Row>
                 </Container>
-                <Footer/>
+               
             </div>
         );
     }
