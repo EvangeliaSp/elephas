@@ -3,7 +3,6 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import elephas2 from './../elephas2.jpg';
 
 class HomePageGrid extends Component {
 
