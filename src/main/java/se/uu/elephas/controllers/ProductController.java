@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.uu.elephas.model.Product;
+import se.uu.elephas.model.Material;
 import se.uu.elephas.services.ProductServiceimpl;
 
 import javax.validation.Valid;
@@ -61,4 +62,12 @@ public class ProductController {
 
 
     }
+
+    @RequestMapping(value = "/allMaterials", method = {RequestMethod.GET})
+    public ResponseEntity<String> getAllMaterials()
+        throws JsonProcessingException {
+            Iterable<Material> materials = productService.getAllMaterials();
+
+            return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(materials));
+        }
 }
