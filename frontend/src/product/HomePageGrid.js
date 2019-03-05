@@ -4,10 +4,8 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import elephas2 from './../elephas2.jpg';
-import Header from './../components/Header';
-import Footer from './../components/Footer';
 
-class ProductGrid extends Component {
+class HomePageGrid extends Component {
 
     state = {};
 
@@ -27,7 +25,7 @@ class ProductGrid extends Component {
     loadProductsFromServer = () => {
         this.setState({isLoading: true});
 
-        fetch(`/product/findBy${this.props.location.search}`)
+        fetch(`/product/findBy`)
             .then(response => response.json())
             .then(data => this.setState({products: data, isLoading: false}))
     };
@@ -38,8 +36,8 @@ class ProductGrid extends Component {
         return (
             <div key={product.idProduct} className="col-sm-6 col-lg-4">
                 <Card style={{marginBottom: '2rem'}}>
-                    <Card.Img variant="top"  src={product.url}
-                              style={{ height:`20rem` }}
+                    <Card.Img variant="top" src={product.url}
+                              style={{height: `20rem`}}
                     />
                     <Card.Body>
                         <Card.Title>{product.name}</Card.Title>
@@ -61,26 +59,28 @@ class ProductGrid extends Component {
     render() {
         const {products, isLoading} = this.state
 
+
         if (isLoading)
             return <p>Loading...</p>
 
+
         return (
             <div>
-                <Header/>
                 <Container>
                     <Row style={{marginBottom: '7rem'}}>
                         {
-                            products.map((product) => {
+
+
+                            products.slice(products.length-6, products.length).map((product) => {
                                 return this.ProductCard(product);
 
                             })
                         }
                     </Row>
                 </Container>
-                <Footer/>
             </div>
         );
     }
 }
 
-export default ProductGrid;
+export default HomePageGrid;

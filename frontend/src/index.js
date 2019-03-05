@@ -11,21 +11,21 @@ import UserList from "./user/UserList";
 //import ProductList from "./product/ProductList"; //NOTE: just to show a list of products
 import ProductGrid from "./product/ProductGrid";
 import Profile from "./user/profile/Profile";
-import ProductDetail from './product/ProductDetail';
+import Register from "./user/Register";
+import ProductDetail from "./product/ProductDetail";
 
 ReactDOM.render(
-   
-        <Router>
-            <div>
-                <Route exact path='/' component={App} />
-                <Route path="/user/loginForm" exact component={Login} />
-                <Route path='/user/all' component={UserList} />
-                <Route path='/product/findBy' component={ProductGrid} />
-                <Route path='/product/findById/:id' component={ProductDetail} />
-                <Route path='/user/findById/:id' component={Profile} />
-            </div>
-        </Router>
-    ,
+    <Router>
+        <div>
+            <Route exact path='/' component={App} />
+            <Route path="/user/loginForm" exact component={Login} />
+            <Route path='/user/all' component={UserList} />
+            <Route path='/product/findBy' component={ProductGrid} />
+            <Route path='/product/findById/:id' component={ProductDetail} />
+            <Route path='/user/findById/:id' component={Profile}/>
+            <Route path='/user/register' component={Register}/>
+        </div>
+    </Router>,
     //<App/>,
     document.getElementById('root')
 );

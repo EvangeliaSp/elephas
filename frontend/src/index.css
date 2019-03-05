@@ -76,6 +76,34 @@
     width: 100%;
     text-align: center;
 }
+.intro{
+    overflow: hidden;
+    padding-top: 0.188em;
+    width: 100%;
+    text-align: center;
+    font-family: 'Brush Script MT';
+    color: #92af75;
+    font-size: 3em;
+}
+
+.topLine{
+
+}
+
+
+.bestSeller{
+    overflow: hidden;
+    width: 100%;
+    text-align: center;
+    color: #A38884;
+    font-family: 'Brush Script MT';
+    font-size: 2em;
+    margin-top: 0px;
+    text-decoration: underline overline;
+    margin-bottom: 1em;
+
+
+}
 
 .footer {
     overflow: hidden;
@@ -100,6 +128,8 @@
     position: fixed;
     right: 0;
 }
+
+
 
 /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
 @media screen and (max-width: 800px) {

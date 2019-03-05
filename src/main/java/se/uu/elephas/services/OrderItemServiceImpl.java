@@ -34,7 +34,19 @@ public class OrderItemServiceImpl implements OrderItemService {
         return null;
     }
 
-    public Iterable<OrderItem> increaseOrderItemQuantity(Long idOrder, Long idItem) {
+    public OrderItem findItemInOrderItems(Long idOrder, Long idItem) {
+
+        Iterable<OrderItem> orderItems = this.getOrderItems(idOrder);
+
+        for (OrderItem orderItem: orderItems) {
+            if (orderItem.getIdOrderItem() == idItem)
+                return orderItem;
+        }
+
+        return null;
+    }
+
+    public OrderItem increaseOrderItemQuantity(Long idOrder, Long idItem) {
 
         Optional<OrderItem> orderItemOptional = orderItemRepository.findById(idItem);
 
@@ -44,11 +56,44 @@ public class OrderItemServiceImpl implements OrderItemService {
 
             orderItem.setQuantity(orderItem.getQuantity()+1);
 
+            orderItemRepository.save(orderItem);
+
+            return orderItem;
+
 //            if (orderItem.getQuantity() == 0)
 //                orderItemRepository.deleteById(idItem);
         }
 
-        return this.getOrderItems(idOrder);
+        return null;
 
+    }
+
+    public OrderItem decreaseOrderItemQuantity(Long idOrder, Long idItem) {
+
+        Optional<OrderItem> orderItemOptional = orderItemRepository.findById(idItem);
+
+        if (orderItemOptional.isPresent()) {
+
+            OrderItem orderItem = orderItemOptional.get();
+
+            orderItem.setQuantity(orderItem.getQuantity()-1);
+
+            if (orderItem.getQuantity() == 0) {
+                orderItemRepository.deleteById(idItem);
+                return null;
+            }
+
+            orderItemRepository.save(orderItem);
+
+            return orderItem;
+
+        }
+
+        return null;
+
+    }
+
+    public void delete(Long idOrderItem) {
+        orderItemRepository.deleteById(idOrderItem);
     }
 }
