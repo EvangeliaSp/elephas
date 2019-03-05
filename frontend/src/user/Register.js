@@ -1,8 +1,6 @@
 import React, {Component} from "react";
 import {MDBRow, MDBCol, MDBBtn} from "mdbreact";
 import { Redirect } from 'react-router-dom'
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 
 class FormsPage extends Component {
 
@@ -51,9 +49,7 @@ class FormsPage extends Component {
             return <Redirect to={ to }/>
         }
         return (
-            <div>
-                <Header/>
-            <div class="container">
+            <div className="container">
                 <form
                     className="needs-validation"
                     onSubmit={this.submitHandler}
@@ -286,8 +282,6 @@ class FormsPage extends Component {
                         Submit Form
                     </MDBBtn>
                 </form>
-            </div>
-                <Footer/>
             </div>
         );
     }

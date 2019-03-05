@@ -4,8 +4,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import elephas2 from './../elephas2.jpg';
-import Header from './../components/Header';
-import Footer from './../components/Footer';
 
 class ProductGrid extends Component {
 

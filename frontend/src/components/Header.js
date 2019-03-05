@@ -17,16 +17,14 @@ class Header extends Component {
                     <div className="header-right">
                         <nav>
 
-
-
-                        <a href="http://localhost:3000/">Home</a>
+                        <NavLink to="/">Home</NavLink>
                         <NavLink to="/product#bracelets">Bracelets</NavLink>
                         <NavLink to="/product#rings">Rings</NavLink>
                         <NavLink to="/product#necklaces">Necklaces</NavLink>
                         <NavLink to="/product#earrings">Earrings</NavLink>
 
-                        <a href="#contact">Contact</a>
-                        <a href="#about">About</a>
+                        <NavLink to="#contact">Contact</NavLink>
+                        <NavLink to="#about">About</NavLink>
 
                         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
                               integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
