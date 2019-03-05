@@ -3,7 +3,6 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import elephas2 from './../elephas2.jpg';
 import Header from './../components/Header';
 import Footer from './../components/Footer';
 import {getColor, getMaterial, getType} from './Translations';
@@ -38,7 +37,7 @@ class ProductDetail extends Component {
         return(
             <div key={product.idProduct} className="col-sm-12 col-lg-8 mx-auto">
             <Card style={{ marginBottom: '2rem'}}>
-                <Card.Img variant="top" src={elephas2} />
+                <Card.Img variant="top" src={product.url} />
                 <Card.Body>
                     <Card.Title>{product.name}</Card.Title> 
                     <Card.Text>
