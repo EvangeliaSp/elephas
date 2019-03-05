@@ -3,7 +3,9 @@ package se.uu.elephas.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.uu.elephas.model.Product;
+import se.uu.elephas.model.Material;
 import se.uu.elephas.repository.ProductRepository;
+import se.uu.elephas.repository.MaterialRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,6 +17,8 @@ public class ProductServiceimpl implements ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired MaterialRepository materialRepository;
 
     public Object create(Product product) {
         Object pr = productRepository.save(product);
@@ -60,5 +64,7 @@ public class ProductServiceimpl implements ProductService {
         }
     }
 
-
+    public Iterable<Material> getAllMaterials() {
+        return materialRepository.findAll();
+    }
 }

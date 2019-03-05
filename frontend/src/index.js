@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter as Router, Route} from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'react-bootstrap-table/dist/react-bootstrap-table.min.css';
@@ -14,6 +14,7 @@ import Profile from "./user/profile/Profile";
 import Register from "./user/Register";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ProductDetail from "./product/ProductDetail";
 
 ReactDOM.render(
     <React.Fragment>
@@ -26,6 +27,7 @@ ReactDOM.render(
             <Route path="/user/loginForm" exact component={Login} />
             <Route path='/user/all' component={UserList} />
             <Route path='/product' component={ProductGrid} />
+            <Route path='/product/findById/:id' component={ProductDetail} />
             <Route path='/user/findById/:id' component={Profile}/>
             <Route path='/user/register' component={Register}/>
         </div>

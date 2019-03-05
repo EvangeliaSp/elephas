@@ -3,7 +3,6 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import elephas2 from './../elephas2.jpg';
 
 class ProductGrid extends Component {
 
@@ -67,11 +66,18 @@ class ProductGrid extends Component {
         return (
             <div key={product.idProduct} className="col-sm-6 col-lg-4">
                 <Card style={{marginBottom: '2rem'}}>
-                    <Card.Img variant="top"  src={product.url}
-                              style={{ height:`20rem` }}
-                    />
+                    <a href={"/product/findById/" + product.idProduct}>
+                        <Card.Img variant="top"  src={product.url}
+                                style={{ height:`20rem` }}
+                        />
+                    </a>
                     <Card.Body>
-                        <Card.Title>{product.name}</Card.Title>
+                        <Card.Title>  
+                            <a href={"/product/findById/" + product.idProduct} style={{color: "black"}}>
+                                {product.name}
+                            </a>
+                        </Card.Title>
+            
                         <Card.Text>
                             {product.description}<br/>
 
