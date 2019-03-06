@@ -27,7 +27,7 @@ class Header extends Component {
                             id="Dropdown"
                             style={{position:"absolute"}}
                             >
-                                <NavDropdown.Item href="/user/loginForm">Sign in</NavDropdown.Item>
+                                <NavDropdown.Item href="/user/login">Sign in</NavDropdown.Item>
                                 <NavDropdown.Divider/>
                         </NavDropdown>
 

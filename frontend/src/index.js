@@ -25,7 +25,7 @@ ReactDOM.render(
         <div>
         <Header/>
             <Route exact path='/' component={App} />
-            <Route path="/user/loginForm" exact component={Login} />
+            <Route path="/user/login" exact component={Login} />
             <Route path='/user/all' component={UserList} />
             <Route path='/product' component={ProductGrid} />
             <Route path='/product/findById/:id' component={ProductDetail} />

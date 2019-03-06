@@ -124,7 +124,7 @@ class ShowCart extends Component {
                                 <tbody>
                                 <br/><br/>
                                 <tr>
-                                    <h4><b>Your have to <a href="../user/loginForm">sign in</a> or <a href="../user/register">register</a> in order to have a cart.</b></h4>
+                                    <h4><b>Your have to <a href="/user/login">sign in</a> or <a href="/user/register">register</a> in order to have a cart.</b></h4>
                                 </tr>
                                 <br/>
                                 </tbody>
