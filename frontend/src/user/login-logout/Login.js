@@ -52,7 +52,6 @@ class Login extends Component{
                 localStorage.setItem("telephone", data.telephone);
 
                 window.location.href=`/user/profile`;
-                // this.setState({redirect: true})
             })
     };
 
@@ -61,11 +60,6 @@ class Login extends Component{
     };
 
    render() {
-       // if (this.state.redirect) {
-       //     const idUser = localStorage.getItem('idUser');
-       //     const { to } = {to: {pathname: `/user/findById/${idUser}`}};
-       //     return <Redirect to={ to }/>
-       // }
         return (
             <div>
                 <form
@@ -148,7 +142,7 @@ class Login extends Component{
                         <p className="font-small grey-text d-flex justify-content-center">
                             Don't have an account?
                             <a
-                                href="#!"
+                                href="/user/register"
                                 className="dark-grey-text font-weight-bold ml-1"
                             >
                                 Sign up
