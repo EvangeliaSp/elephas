@@ -5,6 +5,8 @@ import logo from "../logo2.png";
 import {NavLink} from "react-router-dom";
 import { Navbar, Nav, NavItem, NavDropdown } from 'react-bootstrap';
 import {MenuItem } from 'react-bootstrap/Navbar';
+import {logout} from '../user/login-logout/Logout'
+import Profile from "../user/profile/Profile";
 
 class Header extends Component {
     // <a href="#user" className={this.setClassName("#user", "")}>  </a>
@@ -18,17 +20,30 @@ class Header extends Component {
                     id="collasible-nav-dropdown"
                     */
     userDropDownMenu = () => {
+        if (localStorage.getItem("idUser") === 'undefined' || localStorage.getItem("idUser") == null)
+            return(
+                        <NavDropdown
+                            title={<i className="fas fa-user"></i>}
+                            id="Dropdown"
+                            style={{position:"absolute"}}
+                            >
+                                <NavDropdown.Item href="/user/loginForm">Sign in</NavDropdown.Item>
+                                <NavDropdown.Divider/>
+                        </NavDropdown>
+
+            );
         return(
-                    <NavDropdown
-                        title={<i className="fas fa-user"></i>}
-                        id="Dropdown"
-                        style={{position:"absolute"}}
-                        >
-                            <NavDropdown.Item href="/user/loginForm">Sign in</NavDropdown.Item>
-                            <NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
-                    </NavDropdown>
+            <NavDropdown
+                title={<i className="fas fa-user"></i>}
+                id="Dropdown"
+                style={{position:"absolute"}}
+            >
+                <NavDropdown.Item href="/user/profile">View profile</NavDropdown.Item>
+                <NavDropdown.Item onClick={logout}>Sign out</NavDropdown.Item>
+            </NavDropdown>
 
         );
+
 
     }
 
