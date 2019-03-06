@@ -20,5 +20,4 @@ public interface OrderItemService {
 
     int getTotalCost(Long idOrder);
 
-
 }

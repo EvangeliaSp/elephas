@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Avatar from 'react-avatar';
+import {Container} from "mdbreact";
 
 class UserList extends Component {
 
