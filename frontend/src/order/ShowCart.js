@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import {ButtonToolbar, ListGroupItem} from "react-bootstrap";
-import Header from "../components/Header";
 import {Container, MDBBtn} from "mdbreact";
 import './ShowCart.css'
-import Footer from "../components/Footer";
 
 class ShowCart extends Component {
 
