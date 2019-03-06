@@ -3,8 +3,6 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import Header from './../components/Header';
-import Footer from './../components/Footer';
 import {getColor, getMaterial, getType} from './Translations';
 
 class ProductDetail extends Component {
@@ -67,13 +65,11 @@ class ProductDetail extends Component {
 
         return (
             <div>
-                <Header/>
                 <Container>
                     <Row style={{marginBottom:'7rem'}}>
                         {this.ProductDetailCard(product)}
                     </Row>
                 </Container>
-                <Footer/>
             </div>
         );
     }
