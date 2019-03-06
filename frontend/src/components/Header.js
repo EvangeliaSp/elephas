@@ -8,7 +8,6 @@ class Header extends Component {
     render() {
         return (
             <div>
-
                 <div className="header" style={{marginBottom: '3rem'}}>
                     <a href="#default" className="logo"> <img src={logo} alt="Logo"
                                                               style={{width: "46px", height: "60px"}}/>
@@ -34,16 +33,13 @@ class Header extends Component {
                         <div className="user">
                             <a href="#cart"> <i className="fas fa-shopping-cart" rel="stylesheet"></i> </a>
                         </div>
-                        <div className="cart">
+                        <nav className="cart">
                             <a href="#user"> <i className="fas fa-user"></i> </a>
-
-                        </div>
+                        </nav>
                         </nav>
                     </div>
                 </div>
             </div>
-
-
         );
     }
 }
