@@ -10,11 +10,9 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Header/>
-                <Content/>
+\                <Content/>
                 <HomePageGrid/>
 
-                <Footer/>
             </div>
         );
     }
