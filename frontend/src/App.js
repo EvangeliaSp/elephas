@@ -1,6 +1,4 @@
 import React, {Component} from 'react';
-import Footer from "./components/Footer"
-import Header from "./components/Header"
 import './App.css';
 import product1 from './product2.jpg'
 import HomePageGrid from "./product/HomePageGrid";
@@ -10,11 +8,8 @@ class App extends Component {
     render() {
         return (
             <div>
-                <Header/>
                 <Content/>
                 <HomePageGrid/>
-
-                <Footer/>
             </div>
         );
     }

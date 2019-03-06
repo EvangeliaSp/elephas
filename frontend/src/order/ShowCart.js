@@ -130,7 +130,6 @@ class ShowCart extends Component {
         if (items.length===0)
             return (
                 <div>
-                    <Header/>
                     <br/>
                     <Container>
                         <div>
@@ -154,13 +153,11 @@ class ShowCart extends Component {
                             </table>
                         </div>
                     </Container>
-                    <Footer/>
                 </div>
             );
 
         return (
             <div>
-                <Header/>
                 <br/>
                 <Container style={{marginBottom: "7rem"}}>
                 <div>
@@ -198,7 +195,6 @@ class ShowCart extends Component {
                     </table>
                 </div>
                 </Container>
-                <Footer/>
             </div>
         );
     }

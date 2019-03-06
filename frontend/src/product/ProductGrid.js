@@ -3,8 +3,6 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import Header from './../components/Header';
-import Footer from './../components/Footer';
 
 class ProductGrid extends Component {
 
@@ -15,10 +13,31 @@ class ProductGrid extends Component {
 
         this.state = {
             products: [],
-            isLoading: true
+            isLoading: true,
+            currentProducts: []
         }
     }
 
+    filterProductsType(hash, allProducts) {
+        var typeNumber;
+        switch (hash) {
+                case "#bracelets": typeNumber = 1; break;
+                case "#rings": typeNumber = 2; break;
+                case "#necklaces": typeNumber = 4; break;
+                case "#earrings": typeNumber = 3; break;
+                default: typeNumber = 0; break;
+            }
+        const filteredList = allProducts.filter(prod => {return prod.type === typeNumber});
+        return filteredList;
+    }
+    componentWillReceiveProps(nextProps) {
+        const hash = nextProps.location.hash
+        if(hash !== this.props.location.hash) {
+            const {products} = this.state;
+            const crnt = this.filterProductsType(hash, products);
+            this.setState({currentProducts: crnt});
+        }
+    }
     componentDidMount() {
         this.loadProductsFromServer()
     }
@@ -26,14 +45,16 @@ class ProductGrid extends Component {
     loadProductsFromServer = () => {
         this.setState({isLoading: true});
 
-        fetch(`/product/findBy${this.props.location.search}`)
+        fetch(`/product/findBy`)
             .then(response => response.json())
-            .then(data => this.setState({products: data, isLoading: false}))
+            .then(data => {
+                const crnt = this.filterProductsType(this.props.location.hash, data);
+                this.setState({products: data, isLoading: false, currentProducts: crnt}); 
+            })
     };
 
 
     ProductCard(product) {
-        //TODO: Product name instead of card title
         return (
             <div key={product.idProduct} className="col-sm-6 col-lg-4">
                 <Card style={{marginBottom: '2rem'}}>
@@ -65,25 +86,25 @@ class ProductGrid extends Component {
 
 
     render() {
-        const {products, isLoading} = this.state
+        const {currentProducts, isLoading} = this.state
 
         if (isLoading)
             return <p>Loading...</p>
 
         return (
             <div>
-                <Header/>
+                
                 <Container>
                     <Row style={{marginBottom: '7rem'}}>
                         {
-                            products.map((product) => {
+                            currentProducts.map((product) => {
                                 return this.ProductCard(product);
 
                             })
                         }
                     </Row>
                 </Container>
-                <Footer/>
+               
             </div>
         );
     }
