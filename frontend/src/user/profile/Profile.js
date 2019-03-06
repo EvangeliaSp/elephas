@@ -1,7 +1,5 @@
 import React, {Component} from 'react'
 import Avatar from 'react-avatar';
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 import { HashLink as Link } from 'react-router-hash-link';
 import './Profile.css'
 import notAvailable from "./../../notAvailable.jpg";
@@ -192,8 +190,6 @@ class Profile extends Component {
 
         return (
             <div>
-            <Header/>
-
             <div id="user-profile-2" className="user-profile">
                 <div className="tabbable">
                     {this.tabMenu()}
@@ -205,8 +201,6 @@ class Profile extends Component {
 
                 </div>
             </div>
-
-            <Footer/>
             </div>
 
         );
