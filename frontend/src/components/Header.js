@@ -15,7 +15,6 @@ class Header extends Component {
     render() {
         return (
             <div>
-
                 <div className="header" style={{marginBottom: '3rem'}}>
                     <a href="#default" className="logo"> <img src={logo} alt="Logo"
                                                               style={{width: "46px", height: "60px"}}/>
@@ -36,19 +35,17 @@ class Header extends Component {
                         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
                               integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
                               crossOrigin="anonymous"/>
-                        <div className="user">
+                        <div className="cart">
                             <a href="#cart" className={this.setClassName("#cart", "")}> <i className="fas fa-shopping-cart" rel="stylesheet"></i> </a>
                         </div>
-                        <div className="cart">
+                        <nav className="user">
                             <a href="#user" className={this.setClassName("#user", "")}> <i className="fas fa-user"></i> </a>
 
-                        </div>
+                        </nav>
                         </nav>
                     </div>
                 </div>
             </div>
-
-
         );
     }
 }
