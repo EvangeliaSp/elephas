@@ -17,7 +17,7 @@ class Header extends Component {
         return (
             <div>
                 <div className="header" style={{marginBottom: '3rem'}}>
-                    <a href="#default" className="logo"> <img src={logo} alt="Logo"
+                    <a href="/" className="logo"> <img src={logo} alt="Logo"
                                                               style={{width: "46px", height: "60px"}}/>
                     </a>
 
