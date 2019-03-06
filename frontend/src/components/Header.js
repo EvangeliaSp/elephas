@@ -26,7 +26,7 @@ class Header extends Component {
             );
         return(
             <NavDropdown
-                title={<Avatar name={localStorage.getItem("firstname")+" "+localStorage.getItem("lastname")} round size="40"/>}
+                title={<Avatar name={localStorage.getItem("firstname")+" "+localStorage.getItem("lastname")} round size="35"/>}
                 id="Dropdown"
                 style={{position:"absolute"}}
             >
