@@ -14,9 +14,7 @@ class FormsPage extends Component {
         country: '',
         city: '',
         zipCode: '',
-        telephone: '',
-        redirect: false,
-        user: ''
+        telephone: ''
     };
 
 
@@ -35,7 +33,21 @@ class FormsPage extends Component {
 
         fetch('/user/create', options)
             .then(response => response.json())
-            .then(data => this.setState({user: data, redirect: true}))
+            .then(data => {
+                console.log(data);
+                localStorage.setItem("idUser", data.idUser);
+                localStorage.setItem("email", data.email);
+                localStorage.setItem("firstname", data.firstname);
+                localStorage.setItem("lastname", data.lastname);
+                localStorage.setItem("country", data.country);
+                localStorage.setItem("city", data.city);
+                localStorage.setItem("streetName", data.streetName);
+                localStorage.setItem("streetNumber", data.streetNumber);
+                localStorage.setItem("zipCode", data.zipCode);
+                localStorage.setItem("telephone", data.telephone);
+
+                window.location.href=`/user/profile`;
+            })
 
     };
 
@@ -44,10 +56,6 @@ class FormsPage extends Component {
     };
 
     render() {
-        if (this.state.redirect) {
-            const { to } = {to: {pathname: `/user/findById/${this.state.user.idUser}`}}
-            return <Redirect to={ to }/>
-        }
         return (
             <div className="container">
                 <form
