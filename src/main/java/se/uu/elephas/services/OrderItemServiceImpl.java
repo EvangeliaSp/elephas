@@ -2,11 +2,14 @@ package se.uu.elephas.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import se.uu.elephas.model.BasketItem;
 import se.uu.elephas.model.Order;
 import se.uu.elephas.model.OrderItem;
 import se.uu.elephas.repository.OrderItemRepository;
 import se.uu.elephas.repository.OrderRepository;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -95,5 +98,39 @@ public class OrderItemServiceImpl implements OrderItemService {
 
     public void delete(Long idOrderItem) {
         orderItemRepository.deleteById(idOrderItem);
+    }
+
+    public List<BasketItem> getCartOrderItems(Long idOrder) {
+
+        Iterable<OrderItem> orderItems = this.getOrderItems(idOrder);
+
+        List<BasketItem> basketItems = new ArrayList<>();
+
+        for (OrderItem orderItem: orderItems) {
+
+            BasketItem basketItem = new BasketItem(
+                    orderItem.getIdOrderItem(),
+                    orderItem.getProduct().getName(),
+                    orderItem.getProduct().getUrl(),
+                    orderItem.getQuantity(),
+                    orderItem.getProduct().getPrice(),
+                    orderItem.getProduct().getDiscount());
+
+            basketItems.add(basketItem);
+        }
+
+        return basketItems;
+
+    }
+
+    public int getTotalCost(Long idOrder) {
+        int total = 0;
+        List<BasketItem> basketItems = this.getCartOrderItems(idOrder);
+
+        for (BasketItem basketItem: basketItems) {
+            total += basketItem.getQuantity()*basketItem.getPrice();
+        }
+
+        return total;
     }
 }

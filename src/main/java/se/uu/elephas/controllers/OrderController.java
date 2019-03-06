@@ -6,12 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import se.uu.elephas.model.BasketItem;
 import se.uu.elephas.model.Order;
 import se.uu.elephas.model.OrderItem;
 import se.uu.elephas.services.OrderItemServiceImpl;
 import se.uu.elephas.services.OrderServiceImpl;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -200,8 +202,37 @@ public class OrderController {
 
     }
 
-    @RequestMapping(value = "/cartSize/{idUser}", method = {RequestMethod.GET})
+    @RequestMapping(value = "showBasketItems", method = {RequestMethod.GET})
+    public ResponseEntity<String> showBasketItems(
+            @RequestParam("idUser") @Valid Long idUser)
+            throws JsonProcessingException {
 
+        Order basket = orderService.getBasketOfUser(idUser).iterator().next();
+
+        if (basket == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Basket of user with id " + idUser + " not found.");
+
+        List<BasketItem> basketItems = orderItemService.getCartOrderItems(basket.getIdOrder());
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(basketItems));
+    
+        }
+        
+    @RequestMapping(value = "total/{idUser}", method = {RequestMethod.GET})
+    public ResponseEntity<String> getTotal(
+            @PathVariable("idUser") @Valid Long idUser)
+            throws JsonProcessingException {
+
+        Order basket = orderService.getBasketOfUser(idUser).iterator().next();
+
+        if (basket == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Basket of user with id " + idUser + " not found.");
+            
+        int total = orderItemService.getTotalCost(basket.getIdOrder());
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(total));
+        }
+    
+    @RequestMapping(value = "/cartSize/{idUser}", method = {RequestMethod.GET})
     public ResponseEntity<String> getCartSize(
             @PathVariable("idUser") @Valid Long idUser) throws JsonProcessingException {
 
