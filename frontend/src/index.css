@@ -1,5 +1,5 @@
 .header {
-    overflow: hidden;
+    /* overflow: hidden; commented out this to be able to see dropdown-menu */
     background-color: white;
 }
 
@@ -10,7 +10,11 @@
     width: 12.5em;
     height: 9.375em;
     top: 0.063em;
-    pointer-events: none;
+    /*pointer-events: none;*/
+}
+
+.header a.logo:hover {
+    background-color: white;
 }
 
 /* Style the header links */
@@ -40,6 +44,11 @@
     color: white;
 }
 
+/* style the user dropdown menu */
+.header a.dropdown-item {
+    padding: 0;
+}
+
 /* Float the link section to the right */
 .header-right {
     float: none;
@@ -66,7 +75,7 @@
     position: absolute;
     right: 0.063em;
     width: 8.438em;
-    height: 9.375em;
+    /* height: 9.375em; */
     top: 0.563em;
 }
 

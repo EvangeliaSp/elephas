@@ -1,10 +1,8 @@
 import React, {Component} from 'react';
 import {Redirect} from 'react-router-dom';
 import {ButtonToolbar, ListGroupItem} from "react-bootstrap";
-import Header from "../components/Header";
 import {Container, MDBBtn} from "mdbreact";
 import './ShowCart.css'
-import Footer from "../components/Footer";
 
 class ShowCart extends Component {
 
@@ -112,7 +110,30 @@ class ShowCart extends Component {
     };
 
     render() {
-        const  {items, isLoading, total, continueRedirect, proceedRedirect} = this.state
+        const  {items, isLoading, total, continueRedirect, proceedRedirect} = this.state;
+
+        if (localStorage.getItem("idUser") === 'undefined' || localStorage.getItem("idUser") == null) {
+            return (
+                <div>
+                    <br/>
+                    <Container>
+                        <div>
+                            <table className="table table-striped ">
+                                <tHeader><h3 align="center"><b>Shopping cart</b></h3></tHeader>
+                                <hr/>
+                                <tbody>
+                                <br/><br/>
+                                <tr>
+                                    <h4><b>Your have to <a href="/user/login">sign in</a> or <a href="/user/register">register</a> in order to have a cart.</b></h4>
+                                </tr>
+                                <br/>
+                                </tbody>
+                            </table>
+                        </div>
+                    </Container>
+                </div>
+            );
+        }
 
         if (isLoading)
             return (<p>Loading...</p>);
