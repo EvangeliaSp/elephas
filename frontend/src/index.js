@@ -34,10 +34,8 @@ ReactDOM.render(
             <Route path='/order/cart' component={ShowCart}/>
             <Route path='/about' component={About}/>
             <Footer/>
-
         </div>
     </Router>,
-    //<App/>,
     document.getElementById('root')
 );
 
