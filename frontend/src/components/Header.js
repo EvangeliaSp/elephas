@@ -1,6 +1,7 @@
 import {Component} from "react";
 import React from "react";
 import logo from "../logo2.png";
+import Avatar from 'react-avatar';
 // import NavLink from "./components/nav_link";
 import {NavLink} from "react-router-dom";
 import { Navbar, Nav, NavItem, NavDropdown } from 'react-bootstrap';
@@ -9,16 +10,7 @@ import {logout} from '../user/login-logout/Logout'
 import Profile from "../user/profile/Profile";
 
 class Header extends Component {
-    // <a href="#user" className={this.setClassName("#user", "")}>  </a>
-   //  <nav className="user">
-   //className="user"
-   //
 
-   /* aria-labelledby="dropdownMenu"
-                    data-toggle="dropdown"
-
-                    id="collasible-nav-dropdown"
-                    */
     userDropDownMenu = () => {
         if (localStorage.getItem("idUser") === 'undefined' || localStorage.getItem("idUser") == null)
             return(
@@ -34,31 +26,28 @@ class Header extends Component {
             );
         return(
             <NavDropdown
-                title={<i className="fas fa-user"></i>}
+                title={<Avatar name={localStorage.getItem("firstname")+" "+localStorage.getItem("lastname")} round size="40"/>}
                 id="Dropdown"
                 style={{position:"absolute"}}
             >
                 <NavDropdown.Item href="/user/profile">View profile</NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}>Sign out</NavDropdown.Item>
             </NavDropdown>
-
         );
-
-
-    }
+    };
 
     setClassName = (str, oldName) => {
         if (str === window.location.hash) {
             return oldName + "active";
         } 
         return oldName;
-    }
+    };
     
     render() {
         return (
             <div>
                 <Navbar className="header" style={{marginBottom: '3rem'}}>
-                    <a href="#default" className="logo"> <img src={logo} alt="Logo"
+                    <a href="/" className="logo"> <img src={logo} alt="Logo"
                                                               style={{width: "46px", height: "60px"}}/>
                     </a>
 
