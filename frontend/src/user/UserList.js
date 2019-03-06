@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import Avatar from 'react-avatar';
-import Header from "../components/Header";
-import Footer from "../components/Footer";
 
 class UserList extends Component {
 

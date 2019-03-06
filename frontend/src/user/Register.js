@@ -57,7 +57,7 @@ class FormsPage extends Component {
 
     render() {
         return (
-            <div class="container">
+            <div className="container">
                 <form
                     className="needs-validation"
                     onSubmit={this.submitHandler}
