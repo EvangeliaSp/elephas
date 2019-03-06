@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import Header from "../components/Header";
 import Footer from "../components/Footer";
-import konstantina from "../konstantina.png";
+import konstantina from "../konstantina.PNG";
 
 class About extends Component {
     render() {
         return (
             <div>
-                <Header/>
-
 
                     <div className="intro">About Konstantina</div>
                     <div className="words">Konstantina is Marketing Coordinator in one of the biggest translaring
@@ -47,7 +45,6 @@ class About extends Component {
 
 
 
-                <Footer/>
             </div>
         );
     }

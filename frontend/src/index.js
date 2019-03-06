@@ -14,10 +14,14 @@ import Profile from "./user/profile/Profile";
 import Register from "./user/Register";
 import ProductDetail from "./product/ProductDetail";
 import About from "./components/About";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
 
 ReactDOM.render(
     <Router>
         <div>
+            <Header/>
             <Route exact path='/' component={App} />
             <Route path="/user/loginForm" exact component={Login} />
             <Route path='/user/all' component={UserList} />
@@ -26,6 +30,7 @@ ReactDOM.render(
             <Route path='/user/findById/:id' component={Profile}/>
             <Route path='/user/register' component={Register}/>
             <Route path='/about' component={About}/>
+            <Footer/>
 
         </div>
     </Router>,
