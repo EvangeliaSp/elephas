@@ -1,17 +1,12 @@
 import React, {Component} from "react";
-import {Redirect} from 'react-router-dom'
 import {MDBBtn, MDBCol, MDBContainer, MDBRow} from 'mdbreact';
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 
 
 class Login extends Component{
 
     state = {
         email: '',
-        password: '',
-        // user: '',
-        // redirect: false
+        password: ''
     };
 
     // handleRedirect(response) {
