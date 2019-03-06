@@ -171,7 +171,7 @@ class ShowCart extends Component {
                         <br/>
                         {items.map(item => (
                             <tr key={item.id}>
-                                <td><img src={"https://i.pinimg.com/originals/96/f5/91/96f5916ce8fcc48004451e9a4895fd68.jpg"} width="200" height="100"/>  </td>
+                                <td><img src={item.url} width="200" height="100"/>  </td>
                                 <td>{item.name}</td>
                                 <td>{item.price} kr</td>
                                 <td>
