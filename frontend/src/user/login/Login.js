@@ -61,7 +61,6 @@ class Login extends Component{
        // }
         return (
             <div>
-                <Header/>
                 <form
                     className="needs-validation"
                     onSubmit={this.submitHandler}
@@ -152,7 +151,6 @@ class Login extends Component{
                     </MDBRow>
                     </MDBContainer>
                 </form>
-                <Footer/>
             </div>
         );
     };
