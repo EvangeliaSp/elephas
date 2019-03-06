@@ -3,6 +3,7 @@ import React from "react";
 import logo from "../logo2.png";
 // import NavLink from "./components/nav_link";
 import {NavLink} from "react-router-dom";
+import {logout} from '../user/login-logout/Logout'
 
 class Header extends Component {
     setClassName = (str, oldName) => {
@@ -39,7 +40,7 @@ class Header extends Component {
                             <a href="/order/cart" className={this.setClassName("#cart", "")}> <i className="fas fa-shopping-cart" rel="stylesheet"></i> </a>
                         </div>
                         <nav className="user">
-                            <a href="#user" className={this.setClassName("#user", "")}> <i className="fas fa-user"></i> </a>
+                            <a href="#user" onClick={logout} className={this.setClassName("#user", "")}> <i className="fas fa-user"></i> </a>
 
                         </nav>
                         </nav>

@@ -33,7 +33,7 @@ class Login extends Component{
             method: 'POST',
             body: formData,
             redirect: 'follow'
-        }
+        };
         event.preventDefault();
         event.target.className += " was-validated";
         fetch('/user/login', options)
