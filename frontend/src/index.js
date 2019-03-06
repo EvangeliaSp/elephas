@@ -29,7 +29,7 @@ ReactDOM.render(
             <Route path='/user/all' component={UserList} />
             <Route path='/product' component={ProductGrid} />
             <Route path='/product/findById/:id' component={ProductDetail} />
-            <Route path='/user/findById/:id' component={Profile}/>
+            <Route path='/user/profile' component={Profile}/>
             <Route path='/user/register' component={Register}/>
             <Route path='/order/cart' component={ShowCart}/>
         </div>

@@ -2,46 +2,55 @@ import React, {Component} from 'react'
 import Avatar from 'react-avatar';
 import { HashLink as Link } from 'react-router-hash-link';
 import './Profile.css'
-
-// import UserProfile from 'react-user-profile'
+import notAvailable from "./../../notAvailable.jpg";
 
 class Profile extends Component {
 
     constructor(props, context) {
         super(props, context);
         this.state = {
-            user: '',
             orders: [],
             key: 'profile',
-            path: ''
+            user: {
+                idUser: localStorage.getItem("idUser"),
+                email: localStorage.getItem("email"),
+                firstname: localStorage.getItem("firstname"),
+                lastname: localStorage.getItem("lastname"),
+                country: localStorage.getItem("country"),
+                city: localStorage.getItem("city"),
+                streetName: localStorage.getItem("streetName"),
+                streetNumber: localStorage.getItem("streetNumber"),
+                zipCode: localStorage.getItem("zipCode"),
+                telephone: localStorage.getItem("telephone")
+            }
         };
     }
 
     componentDidMount() {
-        this.loadUserFromServer()
+        // this.loadUserFromServer()
         this.loadOrdersFromServer()
     }
 
     loadOrdersFromServer = () => {
-        const { id } = this.props.match.params
-        fetch(`/order/userOrders?idUser=${id}`) 
+        fetch(`/order/userOrders?idUser=${this.state.user.idUser}`)
             .then(response => response.json())
             .then(data => this.setState({orders: data}))
-    }
-
-    loadUserFromServer = () => {
-        const { id } = this.props.match.params
-        const { pathLink } = `/user/findById/${id}`
-        fetch(`/user/findById/${id}`)
-            .then(response => response.json())
-            .then(data => this.setState({user: data, path: pathLink}))
     };
+
+    // loadUserFromServer = () => {
+    //     const { id } = this.props.match.params
+    //
+    //     fetch(`/user/findById/${this.state.user.idUser}`)
+    //         .then(response => response.json())
+    //         .then(data => this.setState({user: data}))
+    // };
 
     setClassName = (str, oldName) => {
         if (str === window.location.hash)
             return oldName + "active";
         return oldName;
-    }
+    };
+
     tabMenu() {
         return (
             <ul className="nav nav-tabs padding-18">
@@ -173,7 +182,11 @@ class Profile extends Component {
     
 
     render() {
-        const  {user, orders} = this.state
+        const  {user, orders} = this.state;
+
+        if (user.idUser === 'undefined' || localStorage.getItem("idUser") == null) {
+            return (<img className="center" src={notAvailable}/>);
+        }
 
         return (
             <div>

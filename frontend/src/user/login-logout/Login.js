@@ -44,7 +44,14 @@ class Login extends Component{
                 localStorage.setItem("email", data.email);
                 localStorage.setItem("firstname", data.firstname);
                 localStorage.setItem("lastname", data.lastname);
-                window.location.href=`/user/findById/${data.idUser}`;
+                localStorage.setItem("country", data.country);
+                localStorage.setItem("city", data.city);
+                localStorage.setItem("streetName", data.streetName);
+                localStorage.setItem("streetNumber", data.streetNumber);
+                localStorage.setItem("zipCode", data.zipCode);
+                localStorage.setItem("telephone", data.telephone);
+
+                window.location.href=`/user/profile`;
                 // this.setState({redirect: true})
             })
     };
