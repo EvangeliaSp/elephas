@@ -36,7 +36,7 @@ class Header extends Component {
                               integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
                               crossOrigin="anonymous"/>
                         <div className="cart">
-                            <a href="#cart" className={this.setClassName("#cart", "")}> <i className="fas fa-shopping-cart" rel="stylesheet"></i> </a>
+                            <a href="/order/cart" className={this.setClassName("#cart", "")}> <i className="fas fa-shopping-cart" rel="stylesheet"></i> </a>
                         </div>
                         <nav className="user">
                             <a href="#user" className={this.setClassName("#user", "")}> <i className="fas fa-user"></i> </a>

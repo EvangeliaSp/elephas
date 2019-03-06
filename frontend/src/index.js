@@ -14,6 +14,7 @@ import Profile from "./user/profile/Profile";
 import Register from "./user/Register";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import ShowCart from "./order/ShowCart";
 import ProductDetail from "./product/ProductDetail";
 
 ReactDOM.render(
@@ -30,6 +31,7 @@ ReactDOM.render(
             <Route path='/product/findById/:id' component={ProductDetail} />
             <Route path='/user/findById/:id' component={Profile}/>
             <Route path='/user/register' component={Register}/>
+            <Route path='/order/cart' component={ShowCart}/>
         </div>
     </Router>
         <Footer/>

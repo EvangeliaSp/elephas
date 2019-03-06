@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Avatar from 'react-avatar';
+import {Container} from "mdbreact";
 
 class UserList extends Component {
 
@@ -35,6 +36,7 @@ class UserList extends Component {
         return (
             <div>
                 {/*<table className="table table-striped table-bordered table-sm" datapagesize="5">*/}
+                <Container>
                 <table class="table table-striped ">
                     <thead>
                     <tr>
@@ -57,6 +59,7 @@ class UserList extends Component {
                     ))}
                     </tbody>
                 </table>
+                </Container>
             </div>
         );
     }
