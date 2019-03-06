@@ -27,7 +27,6 @@ ReactDOM.render(
             <Route path="/user/login" exact component={Login} />
             <Route path='/user/all' component={UserList} />
             <Route path='/product' component={ProductGrid} />
-            <Route path='/product/findBy' component={ProductGrid} /> 
             <Route path='/product/findById/:id' component={ProductDetail} />
             <Route path='/user/profile' component={Profile}/>
             <Route path='/user/register' component={Register}/>
