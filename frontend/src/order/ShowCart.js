@@ -29,12 +29,16 @@ class ShowCart extends Component {
     loadCartFromServer = () => {
         this.setState({isLoading: true});
 
-        fetch(`/order/showBasketItems?idUser=81`)
+        const idUser = localStorage.getItem('idUser');
+
+        fetch(`/order/showBasketItems?idUser=${idUser}`)
             .then(response => response.json())
             .then(data => this.setState({items: data, isLoading: false}))
     };
 
-    handleDelete = (idUser, idItem) => {
+    handleDelete = (idItem) => {
+        const idUser = localStorage.getItem('idUser');
+
         const options = {
             method: 'DELETE'
         };
@@ -44,9 +48,11 @@ class ShowCart extends Component {
                 return <Redirect to={ ShowCart }/>
             });
 
-    }
+    };
 
-    handleIncrease = (idUser, idItem) => {
+    handleIncrease = (idItem) => {
+        const idUser = localStorage.getItem('idUser');
+
         const options = {
             method: 'PATCH'
         };
@@ -56,9 +62,11 @@ class ShowCart extends Component {
                 return <Redirect to={ ShowCart }/>
             });
 
-    }
+    };
 
-    handleDecrease = (idUser, idItem) => {
+    handleDecrease = (idItem) => {
+        const idUser = localStorage.getItem('idUser');
+
         const options = {
             method: 'PATCH'
         };
@@ -67,15 +75,16 @@ class ShowCart extends Component {
             .then((response) => {
                 return <Redirect to={ ShowCart }/>
             });
-
-    }
+    };
 
     totalCost = () => {
+        const idUser = localStorage.getItem('idUser');
+
         const options = {
             method: 'GET'
         };
 
-        fetch(`/order/total/81`, options)
+        fetch(`/order/total/${idUser}`, options)
             .then(response =>
                 response.json()
             )
@@ -88,7 +97,9 @@ class ShowCart extends Component {
         })
     };
 
-    proceedOrder = (idUser) => {
+    proceedOrder = () => {
+        const idUser = localStorage.getItem('idUser');
+
         const options = {
             method: 'PATCH'
         };
@@ -151,7 +162,7 @@ class ShowCart extends Component {
             <div>
                 <Header/>
                 <br/>
-                <Container>
+                <Container style={{marginBottom: "7rem"}}>
                 <div>
                     <table className="table table-striped ">
                         <tHeader><h3 align="center"><b>Shopping cart</b></h3></tHeader>
@@ -165,13 +176,13 @@ class ShowCart extends Component {
                                 <td>{item.price} kr</td>
                                 <td>
                                     <ButtonToolbar>
-                                        <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleDecrease(81, item.id) } }>-</MDBBtn>
+                                        <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleDecrease(item.id) } }>-</MDBBtn>
                                         <ListGroupItem>{item.quantity}</ListGroupItem>
-                                        <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleIncrease(81, item.id) } }>+</MDBBtn>
+                                        <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleIncrease(item.id) } }>+</MDBBtn>
                                     </ButtonToolbar>
                                 </td>
                                 <td><b>{item.quantity*item.price} kr</b></td>
-                                <td><MDBBtn color={"danger"} variant="primary" onClick={() => { this.handleDelete(81, item.id) } } >Remove</MDBBtn></td>
+                                <td><MDBBtn color={"danger"} variant="primary" onClick={() => { this.handleDelete(item.id) } } >Remove</MDBBtn></td>
                             </tr>
                         ))}
                         <br/>
@@ -181,13 +192,13 @@ class ShowCart extends Component {
                             <td></td>
                             <td></td>
                             <td><MDBBtn outline color="primary" variant="primary" onClick={this.continueShopping} >Continue Shopping</MDBBtn></td>
-                            <td><MDBBtn color="success" variant="primary" onClick={() => this.proceedOrder(81)} >Check out</MDBBtn></td>
+                            <td><MDBBtn color="success" variant="primary" onClick={() => this.proceedOrder} >Check out</MDBBtn></td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
                 </Container>
-                {/*<Footer/>*/}
+                <Footer/>
             </div>
         );
     }
