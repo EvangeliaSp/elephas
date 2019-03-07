@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Avatar from 'react-avatar';
 import {Container} from "mdbreact";
+import notAvailable from "../notAvailable.jpg";
 
 class UserList extends Component {
 
@@ -29,6 +30,10 @@ class UserList extends Component {
 
     render() {
         const  {users, isLoading} = this.state
+
+        if (localStorage.getItem("email") != 'admin@gmail.com' && localStorage.getItem("idUser") != null) {
+            return (<img className="center" src={notAvailable}/>);
+        }
 
         if (isLoading)
             return <p>Loading...</p>

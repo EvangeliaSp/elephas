@@ -185,7 +185,7 @@ class Profile extends Component {
         const  {user, orders} = this.state;
 
         if (user.idUser === 'undefined' || localStorage.getItem("idUser") == null) {
-            return (<img className="center" src={notAvailable}/>);
+            return (<img className="center" src={notAvailable} alt="Not available"/>);
         }
 
         return (

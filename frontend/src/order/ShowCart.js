@@ -181,40 +181,40 @@ class ShowCart extends Component {
             <div>
                 <br/>
                 <Container style={{marginBottom: "7rem"}}>
-                <div>
-                    <table className="table table-striped ">
-                        <tHeader><h3 align="center"><b>Shopping cart</b></h3></tHeader>
+                    <div>
+                        <table className="table table-striped ">
+                            <tHeader><h3 align="center"><b>Shopping cart</b></h3></tHeader>
 
-                        <tbody>
-                        <br/>
-                        {items.map(item => (
-                            <tr key={item.id}>
-                                <td><img src={item.url} width="200" height="100"/>  </td>
-                                <td>{item.name}</td>
-                                <td>{item.price} kr</td>
-                                <td>
-                                    <ButtonToolbar>
-                                        <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleDecrease(item.id) } }>-</MDBBtn>
-                                        <ListGroupItem>{item.quantity}</ListGroupItem>
-                                        <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleIncrease(item.id) } }>+</MDBBtn>
-                                    </ButtonToolbar>
-                                </td>
-                                <td><b>{item.quantity*item.price} kr</b></td>
-                                <td><MDBBtn color={"danger"} variant="primary" onClick={() => { this.handleDelete(item.id) } } >Remove</MDBBtn></td>
+                            <tbody>
+                            <br/>
+                            {items.map(item => (
+                                <tr key={item.id}>
+                                    <td><img src={item.url} alt="Product image  " width="200" height="100"/>  </td>
+                                    <td>{item.name}</td>
+                                    <td>{item.price} kr</td>
+                                    <td>
+                                        <ButtonToolbar>
+                                            <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleDecrease(item.id) } }>-</MDBBtn>
+                                            <ListGroupItem>{item.quantity}</ListGroupItem>
+                                            <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleIncrease(item.id) } }>+</MDBBtn>
+                                        </ButtonToolbar>
+                                    </td>
+                                    <td><b>{item.quantity*item.price} kr</b></td>
+                                    <td><MDBBtn color={"danger"} variant="primary" onClick={() => { this.handleDelete(item.id) } } >Remove</MDBBtn></td>
+                                </tr>
+                            ))}
+                            <br/>
+                            <tr>
+                                <td>Total <h4><b>{total} kr</b></h4></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td><MDBBtn outline color="primary" variant="primary" onClick={this.continueShopping} >Continue Shopping</MDBBtn></td>
+                                <td><MDBBtn color="success" variant="primary" onClick={this.proceedOrder} >Check out</MDBBtn></td>
                             </tr>
-                        ))}
-                        <br/>
-                        <tr>
-                            <td>Total <h4><b>{total} kr</b></h4></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td><MDBBtn outline color="primary" variant="primary" onClick={this.continueShopping} >Continue Shopping</MDBBtn></td>
-                            <td><MDBBtn color="success" variant="primary" onClick={() => this.proceedOrder} >Check out</MDBBtn></td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                            </tbody>
+                        </table>
+                    </div>
                 </Container>
             </div>
         );

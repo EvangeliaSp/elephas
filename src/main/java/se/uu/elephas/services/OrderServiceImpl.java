@@ -53,6 +53,7 @@ public class OrderServiceImpl implements OrderService {
 
             Product product = optionalProduct.get();
             OrderItem orderItem = new OrderItem(order, product);
+
             return orderItemRepository.save(orderItem);
         }
 
@@ -146,6 +147,21 @@ public class OrderServiceImpl implements OrderService {
             mycounter = mycounter + 1*item.getQuantity();
         }
         return mycounter;
+    }
+
+    public Order increaseOrderSum(Order basket, float price) {
+        basket.setSum(basket.getSum() + price);
+        return orderRepository.save(basket);
+    }
+
+    public Order decreaseOrderSum(Order basket, float price) {
+        basket.setSum(basket.getSum() - price);
+        return orderRepository.save(basket);
+    }
+
+    public Order decreaseOrderSumWhenRemove(Order basket, OrderItem orderItem) {
+        basket.setSum(basket.getSum() - orderItem.getQuantity()*orderItem.getProduct().getPrice());
+        return orderRepository.save(basket);
     }
 
 }

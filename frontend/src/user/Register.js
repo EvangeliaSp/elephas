@@ -1,6 +1,6 @@
 import React, {Component} from "react";
-import {MDBRow, MDBCol, MDBBtn} from "mdbreact";
-import { Redirect } from 'react-router-dom'
+import {MDBBtn, MDBCol, MDBRow} from "mdbreact";
+
 
 class FormsPage extends Component {
 
