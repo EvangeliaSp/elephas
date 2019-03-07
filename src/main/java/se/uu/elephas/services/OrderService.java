@@ -23,6 +23,8 @@ public interface OrderService {
     
     Object createOrderItem(Order order, Long productId);
 
+    int sizeCart(Long idOrder);
+
     Order increaseOrderSum(Order order, float price);
 
     Order decreaseOrderSum(Order basket, float price);

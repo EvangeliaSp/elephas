@@ -20,9 +20,6 @@ class ProductGrid extends Component {
         }
     }
 
-
-
-
     filterProductsType(hash, allProducts) {
         var typeNumber;
         switch (hash) {
@@ -35,6 +32,7 @@ class ProductGrid extends Component {
         const filteredList = allProducts.filter(prod => {return prod.type === typeNumber});
         return filteredList;
     }
+
     componentWillReceiveProps(nextProps) {
         const hash = nextProps.location.hash
         if(hash !== this.props.location.hash) {
@@ -43,6 +41,7 @@ class ProductGrid extends Component {
             this.setState({currentProducts: crnt});
         }
     }
+
     componentDidMount() {
         this.loadProductsFromServer()
     }
@@ -94,11 +93,13 @@ class ProductGrid extends Component {
         const {currentProducts, isLoading} = this.state
 
         if (isLoading)
-            return <p>Loading...</p>
+            return <div className="loading">
+                <div className="loader"></div>
+            </div>
+
 
         return (
             <div>
-                
                 <Container>
                     <Row style={{marginBottom: '7rem'}}>
                         {
@@ -109,7 +110,6 @@ class ProductGrid extends Component {
                         }
                     </Row>
                 </Container>
-               
             </div>
         );
     }

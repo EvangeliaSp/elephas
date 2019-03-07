@@ -70,7 +70,7 @@ class Header extends Component {
                             <NavLink to="/product#earrings" className={this.setClassName("#earrings", "")}>Earrings</NavLink>
 
                             <NavLink to="#contact" className={this.setClassName("#contact", "")}>Contact</NavLink>
-                            <NavLink to="#about" className={this.setClassName("#about", "")}>About</NavLink>
+                            <NavLink to="/about" className={this.setClassName("#about", "")}>About</NavLink>
                         </Nav>
 
                         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"

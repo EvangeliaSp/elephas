@@ -233,7 +233,7 @@ public class OrderController {
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(basketItems));
 
-    }
+        }
 
     @RequestMapping(value = "/total/{idUser}", method = {RequestMethod.GET})
     public ResponseEntity<String> getTotal(
@@ -247,6 +247,14 @@ public class OrderController {
 
         int total = orderItemService.getTotalCost(basket.getIdOrder());
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(total));
+        }
+
+    @RequestMapping(value = "/cartSize/{idUser}", method = {RequestMethod.GET})
+    public ResponseEntity<String> getCartSize(
+            @PathVariable("idUser") @Valid Long idUser) throws JsonProcessingException {
+
+        int sizeC = orderService.sizeCart(idUser);
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(String.valueOf(sizeC)));
 
     }
 

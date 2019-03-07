@@ -125,7 +125,7 @@ class ShowCart extends Component {
                                 <br/><br/>
                                 <tr>
                                     <h4><b>Your have to <a href="/user/login">sign in</a> or <a href="/user/register">register</a> in order to have a cart and add product inside it.</b></h4>
-                                </tr>
+                                </tr>t
                                 <br/>
                                 </tbody>
                             </table>
@@ -139,12 +139,12 @@ class ShowCart extends Component {
             return (<p>Loading...</p>);
 
         if (continueRedirect) {
-            const { to } = {to: {pathname: '/product'}}
+            const { to } = {to: {pathname: '/product'}};
             return <Redirect to={ to }/>
         }
 
         if (proceedRedirect) {
-            const { to } = {to: {pathname: '/'}}
+            const { to } = {to: {pathname: '/'}};
             return <Redirect to={ to }/>
         }
 
