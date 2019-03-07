@@ -14,15 +14,13 @@ class Header extends Component {
     userDropDownMenu = () => {
         if (localStorage.getItem("idUser") === 'undefined' || localStorage.getItem("idUser") == null)
             return(
-                        <NavDropdown
-                            title={<i className="fas fa-user"></i>}
-                            id="Dropdown"
-                            style={{position:"absolute"}}
-                            >
-                                <NavDropdown.Item href="/user/login">Sign in</NavDropdown.Item>
-                                <NavDropdown.Divider/>
-                        </NavDropdown>
-
+                <NavDropdown
+                    title={<i className="fas fa-user"></i>}
+                    id="Dropdown" style={{position:"absolute"}}
+                >
+                    <NavDropdown.Item href="/user/login">Sign in</NavDropdown.Item>
+                    <NavDropdown.Item href="/user/register">Sign up</NavDropdown.Item>
+                </NavDropdown>
             );
         return(
             <NavDropdown
