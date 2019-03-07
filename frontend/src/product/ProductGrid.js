@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import {Redirect} from 'react-router-dom';
+import {myBasket} from './AddToBasket'
 
 
 class ProductGrid extends Component {
@@ -21,19 +21,7 @@ class ProductGrid extends Component {
     }
 
 
-    myBasket = (idItem) => {
-        const idUser = localStorage.getItem('idUser');
 
-        const options = {
-            method: 'POST'
-        };
-
-        fetch(`/order/addToBasket?idUser=${idUser}&productId=${idItem}`, options)
-            .then((response) => {
-            });
-        return <Redirect to={ ProductGrid }/>
-
-    };
 
     filterProductsType(hash, allProducts) {
         var typeNumber;
@@ -94,7 +82,7 @@ class ProductGrid extends Component {
                     </Card.Body>
                     <Card.Footer>
                         {product.price} kr
-                        <Button variant="primary" onClick={this.myBasket(product.idProduct)} style={{float: 'right'}}>Add to basket</Button>
+                        <Button variant="primary" onClick={() => myBasket(product.idProduct)} style={{float: 'right'}}>Add to basket</Button>
                     </Card.Footer>
                 </Card>
             </div>
