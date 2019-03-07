@@ -139,7 +139,7 @@ class ShowCart extends Component {
             return (<p>Loading...</p>);
 
         if (continueRedirect) {
-            const { to } = {to: {pathname: '/product/findBy'}}
+            const { to } = {to: {pathname: '/product'}}
             return <Redirect to={ to }/>
         }
 
