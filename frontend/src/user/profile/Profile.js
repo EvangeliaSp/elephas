@@ -3,7 +3,7 @@ import Avatar from 'react-avatar';
 import {HashLink as Link} from 'react-router-hash-link';
 import './Profile.css'
 import notAvailable from "./../../notAvailable.jpg";
-import {MDBBtn, MDBCol, MDBRow} from "mdbreact";
+import {Container, MDBBtn, MDBCol, MDBRow} from "mdbreact";
 import Popup from "reactjs-popup";
 
 class Profile extends Component {
@@ -71,9 +71,8 @@ class Profile extends Component {
             method: 'PATCH',
             body: JSON.stringify(this.state),
             redirect: 'follow'
-        }
+        };
         event.preventDefault();
-        // event.target.className += " was-validated";
 
         fetch(`/user/update?id=${this.state.user.idUser}`, options)
             .then(response => response.json())
@@ -396,7 +395,7 @@ class Profile extends Component {
    
     usersOrderList(orders) {
         return (
-            <div id="orders" className={this.setClassName("#orders", "tab-pane")}>
+            <Container id="orders" className={this.setClassName("#orders", "tab-pane")}>
                 <table className="table table-striped ">
                     <thead>
                     <tr>
@@ -423,7 +422,7 @@ class Profile extends Component {
                 ))}
                     </tbody>
                 </table>
-            </div>
+            </Container>
         );
     }
 
@@ -433,7 +432,7 @@ class Profile extends Component {
         const  {user, orders} = this.state;
 
         if (user.idUser === 'undefined' || localStorage.getItem("idUser") == null) {
-            return (<img className="center" src={notAvailable}/>);
+            return (<img className="center" src={notAvailable} alt="Not available"/>);
         }
 
         return (
