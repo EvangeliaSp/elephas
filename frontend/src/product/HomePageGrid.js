@@ -38,13 +38,13 @@ class HomePageGrid extends Component {
                 <Card style={{marginBottom: '2rem'}}>
                     <a href={"/product/findById/" + product.idProduct}>
                         <Card.Img variant="top" src={product.url}
-                                style={{height: `20rem`}}
+                                  style={{height: `20rem`}}
                         />
                     </a>
                     <Card.Body>
                         <Card.Title>
                             <a href={"/product/findById/" + product.idProduct} style={{color: "black"}}>
-                                    {product.name}
+                                {product.name}
                             </a>
                         </Card.Title>
                         <Card.Text>
@@ -67,7 +67,9 @@ class HomePageGrid extends Component {
 
 
         if (isLoading)
-            return <p>Loading...</p>
+            return <div className="loading">
+                <div className="loader"></div>
+            </div>
 
 
         return (
@@ -77,7 +79,7 @@ class HomePageGrid extends Component {
                         {
 
 
-                            products.slice(products.length-6, products.length).map((product) => {
+                            products.slice(products.length - 6, products.length).map((product) => {
                                 return this.ProductCard(product);
 
                             })

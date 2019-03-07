@@ -4,7 +4,6 @@ import se.uu.elephas.model.BasketItem;
 import se.uu.elephas.model.OrderItem;
 
 import java.util.List;
-
 public interface OrderItemService {
 
     Iterable<OrderItem> getOrderItems(Long idOrder);

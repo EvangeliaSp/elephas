@@ -63,6 +63,8 @@ public class OrderItemServiceImpl implements OrderItemService {
 
             return orderItem;
 
+//            if (orderItem.getQuantity() == 0)
+//                orderItemRepository.deleteById(idItem);
         }
 
         return null;

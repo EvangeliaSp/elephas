@@ -12,18 +12,17 @@ import UserList from "./user/UserList";
 import ProductGrid from "./product/ProductGrid";
 import Profile from "./user/profile/Profile";
 import Register from "./user/Register";
+import ProductDetail from "./product/ProductDetail";
+import About from "./components/About";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ShowCart from "./order/ShowCart";
-import ProductDetail from "./product/ProductDetail";
+
 
 ReactDOM.render(
-    <React.Fragment>
-        
     <Router>
-    
         <div>
-        <Header/>
+            <Header/>
             <Route exact path='/' component={App} />
             <Route path="/user/login" exact component={Login} />
             <Route path='/user/all' component={UserList} />
@@ -32,11 +31,10 @@ ReactDOM.render(
             <Route path='/user/profile' component={Profile}/>
             <Route path='/user/register' component={Register}/>
             <Route path='/order/cart' component={ShowCart}/>
+            <Route path='/about' component={About}/>
+            <Footer/>
         </div>
-    </Router>
-        <Footer/>
-    </React.Fragment>,
-    //<App/>,
+    </Router>,
     document.getElementById('root')
 );
 
