@@ -99,6 +99,8 @@ public class OrderController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot increase quantity of orderItem.");
         }
 
+        if (orderService.increaseOrderSum(basket, item.getProduct().getPrice()) == null)
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Not changed the total sum of the basket-order, adding the product with id " + idProduct);
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(item));
     }
@@ -118,6 +120,10 @@ public class OrderController {
         if (item != null) {
             orderItemService.delete(idOrderItem);
             basket = orderService.getBasketOfUser(idUser).iterator().next();
+
+            if ((basket = orderService.decreaseOrderSumWhenRemove(basket, item)) == null)
+                return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Not changed the total sum of the basket-order, removing the product with id " + idOrderItem);
+
             return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(basket));
         } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot remove order item with id " + idOrderItem + ". It is not found.");
@@ -178,6 +184,9 @@ public class OrderController {
         if (orderItem == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found order item with id " + idItem);
 
+        if (orderService.increaseOrderSum(basket, orderItem.getProduct().getPrice()) == null)
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Not changed the total sum of the basket-order, adding the item with id " + idItem);
+
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orderItem));
 
     }
@@ -192,11 +201,19 @@ public class OrderController {
         if (basket == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot find basket. User with id " + idUser + " not found.");
 
+        OrderItem orderItem = orderItemService.findItemInOrderItems(basket.getIdOrder(), idItem);
 
-        OrderItem orderItem = orderItemService.decreaseOrderItemQuantity(basket.getIdOrder(), idItem);
+        if (orderItem == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot find item with id " + idItem + ".");
+        }
+        if (orderService.decreaseOrderSum(basket, orderItem.getProduct().getPrice()) == null)
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Not changed the total sum of the basket-order, removing the item with id " + idItem);
 
-        if (orderItem != null)
+        orderItem = orderItemService.decreaseOrderItemQuantity(basket.getIdOrder(), idItem);
+
+        if (orderItem != null) {
             return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orderItem));
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body("Order item with id " + idItem + " removed from basket.");
 
