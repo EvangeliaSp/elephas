@@ -142,7 +142,7 @@ class Profile extends Component {
                                         open={this.state.open}
                                         // trigger={}
                                         modal
-                                        closeOnDocumentClick
+                                        // closeOnDocumentClick
                                     >
                                         <div className="container">
                                             <MDBRow>
