@@ -1,17 +1,12 @@
 import React, {Component} from "react";
-import {Redirect} from 'react-router-dom'
 import {MDBBtn, MDBCol, MDBContainer, MDBRow} from 'mdbreact';
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 
 
 class Login extends Component{
 
     state = {
         email: '',
-        password: '',
-        // user: '',
-        // redirect: false
+        password: ''
     };
 
     // handleRedirect(response) {
@@ -33,7 +28,7 @@ class Login extends Component{
             method: 'POST',
             body: formData,
             redirect: 'follow'
-        }
+        };
         event.preventDefault();
         event.target.className += " was-validated";
         fetch('/user/login', options)
@@ -44,8 +39,14 @@ class Login extends Component{
                 localStorage.setItem("email", data.email);
                 localStorage.setItem("firstname", data.firstname);
                 localStorage.setItem("lastname", data.lastname);
-                window.location.href=`/user/findById/${data.idUser}`;
-                // this.setState({redirect: true})
+                localStorage.setItem("country", data.country);
+                localStorage.setItem("city", data.city);
+                localStorage.setItem("streetName", data.streetName);
+                localStorage.setItem("streetNumber", data.streetNumber);
+                localStorage.setItem("zipCode", data.zipCode);
+                localStorage.setItem("telephone", data.telephone);
+
+                window.location.href=`/user/profile`;
             })
     };
 
@@ -54,14 +55,8 @@ class Login extends Component{
     };
 
    render() {
-       // if (this.state.redirect) {
-       //     const idUser = localStorage.getItem('idUser');
-       //     const { to } = {to: {pathname: `/user/findById/${idUser}`}};
-       //     return <Redirect to={ to }/>
-       // }
         return (
             <div>
-                <Header/>
                 <form
                     className="needs-validation"
                     onSubmit={this.submitHandler}
@@ -142,7 +137,7 @@ class Login extends Component{
                         <p className="font-small grey-text d-flex justify-content-center">
                             Don't have an account?
                             <a
-                                href="#!"
+                                href="/user/register"
                                 className="dark-grey-text font-weight-bold ml-1"
                             >
                                 Sign up
@@ -152,7 +147,6 @@ class Login extends Component{
                     </MDBRow>
                     </MDBContainer>
                 </form>
-                <Footer/>
             </div>
         );
     };
