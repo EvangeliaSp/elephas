@@ -7,7 +7,8 @@ export const myBasket = (idItem) => {
     const idUser = localStorage.getItem('idUser');
     
     if (idUser === 'undefined' || idUser == null) {
-        return <Redirect to={ ShowCart }/>
+        // return <Redirect to={ ShowCart }/>
+        window.location.href=`/order/cart`;
     }
 
     const options = {
