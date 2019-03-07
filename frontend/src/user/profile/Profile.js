@@ -12,7 +12,6 @@ class Profile extends Component {
         super(props, context);
         this.state = {
             orders: [],
-            key: 'profile',
             user: {
                 idUser: localStorage.getItem("idUser"),
                 email: localStorage.getItem("email"),
@@ -59,16 +58,39 @@ class Profile extends Component {
             .then(data => this.setState({orders: data}))
     };
 
-    // loadUserFromServer = () => {
-    //     const { id } = this.props.match.params
-    //
-    //     fetch(`/user/findById/${this.state.user.idUser}`)
-    //         .then(response => response.json())
-    //         .then(data => this.setState({user: data}))
-    // };
+    changeHandler = event => {
+        this.setState({[event.target.name]: event.target.value});
+    };
 
-    updateProfile = () => {
+    updateHandler = (event) => {
+        const options = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: 'PATCH',
+            body: JSON.stringify(this.state.updateUser),
+            redirect: 'follow'
+        }
+        event.preventDefault();
+        // event.target.className += " was-validated";
 
+        fetch(`/user/update?id=${this.state.user.idUser}`, options)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                localStorage.setItem("firstname", data.firstname);
+                localStorage.setItem("lastname", data.lastname);
+                localStorage.setItem("country", data.country);
+                localStorage.setItem("city", data.city);
+                localStorage.setItem("streetName", data.streetName);
+                localStorage.setItem("streetNumber", data.streetNumber);
+                localStorage.setItem("zipCode", data.zipCode);
+                localStorage.setItem("telephone", data.telephone);
+
+                this.closeModal();
+
+                window.location.href=`/user/profile#profile`;
+            })
     };
 
     setClassName = (str, oldName) => {
@@ -186,7 +208,6 @@ class Profile extends Component {
                                                         id="defaultFormRegisterNameEx"
                                                         className="form-control"
                                                         placeholder={this.state.user.firstname}
-                                                        required
                                                     />
                                                 </MDBCol>
                                                 <MDBCol md="6" className="mb-6">
@@ -197,14 +218,13 @@ class Profile extends Component {
                                                         Last name
                                                     </label>
                                                     <input
-                                                        value={this.state.lastname}
+                                                        value={this.state.updateUser.lastname}
                                                         name="lastname"
                                                         onChange={this.changeHandler}
                                                         type="text"
                                                         id="defaultFormRegisterSurnameEx2"
                                                         className="form-control"
                                                         placeholder={this.state.user.lastname}
-                                                        required
                                                     />
                                                 </MDBCol>
                                             </MDBRow>
@@ -217,14 +237,13 @@ class Profile extends Component {
                                                         City
                                                     </label>
                                                     <input
-                                                        value={this.state.city}
+                                                        value={this.state.updateUser.city}
                                                         onChange={this.changeHandler}
                                                         type="text"
                                                         id="defaultFormRegisterCountry7"
                                                         className="form-control"
                                                         name="city"
                                                         placeholder={this.state.user.city}
-                                                        required
                                                     />
                                                     <div className="invalid-feedback">
                                                         Please provide a valid country.
@@ -238,14 +257,13 @@ class Profile extends Component {
                                                         Street Name
                                                     </label>
                                                     <input
-                                                        value={this.state.streetName}
+                                                        value={this.state.updateUser.streetName}
                                                         onChange={this.changeHandler}
                                                         type="text"
                                                         id="defaultFormRegisterStNameEx5"
                                                         className="form-control"
                                                         name="streetName"
                                                         placeholder={this.state.user.streetName}
-                                                        required
                                                     />
                                                     <div className="invalid-feedback">
                                                         Please provide a valid city name.
@@ -261,14 +279,13 @@ class Profile extends Component {
                                                         Street number
                                                     </label>
                                                     <input
-                                                        value={this.state.streetNumber}
+                                                        value={this.state.updateUser.streetNumber}
                                                         onChange={this.changeHandler}
                                                         type="text"
                                                         id="defaultFormRegisterStNumEx6"
                                                         className="form-control"
                                                         name="streetNumber"
                                                         placeholder={this.state.user.streetNumber}
-                                                        required
                                                     />
                                                     <div className="invalid-feedback">
                                                         Please provide a valid street number.
@@ -282,14 +299,13 @@ class Profile extends Component {
                                                         Zip code
                                                     </label>
                                                     <input
-                                                        value={this.state.zipCode}
+                                                        value={this.state.updateUser.zipCode}
                                                         onChange={this.changeHandler}
                                                         type="text"
                                                         id="defaultFormRegisterZip8"
                                                         className="form-control"
                                                         name="zipCode"
                                                         placeholder={this.state.user.zipCode}
-                                                        required
                                                     />
                                                     <div className="invalid-feedback">
                                                         Please provide a valid zip code
@@ -305,7 +321,7 @@ class Profile extends Component {
                                                         Country
                                                     </label>
                                                     <input
-                                                        value={this.state.country}
+                                                        value={this.state.updateUser.country}
                                                         onChange={this.changeHandler}
                                                         type="text"
                                                         id="defaultFormRegisterCountry7"
@@ -326,7 +342,7 @@ class Profile extends Component {
                                                         Telephone
                                                     </label>
                                                     <input
-                                                        value={this.state.telephone}
+                                                        value={this.state.updateUser.telephone}
                                                         onChange={this.changeHandler}
                                                         type="tel"
                                                         id="defaultFormRegisterTel9"
@@ -351,7 +367,7 @@ class Profile extends Component {
                                                     <MDBBtn color="danger" onClick={() => this.closeModal()}> Cancel </MDBBtn>
                                                 </MDBCol>
                                                 <MDBCol md="2" className="mb-2">
-                                                    <MDBBtn color="success"> Update </MDBBtn>
+                                                    <MDBBtn color="success" onClick={this.updateHandler}> Update </MDBBtn>
                                                 </MDBCol>
                                             </MDBRow>
 

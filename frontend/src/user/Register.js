@@ -26,7 +26,7 @@ class FormsPage extends Component {
             method: 'POST',
             body: JSON.stringify(this.state),
             redirect: 'follow'
-        }
+        };
         event.preventDefault();
         event.target.className += " was-validated";
 
@@ -47,7 +47,6 @@ class FormsPage extends Component {
 
                 window.location.href=`/user/profile`;
             })
-
     };
 
     changeHandler = event => {
