@@ -1,9 +1,14 @@
 import React from "react";
 import {Redirect} from 'react-router-dom';
 import ProductGrid from "./ProductGrid";
+import ShowCart from '../order/ShowCart'
 
 export const myBasket = (idItem) => {
     const idUser = localStorage.getItem('idUser');
+    
+    if (idUser === 'undefined' || idUser == null) {
+        return <Redirect to={ ShowCart }/>
+    }
 
     const options = {
         method: 'POST'
