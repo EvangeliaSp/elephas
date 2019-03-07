@@ -1,13 +1,9 @@
-import {Component} from "react";
-import React from "react";
+import React, {Component} from "react";
 import logo from "../logo2.png";
 import Avatar from 'react-avatar';
-// import NavLink from "./components/nav_link";
 import {NavLink} from "react-router-dom";
-import { Navbar, Nav, NavItem, NavDropdown } from 'react-bootstrap';
-import {MenuItem } from 'react-bootstrap/Navbar';
+import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
 import {logout} from '../user/login-logout/Logout'
-import Profile from "../user/profile/Profile";
 
 class Header extends Component {
 
