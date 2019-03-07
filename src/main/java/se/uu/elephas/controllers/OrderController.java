@@ -97,12 +97,10 @@ public class OrderController {
             item = orderItemService.increaseOrderItemQuantity(basket.getIdOrder(), item.getIdOrderItem());
             if (item == null)
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot increase quantity of orderItem.");
-
-            if (orderService.increaseOrderSum(basket, item.getProduct().getPrice()) == null)
-                return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Not changed the total sum of the basket-order, adding the product with id " + idProduct);
-
         }
 
+        if (orderService.increaseOrderSum(basket, item.getProduct().getPrice()) == null)
+            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Not changed the total sum of the basket-order, adding the product with id " + idProduct);
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(item));
     }
@@ -203,13 +201,19 @@ public class OrderController {
         if (basket == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot find basket. User with id " + idUser + " not found.");
 
-        OrderItem orderItem = orderItemService.decreaseOrderItemQuantity(basket.getIdOrder(), idItem);
+        OrderItem orderItem = orderItemService.findItemInOrderItems(basket.getIdOrder(), idItem);
 
-        if (orderItem != null)
-            return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orderItem));
-
+        if (orderItem == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot find item with id " + idItem + ".");
+        }
         if (orderService.decreaseOrderSum(basket, orderItem.getProduct().getPrice()) == null)
             return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Not changed the total sum of the basket-order, removing the item with id " + idItem);
+
+        orderItem = orderItemService.decreaseOrderItemQuantity(basket.getIdOrder(), idItem);
+
+        if (orderItem != null) {
+            return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orderItem));
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body("Order item with id " + idItem + " removed from basket.");
 
