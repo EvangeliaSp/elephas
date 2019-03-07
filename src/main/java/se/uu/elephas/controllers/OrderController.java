@@ -55,7 +55,7 @@ public class OrderController {
 
     }
 
-    @RequestMapping(value = "showBasket", method = {RequestMethod.GET})
+    @RequestMapping(value = "/showBasket", method = {RequestMethod.GET})
     public ResponseEntity<String> showBasket(
             @RequestParam("idUser") @Valid Long idUser)
             throws JsonProcessingException {
@@ -75,7 +75,7 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
     }
 
-    @RequestMapping(value = "addToBasket", method = {RequestMethod.POST})
+    @RequestMapping(value = "/addToBasket", method = {RequestMethod.POST})
     public ResponseEntity<String> addToBasket(
             @RequestParam("idUser") @Valid Long idUser,
             @RequestParam("productId") @Valid Long idProduct)
@@ -125,7 +125,7 @@ public class OrderController {
     }
 
 
-    @RequestMapping(value = "all", method = {RequestMethod.GET})
+    @RequestMapping(value = "/all", method = {RequestMethod.GET})
     public ResponseEntity<String> findAll()
             throws JsonProcessingException {
 
@@ -134,7 +134,7 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
     }
 
-    @RequestMapping(value = "proceed", method = {RequestMethod.PATCH})
+    @RequestMapping(value = "/proceed", method = {RequestMethod.PATCH})
     public ResponseEntity<String> proceed(
             @RequestParam("idUser") @Valid Long idUser)
             throws JsonProcessingException {
@@ -148,7 +148,7 @@ public class OrderController {
 
     }
 
-    @RequestMapping(value = "findOrderItems", method = {RequestMethod.GET})
+    @RequestMapping(value = "/findOrderItems", method = {RequestMethod.GET})
     public ResponseEntity<String> findOrderItems(
             @RequestParam("idOrder") @Valid Long idOrder)
             throws JsonProcessingException {
@@ -162,7 +162,7 @@ public class OrderController {
 
     }
 
-    @RequestMapping(value = "increase", method = {RequestMethod.PATCH})
+    @RequestMapping(value = "/increase", method = {RequestMethod.PATCH})
     public ResponseEntity<String> increaseQuantity(
             @RequestParam("idUser") @Valid Long idUser,
             @RequestParam("idItem") @Valid Long idItem)
@@ -182,7 +182,7 @@ public class OrderController {
 
     }
 
-    @RequestMapping(value = "decrease", method = {RequestMethod.PATCH})
+    @RequestMapping(value = "/decrease", method = {RequestMethod.PATCH})
     public ResponseEntity<String> decreaseQuantity(
             @RequestParam("idUser") @Valid Long idUser,
             @RequestParam("idItem") @Valid Long idItem)
@@ -202,7 +202,7 @@ public class OrderController {
 
     }
 
-    @RequestMapping(value = "showBasketItems", method = {RequestMethod.GET})
+    @RequestMapping(value = "/showBasketItems", method = {RequestMethod.GET})
     public ResponseEntity<String> showBasketItems(
             @RequestParam("idUser") @Valid Long idUser)
             throws JsonProcessingException {
@@ -218,7 +218,7 @@ public class OrderController {
 
     }
 
-    @RequestMapping(value = "total/{idUser}", method = {RequestMethod.GET})
+    @RequestMapping(value = "/total/{idUser}", method = {RequestMethod.GET})
     public ResponseEntity<String> getTotal(
             @PathVariable("idUser") @Valid Long idUser)
             throws JsonProcessingException {
