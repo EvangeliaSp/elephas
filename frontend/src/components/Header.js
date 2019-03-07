@@ -12,14 +12,16 @@ import Profile from "../user/profile/Profile";
 class Header extends Component {
 
     userDropDownMenu = () => {
-        if (localStorage.getItem("email") === 'admin@gmail.com' && localStorage.getItem("idUser") == null)
+        if (localStorage.getItem("email") === 'admin@gmail.com' && localStorage.getItem("idUser") != null)
             return(
                 <NavDropdown
                     title={<i className="fas fa-user"></i>}
                     id="Dropdown"
                     style={{position:"absolute"}}
                 >
-                    <NavDropdown.Item href="/user/all">Sign in</NavDropdown.Item>
+                    <NavDropdown.Item href="/user/all">Show all users</NavDropdown.Item>
+                    <NavDropdown.Item href="/user/profile">View profile</NavDropdown.Item>
+                    <NavDropdown.Item onClick={logout}>Sign out</NavDropdown.Item>
                     <NavDropdown.Divider/>
                 </NavDropdown>
 
@@ -43,6 +45,7 @@ class Header extends Component {
                 id="Dropdown"
                 style={{position:"absolute"}}
             >
+
                 <NavDropdown.Item href="/user/profile">View profile</NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}>Sign out</NavDropdown.Item>
             </NavDropdown>
