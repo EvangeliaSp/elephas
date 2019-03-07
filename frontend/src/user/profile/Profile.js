@@ -25,6 +25,16 @@ class Profile extends Component {
                 zipCode: localStorage.getItem("zipCode"),
                 telephone: localStorage.getItem("telephone")
             },
+            updateUser: {
+                firstname: '',
+                lastname: '',
+                country: '',
+                city: '',
+                streetName: '',
+                streetNumber: '',
+                zipCode: '',
+                telephone: ''
+            },
             open: false
         };
         this.openModal = this.openModal.bind(this)
@@ -56,6 +66,10 @@ class Profile extends Component {
     //         .then(response => response.json())
     //         .then(data => this.setState({user: data}))
     // };
+
+    updateProfile = () => {
+
+    };
 
     setClassName = (str, oldName) => {
         if (str === window.location.hash)
@@ -165,13 +179,13 @@ class Profile extends Component {
                                                         First name
                                                     </label>
                                                     <input
-                                                        value={this.state.firstname}
+                                                        value={this.state.updateUser.firstname}
                                                         name="firstname"
                                                         onChange={this.changeHandler}
                                                         type="text"
                                                         id="defaultFormRegisterNameEx"
                                                         className="form-control"
-                                                        placeholder="First name"
+                                                        placeholder={this.state.user.firstname}
                                                         required
                                                     />
                                                 </MDBCol>
@@ -189,7 +203,7 @@ class Profile extends Component {
                                                         type="text"
                                                         id="defaultFormRegisterSurnameEx2"
                                                         className="form-control"
-                                                        placeholder="Last name"
+                                                        placeholder={this.state.user.lastname}
                                                         required
                                                     />
                                                 </MDBCol>
@@ -209,7 +223,7 @@ class Profile extends Component {
                                                         id="defaultFormRegisterCountry7"
                                                         className="form-control"
                                                         name="city"
-                                                        placeholder="City"
+                                                        placeholder={this.state.user.city}
                                                         required
                                                     />
                                                     <div className="invalid-feedback">
@@ -230,7 +244,7 @@ class Profile extends Component {
                                                         id="defaultFormRegisterStNameEx5"
                                                         className="form-control"
                                                         name="streetName"
-                                                        placeholder="Street Name"
+                                                        placeholder={this.state.user.streetName}
                                                         required
                                                     />
                                                     <div className="invalid-feedback">
@@ -253,7 +267,7 @@ class Profile extends Component {
                                                         id="defaultFormRegisterStNumEx6"
                                                         className="form-control"
                                                         name="streetNumber"
-                                                        placeholder="Street number"
+                                                        placeholder={this.state.user.streetNumber}
                                                         required
                                                     />
                                                     <div className="invalid-feedback">
@@ -274,7 +288,7 @@ class Profile extends Component {
                                                         id="defaultFormRegisterZip8"
                                                         className="form-control"
                                                         name="zipCode"
-                                                        placeholder="Zip code"
+                                                        placeholder={this.state.user.zipCode}
                                                         required
                                                     />
                                                     <div className="invalid-feedback">
@@ -297,7 +311,7 @@ class Profile extends Component {
                                                         id="defaultFormRegisterCountry7"
                                                         className="form-control"
                                                         name="country"
-                                                        placeholder="Country"
+                                                        placeholder={this.state.user.country}
                                                         required
                                                     />
                                                     <div className="invalid-feedback">
@@ -318,7 +332,7 @@ class Profile extends Component {
                                                         id="defaultFormRegisterTel9"
                                                         className="form-control"
                                                         name="telephone"
-                                                        placeholder="Tel. number"
+                                                        placeholder={this.state.user.telephone}
                                                         required
                                                     />
                                                     <div className="invalid-feedback">
@@ -346,7 +360,6 @@ class Profile extends Component {
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
 
