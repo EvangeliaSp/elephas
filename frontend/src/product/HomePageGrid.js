@@ -3,6 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+import {myBasket} from './AddToBasket'
 
 class HomePageGrid extends Component {
 
@@ -53,7 +54,7 @@ class HomePageGrid extends Component {
                     </Card.Body>
                     <Card.Footer>
                         {product.price} kr
-                        <Button variant="primary" href="#addToBasket" style={{float: 'right'}}>Add to basket</Button>
+                        <Button variant="primary" onClick={() => myBasket(product.idProduct)} style={{float: 'right'}}>Add to basket</Button>
                     </Card.Footer>
                 </Card>
             </div>

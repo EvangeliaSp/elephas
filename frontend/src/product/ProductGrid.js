@@ -3,6 +3,8 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
+import {myBasket} from './AddToBasket'
+
 
 class ProductGrid extends Component {
 
@@ -18,7 +20,7 @@ class ProductGrid extends Component {
         }
     }
 
-    filterProductsType(hash, allProducts) {
+    filterProductsType(hash, allProducts) {
         var typeNumber;
         switch (hash) {
                 case "#bracelets": typeNumber = 1; break;
@@ -51,7 +53,7 @@ class ProductGrid extends Component {
             .then(response => response.json())
             .then(data => {
                 const crnt = this.filterProductsType(this.props.location.hash, data);
-                this.setState({products: data, isLoading: false, currentProducts: crnt}); 
+                this.setState({products: data, isLoading: false, currentProducts: crnt});
             })
     };
 
@@ -79,7 +81,7 @@ class ProductGrid extends Component {
                     </Card.Body>
                     <Card.Footer>
                         {product.price} kr
-                        <Button variant="primary" href="#addToBasket" style={{float: 'right'}}>Add to basket</Button>
+                        <Button variant="primary" onClick={() => myBasket(product.idProduct)} style={{float: 'right'}}>Add to basket</Button>
                     </Card.Footer>
                 </Card>
             </div>

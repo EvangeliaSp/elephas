@@ -42,7 +42,7 @@ public class OrderItemServiceImpl implements OrderItemService {
         Iterable<OrderItem> orderItems = this.getOrderItems(idOrder);
 
         for (OrderItem orderItem: orderItems) {
-            if (orderItem.getIdOrderItem() == idItem)
+            if (orderItem.getIdOrderItem().longValue() == idItem.longValue())
                 return orderItem;
         }
 
