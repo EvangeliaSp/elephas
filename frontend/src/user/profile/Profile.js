@@ -8,6 +8,8 @@ import Popup from "reactjs-popup";
 
 class Profile extends Component {
 
+    state = {};
+
     constructor(props, context) {
         super(props, context);
         this.state = {
@@ -24,6 +26,7 @@ class Profile extends Component {
                 zipCode: localStorage.getItem("zipCode"),
                 telephone: localStorage.getItem("telephone")
             },
+            firstname: '',
             updateUser: {
                 firstname: '',
                 lastname: '',
@@ -34,6 +37,7 @@ class Profile extends Component {
                 zipCode: '',
                 telephone: ''
             },
+
             open: false
         };
         this.openModal = this.openModal.bind(this)
@@ -121,6 +125,8 @@ class Profile extends Component {
 
 
     profileInfo(user) {
+        const {updateUser} = this.state;
+
         return (
             <div id="profile" className={this.setClassName("#profile", "tab-pane")}>
                 <div className="row">
@@ -201,7 +207,7 @@ class Profile extends Component {
                                                         First name
                                                     </label>
                                                     <input
-                                                        value={this.state.updateUser.firstname}
+                                                        value={updateUser.firstname}
                                                         name="firstname"
                                                         onChange={this.changeHandler}
                                                         type="text"
