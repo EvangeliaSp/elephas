@@ -94,7 +94,6 @@ public class UserServiceImpl implements UserService {
             if (newUser.getZipCode() == null)
                 newUser.setZipCode(user.getZipCode());
 
-
         }
 
         return (userRepository.save(newUser));

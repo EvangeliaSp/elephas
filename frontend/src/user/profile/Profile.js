@@ -26,17 +26,14 @@ class Profile extends Component {
                 zipCode: localStorage.getItem("zipCode"),
                 telephone: localStorage.getItem("telephone")
             },
-            firstname: '',
-            updateUser: {
-                firstname: '',
-                lastname: '',
-                country: '',
-                city: '',
-                streetName: '',
-                streetNumber: '',
-                zipCode: '',
-                telephone: ''
-            },
+            firstname: localStorage.getItem("firstname"),
+            lastname: localStorage.getItem("lastname"),
+            country: localStorage.getItem("country"),
+            city: localStorage.getItem("city"),
+            streetName: localStorage.getItem("streetName"),
+            streetNumber: localStorage.getItem("streetNumber"),
+            zipCode: localStorage.getItem("zipCode"),
+            telephone: localStorage.getItem("telephone"),
 
             open: false
         };
@@ -72,7 +69,7 @@ class Profile extends Component {
                 "Content-Type": "application/json",
             },
             method: 'PATCH',
-            body: JSON.stringify(this.state.updateUser),
+            body: JSON.stringify(this.state),
             redirect: 'follow'
         }
         event.preventDefault();
@@ -125,8 +122,6 @@ class Profile extends Component {
 
 
     profileInfo(user) {
-        const {updateUser} = this.state;
-
         return (
             <div id="profile" className={this.setClassName("#profile", "tab-pane")}>
                 <div className="row">
@@ -207,7 +202,7 @@ class Profile extends Component {
                                                         First name
                                                     </label>
                                                     <input
-                                                        value={updateUser.firstname}
+                                                        value={this.state.firstname}
                                                         name="firstname"
                                                         onChange={this.changeHandler}
                                                         type="text"
@@ -224,7 +219,7 @@ class Profile extends Component {
                                                         Last name
                                                     </label>
                                                     <input
-                                                        value={this.state.updateUser.lastname}
+                                                        value={this.state.lastname}
                                                         name="lastname"
                                                         onChange={this.changeHandler}
                                                         type="text"
@@ -243,7 +238,7 @@ class Profile extends Component {
                                                         City
                                                     </label>
                                                     <input
-                                                        value={this.state.updateUser.city}
+                                                        value={this.state.city}
                                                         onChange={this.changeHandler}
                                                         type="text"
                                                         id="defaultFormRegisterCountry7"
@@ -263,7 +258,7 @@ class Profile extends Component {
                                                         Street Name
                                                     </label>
                                                     <input
-                                                        value={this.state.updateUser.streetName}
+                                                        value={this.state.streetName}
                                                         onChange={this.changeHandler}
                                                         type="text"
                                                         id="defaultFormRegisterStNameEx5"
@@ -285,7 +280,7 @@ class Profile extends Component {
                                                         Street number
                                                     </label>
                                                     <input
-                                                        value={this.state.updateUser.streetNumber}
+                                                        value={this.state.streetNumber}
                                                         onChange={this.changeHandler}
                                                         type="text"
                                                         id="defaultFormRegisterStNumEx6"
@@ -305,7 +300,7 @@ class Profile extends Component {
                                                         Zip code
                                                     </label>
                                                     <input
-                                                        value={this.state.updateUser.zipCode}
+                                                        value={this.state.zipCode}
                                                         onChange={this.changeHandler}
                                                         type="text"
                                                         id="defaultFormRegisterZip8"
@@ -327,7 +322,7 @@ class Profile extends Component {
                                                         Country
                                                     </label>
                                                     <input
-                                                        value={this.state.updateUser.country}
+                                                        value={this.state.country}
                                                         onChange={this.changeHandler}
                                                         type="text"
                                                         id="defaultFormRegisterCountry7"
@@ -348,7 +343,7 @@ class Profile extends Component {
                                                         Telephone
                                                     </label>
                                                     <input
-                                                        value={this.state.updateUser.telephone}
+                                                        value={this.state.telephone}
                                                         onChange={this.changeHandler}
                                                         type="tel"
                                                         id="defaultFormRegisterTel9"
