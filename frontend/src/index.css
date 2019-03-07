@@ -95,6 +95,14 @@
     font-size: 3em;
 }
 
+.colorFilter{
+    overflow: hidden;
+    padding-top: 2em;
+    width: 100%;
+    text-align: center;
+    color: #92af75;
+    font-size: 3em;
+}
 .topLine{
 
 }

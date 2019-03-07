@@ -21,28 +21,75 @@ class ProductGrid extends Component {
     }
 
 
-
-
-    filterProductsType(hash, allProducts) {
+    filterProductsType(hash, allProducts) {
         var typeNumber;
         switch (hash) {
-                case "#bracelets": typeNumber = 1; break;
-                case "#rings": typeNumber = 2; break;
-                case "#necklaces": typeNumber = 4; break;
-                case "#earrings": typeNumber = 3; break;
-                default: typeNumber = 0; break;
-            }
-        const filteredList = allProducts.filter(prod => {return prod.type === typeNumber});
+            case "#bracelets":
+                typeNumber = 1;
+                break;
+            case "#rings":
+                typeNumber = 2;
+                break;
+            case "#necklaces":
+                typeNumber = 4;
+                break;
+            case "#earrings":
+                typeNumber = 3;
+                break;
+            default:
+                typeNumber = 0;
+                break;
+        }
+        const filteredList = allProducts.filter(prod => {
+            return prod.type === typeNumber
+        });
         return filteredList;
     }
+
+    filterProductsColor(hash, allProducts) {
+        var typeNumber;
+        switch (hash) {
+            case "1":
+                typeNumber = 1;
+                break;
+            case "2":
+                typeNumber = 2;
+                break;
+            default:
+                typeNumber = 0;
+                break;
+        }
+        const filteredList2 = allProducts.filter(prod => {
+            return prod.color === hash
+        });
+        return filteredList2;
+    }
+
+    handleChange = (e, value, element) => {
+        console.log(value);
+        console.log(e.target.checked);
+        if (value != 0 && e.target.checked == true && element == "color") {
+            const {products} = this.state;
+            const hash = this.props.location.hash;
+            const filt = this.filterProductsType(hash, products);
+            const mpla = this.filterProductsColor(value, filt);
+            console.log(mpla)
+            this.setState({currentProducts: mpla});
+
+
+        }
+
+    }
+
     componentWillReceiveProps(nextProps) {
         const hash = nextProps.location.hash
-        if(hash !== this.props.location.hash) {
+        if (hash !== this.props.location.hash) {
             const {products} = this.state;
             const crnt = this.filterProductsType(hash, products);
             this.setState({currentProducts: crnt});
         }
     }
+
     componentDidMount() {
         this.loadProductsFromServer()
     }
@@ -64,17 +111,17 @@ class ProductGrid extends Component {
             <div key={product.idProduct} className="col-sm-6 col-lg-4">
                 <Card style={{marginBottom: '2rem'}}>
                     <a href={"/product/findById/" + product.idProduct}>
-                        <Card.Img variant="top"  src={product.url}
-                                style={{ height:`20rem` }}
+                        <Card.Img variant="top" src={product.url}
+                                  style={{height: `20rem`}}
                         />
                     </a>
                     <Card.Body>
-                        <Card.Title>  
+                        <Card.Title>
                             <a href={"/product/findById/" + product.idProduct} style={{color: "black"}}>
                                 {product.name}
                             </a>
                         </Card.Title>
-            
+
                         <Card.Text>
                             {product.description}<br/>
 
@@ -82,7 +129,8 @@ class ProductGrid extends Component {
                     </Card.Body>
                     <Card.Footer>
                         {product.price} kr
-                        <Button variant="primary" onClick={() => myBasket(product.idProduct)} style={{float: 'right'}}>Add to basket</Button>
+                        <Button variant="primary" onClick={() => myBasket(product.idProduct)} style={{float: 'right'}}>Add
+                            to basket</Button>
                     </Card.Footer>
                 </Card>
             </div>
@@ -93,12 +141,22 @@ class ProductGrid extends Component {
     render() {
         const {currentProducts, isLoading} = this.state
 
+
         if (isLoading)
             return <p>Loading...</p>
 
         return (
             <div>
-                
+                <div className="colorFilter"></div>
+                <form>
+                    <input type="checkbox"
+                           onClickCapture={(e) => this.handleChange(e, 1, "color")}/>White
+                    <input type="checkbox" name="color"
+                           onClickCapture={(e) => this.handleChange(e, 2, "color")}/>Black
+                    <input type="checkbox" name="color" value="3"
+                           onClickCapture={(e) => this.handleChange(e, 3, "color")}/>Grey
+                </form>
+
                 <Container>
                     <Row style={{marginBottom: '7rem'}}>
                         {
@@ -109,7 +167,8 @@ class ProductGrid extends Component {
                         }
                     </Row>
                 </Container>
-               
+
+
             </div>
         );
     }
