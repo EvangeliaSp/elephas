@@ -12,6 +12,19 @@ import Profile from "../user/profile/Profile";
 class Header extends Component {
 
     userDropDownMenu = () => {
+        if (localStorage.getItem("email") === 'admin@gmail.com' && localStorage.getItem("idUser") == null)
+            return(
+                <NavDropdown
+                    title={<i className="fas fa-user"></i>}
+                    id="Dropdown"
+                    style={{position:"absolute"}}
+                >
+                    <NavDropdown.Item href="/user/all">Sign in</NavDropdown.Item>
+                    <NavDropdown.Divider/>
+                </NavDropdown>
+
+            );
+
         if (localStorage.getItem("idUser") === 'undefined' || localStorage.getItem("idUser") == null)
             return(
                         <NavDropdown
