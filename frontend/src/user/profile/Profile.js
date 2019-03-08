@@ -16,6 +16,7 @@ class Profile extends Component {
         this.state = {
             orders: [],
             users: [],
+            products: [],
             user: {
                 idUser: localStorage.getItem("idUser"),
                 email: localStorage.getItem("email"),
@@ -53,9 +54,11 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        // this.loadUserFromServer()
         this.loadOrdersFromServer();
-        this.loadUsersFromServer()
+        if (localStorage.getItem("email") === "admin@gmail.com") {
+            this.loadUsersFromServer();
+            this.loadProductsFromServer()
+        }
     }
 
     loadOrdersFromServer = () => {
@@ -65,9 +68,15 @@ class Profile extends Component {
     };
 
     loadUsersFromServer = () => {
-        fetch(`/user/all`)
+        fetch('/user/all')
             .then(response => response.json())
             .then(data => this.setState({users: data}))
+    };
+
+    loadProductsFromServer = () => {
+        fetch(`/product/findBy`)
+            .then(response => response.json())
+            .then(data => this.setState({products: data}))
     };
 
     changeHandler = event => {
@@ -465,6 +474,35 @@ class Profile extends Component {
         );
     }
 
+    usersList(users) {
+        return (
+            <Container id="users" className={this.setClassName("#users", "tab-pane")}>
+                <table className="table table-striped ">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Avatar</th>
+                        <th scope="col">Firstname</th>
+                        <th scope="col">Lastname</th>
+                        <th scope="col">Email</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {users.map(user => (
+                        <tr key={user.id}>
+                            <th scope="row">{user.idUser}</th>
+                            <td><Avatar name={user.firstname+" "+user.lastname} round size="35" /></td>
+                            <td>{user.firstname}</td>
+                            <td>{user.lastname}</td>
+                            <td>{user.email}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </Container>
+        );
+    }
+
     productsList(orders) {
         return (
             <Container id="orders" className={this.setClassName("#orders", "tab-pane")}>
@@ -516,8 +554,8 @@ class Profile extends Component {
 
                             <div className="tab-content no-border padding-24" style={{marginBottom: "7rem"}}>
                                 {this.profileInfo(user)}
-                                {this.usersOrderList(orders)}
-                                {this.productsList(orders)}
+                                {this.usersList(users)}
+                                {this.productsList(products)}
                             </div>
 
                         </div>
@@ -525,7 +563,6 @@ class Profile extends Component {
                 </div>
             );
         }
-
 
         return (
             <div>
