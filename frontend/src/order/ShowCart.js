@@ -43,7 +43,7 @@ class ShowCart extends Component {
 
         fetch(`/order/removeFromBasket?idUser=${idUser}&idOrderItem=${idItem}`, options)
             .then((response) => {
-                return <Redirect to={ ShowCart }/>
+                window.location.reload();
             });
 
     };
@@ -57,7 +57,7 @@ class ShowCart extends Component {
 
         fetch(`/order/increase?idUser=${idUser}&idItem=${idItem}`, options)
             .then((response) => {
-                return <Redirect to={ ShowCart }/>
+                window.location.reload();
             });
 
     };
@@ -71,7 +71,7 @@ class ShowCart extends Component {
 
         fetch(`/order/decrease?idUser=${idUser}&idItem=${idItem}`, options)
             .then((response) => {
-                return <Redirect to={ ShowCart }/>
+                window.location.reload();
             });
     };
 
