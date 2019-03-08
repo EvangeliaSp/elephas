@@ -132,6 +132,7 @@ public class OrderServiceImpl implements OrderService {
             User user = optionalUser.get();
             Order order = orderRepository.findByOrderUserAndConfirm(user, false).iterator().next();
             order.setConfirm(true);
+            order.setStatus(4); // status 4 = IN_PROGRESS
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             order.setDate(currentTime);
             orderRepository.save(order);

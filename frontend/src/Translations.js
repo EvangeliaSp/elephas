@@ -1,5 +1,3 @@
-
-
 export const getColor = colorCode => {
     switch (colorCode) {
         case 1: return "black";
@@ -53,11 +51,18 @@ export const paymentTypeToString = paymentType => {
 }
 
 export const statusToString = status => {
+    console.log("status: ", status);
+    if (status === null) {
+        return "none";
+    }
+    return status;
+    /*
     switch(status) {
         case 1: return "Completed";
         case 2: return "Cancelled";
         case 3: return "Shipped";
         case 4: return "In progress";
         default: return "no status";
-    }
+    } 
+    */
 }

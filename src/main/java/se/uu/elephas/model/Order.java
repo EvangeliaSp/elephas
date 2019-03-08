@@ -94,6 +94,10 @@ public class Order {
     public void setStatus(Status s) {
         this.status = s.getValue();
     }
+    
+    public void setStatus(int s) {
+        this.status = s;
+    }
 
     public Boolean getPaymentStatus() {
         return this.paymentStatus;
