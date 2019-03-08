@@ -5,7 +5,7 @@ import './Profile.css'
 import notAvailable from "./../../notAvailable.jpg";
 import {Container, MDBBtn, MDBCol, MDBRow} from "mdbreact";
 import Popup from "reactjs-popup";
-import {confirmToString, paymentTypeToString} from '../../Translations';
+import {confirmToString, paymentTypeToString, statusToString, paymentStatusToString} from '../../Translations';
 
 class Profile extends Component {
 
@@ -415,9 +415,9 @@ class Profile extends Component {
                         <th scope="row">{order.idOrder}</th>
                         <td>{confirmToString(order.confirm)}</td>
                         <td>{(new Date(order.date)).toLocaleString()}</td>
-                        <td>{order.paymentStatus}</td>
+                        <td>{paymentStatusToString(order.paymentStatus)}</td>
                         <td>{paymentTypeToString(order.paymentType)}</td>
-                        <td>{order.status}</td>
+                        <td>{statusToString(order.status)}</td>
                         <td>{order.sum}</td>
                     </tr>
                 ))}

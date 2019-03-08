@@ -37,11 +37,27 @@ export const confirmToString = confirmBool => {
     return "no";
 }
 
+export const paymentStatusToString = paymentBool => {
+    if (paymentBool) {
+        return "paid";
+    }
+    return "not paid";
+}
 export const paymentTypeToString = paymentType => {
     switch(paymentType) {
         case 1: return "Credit card";
         case 2: return "PayPal";
         case 3: return "Swish";
         default: return "none";
+    }
+}
+
+export const statusToString = status => {
+    switch(status) {
+        case 1: return "Completed";
+        case 2: return "Cancelled";
+        case 3: return "Shipped";
+        case 4: return "In progress";
+        default: return "no status";
     }
 }
