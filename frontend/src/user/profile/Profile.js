@@ -51,7 +51,8 @@ class Profile extends Component {
 
     componentDidMount() {
         // this.loadUserFromServer()
-        this.loadOrdersFromServer()
+        this.loadOrdersFromServer();
+        this.loadUsersFromServer()
     }
 
     loadOrdersFromServer = () => {
