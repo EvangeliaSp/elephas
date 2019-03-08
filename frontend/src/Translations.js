@@ -1,5 +1,3 @@
-
-
 export const getColor = colorCode => {
     switch (colorCode) {
         case 1: return "black";
@@ -28,4 +26,33 @@ export const getType = typeCode => {
         case 4: return "neacklace";
         default: return "none";
     }
+}
+
+export const confirmToString = confirmBool => {
+    if (confirmBool) {
+        return "yes";
+    }
+    return "no";
+}
+
+export const paymentStatusToString = paymentBool => {
+    if (paymentBool) {
+        return "paid";
+    }
+    return "not paid";
+}
+export const paymentTypeToString = paymentType => {
+    switch(paymentType) {
+        case 1: return "Credit card";
+        case 2: return "PayPal";
+        case 3: return "Swish";
+        default: return "none";
+    }
+}
+
+export const statusToString = status => {
+    if (status === null) {
+        return "none";
+    }
+    return status;
 }
