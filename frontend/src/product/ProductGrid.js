@@ -46,7 +46,7 @@ class ProductGrid extends Component {
         return filteredList;
     }
 
-    filterProductsColor(hash, allProducts) {
+    filterProductsColor(hash, allProducts, element) {
         var typeNumber;
         switch (hash) {
             case "1":
@@ -55,26 +55,59 @@ class ProductGrid extends Component {
             case "2":
                 typeNumber = 2;
                 break;
+            case "3":
+                typeNumber = 3;
+                break;
+            case "4":
+                typeNumber = 4;
+                break;
+            case "5":
+                typeNumber = 5;
+                break;
+            case "6":
+                typeNumber = 6;
+                break;
+            case "7":
+                typeNumber = 7;
+                break;
+            case "8":
+                typeNumber = 8;
+                break;
             default:
                 typeNumber = 0;
                 break;
         }
-        const filteredList2 = allProducts.filter(prod => {
-            return prod.color === hash
-        });
-        return filteredList2;
+        if (element == "color") {
+            const filteredList2 = allProducts.filter(prod => {
+                return prod.color === hash
+            });
+            return filteredList2;
+        } else if (element == "material") {
+            const filteredList2 = allProducts.filter(prod => {
+                return prod.material === hash
+            })
+            return filteredList2;
+        } else {
+            return allProducts;
+        }
     }
 
     handleChange = (e, value, element) => {
         console.log(value);
         console.log(e.target.checked);
-        if (value != 0 && e.target.checked == true && element == "color") {
+        if (value != 0 && e.target.checked == true) {
             const {products} = this.state;
             const hash = this.props.location.hash;
             const filt = this.filterProductsType(hash, products);
-            const mpla = this.filterProductsColor(value, filt);
-            console.log(mpla)
+            const mpla = this.filterProductsColor(value, filt, element);
+            console.log("filtered final"+mpla)
             this.setState({currentProducts: mpla});
+        }
+        else if (e.target.checked==false){
+            const {products} = this.state;
+            const hash = this.props.location.hash;
+            const filt = this.filterProductsType(hash, products);
+            this.setState({currentProducts: filt});
 
 
         }
@@ -147,15 +180,36 @@ class ProductGrid extends Component {
 
         return (
             <div>
-                <div className="colorFilter"></div>
-                <form>
+
+                <div className="skata">
+
                     <input type="checkbox"
-                           onClickCapture={(e) => this.handleChange(e, 1, "color")}/>White
+                           onClickCapture={(e) => this.handleChange(e, 1, "color")}/>Black
                     <input type="checkbox" name="color"
-                           onClickCapture={(e) => this.handleChange(e, 2, "color")}/>Black
-                    <input type="checkbox" name="color" value="3"
+                           onClickCapture={(e) => this.handleChange(e, 2, "color")}/>White
+                    <input type="checkbox"
                            onClickCapture={(e) => this.handleChange(e, 3, "color")}/>Grey
-                </form>
+                    <input type="checkbox"
+                           onClickCapture={(e) => this.handleChange(e, 4, "color")}/>Brown
+                    <input type="checkbox"
+                           onClickCapture={(e) => this.handleChange(e, 5, "color")}/>Red
+                    <input type="checkbox"
+                           onClickCapture={(e) => this.handleChange(e, 6, "color")}/>Green
+                    <input type="checkbox"
+                           onClickCapture={(e) => this.handleChange(e, 7, "color")}/>Yellow
+                    <input type="checkbox"
+                           onClickCapture={(e) => this.handleChange(e, 8, "color")}/>Blue
+                    <input type="checkbox"
+                           onClickCapture={(e) => this.handleChange(e, 1, "material")}/>Steel
+                    <input type="checkbox"
+                           onClickCapture={(e) => this.handleChange(e, 2, "material")}/>Silver
+                    <input type="checkbox"
+                           onClickCapture={(e) => this.handleChange(e, 3, "material")}/>Gold
+                    <input type="checkbox"
+                           onClickCapture={(e) => this.handleChange(e, 4, "material")}/>Wool
+                    <input type="checkbox"
+                           onClickCapture={(e) => this.handleChange(e, 5, "material")}/>Stones
+                </div>
 
                 <Container>
                     <Row style={{marginBottom: '7rem'}}>

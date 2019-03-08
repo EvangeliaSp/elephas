@@ -85,7 +85,8 @@
     width: 100%;
     text-align: center;
 }
-.intro{
+
+.intro {
     overflow: hidden;
     padding-top: 0.188em;
     width: 100%;
@@ -95,20 +96,14 @@
     font-size: 3em;
 }
 
-.colorFilter{
-    overflow: hidden;
-    padding-top: 2em;
-    width: 100%;
-    text-align: center;
-    color: #92af75;
-    font-size: 3em;
-}
-.topLine{
+
+.skata {
+    padding-top: 5%;
 
 }
 
 
-.bestSeller{
+.bestSeller {
     overflow: hidden;
     width: 100%;
     text-align: center;
@@ -145,7 +140,6 @@
     position: fixed;
     right: 0;
 }
-
 
 
 /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
