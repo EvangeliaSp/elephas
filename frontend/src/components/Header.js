@@ -25,15 +25,13 @@ class Header extends Component {
 
         if (localStorage.getItem("idUser") === 'undefined' || localStorage.getItem("idUser") == null)
             return(
-                        <NavDropdown
-                            title={<i className="fas fa-user"></i>}
-                            id="Dropdown"
-                            style={{position:"absolute"}}
-                            >
-                                <NavDropdown.Item href="/user/login">Sign in</NavDropdown.Item>
-                                <NavDropdown.Divider/>
-                        </NavDropdown>
-
+                <NavDropdown
+                    title={<i className="fas fa-user"></i>}
+                    id="Dropdown" style={{position:"absolute"}}
+                >
+                    <NavDropdown.Item href="/user/login">Sign in</NavDropdown.Item>
+                    <NavDropdown.Item href="/user/register">Sign up</NavDropdown.Item>
+                </NavDropdown>
             );
         return(
             <NavDropdown
@@ -41,8 +39,8 @@ class Header extends Component {
                 id="Dropdown"
                 style={{position:"absolute"}}
             >
-
-                <NavDropdown.Item href="/user/profile">View profile</NavDropdown.Item>
+                <NavDropdown.Item href="/user/profile#profile">View profile</NavDropdown.Item>
+                <NavDropdown.Item href="/user/profile#orders">View orders</NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}>Sign out</NavDropdown.Item>
             </NavDropdown>
         );
