@@ -29,3 +29,10 @@ export const getType = typeCode => {
         default: return "none";
     }
 }
+
+export const confirmToString = confirmBool => {
+    if (confirmBool) {
+        return "yes";
+    }
+    return "no";
+}
