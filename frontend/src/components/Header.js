@@ -15,8 +15,9 @@ class Header extends Component {
                     id="Dropdown"
                     style={{position:"absolute"}}
                 >
-                    <NavDropdown.Item href="/user/all">Show all users</NavDropdown.Item>
-                    <NavDropdown.Item href="/user/profile">View profile</NavDropdown.Item>
+                    <NavDropdown.Item href="/user/profile#profile">View profile</NavDropdown.Item>
+                    <NavDropdown.Item href="/user/profile#users">View users</NavDropdown.Item>
+                    <NavDropdown.Item href="/user/profile#products">View products</NavDropdown.Item>
                     <NavDropdown.Item onClick={logout}>Sign out</NavDropdown.Item>
                     <NavDropdown.Divider/>
                 </NavDropdown>
