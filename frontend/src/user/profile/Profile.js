@@ -152,6 +152,14 @@ class Profile extends Component {
                             </div>
 
                             <div className="profile-info-row">
+                                <div className="profile-info-name"> Password</div>
+                                <div className="profile-info-value">
+                                    <span type="password">••••••••••</span>
+                                    <MDBBtn color="primary" > Update Password </MDBBtn>
+                                </div>
+                            </div>
+
+                            <div className="profile-info-row">
                                 <div className="profile-info-name"> Location</div>
                                 <div className="profile-info-value">
                                     <span>{user.city}</span>
@@ -378,6 +386,9 @@ class Profile extends Component {
 
                                         </div>
                                     </Popup>
+                                </div>
+                                <div className="profile-info-name">
+
                                 </div>
                             </div>
                         </div>
