@@ -36,3 +36,12 @@ export const confirmToString = confirmBool => {
     }
     return "no";
 }
+
+export const paymentTypeToString = paymentType => {
+    switch(paymentType) {
+        case 1: return "Credit card";
+        case 2: return "PayPal";
+        case 3: return "Swish";
+        default: return "none";
+    }
+}
