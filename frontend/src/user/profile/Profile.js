@@ -14,6 +14,7 @@ class Profile extends Component {
         super(props, context);
         this.state = {
             orders: [],
+            users: [],
             user: {
                 idUser: localStorage.getItem("idUser"),
                 email: localStorage.getItem("email"),
@@ -59,6 +60,12 @@ class Profile extends Component {
             .then(data => this.setState({orders: data}))
     };
 
+    loadUsersFromServer = () => {
+        fetch(`/user/all`)
+            .then(response => response.json())
+            .then(data => this.setState({users: data}))
+    };
+
     changeHandler = event => {
         this.setState({[event.target.name]: event.target.value});
     };
@@ -100,6 +107,32 @@ class Profile extends Component {
     };
 
     tabMenu() {
+        if (localStorage.getItem("email") === 'admin@gmail.com') {
+            return (
+                <ul className="nav nav-tabs padding-18">
+                    <li className={this.setClassName("#profile", "")}>
+                        <Link data-toggle="tab" to="#profile">
+                            <i className="green ace-icon fa fa-user bigger-120"></i>
+                            Profile
+                        </Link>
+                    </li>
+
+                    <li className={this.setClassName("#users", "")}>
+                        <Link data-toggle="tab" to="#users">
+                            <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
+                            Users
+                        </Link>
+                    </li>
+
+                    <li className={this.setClassName("#products", "")}>
+                        <Link data-toggle="tab" to="#products">
+                            <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
+                            Products
+                        </Link>
+                    </li>
+                </ul>
+            );
+        }
         return (
             <ul className="nav nav-tabs padding-18">
                 <li className={this.setClassName("#profile", "")}>
@@ -426,14 +459,67 @@ class Profile extends Component {
         );
     }
 
+    productsList(orders) {
+        return (
+            <Container id="orders" className={this.setClassName("#orders", "tab-pane")}>
+                <table className="table table-striped ">
+                    <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Confirm</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Payment Status</th>
+                        <th scope="col">Payment Type</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Sum</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {orders.map(order => (
+                        <tr key={order.idOrder}>
+                            <th scope="row">{order.idOrder}</th>
+                            <td>{order.confirm}</td>
+                            <td>{order.date}</td>
+                            <td>{order.paymentStatus}</td>
+                            <td>{order.paymentType}</td>
+                            <td>{order.status}</td>
+                            <td>{order.sum}</td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </Container>
+        );
+    }
+
     
 
     render() {
-        const  {user, orders} = this.state;
+        const  {user, orders, users, products} = this.state;
 
         if (user.idUser === 'undefined' || localStorage.getItem("idUser") == null) {
             return (<img className="center" src={notAvailable} alt="Not available"/>);
         }
+
+        if (user.email === "admin@gmail.com") {
+            return(
+                <div>
+                    <div id="user-profile-2" className="user-profile">
+                        <div className="tabbable">
+                            {this.tabMenu()}
+
+                            <div className="tab-content no-border padding-24" style={{marginBottom: "7rem"}}>
+                                {this.profileInfo(user)}
+                                {this.usersOrderList(orders)}
+                                {this.productsList(orders)}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
 
         return (
             <div>
