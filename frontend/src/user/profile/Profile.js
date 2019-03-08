@@ -5,7 +5,7 @@ import './Profile.css'
 import notAvailable from "./../../notAvailable.jpg";
 import {Container, MDBBtn, MDBCol, MDBRow} from "mdbreact";
 import Popup from "reactjs-popup";
-import {confirmToString, paymentStatusToString, paymentTypeToString, statusToString} from '../../Translations';
+import {confirmToString, paymentStatusToString, paymentTypeToString, statusToString, getColor, getMaterial, getType} from '../../Translations';
 
 class Profile extends Component {
 
@@ -39,10 +39,16 @@ class Profile extends Component {
                 zipCode: localStorage.getItem("zipCode"),
                 telephone: localStorage.getItem("telephone")
             },
-            open: false
+            open: false,
+            openUpdateProduct: false,
+            openDeleteProduct: false
         };
-        this.openModal = this.openModal.bind(this)
-        this.closeModal = this.closeModal.bind(this)
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.openUpdateProductModal = this.openUpdateProductModal.bind(this);
+        this.closeUpdateProductModal = this.closeUpdateProductModal.bind(this);
+        this.openDeleteProductModal = this.openDeleteProductModal.bind(this);
+        this.closeDeleteProductModal = this.closeDeleteProductModal.bind(this)
     }
 
     openModal (){
@@ -51,6 +57,22 @@ class Profile extends Component {
 
     closeModal () {
         this.setState({ open: false })
+    }
+
+    openUpdateProductModal (){
+        this.setState({ openUpdateProduct: true })
+    }
+
+    closeUpdateProductModal () {
+        this.setState({ openUpdateProduct: false })
+    }
+
+    openDeleteProductModal (){
+        this.setState({ openDeleteProduct: true })
+    }
+
+    closeDeleteProductModal () {
+        this.setState({ openDeleteProduct: false })
     }
 
     componentDidMount() {
@@ -166,7 +188,6 @@ class Profile extends Component {
             </ul>
         );
     }
-
 
     profileInfo(user) {
         return (
@@ -418,7 +439,6 @@ class Profile extends Component {
                                                     <MDBBtn color="success" onClick={this.updateHandler}> Update </MDBBtn>
                                                 </MDBCol>
                                             </MDBRow>
-
                                         </div>
                                     </Popup>
                                 </div>
@@ -440,7 +460,6 @@ class Profile extends Component {
         );
     }
 
-   
     usersOrderList(orders) {
         return (
             <Container id="orders" className={this.setClassName("#orders", "tab-pane")}>
@@ -503,31 +522,110 @@ class Profile extends Component {
         );
     }
 
-    productsList(orders) {
+    productsList(products) {
         return (
-            <Container id="orders" className={this.setClassName("#orders", "tab-pane")}>
+            <Container id="products" className={this.setClassName("#products", "tab-pane")}>
                 <table className="table table-striped ">
                     <thead>
                     <tr>
                         <th scope="col">#</th>
-                        <th scope="col">Confirm</th>
-                        <th scope="col">Date</th>
-                        <th scope="col">Payment Status</th>
-                        <th scope="col">Payment Type</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Sum</th>
+                        <th scope="col">Image</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Material</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price (kr)</th>
+                        <th scope="col">Discount (%)</th>
+                        <th scope="col">Final price (kr)</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
-                    {orders.map(order => (
-                        <tr key={order.idOrder}>
-                            <th scope="row">{order.idOrder}</th>
-                            <td>{order.confirm}</td>
-                            <td>{order.date}</td>
-                            <td>{order.paymentStatus}</td>
-                            <td>{order.paymentType}</td>
-                            <td>{order.status}</td>
-                            <td>{order.sum}</td>
+                    {products.map(product => (
+                        <tr key={product.idProduct}>
+                            <th scope="row">{product.idProduct}</th>
+                            <td><img url={product.url} alt={product.name} width="200" height="100"/></td>
+                            <td>{product.name}</td>
+                            <td>{getType(product.type)}</td>
+                            <td>{getMaterial(product.material)}</td>
+                            <td>{getColor(product.color)}</td>
+                            <td>{product.description}</td>
+                            <td>{product.price}</td>
+                            <td>{product.discount}</td>
+                            <td>{product.price - product.price*product.discount/100}</td>
+                            <td><MDBBtn color="primary" onClick={() => this.openUpdateProductModal()} > Edit </MDBBtn>
+                                <Popup open={this.state.openUpdateProduct} modal>
+                                    <div className="container">
+                                        <MDBRow>
+                                            <MDBCol md="6" className="mb-6">
+                                                <h3><b>Update product</b></h3>
+                                            </MDBCol>
+                                            <MDBCol md="5" className="mb-5"/>
+                                            <MDBCol md="1" className="mb-1">
+                                                <button onClick={() => this.closeUpdateProductModal()}> &times; </button>
+                                            </MDBCol>
+                                        </MDBRow>
+
+                                        <hr/>
+
+                                        <hr/>
+                                        <MDBRow>
+                                            <MDBCol md="2" className="mb-2"/>
+                                            <MDBCol md="2" className="mb-2"/>
+                                            <MDBCol md="2" className="mb-2"/>
+                                            <MDBCol md="2" className="mb-2"/>
+                                            <MDBCol md="2" className="mb-2">
+                                                <MDBBtn color="danger" onClick={() => this.closeUpdateProductModal()}> Cancel </MDBBtn>
+                                            </MDBCol>
+                                            <MDBCol md="2" className="mb-2">
+                                                <MDBBtn color="success"> Update </MDBBtn>
+                                            </MDBCol>
+                                        </MDBRow>
+                                    </div>
+                                </Popup>
+                            </td>
+                            <td>
+                                <MDBBtn color="danger" onClick={() => this.openDeleteProductModal()}> &times; </MDBBtn>
+                                <Popup
+                                    open={this.state.openDeleteProduct}
+                                    // trigger={}
+                                    modal
+                                    // closeOnDocumentClick
+                                >
+                                    <div className="container">
+                                        <MDBRow>
+                                            <MDBCol md="6" className="mb-6">
+                                                <h3><b>Delete product</b></h3>
+                                            </MDBCol>
+                                            <MDBCol md="5" className="mb-5"/>
+                                            <MDBCol md="1" className="mb-1">
+                                                <button onClick={() => this.closeDeleteProductModal()}> &times; </button>
+                                            </MDBCol>
+                                        </MDBRow>
+                                        <hr/>
+                                        <MDBRow>
+                                            <MDBCol md="12" className="mb-12">
+                                                <div><b>Are you sure you want to delete the <i>'{product.name}'</i> product?</b>
+                                                </div>
+                                            </MDBCol>
+
+                                        </MDBRow>
+                                        <hr/>
+                                        <MDBRow>
+                                            <MDBCol md="4" className="mb-4"/>
+                                            <MDBCol md="2" className="mb-2">
+                                                <MDBBtn color="danger" onClick={() => this.closeDeleteProductModal()}> No </MDBBtn>
+                                            </MDBCol>
+                                            <MDBCol md="2" className="mb-2">
+                                                <MDBBtn color="success" > Yes </MDBBtn>
+                                            </MDBCol>
+                                            <MDBCol md="4" className="mb-4"/>
+                                        </MDBRow>
+                                    </div>
+                                </Popup>
+                            </td>
                         </tr>
                     ))}
                     </tbody>
@@ -535,8 +633,6 @@ class Profile extends Component {
             </Container>
         );
     }
-
-    
 
     render() {
         const  {user, orders, users, products} = this.state;
@@ -578,7 +674,6 @@ class Profile extends Component {
                 </div>
             </div>
             </div>
-
         );
     }
 }
