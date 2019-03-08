@@ -413,7 +413,7 @@ class Profile extends Component {
                     <tr key={order.idOrder}>
                         <th scope="row">{order.idOrder}</th>
                         <td>{order.confirm}</td>
-                        <td>{order.date}</td>
+                        <td>{(new Date(order.date)).toLocaleString()}</td>
                         <td>{order.paymentStatus}</td>
                         <td>{order.paymentType}</td>
                         <td>{order.status}</td>
