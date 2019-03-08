@@ -5,7 +5,7 @@ import './Profile.css'
 import notAvailable from "./../../notAvailable.jpg";
 import {Container, MDBBtn, MDBCol, MDBRow} from "mdbreact";
 import Popup from "reactjs-popup";
-import {Redirect} from 'react-router-dom';
+import {confirmToString, paymentStatusToString, paymentTypeToString, statusToString} from '../../Translations';
 
 class Profile extends Component {
 
@@ -417,11 +417,11 @@ class Profile extends Component {
                     {orders.map(order => (
                     <tr key={order.idOrder}>
                         <th scope="row">{order.idOrder}</th>
-                        <td>{order.confirm}</td>
-                        <td>{order.date}</td>
-                        <td>{order.paymentStatus}</td>
-                        <td>{order.paymentType}</td>
-                        <td>{order.status}</td>
+                        <td>{confirmToString(order.confirm)}</td>
+                        <td>{(new Date(order.date)).toLocaleString()}</td>
+                        <td>{paymentStatusToString(order.paymentStatus)}</td>
+                        <td>{paymentTypeToString(order.paymentType)}</td>
+                        <td>{statusToString(order.status)}</td>
                         <td>{order.sum}</td>
                     </tr>
                 ))}

@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import {getColor, getMaterial, getType} from './Translations';
+import {getColor, getMaterial, getType} from '../Translations';
 
 class ProductDetail extends Component {
 
