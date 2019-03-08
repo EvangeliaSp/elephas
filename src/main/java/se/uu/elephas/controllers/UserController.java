@@ -30,12 +30,6 @@ public class UserController {
     @Autowired
     private OrderServiceImpl orderService;
 
-    @RequestMapping("/")
-    public String home() {
-        return "Hello Elephas!";
-    }
-
-
     @RequestMapping(value = "/create", method = {RequestMethod.POST})
     public ResponseEntity<String> create(
             @RequestBody User user)
