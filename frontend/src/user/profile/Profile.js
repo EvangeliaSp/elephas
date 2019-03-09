@@ -41,12 +41,15 @@ class Profile extends Component {
             newPassword: '',
             confirmPassword: '',
             open: false,
-            openPassword: false
+            openPassword: false,
+            openPasswordSucceed: false
         };
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
-        this.openPasswordModal = this.openPasswordModal.bind(this)
-        this.closePasswordModal = this.closePasswordModal.bind(this)
+        this.openPasswordModal = this.openPasswordModal.bind(this);
+        this.closePasswordModal = this.closePasswordModal.bind(this);
+        this.openPasswordSucceedModal = this.openPasswordSucceedModal.bind(this);
+        this.closePasswordSucceedModal = this.closePasswordSucceedModal.bind(this)
     }
 
     openModal (){
@@ -65,8 +68,15 @@ class Profile extends Component {
         this.setState({ openPassword: false })
     }
 
+    openPasswordSucceedModal (){
+        this.setState({ openPasswordSucceed: true })
+    }
+
+    closePasswordSucceedModal () {
+        this.setState({ openPasswordSucceed: false })
+    }
+
     componentDidMount() {
-        // this.loadUserFromServer()
         this.loadOrdersFromServer()
     }
 
@@ -129,7 +139,8 @@ class Profile extends Component {
                                         if (response.ok) {
                                             console.log('User password updated.');
                                             this.closePasswordModal();
-                                            window.location.reload();
+                                            // window.location.reload();
+                                            this.openPasswordSucceedModal();
                                         } else if (response.status === 403) {
                                             console.log('Cannot update user password.');
                                             alert("Cannot update password! Please, try again.")
@@ -143,6 +154,12 @@ class Profile extends Component {
                     }
                 )
         }
+    };
+
+    updatePasswordSucceedHandler = () => {
+        this.closePasswordSucceedModal();
+        localStorage.clear();
+        window.location.href=`/user/login`;
     };
 
     updateHandler = (event) => {
@@ -233,18 +250,11 @@ class Profile extends Component {
                                 <div className="profile-info-value">
                                     <div className="row">
                                         <div className="col-md-4">••••••••••••••</div>
-
                                         <div className="col-md-4">
-                                        {/*<span>••••••••••</span>*/}
                                             <MDBBtn color="danger" outline="true"  onClick={() => this.openPasswordModal()}> Update Password </MDBBtn>
                                         </div>
                                         <div className="col-md-4"></div>
-                                        <Popup
-                                            open={this.state.openPassword}
-                                            // trigger={}
-                                            modal
-                                            // closeOnDocumentClick
-                                        >
+                                        <Popup open={this.state.openPassword} modal>
                                             <div className="container">
                                                 <MDBRow>
                                                     <MDBCol md="6" className="mb-6">
@@ -335,6 +345,34 @@ class Profile extends Component {
                                                     <MDBCol md="2" className="mb-2">
                                                         <MDBBtn color="success" onClick={this.updatePasswordHandler}> Update </MDBBtn>
                                                     </MDBCol>
+                                                </MDBRow>
+
+                                            </div>
+                                        </Popup>
+                                        <Popup open={this.state.openPasswordSucceed} modal>
+                                            <div className="container">
+                                                <MDBRow>
+                                                    <MDBCol md="9" className="mb-9">
+                                                        <h3><b>Password changed successfully!</b></h3>
+                                                    </MDBCol>
+                                                </MDBRow>
+
+                                                <hr/>
+
+                                                <MDBRow>
+                                                    <MDBCol md="9" className="mb-9">
+                                                        <div><b>Your password has been reset successfully! To continue, press <i>OK</i> and log in with the new password.</b>
+                                                        </div>
+                                                    </MDBCol>
+                                                </MDBRow>
+                                                <hr/>
+                                                <MDBRow>
+                                                    <MDBCol md="4" className="mb-4"/>
+                                                    <MDBCol md="1" className="mb-1">
+                                                        <MDBBtn color="success" onClick={this.updatePasswordSucceedHandler}> OK </MDBBtn>
+                                                    </MDBCol>
+                                                    <MDBCol md="4" className="mb-4"/>
+
                                                 </MDBRow>
 
                                             </div>
