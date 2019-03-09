@@ -113,9 +113,28 @@ class Profile extends Component {
                                 console.log("Passwords do not match");
                                 alert("Passwords don't match");
                             } else {
-                                console.log("Passwords not match");
-                                window.location.reload();
-                                this.closePasswordModal();
+                                console.log("Passwords match");
+
+                                const opt = {
+                                    headers: {
+                                        "Content-Type": "application/json",
+                                    },
+                                    method: 'PATCH',
+                                    body: JSON.stringify({password: newPassword}),
+                                    redirect: 'follow'
+                                };
+
+                                fetch(`/user/update?id=${this.state.user.idUser}`, opt)
+                                    .then(response => {
+                                        if (response.ok) {
+                                            console.log('User password updated.')
+                                            this.closePasswordModal();
+                                            window.location.reload();
+                                        } else if (response.status === 403) {
+                                            console.log('Cannot update user password.')
+                                            alert("Cannot update password! Please, try again.")
+                                        }
+                                    })
                             }
                         } else if (response.status === 401) {
                             console.log("Old password does not match.");
