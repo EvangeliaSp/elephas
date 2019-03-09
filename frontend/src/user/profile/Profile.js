@@ -127,11 +127,11 @@ class Profile extends Component {
                                 fetch(`/user/update?id=${this.state.user.idUser}`, opt)
                                     .then(response => {
                                         if (response.ok) {
-                                            console.log('User password updated.')
+                                            console.log('User password updated.');
                                             this.closePasswordModal();
                                             window.location.reload();
                                         } else if (response.status === 403) {
-                                            console.log('Cannot update user password.')
+                                            console.log('Cannot update user password.');
                                             alert("Cannot update password! Please, try again.")
                                         }
                                     })
@@ -231,108 +231,115 @@ class Profile extends Component {
                             <div className="profile-info-row">
                                 <div className="profile-info-name"> Password</div>
                                 <div className="profile-info-value">
-                                    <span>••••••••••</span>
-                                    <MDBBtn color="primary"  onClick={() => this.openPasswordModal()}> Update Password </MDBBtn>
-                                    <Popup
-                                        open={this.state.openPassword}
-                                        // trigger={}
-                                        modal
-                                        // closeOnDocumentClick
-                                    >
-                                        <div className="container">
-                                            <MDBRow>
-                                                <MDBCol md="6" className="mb-6">
-                                                    <h3><b>Change Password</b></h3>
-                                                </MDBCol>
-                                                <MDBCol md="5" className="mb-5"/>
-                                                <MDBCol md="1" className="mb-1">
-                                                    <button onClick={() => this.closePasswordModal()}> &times; </button>
-                                                </MDBCol>
-                                            </MDBRow>
+                                    <div className="row">
+                                        <div className="col-md-4">••••••••••••••</div>
 
-                                            <hr/>
-                                            <MDBRow>
-                                                <MDBCol md="6" className="mb-6">
-                                                    <label
-                                                        htmlFor="defaultFormRegisterPasswordEx3"
-                                                        className="grey-text"
-                                                    >
-                                                        Old password
-                                                    </label>
-                                                    <input
-                                                        value={this.state.oldPassword}
-                                                        name="oldPassword"
-                                                        onChange={this.changeHandler}
-                                                        type="password"
-                                                        // id="defaultFormRegisterPasswordEx3"
-                                                        className="form-control"
-                                                        placeholder="Old password"
-                                                        required
-                                                    />
-                                                </MDBCol>
-                                            </MDBRow>
-                                            <MDBRow>
-                                                <MDBCol md="6" className="mb-6">
-                                                    <label
-                                                        htmlFor="defaultFormRegisterPasswordEx3"
-                                                        className="grey-text"
-                                                    >
-                                                        New password
-                                                    </label>
-                                                    <input
-                                                        value={this.state.newPassword}
-                                                        onChange={this.changeHandler}
-                                                        type="password"
-                                                        // id="defaultFormRegisterPasswordEx3"
-                                                        className="form-control"
-                                                        name="newPassword"
-                                                        placeholder="New password"
-                                                        required
-                                                    />
-                                                    <div className="invalid-feedback">
-                                                        Please provide a valid country.
-                                                    </div>
-                                                </MDBCol>
-                                            </MDBRow>
-                                            <MDBRow>
-                                                <MDBCol md="6" className="mb-6">
-                                                    <label
-                                                        htmlFor="defaultFormRegisterPasswordEx3"
-                                                        className="grey-text"
-                                                    >
-                                                        Confirm password
-                                                    </label>
-                                                    <input
-                                                        value={this.state.confirmPassword}
-                                                        onChange={this.changeHandler}
-                                                        type="password"
-                                                        // id="defaultFormRegisterPasswordEx3"
-                                                        className="form-control"
-                                                        name="confirmPassword"
-                                                        placeholder="New password"
-                                                        required
-                                                    />
-                                                    <div className="invalid-feedback">
-                                                        Please provide a valid street number.
-                                                    </div>
-                                                </MDBCol>
-                                            </MDBRow>
-                                            <hr/>
-                                            <MDBRow>
-                                                <MDBCol md="2" className="mb-2"/>
-                                                <MDBCol md="2" className="mb-2"/>
-                                                <MDBCol md="2" className="mb-2"/>
-                                                <MDBCol md="2" className="mb-2"/>
-                                                <MDBCol md="2" className="mb-2">
-                                                    <MDBBtn color="danger" onClick={this.closePasswordModal}> Cancel </MDBBtn>
-                                                </MDBCol>
-                                                <MDBCol md="2" className="mb-2">
-                                                    <MDBBtn color="success" onClick={this.updatePasswordHandler}> Update </MDBBtn>
-                                                </MDBCol>
-                                            </MDBRow>
-
+                                        <div className="col-md-4">
+                                        {/*<span>••••••••••</span>*/}
+                                            <MDBBtn color="danger" outline="true"  onClick={() => this.openPasswordModal()}> Update Password </MDBBtn>
                                         </div>
-                                    </Popup>
+                                        <div className="col-md-4"></div>
+                                        <Popup
+                                            open={this.state.openPassword}
+                                            // trigger={}
+                                            modal
+                                            // closeOnDocumentClick
+                                        >
+                                            <div className="container">
+                                                <MDBRow>
+                                                    <MDBCol md="6" className="mb-6">
+                                                        <h3><b>Change Password</b></h3>
+                                                    </MDBCol>
+                                                    <MDBCol md="5" className="mb-5"/>
+                                                    <MDBCol md="1" className="mb-1">
+                                                        <button onClick={() => this.closePasswordModal()}> &times; </button>
+                                                    </MDBCol>
+                                                </MDBRow>
+
+                                                <hr/>
+                                                <MDBRow>
+                                                    <MDBCol md="6" className="mb-6">
+                                                        <label
+                                                            htmlFor="defaultFormRegisterPasswordEx3"
+                                                            className="grey-text"
+                                                        >
+                                                            Old password
+                                                        </label>
+                                                        <input
+                                                            value={this.state.oldPassword}
+                                                            name="oldPassword"
+                                                            onChange={this.changeHandler}
+                                                            type="password"
+                                                            // id="defaultFormRegisterPasswordEx3"
+                                                            className="form-control"
+                                                            placeholder="Old password"
+                                                            required
+                                                        />
+                                                    </MDBCol>
+                                                </MDBRow>
+                                                <MDBRow>
+                                                    <MDBCol md="6" className="mb-6">
+                                                        <label
+                                                            htmlFor="defaultFormRegisterPasswordEx3"
+                                                            className="grey-text"
+                                                        >
+                                                            New password
+                                                        </label>
+                                                        <input
+                                                            value={this.state.newPassword}
+                                                            onChange={this.changeHandler}
+                                                            type="password"
+                                                            // id="defaultFormRegisterPasswordEx3"
+                                                            className="form-control"
+                                                            name="newPassword"
+                                                            placeholder="New password"
+                                                            required
+                                                        />
+                                                        <div className="invalid-feedback">
+                                                            Please provide a valid country.
+                                                        </div>
+                                                    </MDBCol>
+                                                </MDBRow>
+                                                <MDBRow>
+                                                    <MDBCol md="6" className="mb-6">
+                                                        <label
+                                                            htmlFor="defaultFormRegisterPasswordEx3"
+                                                            className="grey-text"
+                                                        >
+                                                            Confirm password
+                                                        </label>
+                                                        <input
+                                                            value={this.state.confirmPassword}
+                                                            onChange={this.changeHandler}
+                                                            type="password"
+                                                            // id="defaultFormRegisterPasswordEx3"
+                                                            className="form-control"
+                                                            name="confirmPassword"
+                                                            placeholder="New password"
+                                                            required
+                                                        />
+                                                        <div className="invalid-feedback">
+                                                            Please provide a valid street number.
+                                                        </div>
+                                                    </MDBCol>
+                                                </MDBRow>
+                                                <hr/>
+                                                <MDBRow>
+                                                    <MDBCol md="2" className="mb-2"/>
+                                                    <MDBCol md="2" className="mb-2"/>
+                                                    <MDBCol md="2" className="mb-2"/>
+                                                    <MDBCol md="2" className="mb-2"/>
+                                                    <MDBCol md="2" className="mb-2">
+                                                        <MDBBtn color="danger" onClick={this.closePasswordModal}> Cancel </MDBBtn>
+                                                    </MDBCol>
+                                                    <MDBCol md="2" className="mb-2">
+                                                        <MDBBtn color="success" onClick={this.updatePasswordHandler}> Update </MDBBtn>
+                                                    </MDBCol>
+                                                </MDBRow>
+
+                                            </div>
+                                        </Popup>
+                                    </div>
                                 </div>
                             </div>
 
