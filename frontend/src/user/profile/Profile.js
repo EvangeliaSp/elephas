@@ -120,7 +120,7 @@ class Profile extends Component {
                                         "Content-Type": "application/json",
                                     },
                                     method: 'PATCH',
-                                    body: JSON.stringify({password: newPassword}),
+                                    body: JSON.stringify({"password": newPassword}),
                                     redirect: 'follow'
                                 };
 
