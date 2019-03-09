@@ -37,10 +37,16 @@ class Profile extends Component {
                 zipCode: localStorage.getItem("zipCode"),
                 telephone: localStorage.getItem("telephone")
             },
-            open: false
+            oldPassword: '',
+            newPassword: '',
+            confirmPassword: '',
+            open: false,
+            openPassword: false
         };
-        this.openModal = this.openModal.bind(this)
-        this.closeModal = this.closeModal.bind(this)
+        this.openModal = this.openModal.bind(this);
+        this.closeModal = this.closeModal.bind(this);
+        this.openPasswordModal = this.openPasswordModal.bind(this)
+        this.closePasswordModal = this.closePasswordModal.bind(this)
     }
 
     openModal (){
@@ -49,6 +55,14 @@ class Profile extends Component {
 
     closeModal () {
         this.setState({ open: false })
+    }
+
+    openPasswordModal (){
+        this.setState({ openPassword: true })
+    }
+
+    closePasswordModal () {
+        this.setState({ openPassword: false })
     }
 
     componentDidMount() {
@@ -63,9 +77,53 @@ class Profile extends Component {
     };
 
     changeHandler = event => {
+        this.setState({[event.target.name]: event.target.value});
+    };
+
+    changeUserHandler = event => {
         let updateUser = this.state.updateUser;
         updateUser[event.target.name]= event.target.value;
         this.setState({updateUser: updateUser})
+    };
+
+    updatePasswordHandler = () => {
+        const { oldPassword, newPassword, confirmPassword } = this.state;
+
+        if (oldPassword.length === 0) {
+            console.log(`Old password is empty.`);
+            alert("Old password is empty! Please, try again.")
+        } else if (newPassword.length === 0 || confirmPassword.length === 0) {
+            console.log(`New password is empty.`);
+            alert("New password is empty! Please, try again.")
+        } else {
+            var formData = new FormData();
+            formData.append("email", this.state.user.email);
+            formData.append("password", oldPassword);
+
+            const options = {
+                method: 'POST',
+                body: formData,
+                redirect: 'follow'
+            };
+            fetch('/user/login', options)
+                .then(response => {
+                        if (response.ok) {
+                            console.log(`Old password matches.`);
+                            if (newPassword !== confirmPassword) {
+                                console.log("Passwords do not match");
+                                alert("Passwords don't match");
+                            } else {
+                                console.log("Passwords not match");
+                                window.location.reload();
+                                this.closePasswordModal();
+                            }
+                        } else if (response.status === 401) {
+                            console.log("Old password does not match.");
+                            alert("Old password is wrong! Please, try again.");
+                        }
+                    }
+                )
+        }
     };
 
     updateHandler = (event) => {
@@ -154,8 +212,108 @@ class Profile extends Component {
                             <div className="profile-info-row">
                                 <div className="profile-info-name"> Password</div>
                                 <div className="profile-info-value">
-                                    <span type="password">••••••••••</span>
-                                    <MDBBtn color="primary" > Update Password </MDBBtn>
+                                    <span>••••••••••</span>
+                                    <MDBBtn color="primary"  onClick={() => this.openPasswordModal()}> Update Password </MDBBtn>
+                                    <Popup
+                                        open={this.state.openPassword}
+                                        // trigger={}
+                                        modal
+                                        // closeOnDocumentClick
+                                    >
+                                        <div className="container">
+                                            <MDBRow>
+                                                <MDBCol md="6" className="mb-6">
+                                                    <h3><b>Change Password</b></h3>
+                                                </MDBCol>
+                                                <MDBCol md="5" className="mb-5"/>
+                                                <MDBCol md="1" className="mb-1">
+                                                    <button onClick={() => this.closePasswordModal()}> &times; </button>
+                                                </MDBCol>
+                                            </MDBRow>
+
+                                            <hr/>
+                                            <MDBRow>
+                                                <MDBCol md="6" className="mb-6">
+                                                    <label
+                                                        htmlFor="defaultFormRegisterPasswordEx3"
+                                                        className="grey-text"
+                                                    >
+                                                        Old password
+                                                    </label>
+                                                    <input
+                                                        value={this.state.oldPassword}
+                                                        name="oldPassword"
+                                                        onChange={this.changeHandler}
+                                                        type="password"
+                                                        // id="defaultFormRegisterPasswordEx3"
+                                                        className="form-control"
+                                                        placeholder="Old password"
+                                                        required
+                                                    />
+                                                </MDBCol>
+                                            </MDBRow>
+                                            <MDBRow>
+                                                <MDBCol md="6" className="mb-6">
+                                                    <label
+                                                        htmlFor="defaultFormRegisterPasswordEx3"
+                                                        className="grey-text"
+                                                    >
+                                                        New password
+                                                    </label>
+                                                    <input
+                                                        value={this.state.newPassword}
+                                                        onChange={this.changeHandler}
+                                                        type="password"
+                                                        // id="defaultFormRegisterPasswordEx3"
+                                                        className="form-control"
+                                                        name="newPassword"
+                                                        placeholder="New password"
+                                                        required
+                                                    />
+                                                    <div className="invalid-feedback">
+                                                        Please provide a valid country.
+                                                    </div>
+                                                </MDBCol>
+                                            </MDBRow>
+                                            <MDBRow>
+                                                <MDBCol md="6" className="mb-6">
+                                                    <label
+                                                        htmlFor="defaultFormRegisterPasswordEx3"
+                                                        className="grey-text"
+                                                    >
+                                                        Confirm password
+                                                    </label>
+                                                    <input
+                                                        value={this.state.confirmPassword}
+                                                        onChange={this.changeHandler}
+                                                        type="password"
+                                                        // id="defaultFormRegisterPasswordEx3"
+                                                        className="form-control"
+                                                        name="confirmPassword"
+                                                        placeholder="New password"
+                                                        required
+                                                    />
+                                                    <div className="invalid-feedback">
+                                                        Please provide a valid street number.
+                                                    </div>
+                                                </MDBCol>
+                                            </MDBRow>
+                                            <hr/>
+                                            <MDBRow>
+                                                <MDBCol md="2" className="mb-2"/>
+                                                <MDBCol md="2" className="mb-2"/>
+                                                <MDBCol md="2" className="mb-2"/>
+                                                <MDBCol md="2" className="mb-2"/>
+                                                <MDBCol md="2" className="mb-2">
+                                                    <MDBBtn color="danger" onClick={this.closePasswordModal}> Cancel </MDBBtn>
+                                                </MDBCol>
+                                                <MDBCol md="2" className="mb-2">
+                                                    <MDBBtn color="success" onClick={this.updatePasswordHandler}> Update </MDBBtn>
+                                                </MDBCol>
+                                            </MDBRow>
+
+                                        </div>
+                                    </Popup>
                                 </div>
                             </div>
 
@@ -216,7 +374,7 @@ class Profile extends Component {
                                                     <input
                                                         value={this.state.updateUser.firstname}
                                                         name="firstname"
-                                                        onChange={this.changeHandler}
+                                                        onChange={this.changeUserHandler}
                                                         type="text"
                                                         id="defaultFormRegisterNameEx"
                                                         className="form-control"
@@ -233,7 +391,7 @@ class Profile extends Component {
                                                     <input
                                                         value={this.state.updateUser.lastname}
                                                         name="lastname"
-                                                        onChange={this.changeHandler}
+                                                        onChange={this.changeUserHandler}
                                                         type="text"
                                                         id="defaultFormRegisterSurnameEx2"
                                                         className="form-control"
@@ -251,7 +409,7 @@ class Profile extends Component {
                                                     </label>
                                                     <input
                                                         value={this.state.updateUser.city}
-                                                        onChange={this.changeHandler}
+                                                        onChange={this.changeUserHandler}
                                                         type="text"
                                                         id="defaultFormRegisterCountry7"
                                                         className="form-control"
@@ -271,7 +429,7 @@ class Profile extends Component {
                                                     </label>
                                                     <input
                                                         value={this.state.updateUser.streetName}
-                                                        onChange={this.changeHandler}
+                                                        onChange={this.changeUserHandler}
                                                         type="text"
                                                         id="defaultFormRegisterStNameEx5"
                                                         className="form-control"
@@ -293,7 +451,7 @@ class Profile extends Component {
                                                     </label>
                                                     <input
                                                         value={this.state.updateUser.streetNumber}
-                                                        onChange={this.changeHandler}
+                                                        onChange={this.changeUserHandler}
                                                         type="text"
                                                         id="defaultFormRegisterStNumEx6"
                                                         className="form-control"
@@ -313,7 +471,7 @@ class Profile extends Component {
                                                     </label>
                                                     <input
                                                         value={this.state.updateUser.zipCode}
-                                                        onChange={this.changeHandler}
+                                                        onChange={this.changeUserHandler}
                                                         type="text"
                                                         id="defaultFormRegisterZip8"
                                                         className="form-control"
@@ -335,7 +493,7 @@ class Profile extends Component {
                                                     </label>
                                                     <input
                                                         value={this.state.updateUser.country}
-                                                        onChange={this.changeHandler}
+                                                        onChange={this.changeUserHandler}
                                                         type="text"
                                                         id="defaultFormRegisterCountry7"
                                                         className="form-control"
@@ -356,7 +514,7 @@ class Profile extends Component {
                                                     </label>
                                                     <input
                                                         value={this.state.updateUser.telephone}
-                                                        onChange={this.changeHandler}
+                                                        onChange={this.changeUserHandler}
                                                         type="tel"
                                                         id="defaultFormRegisterTel9"
                                                         className="form-control"
