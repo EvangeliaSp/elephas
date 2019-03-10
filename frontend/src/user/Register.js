@@ -1,24 +1,40 @@
-import React, {Component} from "react";
-import {MDBBtn, MDBCol, MDBRow} from "mdbreact";
+import React from 'react';
+import '/home/mikaela/elephas/frontend/src/user/register.css';
+import ReactDOM from 'react-dom';
 
-class FormsPage extends Component {
 
-    state = {
-        firstname: '',
-        lastname: '',
-        password: '',
-        email: '',
-        streetName: '',
-        streetNumber: '',
-        country: '',
-        city: '',
-        zipCode: '',
-        telephone: ''
+class Test extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            fields: {},
+            errors: {}
+        }
+
+
+        this.handleChange = this.handleChange.bind(this);
+        this.submituserRegistrationForm = this.submituserRegistrationForm.bind(this);
+
     };
 
-
-    submitHandler = event => {
-
+    submituserRegistrationForm(e) {
+        e.preventDefault();
+        if (this.validateForm()) {
+            let fields = {};
+            fields["firstname"] = "";
+            fields["lastname"] = "";
+            fields["password"] = "";
+            fields["email"] = "";
+            fields["streetName"] = "";
+            fields["streetNumber"] = "";
+            fields["country"] = "";
+            fields["city"] = "";
+            fields["zipCode"] = "";
+            fields["telephone"] = "";
+            this.setState({fields:fields});
+            alert("Form submitted");
+        }
         const options = {
             headers: {
                 "Content-Type": "application/json",
@@ -27,271 +43,224 @@ class FormsPage extends Component {
             body: JSON.stringify(this.state),
             redirect: 'follow'
         };
-        event.preventDefault();
-        event.target.className += " was-validated";
-
         fetch('/user/create', options)
             .then(response => response.json())
             .then(data => {
                 console.log(data);
-                localStorage.setItem("idUser", data.idUser);
-                localStorage.setItem("email", data.email);
-                localStorage.setItem("firstname", data.firstname);
-                localStorage.setItem("lastname", data.lastname);
-                localStorage.setItem("country", data.country);
-                localStorage.setItem("city", data.city);
-                localStorage.setItem("streetName", data.streetName);
-                localStorage.setItem("streetNumber", data.streetNumber);
-                localStorage.setItem("zipCode", data.zipCode);
-                localStorage.setItem("telephone", data.telephone);
 
-                window.location.href=`/user/profile`;
+                window.location.href=`/user/login`;
             })
-    };
 
-    changeHandler = event => {
-        this.setState({[event.target.name]: event.target.value});
-    };
+    }
 
-    render() {
+    handleValidation(){
+        let fields = this.state.fields;
+        let errors = {};
+        let formIsValid = true;
+
+        //Name
+        if(!fields["firstname"]){
+            formIsValid = false;
+            errors["firstname"] = "Cannot be empty";
+        }
+
+        if(typeof fields["firstname"] !== "undefined"){
+            if(!fields["firstname"].match(/^[a-zA-Z]+$/)){
+                formIsValid = false;
+                errors["firstname"] = "Only letters";
+            }
+        }
+
+        //Surname
+        if(!fields["lastname"]){
+            formIsValid = false;
+            errors["lastname"] = "Cannot be empty";
+        }
+
+        if(typeof fields["lastname"] !== "undefined"){
+            if(!fields["lastname"].match(/^[a-zA-Z]+$/)){
+                formIsValid = false;
+                errors["lastname"] = "Only letters";
+            }
+        }
+
+        //Email
+        if(!fields["email"]){
+            formIsValid = false;
+            errors["email"] = "Cannot be empty";
+        }
+
+        if(typeof fields["email"] !== "undefined"){
+            let lastAtPos = fields["email"].lastIndexOf('@');
+            let lastDotPos = fields["email"].lastIndexOf('.');
+
+            if (!(lastAtPos < lastDotPos && lastAtPos > 0 && fields["email"].indexOf('@@') == -1 && lastDotPos > 2 && (fields["email"].length - lastDotPos) > 2)) {
+                formIsValid = false;
+                errors["email"] = "Email is not valid";
+            }
+        }
+
+        //Street Name
+        if(!fields["streetName"]){
+            formIsValid = false;
+            errors["streetName"] = "Cannot be empty";
+        }
+
+        if(typeof fields["streetName"] !== "undefined"){
+            if(!fields["streetName"].match(/^[a-zA-Z]+$/)){
+                formIsValid = false;
+                errors["streetName"] = "Only letters";
+            }
+        }
+
+        //Password
+        if (!fields["password"]) {
+            formIsValid = false;
+            errors["password"] = "*Please enter your password.";
+        }
+
+        if (typeof fields["password"] !== "undefined") {
+            if (!fields["password"].match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)) {
+                formIsValid = false;
+                errors["password"] = "*Please enter secure and strong password.";
+            }
+        }
+
+        //Street Number
+        if (!fields["streetNumber"]) {
+            formIsValid = false;
+            errors["streetNumber"] = "*Please enter your street number.";
+        }
+
+        if (typeof fields["streetNumber"] !== "undefined") {
+            if (!fields["streetNumber"].match(/^([0-9]*)$/)) {
+                formIsValid = false;
+                errors["streetNumber"] = "*Please enter a correct street number.";
+            }
+        }
+        //Country
+        if(!fields["country"]){
+            formIsValid = false;
+            errors["country"] = "Cannot be empty";
+        }
+
+        if(typeof fields["country"] !== "undefined"){
+            if(!fields["country"].match(/^[a-zA-Z]+$/)){
+                formIsValid = false;
+                errors["country"] = "Only letters";
+            }
+        }
+
+        //City
+        if(!fields["city"]){
+            formIsValid = false;
+            errors["city"] = "Cannot be empty";
+        }
+
+        if(typeof fields["city"] !== "undefined"){
+            if(!fields["city"].match(/^[a-zA-Z]+$/)){
+                formIsValid = false;
+                errors["city"] = "Only letters";
+            }
+        }
+
+        //Zip Code
+        if (!fields["zipCode"]) {
+            formIsValid = false;
+            errors["streetNumber"] = "*Please enter your street number.";
+        }
+
+        if (typeof fields["zipCode"] !== "undefined") {
+            if (!fields["zipCode"].match(/^([0-9]*)$/)) {
+                formIsValid = false;
+                errors["zipCode"] = "*Please enter a correct street number.";
+            }
+        }
+
+        //Telephone
+        if (!fields["telephone"]) {
+            formIsValid = false;
+            errors["telephone"] = "*Please enter your mobile no.";
+        }
+
+        if (typeof fields["telephone"] !== "undefined") {
+            if (!fields["telephone"].match(/^[0-9]{10}$/)) {
+                formIsValid = false;
+                errors["telephone"] = "*Please enter valid mobile no.";
+            }
+        }
+
+        this.setState({errors: errors});
+        return formIsValid;
+    }
+
+    contactSubmit(e){
+        if(this.handleValidation()){
+            alert("Form submitted");
+        }else{
+            alert("Form has errors.")
+        }
+
+    }
+
+    handleChange(field, e){
+        let fields = this.state.fields;
+        fields[field] = e.target.value;
+        this.setState({fields});
+    }
+
+    render(){
         return (
-            <div className="container">
-                <form
-                    className="needs-validation"
-                    onSubmit={this.submitHandler}
-                    style={{marginBottom: "9rem"}}
-                    noValidate
-                >
-                    <MDBRow>
-                        <MDBCol md="3" className="mb-3">
-                            <label
-                                htmlFor="defaultFormRegisterNameEx"
-                                className="grey-text"
-                            >
-                                First name
-                            </label>
-                            <input
-                                value={this.state.firstname}
-                                name="firstname"
-                                onChange={this.changeHandler}
-                                type="text"
-                                id="defaultFormRegisterNameEx"
-                                className="form-control"
-                                placeholder="First name"
-                                required
-                            />
-                        </MDBCol>
-                        <MDBCol md="3" className="mb-3">
-                            <label
-                                htmlFor="defaultFormRegisterSurnameEx2"
-                                className="grey-text"
-                            >
-                                Last name
-                            </label>
-                            <input
-                                value={this.state.lastname}
-                                name="lastname"
-                                onChange={this.changeHandler}
-                                type="text"
-                                id="defaultFormRegisterSurnameEx2"
-                                className="form-control"
-                                placeholder="Last name"
-                                required
-                            />
-                        </MDBCol>
-                        <MDBCol md="3" className="mb-3">
-                            <label
-                                htmlFor="defaultFormRegisterPasswordEx3"
-                                className="grey-text"
-                            >
-                                Password
-                            </label>
-                            <input
-                                value={this.state.password}
-                                name="password"
-                                onChange={this.changeHandler}
-                                type="password"
-                                id="defaultFormRegisterPasswordEx3"
-                                className="form-control"
-                                placeholder="Password"
-                                required
-                            />
-                        </MDBCol>
-                        <MDBCol md="3" className="mb-3">
-                            <label
-                                htmlFor="defaultFormRegisterConfirmEx4"
-                                className="grey-text"
-                            >
-                                Email
-                            </label>
-                            <input
-                                value={this.state.email}
-                                onChange={this.changeHandler}
-                                type="email"
-                                id="defaultFormRegisterConfirmEx4"
-                                className="form-control"
-                                name="email"
-                                placeholder="Your Email address"
-                            />
-                            <small id="emailHelp" className="form-text text-muted">
-                            </small>
-                        </MDBCol>
-                    </MDBRow>
-                    <MDBRow>
-                        <MDBCol md="3" className="mb-3">
-                            <label
-                                htmlFor="defaultFormRegisterCountry7"
-                                className="grey-text"
-                            >
-                                City
-                            </label>
-                            <input
-                                value={this.state.city}
-                                onChange={this.changeHandler}
-                                type="text"
-                                id="defaultFormRegisterCountry7"
-                                className="form-control"
-                                name="city"
-                                placeholder="City"
-                                required
-                            />
-                            <div className="invalid-feedback">
-                                Please provide a valid country.
-                            </div>
-                        </MDBCol>
-                        <MDBCol md="3" className="mb-3">
-                            <label
-                                htmlFor="defaultFormRegisterStNameEx5"
-                                className="grey-text"
-                            >
-                                Street Name
-                            </label>
-                            <input
-                                value={this.state.streetName}
-                                onChange={this.changeHandler}
-                                type="text"
-                                id="defaultFormRegisterStNameEx5"
-                                className="form-control"
-                                name="streetName"
-                                placeholder="Street Name"
-                                required
-                            />
-                            <div className="invalid-feedback">
-                                Please provide a valid city name.
-                            </div>
-                        </MDBCol>
-                        <MDBCol md="3" className="mb-3">
-                            <label
-                                htmlFor="defaultFormRegisterStNumEx6"
-                                className="grey-text"
-                            >
-                                Street number
-                            </label>
-                            <input
-                                value={this.state.streetNumber}
-                                onChange={this.changeHandler}
-                                type="text"
-                                id="defaultFormRegisterStNumEx6"
-                                className="form-control"
-                                name="streetNumber"
-                                placeholder="Street number"
-                                required
-                            />
-                            <div className="invalid-feedback">
-                                Please provide a valid street number.
-                            </div>
-                        </MDBCol>
-                        <MDBCol md="3" className="mb-3">
-                            <label
-                                htmlFor="defaultFormRegisterZip8"
-                                className="grey-text"
-                            >
-                                Zip code
-                            </label>
-                            <input
-                                value={this.state.zipCode}
-                                onChange={this.changeHandler}
-                                type="text"
-                                id="defaultFormRegisterZip8"
-                                className="form-control"
-                                name="zipCode"
-                                placeholder="Zip code"
-                                required
-                            />
-                            <div className="invalid-feedback">
-                                Please provide a valid zip code
-                            </div>
-                        </MDBCol>
-                    </MDBRow>
-                    <MDBRow>
-                        <MDBCol md="3" className="mb-3">
-                            <label
-                                htmlFor="defaultFormRegisterCountry7"
-                                className="grey-text"
-                            >
-                                Country
-                            </label>
-                            <input
-                                value={this.state.country}
-                                onChange={this.changeHandler}
-                                type="text"
-                                id="defaultFormRegisterCountry7"
-                                className="form-control"
-                                name="country"
-                                placeholder="Country"
-                                required
-                            />
-                            <div className="invalid-feedback">
-                                Please provide a valid country.
-                            </div>
-                        </MDBCol>
-                        <MDBCol md="3" className="mb-3">
-                            <label
-                                htmlFor="defaultFormRegisterTel9"
-                                className="grey-text"
-                            >
-                                Telephone
-                            </label>
-                            <input
-                                value={this.state.telephone}
-                                onChange={this.changeHandler}
-                                type="tel"
-                                id="defaultFormRegisterTel9"
-                                className="form-control"
-                                name="telephone"
-                                placeholder="Tel. number"
-                                required
-                            />
-                            <div className="invalid-feedback">
-                                Please provide a valid telephone number.
-                            </div>
-                        </MDBCol>
+            <div>
+                <div className="container">
+                <form name="contactform" className="contactform" onSubmit= {this.contactSubmit.bind(this)}>
+                    <div className="col-md-6">
+                        <fieldset>
+                            <input ref="firstname" type="text" size="30" placeholder="Name" onChange={this.handleChange.bind(this, "firstname")} value={this.state.fields["firstname"]}/>
+                            <span className="error">{this.state.errors["firstname"]}</span>
+                            <br/>
+                            <input ref="lastname" type="text" size="30" placeholder="Surname" onChange={this.handleChange.bind(this, "lastname")} value={this.state.fields["lastname"]}/>
+                            <span className="error">{this.state.errors["lastname"]}</span>
+                            <br/>
+                            <input ref="password" type="text" size="30" placeholder="Password" onChange={this.handleChange.bind(this, "password")} value={this.state.fields["password"]}/>
+                            <span className="error">{this.state.errors["password"]}</span>
+                            <br/>
+                            <input refs="email" type="text" size="30" placeholder="Email" onChange={this.handleChange.bind(this, "email")} value={this.state.fields["email"]}/>
+                            <span className="error">{this.state.errors["email"]}</span>
+                            <br/>
+                            <input ref="streetName" type="text" size="30" placeholder="St. Name" onChange={this.handleChange.bind(this, "streetName")} value={this.state.fields["streetName"]}/>
+                            <span className="error">{this.state.errors["streetName"]}</span>
+                            <br/>
+                            <input ref="streetNumber" type="text" size="30" placeholder="St. Number" onChange={this.handleChange.bind(this, "streetNumber")} value={this.state.fields["streetNumber"]}/>
+                            <span className="error">{this.state.errors["streetNumber"]}</span>
+                            <br/>
+                            <input ref="country" type="text" size="30" placeholder="Country" onChange={this.handleChange.bind(this, "country")} value={this.state.fields["country"]}/>
+                            <span className="error">{this.state.errors["country"]}</span>
+                            <br/>
+                            <input ref="city" type="text" size="30" placeholder="City" onChange={this.handleChange.bind(this, "city")} value={this.state.fields["city"]}/>
+                            <span className="error">{this.state.errors["city"]}</span>
+                            <br/>
+                            <input ref="zipCode" type="text" size="30" placeholder="zip code" onChange={this.handleChange.bind(this, "zipCode")} value={this.state.fields["zipCode"]}/>
+                            <span className="error">{this.state.errors["zipCode"]}</span>
+                            <br/>
+                            <input refs="telephone" type="text" size="30" placeholder="Phone" onChange={this.handleChange.bind(this, "telephone")} value={this.state.fields["telephone"]}/>
+                            <span className="error">{this.state.errors["telephone"]}</span>
+                            <br/>
 
-                    </MDBRow>
-                    <MDBCol md="6" className="mb-3">
-                        <div className="custom-control custom-checkbox pl-3">
-                            <input
-                                className="custom-control-input"
-                                type="checkbox"
-                                value=""
-                                id="invalidCheck"
-                                required
-                            />
-                            <label className="custom-control-label" htmlFor="invalidCheck">
-                                Agree to terms and conditions
-                            </label>
-                            <div className="invalid-feedback">
-                                You must agree before submitting.
-                            </div>
-                        </div>
-                    </MDBCol>
-                    <MDBBtn color="outline-success" type="submit">
-                        Submit Form
-                    </MDBBtn>
+                        </fieldset>
+                    </div>
+                    <div className="col-md-12">
+                        <fieldset>
+                            <button className="btn btn-lg pro" id="submit" value="Submit">Submit</button>
+                        </fieldset>
+                    </div>
                 </form>
+                </div>
+
             </div>
-        );
+        )
     }
 }
 
-export default FormsPage;
+//ReactDOM.render(<Test />, document.querySelector("#app"))
+export default Test
