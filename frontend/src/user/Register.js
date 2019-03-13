@@ -45,7 +45,7 @@ class FormsPage extends Component {
                 localStorage.setItem("zipCode", data.zipCode);
                 localStorage.setItem("telephone", data.telephone);
 
-                window.location.href=`/user/profile`;
+                window.location.href=`/`;
             })
     };
 
