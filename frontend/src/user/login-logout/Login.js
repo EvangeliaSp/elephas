@@ -32,21 +32,30 @@ class Login extends Component{
         event.preventDefault();
         event.target.className += " was-validated";
         fetch('/user/login', options)
-            .then(response => response.json())
+            .then(response => {
+                if (response.ok) return response.json();
+                return response;
+            })
             .then(data => {
-                console.log(data);
-                localStorage.setItem("idUser", data.idUser);
-                localStorage.setItem("email", data.email);
-                localStorage.setItem("firstname", data.firstname);
-                localStorage.setItem("lastname", data.lastname);
-                localStorage.setItem("country", data.country);
-                localStorage.setItem("city", data.city);
-                localStorage.setItem("streetName", data.streetName);
-                localStorage.setItem("streetNumber", data.streetNumber);
-                localStorage.setItem("zipCode", data.zipCode);
-                localStorage.setItem("telephone", data.telephone);
+                if (data.status === 401) {
+                    console.log("Response: ", data.status, data.statusText);
+                    alert("Wrong e-mail or password");
+                    
+                } else {
+                    localStorage.setItem("idUser", data.idUser);
+                    localStorage.setItem("email", data.email);
+                    localStorage.setItem("firstname", data.firstname);
+                    localStorage.setItem("lastname", data.lastname);
+                    localStorage.setItem("country", data.country);
+                    localStorage.setItem("city", data.city);
+                    localStorage.setItem("streetName", data.streetName);
+                    localStorage.setItem("streetNumber", data.streetNumber);
+                    localStorage.setItem("zipCode", data.zipCode);
+                    localStorage.setItem("telephone", data.telephone);
 
-                window.location.href=`/user/profile`;
+                    window.location.href=`/`;
+                }
+                
             })
     };
 
