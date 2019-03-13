@@ -30,12 +30,6 @@ public class UserController {
     @Autowired
     private OrderServiceImpl orderService;
 
-    @RequestMapping("/")
-    public String home() {
-        return "Hello Elephas!";
-    }
-
-
     @RequestMapping(value = "/create", method = {RequestMethod.POST})
     public ResponseEntity<String> create(
             @RequestBody User user)
@@ -89,12 +83,14 @@ public class UserController {
     public ResponseEntity<String> update(
             @RequestParam("id") @Valid Long id,
             @RequestBody User user)
-            throws JsonProcessingException {
+            throws NoSuchAlgorithmException, JsonProcessingException {
+
+        MessageDigest md = MessageDigest.getInstance("MD5");
 
         Object updatedUser;
 
         try {
-            updatedUser = userService.update(user, id);
+            updatedUser = userService.update(user, id, md);
         } catch (ConstraintViolationException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User with id " + id + "cannot be updated.");
         }
