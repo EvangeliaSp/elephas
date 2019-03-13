@@ -251,7 +251,7 @@ class Profile extends Component {
                                     <div className="row">
                                         <div className="col-md-4">••••••••••••••</div>
                                         <div className="col-md-4">
-                                            <MDBBtn color="danger" outline="true"  onClick={() => this.openPasswordModal()}> Update Password </MDBBtn>
+                                            <MDBBtn color="secondary" outline="true"  onClick={() => this.openPasswordModal()}> Update Password </MDBBtn>
                                         </div>
                                         <div className="col-md-4"></div>
                                         <Popup open={this.state.openPassword} modal>
