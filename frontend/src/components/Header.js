@@ -53,6 +53,13 @@ class Header extends Component {
         return oldName;
     };
     
+    setClassNamePath = (currentPath, linkPath, oldName) => {
+        if (currentPath === linkPath) {
+            return oldName + "active";
+        }
+        return oldName;
+    }
+
     render() {
         return (
             <div>
@@ -78,7 +85,7 @@ class Header extends Component {
                               crossOrigin="anonymous"/>
 
                         <div className="cart">
-                            <a href="/order/cart" className={this.setClassName("#cart", "")}> <i className="fas fa-shopping-cart" rel="stylesheet"></i> </a>
+                            <a href="/order/cart" className={this.setClassNamePath(window.location.pathname, "/order/cart", "")}> <i className="fas fa-shopping-cart" rel="stylesheet"></i> </a>
                         </div>
                         <div className="user">
                         {this.userDropDownMenu()}
