@@ -23,16 +23,20 @@ ReactDOM.render(
     <Router>
         <div>
             <Header/>
-            <Route exact path='/' component={App} />
-            <Route path="/user/login" exact component={Login} />
-            <Route path='/user/all' component={UserList} />
-            <Route path='/product' component={ProductGrid} />
-            <Route path='/product/findById/:id' component={ProductDetail} />
-            <Route path='/user/profile' component={Profile}/>
-            <Route path='/user/register' component={Register}/>
-            <Route path='/order/cart' component={ShowCart}/>
-            <Route path='/about' component={About}/>
-            <Footer/>
+            <div className="content">
+                <div style={{position: "relative", minHeight: "100%", paddingBottom: "3rem"}}>
+                    <Route exact path='/' component={App} />
+                    <Route path="/user/login" exact component={Login} />
+                    <Route path='/user/all' component={UserList} />
+                    <Route path='/product' component={ProductGrid} />
+                    <Route path='/product/findById/:id' component={ProductDetail} />
+                    <Route path='/user/profile' component={Profile}/>
+                    <Route path='/user/register' component={Register}/>
+                    <Route path='/order/cart' component={ShowCart}/>
+                    <Route path='/about' component={About}/> 
+                <Footer/>
+                </div>
+            </div>
         </div>
     </Router>,
     document.getElementById('root')
