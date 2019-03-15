@@ -23,7 +23,6 @@ class Header extends Component {
     }
 
     getBasketSize = () => {
-        // const {idUser} = localStorage.getItem("idUser");
         if (localStorage.getItem("idUser") === 'undefined' || localStorage.getItem("idUser") == null) {
             this.setState({invisible: true})
         } else {
