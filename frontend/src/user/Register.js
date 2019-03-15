@@ -34,6 +34,7 @@ class FormsPage extends Component {
             .then(response => response.json())
             .then(data => {
                 console.log(data);
+                /* use this if we want the user to automatically be signed in after register
                 localStorage.setItem("idUser", data.idUser);
                 localStorage.setItem("email", data.email);
                 localStorage.setItem("firstname", data.firstname);
@@ -45,7 +46,12 @@ class FormsPage extends Component {
                 localStorage.setItem("zipCode", data.zipCode);
                 localStorage.setItem("telephone", data.telephone);
 
-                window.location.href=`/user/profile`;
+                window.location.href=`/`; 
+                */
+
+                /* use this to redirect to login page */
+                window.location.href=`login`;
+
             })
     };
 
