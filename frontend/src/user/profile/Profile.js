@@ -780,7 +780,7 @@ class Profile extends Component {
                     {products.map(product => (
                         <tr key={product.idProduct}>
                             <th scope="row">{product.idProduct}</th>
-                            <td><img url={product.url} alt={product.name} width="200" height="100"/></td>
+                            <td><img src={product.url} alt={product.name} width="100" height="100"/></td>
                             <td>{product.name}</td>
                             <td>{getType(product.type)}</td>
                             <td>{getMaterial(product.material)}</td>
