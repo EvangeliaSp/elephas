@@ -4,8 +4,40 @@ import Avatar from 'react-avatar';
 import {NavLink} from "react-router-dom";
 import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
 import {logout} from '../user/login-logout/Logout'
+import Badge from '@material-ui/core/Badge';
 
 class Header extends Component {
+
+    state = {};
+
+    constructor() {
+        super();
+        this.state = {
+            cartSize: this.getBasketSize,
+            invisible: true
+        };
+    }
+
+    componentDidMount() {
+        this.getBasketSize()
+    }
+
+    getBasketSize = () => {
+        // const {idUser} = localStorage.getItem("idUser");
+        if (localStorage.getItem("idUser") === 'undefined' || localStorage.getItem("idUser") == null) {
+            this.setState({invisible: true})
+        } else {
+            this.setState({invisible: false});
+            // this.props.match.params;
+            fetch(`/order/cartSize/${localStorage.getItem("idUser")}`)
+                .then(response => response.json())
+                .then(data => {
+                    this.setState({
+                        cartSize: data
+                    })
+                })
+        }
+    };
 
     userDropDownMenu = () => {
         if (localStorage.getItem("email") === 'admin@gmail.com' && localStorage.getItem("idUser") != null)
@@ -58,7 +90,7 @@ class Header extends Component {
             return oldName + "active";
         }
         return oldName;
-    }
+    };
 
     render() {
         return (
@@ -85,7 +117,10 @@ class Header extends Component {
                               crossOrigin="anonymous"/>
 
                         <div className="cart">
-                            <a href="/order/cart" className={this.setClassNamePath(window.location.pathname, "/order/cart", "")}> <i className="fas fa-shopping-cart" rel="stylesheet"></i> </a>
+                            <a href="/order/cart" className={this.setClassNamePath(window.location.pathname, "/order/cart", "")}>
+                                <i className="fas fa-shopping-cart" rel="stylesheet"></i>
+                                <Badge badgeContent={this.state.cartSize} invisible={this.state.invisible} color="secondary" />
+                            </a>
                         </div>
                         <div className="user">
                         {this.userDropDownMenu()}
