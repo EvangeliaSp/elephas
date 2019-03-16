@@ -11,6 +11,7 @@ import se.uu.elephas.model.Product;
 import se.uu.elephas.model.Material;
 import se.uu.elephas.services.ProductServiceimpl;
 
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
@@ -70,6 +71,24 @@ public class ProductController {
             Iterable<Material> materials = productService.getAllMaterials();
 
             return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(materials));
+    }
+
+    @RequestMapping(value = "/update/{idProduct}", method = {RequestMethod.PATCH})
+    public ResponseEntity<String> update(
+            @PathVariable("idProduct") @Valid Long idProduct,
+            @RequestBody Product user)
+            throws JsonProcessingException {
+
+        Object updatedProduct;
+
+        try {
+            updatedProduct = productService.update(user, idProduct);
+        } catch (ConstraintViolationException e) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Product with id " + idProduct + "cannot be updated.");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(updatedProduct));
+
     }
 
     @RequestMapping(value = "/delete/{idProduct}", method = {RequestMethod.DELETE})

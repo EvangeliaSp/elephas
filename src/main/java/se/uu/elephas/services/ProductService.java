@@ -16,6 +16,8 @@ public interface ProductService {
 
     Iterable<Material> getAllMaterials();
 
+    Object update(Product newProduct, Long idProduct);
+
     void delete(Long idProduct);
 
 }

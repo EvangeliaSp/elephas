@@ -67,6 +67,11 @@ public class ProductServiceimpl implements ProductService {
         return materialRepository.findAll();
     }
 
+    public Object update(Product newProduct, Long idProduct) {
+        newProduct.setIdProduct(idProduct);
+        return productRepository.save(newProduct);
+    }
+
     public void delete(Long idProduct) {
         productRepository.deleteById(idProduct);
     }
