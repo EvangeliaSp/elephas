@@ -47,6 +47,16 @@ class Profile extends Component {
                 zipCode: localStorage.getItem("zipCode"),
                 telephone: localStorage.getItem("telephone")
             },
+            product: {
+                name: '',
+                url: '',
+                price: 0,
+                discount: 0,
+                type: 0,
+                material: 0,
+                color: 0,
+                description: ''
+            },
             oldPassword: '',
             newPassword: '',
             confirmPassword: '',
@@ -55,6 +65,7 @@ class Profile extends Component {
             openPasswordSucceed: false,
             openUpdateProduct: false,
             openDeleteProduct: false,
+            openCreateProduct: false,
             productName: '',
             productId: ''
         };
@@ -67,7 +78,9 @@ class Profile extends Component {
         this.openUpdateProductModal = this.openUpdateProductModal.bind(this);
         this.closeUpdateProductModal = this.closeUpdateProductModal.bind(this);
         this.openDeleteProductModal = this.openDeleteProductModal.bind(this);
-        this.closeDeleteProductModal = this.closeDeleteProductModal.bind(this)
+        this.closeDeleteProductModal = this.closeDeleteProductModal.bind(this);
+        this.openCreateProductModal = this.openCreateProductModal.bind(this);
+        this.closeCreateProductModal = this.closeCreateProductModal.bind(this)
     }
 
     openModal (){
@@ -110,6 +123,14 @@ class Profile extends Component {
         this.setState({ openDeleteProduct: false, productId: '', productName: '' })
     }
 
+    openCreateProductModal () {
+        this.setState({ openCreateProduct: true})
+    }
+
+    closeCreateProductModal () {
+        this.setState({ openCreateProduct: false})
+    }
+
     deleteProduct (productId) {
         const options = {
             method: 'DELETE'
@@ -127,6 +148,25 @@ class Profile extends Component {
                 }
             });
     }
+
+    createProduct = () => {
+        const options = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: 'POST',
+            body: JSON.stringify(this.state.product),
+            redirect: 'follow'
+        };
+
+        fetch(`/product/create`, options)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.closeCreateProductModal();
+                window.location.reload();
+            })
+    };
 
     componentDidMount() {
         this.loadOrdersFromServer();
@@ -160,8 +200,32 @@ class Profile extends Component {
 
     changeUserHandler = event => {
         let updateUser = this.state.updateUser;
-        updateUser[event.target.name]= event.target.value;
+        updateUser[event.target.name] = event.target.value;
         this.setState({updateUser: updateUser})
+    };
+
+    createProductHandler = event => {
+        let product = this.state.product;
+        product[event.target.name] = event.target.value;
+        this.setState({product: product})
+    };
+
+    createProductTypeHandler = event => {
+        let product = this.state.product;
+        product.type = event.target.value;
+        this.setState({product: product})
+    };
+
+    createProductMaterialHandler = event => {
+        let product = this.state.product;
+        product.material = event.target.value;
+        this.setState({product: product})
+    };
+
+    createProductColorHandler = event => {
+        let product = this.state.product;
+        product.color = event.target.value;
+        this.setState({product: product})
     };
 
     updatePasswordHandler = () => {
@@ -491,13 +555,7 @@ class Profile extends Component {
                                 <div className="profile-info-name"></div>
                                 <div className="profile-info-value">
                                     <MDBBtn color="primary" onClick={() => this.openModal()} > Edit Profile </MDBBtn>
-                                    <Popup
-                                        open={this.state.open}
-                                        onClose={this.closeModal}
-                                        // trigger={}
-                                        modal
-                                        // closeOnDocumentClick
-                                    >
+                                    <Popup open={this.state.open} onClose={this.closeModal} modal>
                                         <div className="container">
                                             <MDBRow>
                                                 <MDBCol md="6" className="mb-6">
@@ -508,7 +566,6 @@ class Profile extends Component {
                                                     <button onClick={() => this.closeModal()}> &times; </button>
                                                 </MDBCol>
                                             </MDBRow>
-
                                             <hr/>
                                             <MDBRow>
                                                 <MDBCol md="6" className="mb-6">
@@ -775,7 +832,7 @@ class Profile extends Component {
                 <MDBRow>
                     <MDBCol md="10" className="mb-10"/>
                     <MDBCol md="2" className="mb-2">
-                        <MDBBtn color="info">Add new product</MDBBtn>
+                        <MDBBtn color="info" onClick={() => this.openCreateProductModal()}>Add new product</MDBBtn>
                     </MDBCol>
                 </MDBRow>
                 <table className="table table-striped ">
@@ -808,16 +865,186 @@ class Profile extends Component {
                             <td>{product.price}</td>
                             <td>{product.discount}</td>
                             <td>{product.price - product.price*product.discount/100}</td>
-                            <td><MDBBtn color="success" onClick={() => this.openUpdateProductModal()} > Edit </MDBBtn>
-
-                            </td>
-                            <td>
-                                <MDBBtn color="danger" onClick={() => this.openDeleteProductModal(product.idProduct, product.name)}> &times; </MDBBtn>
-                            </td>
+                            <td><MDBBtn color="success" onClick={() => this.openUpdateProductModal()} > Edit </MDBBtn></td>
+                            <td><MDBBtn color="danger" onClick={() => this.openDeleteProductModal(product.idProduct, product.name)}> &times; </MDBBtn></td>
                         </tr>
                     ))}
                     </tbody>
                 </table>
+                {/* Popup modal for product create */}
+                <Popup open={this.state.openCreateProduct} modal onClose={this.closeCreateProductModal}>
+                    <div className="container">
+                        <MDBRow>
+                            <MDBCol md="6" className="mb-6">
+                                <h3><b>Create new product</b></h3>
+                            </MDBCol>
+                            <MDBCol md="5" className="mb-5"/>
+                            <MDBCol md="1" className="mb-1">
+                                <button onClick={() => this.closeCreateProductModal()}> &times; </button>
+                            </MDBCol>
+                        </MDBRow>
+                        <hr/>
+                        <MDBRow>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterNameEx"
+                                    className="grey-text"
+                                >
+                                    Name
+                                </label>
+                                <input
+                                    value={this.state.product.name}
+                                    name="name"
+                                    onChange={this.createProductHandler}
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Product name"
+                                />
+                            </MDBCol>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterSurnameEx2"
+                                    className="grey-text"
+                                >
+                                    URL
+                                </label>
+                                <input
+                                    value={this.state.product.url}
+                                    name="url"
+                                    onChange={this.createProductHandler}
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Product url"
+                                />
+                            </MDBCol>
+                        </MDBRow>
+                        <br/>
+                        <MDBRow>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterNameEx"
+                                    className="grey-text"
+                                >
+                                    Price (kr)
+                                </label>
+                                <input
+                                    value={this.state.product.price}
+                                    name="price"
+                                    onChange={this.createProductHandler}
+                                    type="number"
+                                    step="0.1"
+                                    min='0'
+                                    className="form-control"
+                                    placeholder="Product price"
+                                />
+                            </MDBCol>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterSurnameEx2"
+                                    className="grey-text"
+                                >
+                                    Discount (%)
+                                </label>
+                                <input
+                                    value={this.state.product.discount}
+                                    name="discount"
+                                    defaultValue={0}
+                                    onChange={this.createProductHandler}
+                                    type="number"
+                                    min='0'
+                                    className="form-control"
+                                    placeholder="Product discount"
+                                />
+                            </MDBCol>
+                        </MDBRow>
+                        <br/>
+                        <MDBRow>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterNameEx"
+                                    className="grey-text"
+                                >
+                                    Type
+                                </label>
+                                <select
+                                    value={this.state.product.type}
+                                    onChange={this.createProductTypeHandler}
+                                    className="form-control">
+                                    <option value={1}>Bracelet</option>
+                                    <option value={2}>Ring</option>
+                                    <option value={3}>Earring</option>
+                                    <option value={4}>Necklace</option>
+                                </select>
+                            </MDBCol>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterSurnameEx2"
+                                    className="grey-text"
+                                >
+                                    Material
+                                </label>
+                                <select
+                                    value={this.state.product.material}
+                                    onChange={this.createProductMaterialHandler}
+                                    className="form-control">
+                                    <option value={1}>Steel</option>
+                                    <option value={2}>Silver</option>
+                                    <option value={3}>Gold</option>
+                                </select>
+                            </MDBCol>
+                        </MDBRow>
+                        <br/>
+                        <MDBRow>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterNameEx"
+                                    className="grey-text"
+                                >
+                                    Color
+                                </label>
+                                <select
+                                    value={this.state.product.color}
+                                    onChange={this.createProductColorHandler}
+                                    className="form-control">
+                                    <option value={1}>Black</option>
+                                    <option value={2}>White</option>
+                                    <option value={3}>Grey</option>
+                                    <option value={4}>Brown</option>
+                                    <option value={5}>Red</option>
+                                </select>
+                            </MDBCol>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterSurnameEx2"
+                                    className="grey-text"
+                                >
+                                    Description
+                                </label>
+                                <textarea
+                                    value={this.state.product.description}
+                                    placeholder="No description."
+                                    name="description"
+                                    onChange={this.createProductHandler}
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Product description"
+                                />
+                            </MDBCol>
+                        </MDBRow>
+                        <br/>
+                        <hr/>
+                        <MDBRow>
+                            <MDBCol md="8" className="mb-8"/>
+                            <MDBCol md="2" className="mb-2">
+                                <MDBBtn color="danger" onClick={() => this.closeCreateProductModal()}> Cancel </MDBBtn>
+                            </MDBCol>
+                            <MDBCol md="2" className="mb-2">
+                                <MDBBtn color="success" onClick={() => this.createProduct()}> Create </MDBBtn>
+                            </MDBCol>
+                        </MDBRow>
+                    </div>
+                </Popup>
+                {/* Popup modal for product update */}
                 <Popup open={this.state.openUpdateProduct} modal onClose={this.closeUpdateProductModal}>
                     <div className="container">
                         <MDBRow>
@@ -829,9 +1056,7 @@ class Profile extends Component {
                                 <button onClick={() => this.closeUpdateProductModal()}> &times; </button>
                             </MDBCol>
                         </MDBRow>
-
                         <hr/>
-
                         <hr/>
                         <MDBRow>
                             <MDBCol md="2" className="mb-2"/>
@@ -847,6 +1072,7 @@ class Profile extends Component {
                         </MDBRow>
                     </div>
                 </Popup>
+                {/* Popup modal for product delete */}
                 <Popup open={this.state.openDeleteProduct} modal onClose={this.closeDeleteProductModal}>
                     <div className="container">
                         <MDBRow>
