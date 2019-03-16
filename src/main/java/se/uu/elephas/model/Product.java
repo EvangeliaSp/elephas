@@ -13,13 +13,13 @@ public class Product {
     @GeneratedValue
     private Long idProduct;
 
-    //@Column(nullable = false)
+    @Column(nullable = false)
     private int type;
 
-    //@Column(nullable = false)
+    @Column(nullable = false)
     private int material;
 
-    //@Column(nullable = false)
+    @Column(nullable = false)
     private int color;
 
 //    @Lob
