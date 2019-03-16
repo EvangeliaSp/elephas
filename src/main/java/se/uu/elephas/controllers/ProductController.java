@@ -24,6 +24,7 @@ public class ProductController {
     @Autowired
     private ProductServiceimpl productService;
 
+    // TODO: manipulate db errors, eg. when try to create product without filled all the fields
     @RequestMapping(value = "/create", method = {RequestMethod.POST})
     public ResponseEntity<String> create(
             @RequestBody Product product)
