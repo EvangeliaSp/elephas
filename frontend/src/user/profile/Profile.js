@@ -5,8 +5,15 @@ import './Profile.css'
 import notAvailable from "./../../notAvailable.jpg";
 import {Container, MDBBtn, MDBCol, MDBRow} from "mdbreact";
 import Popup from "reactjs-popup";
-import {confirmToString, paymentStatusToString, paymentTypeToString, statusToString, getColor, getMaterial, getType} from '../../Translations';
-import Modal from "react-responsive-modal";
+import {
+    confirmToString,
+    getColor,
+    getMaterial,
+    getType,
+    paymentStatusToString,
+    paymentTypeToString,
+    statusToString
+} from '../../Translations';
 
 class Profile extends Component {
 
@@ -48,7 +55,8 @@ class Profile extends Component {
             openPasswordSucceed: false,
             openUpdateProduct: false,
             openDeleteProduct: false,
-            productName: ''
+            productName: '',
+            productId: ''
         };
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
@@ -94,12 +102,30 @@ class Profile extends Component {
         this.setState({ openUpdateProduct: false })
     }
 
-    openDeleteProductModal (value){
-        this.setState({ openDeleteProduct: true, productName: value })
+    openDeleteProductModal (idValue, nameValue){
+        this.setState({ openDeleteProduct: true, productId: idValue, productName: nameValue })
     }
 
     closeDeleteProductModal () {
-        this.setState({ openDeleteProduct: false })
+        this.setState({ openDeleteProduct: false, productId: '', productName: '' })
+    }
+
+    deleteProduct (productId) {
+        const options = {
+            method: 'DELETE'
+        };
+
+        fetch(`/product/delete/${productId}`, options)
+            .then(response => {
+                if (response.ok) {
+                    console.log(`Product with id=${this.state.productId} and name=${this.state.productName} deleted successfully.`);
+                    this.setState({ openDeleteProduct: false, productId: '', productName: '' });
+                    window.location.reload();
+                } else {
+                    console.log(`Product with id=${this.state.productId} and name=${this.state.productName} does not exist.`)
+                    alert("Cannot delete this product! Please, try again.");
+                }
+            });
     }
 
     componentDidMount() {
@@ -294,16 +320,12 @@ class Profile extends Component {
                         <span className="profile-picture">
                             <Avatar className="editable img-responsive" alt=" Avatar" id="avatar2" name={user.firstname+' '+user.lastname} size="150"/>
                         </span>
-
                         <div className="space space-4"></div>
                     </div>
-
                     <div className="col-xs-12 col-sm-9">
                         <h4 className="blue">
                             <span className="middle">{user.firstname+' '+user.lastname} </span>
-
                         </h4>
-
                         <div className="profile-user-info">
                             <div className="profile-info-row">
                                 <div className="profile-info-name"> Email</div>
@@ -311,7 +333,6 @@ class Profile extends Component {
                                     <span>{user.email}</span>
                                 </div>
                             </div>
-
                             <div className="profile-info-row">
                                 <div className="profile-info-name"> Password</div>
                                 <div className="profile-info-value">
@@ -445,7 +466,6 @@ class Profile extends Component {
                                     </div>
                                 </div>
                             </div>
-
                             <div className="profile-info-row">
                                 <div className="profile-info-name"> Location</div>
                                 <div className="profile-info-value">
@@ -453,7 +473,6 @@ class Profile extends Component {
                                     <span>{user.country}</span>
                                 </div>
                             </div>
-
                             <div className="profile-info-row">
                                 <div className="profile-info-name"> Address</div>
                                 <div className="profile-info-value">
@@ -462,14 +481,12 @@ class Profile extends Component {
                                     <span>{user.zipCode}</span>
                                 </div>
                             </div>
-
                             <div className="profile-info-row">
                                 <div className="profile-info-name"> Telephone</div>
                                 <div className="profile-info-value">
                                     <span>{user.telephone}</span>
                                 </div>
                             </div>
-
                             <div className="profile-info-row">
                                 <div className="profile-info-name"></div>
                                 <div className="profile-info-value">
@@ -674,16 +691,12 @@ class Profile extends Component {
                                         </div>
                                     </Popup>
                                 </div>
-                                <div className="profile-info-name">
-
-                                </div>
+                                <div className="profile-info-name"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div className="space-20"></div>
-
                 <div className="row">
                     <div className="col-xs-12 col-sm-6">
                         <div className="widget-box transparent">
@@ -691,7 +704,6 @@ class Profile extends Component {
                     </div>
                 </div>
             </div>
-
         );
     }
 
@@ -797,83 +809,76 @@ class Profile extends Component {
                             <td>{product.discount}</td>
                             <td>{product.price - product.price*product.discount/100}</td>
                             <td><MDBBtn color="success" onClick={() => this.openUpdateProductModal()} > Edit </MDBBtn>
-                                <Popup open={this.state.openUpdateProduct} modal>
-                                    <div className="container">
-                                        <MDBRow>
-                                            <MDBCol md="6" className="mb-6">
-                                                <h3><b>Update product</b></h3>
-                                            </MDBCol>
-                                            <MDBCol md="5" className="mb-5"/>
-                                            <MDBCol md="1" className="mb-1">
-                                                <button onClick={() => this.closeUpdateProductModal()}> &times; </button>
-                                            </MDBCol>
-                                        </MDBRow>
 
-                                        <hr/>
-
-                                        <hr/>
-                                        <MDBRow>
-                                            <MDBCol md="2" className="mb-2"/>
-                                            <MDBCol md="2" className="mb-2"/>
-                                            <MDBCol md="2" className="mb-2"/>
-                                            <MDBCol md="2" className="mb-2"/>
-                                            <MDBCol md="2" className="mb-2">
-                                                <MDBBtn color="danger" onClick={() => this.closeUpdateProductModal()}> Cancel </MDBBtn>
-                                            </MDBCol>
-                                            <MDBCol md="2" className="mb-2">
-                                                <MDBBtn color="success"> Update </MDBBtn>
-                                            </MDBCol>
-                                        </MDBRow>
-                                    </div>
-                                </Popup>
                             </td>
                             <td>
-                                <MDBBtn color="danger" onClick={() => this.openDeleteProductModal(product.name)}> &times; </MDBBtn>
-                                <Popup
-                                    open={this.state.openDeleteProduct}
-                                    // onClose={!this.closeDeleteProductModal}
-                                    // trigger={}
-                                    modal
-                                    onClose={this.closeDeleteProductModal}
-                                    // closeOnDocumentClick
-                                    center
-                                >
-                                    <div className="container">
-                                        <MDBRow>
-                                            <MDBCol md="6" className="mb-6">
-                                                <h3><b>Delete product</b></h3>
-                                            </MDBCol>
-                                            <MDBCol md="5" className="mb-5"/>
-                                            <MDBCol md="1" className="mb-1">
-                                                <button onClick={() => this.closeDeleteProductModal()}> &times; </button>
-                                            </MDBCol>
-                                        </MDBRow>
-                                        <hr/>
-                                        <MDBRow>
-                                            <MDBCol md="12" className="mb-12">
-                                                <div><b>Are you sure you want to delete the <i>'{this.state.productName}'</i> product?</b>
-                                                </div>
-                                            </MDBCol>
-
-                                        </MDBRow>
-                                        <hr/>
-                                        <MDBRow>
-                                            <MDBCol md="4" className="mb-4"/>
-                                            <MDBCol md="2" className="mb-2">
-                                                <MDBBtn color="danger" onClick={() => this.closeDeleteProductModal()}> No </MDBBtn>
-                                            </MDBCol>
-                                            <MDBCol md="2" className="mb-2">
-                                                <MDBBtn color="success" > Yes </MDBBtn>
-                                            </MDBCol>
-                                            <MDBCol md="4" className="mb-4"/>
-                                        </MDBRow>
-                                    </div>
-                                </Popup>
+                                <MDBBtn color="danger" onClick={() => this.openDeleteProductModal(product.idProduct, product.name)}> &times; </MDBBtn>
                             </td>
                         </tr>
                     ))}
                     </tbody>
                 </table>
+                <Popup open={this.state.openUpdateProduct} modal onClose={this.closeUpdateProductModal}>
+                    <div className="container">
+                        <MDBRow>
+                            <MDBCol md="6" className="mb-6">
+                                <h3><b>Update product</b></h3>
+                            </MDBCol>
+                            <MDBCol md="5" className="mb-5"/>
+                            <MDBCol md="1" className="mb-1">
+                                <button onClick={() => this.closeUpdateProductModal()}> &times; </button>
+                            </MDBCol>
+                        </MDBRow>
+
+                        <hr/>
+
+                        <hr/>
+                        <MDBRow>
+                            <MDBCol md="2" className="mb-2"/>
+                            <MDBCol md="2" className="mb-2"/>
+                            <MDBCol md="2" className="mb-2"/>
+                            <MDBCol md="2" className="mb-2"/>
+                            <MDBCol md="2" className="mb-2">
+                                <MDBBtn color="danger" onClick={() => this.closeUpdateProductModal()}> Cancel </MDBBtn>
+                            </MDBCol>
+                            <MDBCol md="2" className="mb-2">
+                                <MDBBtn color="success"> Update </MDBBtn>
+                            </MDBCol>
+                        </MDBRow>
+                    </div>
+                </Popup>
+                <Popup open={this.state.openDeleteProduct} modal onClose={this.closeDeleteProductModal}>
+                    <div className="container">
+                        <MDBRow>
+                            <MDBCol md="6" className="mb-6">
+                                <h3><b>Delete product</b></h3>
+                            </MDBCol>
+                            <MDBCol md="5" className="mb-5"/>
+                            <MDBCol md="1" className="mb-1">
+                                <button onClick={() => this.closeDeleteProductModal()}> &times; </button>
+                            </MDBCol>
+                        </MDBRow>
+                        <hr/>
+                        <MDBRow>
+                            <MDBCol md="12" className="mb-12">
+                                <div><b>Are you sure you want to delete the <i>'{this.state.productName}'</i> product?</b>
+                                </div>
+                            </MDBCol>
+
+                        </MDBRow>
+                        <hr/>
+                        <MDBRow>
+                            <MDBCol md="4" className="mb-4"/>
+                            <MDBCol md="2" className="mb-2">
+                                <MDBBtn color="danger" onClick={() => this.closeDeleteProductModal}> No </MDBBtn>
+                            </MDBCol>
+                            <MDBCol md="2" className="mb-2">
+                                <MDBBtn color="success" onClick={() => this.deleteProduct(this.state.productId)} > Yes </MDBBtn>
+                            </MDBCol>
+                            <MDBCol md="4" className="mb-4"/>
+                        </MDBRow>
+                    </div>
+                </Popup>
             </Container>
         );
     }
