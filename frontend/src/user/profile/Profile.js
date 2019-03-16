@@ -107,12 +107,21 @@ class Profile extends Component {
         this.setState({ openPasswordSucceed: false })
     }
 
-    openUpdateProductModal (){
-        this.setState({ openUpdateProduct: true })
+    openUpdateProductModal (idProduct) {
+        const options = {
+            method: 'GET'
+        };
+
+        fetch(`/product/findById?idProduct=${idProduct}`, options)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                this.setState({ openUpdateProduct: true, productId: idProduct, product: data })
+            })
     }
 
     closeUpdateProductModal () {
-        this.setState({ openUpdateProduct: false })
+        this.setState({ openUpdateProduct: false, productId: '', productName: '' });
     }
 
     openDeleteProductModal (idValue, nameValue){
@@ -131,16 +140,37 @@ class Profile extends Component {
         this.setState({ openCreateProduct: false})
     }
 
+    updateProduct (productId) {
+        const options = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: 'PATCH',
+            body: JSON.stringify(this.state.product),
+            redirect: 'follow'
+        };
+        fetch(`/product/update/${productId}`, options)
+            .then(response => {
+                if (response.ok) {
+                    console.log(`Product with id=${this.state.productId} and name=${this.state.productName} updated successfully.`);
+                    this.closeUpdateProductModal();
+                    window.location.reload();
+                } else {
+                    console.log(`Product with id=${this.state.productId} and name=${this.state.productName} does not exist.`)
+                    alert("Cannot update this product! Please, try again.");
+                }
+            });
+    }
+
     deleteProduct (productId) {
         const options = {
             method: 'DELETE'
         };
-
         fetch(`/product/delete/${productId}`, options)
             .then(response => {
                 if (response.ok) {
                     console.log(`Product with id=${this.state.productId} and name=${this.state.productName} deleted successfully.`);
-                    this.setState({ openDeleteProduct: false, productId: '', productName: '' });
+                    this.closeDeleteProductModal();
                     window.location.reload();
                 } else {
                     console.log(`Product with id=${this.state.productId} and name=${this.state.productName} does not exist.`)
@@ -867,7 +897,7 @@ class Profile extends Component {
                             <td>{product.price}</td>
                             <td>{product.discount}</td>
                             <td>{product.price - product.price*product.discount/100}</td>
-                            <td><MDBBtn color="success" onClick={() => this.openUpdateProductModal()} > Edit </MDBBtn></td>
+                            <td><MDBBtn color="success" onClick={() => this.openUpdateProductModal(product.idProduct)} > Edit </MDBBtn></td>
                             <td><MDBBtn color="danger" onClick={() => this.openDeleteProductModal(product.idProduct, product.name)}> &times; </MDBBtn></td>
                         </tr>
                     ))}
@@ -1059,6 +1089,154 @@ class Profile extends Component {
                             </MDBCol>
                         </MDBRow>
                         <hr/>
+                        <MDBRow>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterNameEx"
+                                    className="grey-text"
+                                >
+                                    Name
+                                </label>
+                                <input
+                                    value={this.state.product.name}
+                                    name="name"
+                                    onChange={this.createProductHandler}
+                                    type="text"
+                                    className="form-control"
+                                    placeholder={this.state.product.name}
+                                />
+                            </MDBCol>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterSurnameEx2"
+                                    className="grey-text"
+                                >
+                                    URL
+                                </label>
+                                <input
+                                    value={this.state.product.url}
+                                    name="url"
+                                    onChange={this.createProductHandler}
+                                    type="text"
+                                    className="form-control"
+                                    placeholder={this.state.product.url}
+                                />
+                            </MDBCol>
+                        </MDBRow>
+                        <br/>
+                        <MDBRow>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterNameEx"
+                                    className="grey-text"
+                                >
+                                    Price (kr)
+                                </label>
+                                <input
+                                    value={this.state.product.price}
+                                    name="price"
+                                    onChange={this.createProductHandler}
+                                    type="number"
+                                    step="0.1"
+                                    min='0'
+                                    className="form-control"
+                                    placeholder={this.state.product.price}
+                                />
+                            </MDBCol>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterSurnameEx2"
+                                    className="grey-text"
+                                >
+                                    Discount (%)
+                                </label>
+                                <input
+                                    value={this.state.product.discount}
+                                    name="discount"
+                                    defaultValue={0}
+                                    onChange={this.createProductHandler}
+                                    type="number"
+                                    min='0'
+                                    className="form-control"
+                                    placeholder={this.state.product.discount}
+                                />
+                            </MDBCol>
+                        </MDBRow>
+                        <br/>
+                        <MDBRow>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterNameEx"
+                                    className="grey-text"
+                                >
+                                    Type
+                                </label>
+                                <select
+                                    value={this.state.product.type}
+                                    onChange={this.createProductTypeHandler}
+                                    className="form-control">
+                                    <option value={1}>Bracelet</option>
+                                    <option value={2}>Ring</option>
+                                    <option value={3}>Earring</option>
+                                    <option value={4}>Necklace</option>
+                                </select>
+                            </MDBCol>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterSurnameEx2"
+                                    className="grey-text"
+                                >
+                                    Material
+                                </label>
+                                <select
+                                    value={this.state.product.material}
+                                    onChange={this.createProductMaterialHandler}
+                                    className="form-control">
+                                    <option value={1}>Steel</option>
+                                    <option value={2}>Silver</option>
+                                    <option value={3}>Gold</option>
+                                </select>
+                            </MDBCol>
+                        </MDBRow>
+                        <br/>
+                        <MDBRow>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterNameEx"
+                                    className="grey-text"
+                                >
+                                    Color
+                                </label>
+                                <select
+                                    value={this.state.product.color}
+                                    onChange={this.createProductColorHandler}
+                                    className="form-control">
+                                    <option value={1}>Black</option>
+                                    <option value={2}>White</option>
+                                    <option value={3}>Grey</option>
+                                    <option value={4}>Brown</option>
+                                    <option value={5}>Red</option>
+                                </select>
+                            </MDBCol>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterSurnameEx2"
+                                    className="grey-text"
+                                >
+                                    Description
+                                </label>
+                                <textarea
+                                    value={this.state.product.description}
+                                    placeholder="No description."
+                                    name="description"
+                                    onChange={this.createProductHandler}
+                                    type="text"
+                                    className="form-control"
+                                    placeholder={this.state.product.description}
+                                />
+                            </MDBCol>
+                        </MDBRow>
+                        <br/>
                         <hr/>
                         <MDBRow>
                             <MDBCol md="2" className="mb-2"/>
@@ -1069,7 +1247,7 @@ class Profile extends Component {
                                 <MDBBtn color="danger" onClick={() => this.closeUpdateProductModal()}> Cancel </MDBBtn>
                             </MDBCol>
                             <MDBCol md="2" className="mb-2">
-                                <MDBBtn color="success"> Update </MDBBtn>
+                                <MDBBtn color="success" onClick={() => this.updateProduct(this.state.productId)}> Update </MDBBtn>
                             </MDBCol>
                         </MDBRow>
                     </div>
