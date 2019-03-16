@@ -65,13 +65,11 @@ public class UserController {
 
     @RequestMapping(value = "/delete", method = {RequestMethod.DELETE})
     public ResponseEntity<String> delete(
-            @RequestParam("id") @Valid Long id)
-            throws EmptyResultDataAccessException {
+            @RequestParam("id") @Valid Long id) {
 
         try {
             userService.delete(id);
         } catch (EmptyResultDataAccessException e) {
-
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with id " + id + " not found.");
         }
 
