@@ -3,6 +3,7 @@ package se.uu.elephas.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +23,6 @@ public class ProductController {
 
     @Autowired
     private ProductServiceimpl productService;
-    private boolean required;
 
     @RequestMapping(value = "/create", method = {RequestMethod.POST})
     public ResponseEntity<String> create(
@@ -69,5 +69,19 @@ public class ProductController {
             Iterable<Material> materials = productService.getAllMaterials();
 
             return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(materials));
+    }
+
+    @RequestMapping(value = "/delete/{idProduct}", method = {RequestMethod.DELETE})
+    public ResponseEntity<String> delete(
+            @PathVariable("idProduct") @Valid Long idProduct) {
+
+        try {
+            productService.delete(idProduct);
+        } catch (EmptyResultDataAccessException e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Product with id " + idProduct + " not found.");
         }
+
+        return ResponseEntity.status(HttpStatus.OK).body("Product with id " + idProduct + " deleted successfully.");
+
+    }
 }

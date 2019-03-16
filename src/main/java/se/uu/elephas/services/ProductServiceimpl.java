@@ -21,8 +21,7 @@ public class ProductServiceimpl implements ProductService {
     @Autowired MaterialRepository materialRepository;
 
     public Object create(Product product) {
-        Object pr = productRepository.save(product);
-        return(pr);
+        return(productRepository.save(product));
     }
 
     public Optional<Product> getById(Long idProduct) {
@@ -66,5 +65,9 @@ public class ProductServiceimpl implements ProductService {
 
     public Iterable<Material> getAllMaterials() {
         return materialRepository.findAll();
+    }
+
+    public void delete(Long idProduct) {
+        productRepository.deleteById(idProduct);
     }
 }
