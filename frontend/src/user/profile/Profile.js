@@ -417,7 +417,6 @@ class Profile extends Component {
                                                         <button onClick={() => this.closePasswordModal()}> &times; </button>
                                                     </MDBCol>
                                                 </MDBRow>
-
                                                 <hr/>
                                                 <MDBRow>
                                                     <MDBCol md="6" className="mb-6">
@@ -439,6 +438,7 @@ class Profile extends Component {
                                                         />
                                                     </MDBCol>
                                                 </MDBRow>
+                                                <br/>
                                                 <MDBRow>
                                                     <MDBCol md="6" className="mb-6">
                                                         <label
@@ -462,6 +462,7 @@ class Profile extends Component {
                                                         </div>
                                                     </MDBCol>
                                                 </MDBRow>
+                                                <br/>
                                                 <MDBRow>
                                                     <MDBCol md="6" className="mb-6">
                                                         <label
@@ -508,9 +509,7 @@ class Profile extends Component {
                                                         <h3><b>Password changed successfully!</b></h3>
                                                     </MDBCol>
                                                 </MDBRow>
-
                                                 <hr/>
-
                                                 <MDBRow>
                                                     <MDBCol md="9" className="mb-9">
                                                         <div><b>Your password has been reset successfully! To continue, press <i>OK</i> and log in with the new password.</b>
@@ -603,6 +602,7 @@ class Profile extends Component {
                                                     />
                                                 </MDBCol>
                                             </MDBRow>
+                                            <br/>
                                             <MDBRow>
                                                 <MDBCol md="6" className="mb-6">
                                                     <label
@@ -645,6 +645,7 @@ class Profile extends Component {
                                                     </div>
                                                 </MDBCol>
                                             </MDBRow>
+                                            <br/>
                                             <MDBRow>
                                                 <MDBCol md="6" className="mb-6">
                                                     <label
@@ -687,6 +688,7 @@ class Profile extends Component {
                                                     </div>
                                                 </MDBCol>
                                             </MDBRow>
+                                            <br/>
                                             <MDBRow>
                                                 <MDBCol md="6" className="mb-6">
                                                     <label
