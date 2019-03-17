@@ -88,7 +88,7 @@ class Header extends Component {
             return oldName + "active";
         }
         return oldName;
-    }
+    };
 
     render() {
         return (
