@@ -250,11 +250,11 @@ public class OrderController {
         }
 
     @RequestMapping(value = "/cartSize/{idUser}", method = {RequestMethod.GET})
-    public ResponseEntity<String> getCartSize(
-            @PathVariable("idUser") @Valid Long idUser) throws JsonProcessingException {
+    public ResponseEntity<Integer> getCartSize(
+            @PathVariable("idUser") @Valid Long idUser) {
 
         int sizeC = orderService.sizeCart(idUser);
-        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(String.valueOf(sizeC)));
+        return ResponseEntity.status(HttpStatus.OK).body(sizeC);
 
     }
 
