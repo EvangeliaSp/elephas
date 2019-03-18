@@ -1276,7 +1276,7 @@ class Profile extends Component {
                         <MDBRow>
                             <MDBCol md="4" className="mb-4"/>
                             <MDBCol md="2" className="mb-2">
-                                <MDBBtn color="danger" onClick={() => this.closeDeleteProductModal}> No </MDBBtn>
+                                <MDBBtn color="danger" onClick={() => this.closeDeleteProductModal()}> No </MDBBtn>
                             </MDBCol>
                             <MDBCol md="2" className="mb-2">
                                 <MDBBtn color="success" onClick={() => this.deleteProduct(this.state.productId)} > Yes </MDBBtn>
