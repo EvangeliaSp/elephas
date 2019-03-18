@@ -17,6 +17,5 @@ export const myBasket = (idItem) => {
     fetch(`/order/addToBasket?idUser=${idUser}&productId=${idItem}`, options)
         .then((response) => {
         });
-    return <Redirect to={ ProductGrid }/>
-
+    window.location.reload();
 };
