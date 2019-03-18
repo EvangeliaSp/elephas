@@ -15,11 +15,25 @@ class Header extends Component {
                     id="Dropdown"
                     style={{position:"absolute"}}
                 >
-                    <NavDropdown.Item href="/user/profile#profile">View profile</NavDropdown.Item>
-                    <NavDropdown.Item href="/user/profile#users">View users</NavDropdown.Item>
-                    <NavDropdown.Item href="/user/profile#products">View products</NavDropdown.Item>
-                    <NavDropdown.Item onClick={logout}>Sign out</NavDropdown.Item>
-                    <NavDropdown.Divider/>
+                    <NavDropdown.Item disabled className="text-left">
+                        <div style={{marginLeft:"10px"}}>Logged in as:</div>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item disabled className="text-left">
+                        <div style={{marginLeft:"15px"}}><b>Administrator</b></div>
+                        <NavDropdown.Divider/>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/user/profile#profile" className="text-left">
+                        <div style={{marginLeft:"10px"}}>View profile</div>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/user/profile#users" className="text-left">
+                        <div style={{marginLeft:"10px"}}>View users</div>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/user/profile#products" className="text-left">
+                        <div style={{marginLeft:"10px"}}>View products</div>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item onClick={logout} className="text-left">
+                        <div style={{marginLeft:"10px"}}>Sign out</div>
+                    </NavDropdown.Item>
                 </NavDropdown>
 
             );
@@ -28,10 +42,15 @@ class Header extends Component {
             return(
                 <NavDropdown
                     title={<i className="fas fa-user"></i>}
-                    id="Dropdown" style={{position:"absolute"}}
+                    id="Dropdown"
+                    style={{position:"absolute"}}
                 >
-                    <NavDropdown.Item href="/user/login">Sign in</NavDropdown.Item>
-                    <NavDropdown.Item href="/user/register">Sign up</NavDropdown.Item>
+                    <NavDropdown.Item href="/user/login" className="text-left">
+                        <div style={{marginLeft:"10px"}}>Sign in</div>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/user/register" className="text-left">
+                        <div style={{marginLeft:"10px"}}>Sign up</div>
+                    </NavDropdown.Item>
                 </NavDropdown>
             );
         return(
@@ -40,9 +59,22 @@ class Header extends Component {
                 id="Dropdown"
                 style={{position:"absolute"}}
             >
-                <NavDropdown.Item href="/user/profile#profile">View profile</NavDropdown.Item>
-                <NavDropdown.Item href="/user/profile#orders">View orders</NavDropdown.Item>
-                <NavDropdown.Item onClick={logout}>Sign out</NavDropdown.Item>
+                <NavDropdown.Item disabled className="text-left">
+                    <div style={{marginLeft:"10px"}}>Logged in as:</div>
+                </NavDropdown.Item>
+                <NavDropdown.Item disabled className="text-left">
+                    <div style={{marginLeft:"15px"}}><b>{localStorage.getItem("firstname")+" "+localStorage.getItem("lastname")}</b></div>
+                    <NavDropdown.Divider/>
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/user/profile#profile" className="text-left">
+                    <div style={{marginLeft:"10px"}}>View profile</div>
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/user/profile#orders" className="text-left">
+                    <div style={{marginLeft:"10px"}}>View orders</div>
+                </NavDropdown.Item>
+                <NavDropdown.Item onClick={logout} className="text-left">
+                    <div style={{marginLeft:"10px"}}>Sign out</div>
+                </NavDropdown.Item>
             </NavDropdown>
         );
     };
@@ -59,7 +91,7 @@ class Header extends Component {
             return oldName + "active";
         }
         return oldName;
-    }
+    };
 
     render() {
         return (
