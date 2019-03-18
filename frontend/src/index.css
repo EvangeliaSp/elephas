@@ -141,6 +141,26 @@
     right: 0;
 }
 
+.squaredThree a{
+    width: 20px;
+    position: relative;
+    margin: 20px auto;
+}
+
+.squaredThree a:checked {
+    width: 9px;
+    height: 5px;
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    border: 3px solid red;
+    border-top: none;
+    border-right: none;
+    background: transparent;
+    opacity: 0;
+}
+
+
 
 /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
 @media screen and (max-width: 800px) {

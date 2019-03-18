@@ -77,13 +77,14 @@ class ProductGrid extends Component {
                 typeNumber = 0;
                 break;
         }
+
         if (element == "color") {
-            const filteredList2 = allProducts.filter(prod => {
+            const filteredList2 = this.state.currentProducts.filter(prod => {
                 return prod.color === hash
             });
             return filteredList2;
         } else if (element == "material") {
-            const filteredList2 = allProducts.filter(prod => {
+            const filteredList2 = this.state.currentProducts.filter(prod => {
                 return prod.material === hash
             })
             return filteredList2;
@@ -182,7 +183,9 @@ class ProductGrid extends Component {
             <div>
 
                 <div className="skata">
-
+                        <div className="squaredThree">
+                            <input type="checkbox" value="None" id="squaredThree" name="check" />Dot
+                        </div>
                     <input type="checkbox"
                            onClickCapture={(e) => this.handleChange(e, 1, "color")}/>Black
                     <input type="checkbox" name="color"
