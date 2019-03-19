@@ -3,7 +3,7 @@ import logo from "../logo2.png";
 import Avatar from 'react-avatar';
 import {NavLink} from "react-router-dom";
 import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
-import {logout} from '../user/login-logout/Logout'
+import {logout} from '../user/login-logout/Logout';
 import Badge from '@material-ui/core/Badge';
 
 class Header extends Component {
@@ -53,11 +53,14 @@ class Header extends Component {
                         <div style={{marginLeft:"15px"}}><b>Administrator</b></div>
                         <NavDropdown.Divider/>
                     </NavDropdown.Item>
-                    <NavDropdown.Item href="/user/all" className="text-left">
-                        <div style={{marginLeft:"10px"}}>Show all users</div>
-                    </NavDropdown.Item>
-                    <NavDropdown.Item href="/user/profile" className="text-left">
+                    <NavDropdown.Item href="/user/profile#profile" className="text-left">
                         <div style={{marginLeft:"10px"}}>View profile</div>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/user/profile#users" className="text-left">
+                        <div style={{marginLeft:"10px"}}>View users</div>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/user/profile#products" className="text-left">
+                        <div style={{marginLeft:"10px"}}>View products</div>
                     </NavDropdown.Item>
                     <NavDropdown.Item onClick={logout} className="text-left">
                         <div style={{marginLeft:"10px"}}>Sign out</div>
