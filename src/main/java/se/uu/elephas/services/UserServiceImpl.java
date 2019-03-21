@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 
     // TODO: try-catch or if-else in case that user does not exist
     // TODO: create token from new password
-    public Object update(User newUser, Long id) {
+    public Object update(User newUser, Long id, MessageDigest md) {
         newUser.setIdUser(id);
         Optional<User> optUser = userRepository.findById(id);
 
@@ -66,6 +66,19 @@ public class UserServiceImpl implements UserService {
 
             if (newUser.getPassword() == null)
                 newUser.setPassword(user.getPassword());
+            else {
+                md.update(newUser.getPassword().getBytes());
+                byte[] digest = md.digest();
+                String hashed = DatatypeConverter.printHexBinary(digest);
+
+                newUser.setPassword(hashed);
+
+                SecureRandom random = new SecureRandom();
+                byte bytes[] = new byte[20];
+                random.nextBytes(bytes);
+                String token = bytes.toString();
+                newUser.setToken(token);
+            }
 
             if (newUser.getFirstname() == null)
                 newUser.setFirstname(user.getFirstname());

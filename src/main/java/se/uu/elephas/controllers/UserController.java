@@ -30,12 +30,6 @@ public class UserController {
     @Autowired
     private OrderServiceImpl orderService;
 
-    @RequestMapping("/")
-    public String home() {
-        return "Hello Elephas!";
-    }
-
-
     @RequestMapping(value = "/create", method = {RequestMethod.POST})
     public ResponseEntity<String> create(
             @RequestBody User user)
@@ -71,13 +65,11 @@ public class UserController {
 
     @RequestMapping(value = "/delete", method = {RequestMethod.DELETE})
     public ResponseEntity<String> delete(
-            @RequestParam("id") @Valid Long id)
-            throws EmptyResultDataAccessException {
+            @RequestParam("id") @Valid Long id) {
 
         try {
             userService.delete(id);
         } catch (EmptyResultDataAccessException e) {
-
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("User with id " + id + " not found.");
         }
 
@@ -89,12 +81,14 @@ public class UserController {
     public ResponseEntity<String> update(
             @RequestParam("id") @Valid Long id,
             @RequestBody User user)
-            throws JsonProcessingException {
+            throws NoSuchAlgorithmException, JsonProcessingException {
+
+        MessageDigest md = MessageDigest.getInstance("MD5");
 
         Object updatedUser;
 
         try {
-            updatedUser = userService.update(user, id);
+            updatedUser = userService.update(user, id, md);
         } catch (ConstraintViolationException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body("User with id " + id + "cannot be updated.");
         }

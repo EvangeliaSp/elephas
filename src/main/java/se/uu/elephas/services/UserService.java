@@ -13,7 +13,7 @@ public interface UserService {
 
     void delete(Long id);
 
-    Object update(User user, Long id);
+    Object update(User user, Long id, MessageDigest md);
 
     Iterable<User> getAll();
 

@@ -43,7 +43,7 @@ class ShowCart extends Component {
 
         fetch(`/order/removeFromBasket?idUser=${idUser}&idOrderItem=${idItem}`, options)
             .then((response) => {
-                return <Redirect to={ ShowCart }/>
+                window.location.reload();
             });
 
     };
@@ -57,7 +57,7 @@ class ShowCart extends Component {
 
         fetch(`/order/increase?idUser=${idUser}&idItem=${idItem}`, options)
             .then((response) => {
-                return <Redirect to={ ShowCart }/>
+                window.location.reload();
             });
 
     };
@@ -71,7 +71,7 @@ class ShowCart extends Component {
 
         fetch(`/order/decrease?idUser=${idUser}&idItem=${idItem}`, options)
             .then((response) => {
-                return <Redirect to={ ShowCart }/>
+                window.location.reload();
             });
     };
 
@@ -136,7 +136,9 @@ class ShowCart extends Component {
         }
 
         if (isLoading)
-            return (<p>Loading...</p>);
+            return <div className="loading">
+                <div className="loader"></div>
+            </div>
 
         if (continueRedirect) {
             const { to } = {to: {pathname: '/product'}};
@@ -144,8 +146,7 @@ class ShowCart extends Component {
         }
 
         if (proceedRedirect) {
-            const { to } = {to: {pathname: '/'}};
-            return <Redirect to={ to }/>
+            window.location.href=`/`;
         }
 
         if (items.length===0)
@@ -188,10 +189,10 @@ class ShowCart extends Component {
                             <tbody>
                             <br/>
                             {items.map(item => (
-                                <tr key={item.id}>
-                                    <td><img src={item.url} alt="Product" width="200" height="100"/>  </td>
+                                <tr key={item.idProduct}>
+                                    <td><img src={item.url} alt={item.name} width="200" height="150"/>  </td>
                                     <td>{item.name}</td>
-                                    <td>{item.price} kr</td>
+                                    <td>{item.finalPrice} kr</td>
                                     <td>
                                         <ButtonToolbar>
                                             <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleDecrease(item.id) } }>-</MDBBtn>
@@ -199,7 +200,7 @@ class ShowCart extends Component {
                                             <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleIncrease(item.id) } }>+</MDBBtn>
                                         </ButtonToolbar>
                                     </td>
-                                    <td><b>{item.quantity*item.price} kr</b></td>
+                                    <td><b>{item.quantity*item.finalPrice} kr</b></td>
                                     <td><MDBBtn color={"danger"} variant="primary" onClick={() => { this.handleDelete(item.id) } } >Remove</MDBBtn></td>
                                 </tr>
                             ))}

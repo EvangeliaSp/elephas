@@ -37,24 +37,21 @@ class HomePageGrid extends Component {
             <div key={product.idProduct} className="col-sm-6 col-lg-4">
                 <Card style={{marginBottom: '2rem'}}>
                     <a href={"/product/findById/" + product.idProduct}>
-                        <Card.Img variant="top" src={product.url}
-                                  style={{height: `20rem`}}
-                        />
+                        <Card.Img variant="top" src={product.url} style={{height: `20rem`}} />
                     </a>
                     <Card.Body>
                         <Card.Title>
                             <a href={"/product/findById/" + product.idProduct} style={{color: "black"}}>
-                                {product.name}
+                                {product.discount === 0 ? product.name : <div>{product.name}<span className="redtext">{" (Discount:" + product.discount + "%)"}</span></div>}
                             </a>
                         </Card.Title>
                         <Card.Text>
                             {product.description}<br/>
-
                         </Card.Text>
                     </Card.Body>
                     <Card.Footer>
-                        {product.price} kr
-                        <Button variant="primary" onClick={() => myBasket(product.idProduct)} style={{float: 'right'}}>Add to basket</Button>
+                        {product.discount === 0 ? product.price+"kr": <div><del>{product.price}</del><b className="redtext">{" " + (product.price-product.discount*product.price/100) + "kr"}</b></div>}
+                        <Button variant="primary" onClick={() => myBasket(product.idProduct)} style={{float: 'right'}}>Add to Cart</Button>
                     </Card.Footer>
                 </Card>
             </div>
@@ -63,22 +60,19 @@ class HomePageGrid extends Component {
 
 
     render() {
-        const {products, isLoading} = this.state
+        const {products, isLoading} = this.state;
 
 
         if (isLoading)
             return <div className="loading">
                 <div className="loader"></div>
-            </div>
-
+            </div>;
 
         return (
             <div>
                 <Container>
                     <Row style={{marginBottom: '7rem'}}>
                         {
-
-
                             products.slice(products.length - 6, products.length).map((product) => {
                                 return this.ProductCard(product);
 

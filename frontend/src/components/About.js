@@ -6,6 +6,25 @@ class About extends Component {
         return (
             <div>
 
+                <div className="intro">Materials Used</div>
+
+                <div className="words"><p>I only use materials friendly for the skin. Mostly working with silver and
+                    little pieces of art I find in nature such as pieces of wood and stones. I believe that the meaning
+                    of jewelry is to express ourselves and not to show a status of money. That is why I try to work with
+                    what our nature has to offer rather than use expensive materials.
+                </p></div>
+                <div className="intro">The creator</div>
+
+                <div className="words"><p>I believe in kindness, support, love and solidarity. I have the luck to be surrounded by wonderful
+                    people who inspire me single every day. Have the courage to support your dreams and the strength to
+                    support other people’s dreams! Thank you for visiting my little heaven! Special credits to my friends
+                    for making a dream come true and for being by my side at my biggest milestones.
+                    <br/>
+                    Love K.
+                </p></div>
+
+
+
                     <div className="intro">About Konstantina</div>
                     <div className="words">Konstantina is Marketing Coordinator in one of the biggest translaring
                         companies
@@ -20,30 +39,20 @@ class About extends Component {
                         <img src={konstantina} alt="Konstantina Manousaki"/>
                         <p> She lives happily in Piraeus with her companion.</p>
                     </div>
-                    <div className="intro">Elephas' Materials</div>
 
-                    <div className="words"><p>Lopsopsdnfsdin</p>
-                        <br/>
-
-                        <p>ddfdsfdsfsdgdfdd</p>
-                        <br/>
-
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
-                        <br/>
+                    <br/>
 
 
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
+                    <br/>
 
 
-
-                    </div>
-
+                </div>
 
 
-
-            </div>
         );
     }
 
