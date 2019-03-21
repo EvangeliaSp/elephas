@@ -362,6 +362,28 @@ class Profile extends Component {
             })
     };
 
+    approveOrder = (idOrder) => {
+        const options = {
+            method: 'PATCH'
+        };
+
+        fetch(`/order/approve?idOrder=${idOrder}`, options)
+            .then((response) => {
+                window.location.reload();
+            });
+    };
+
+    declineOrder = (idOrder) => {
+        const options = {
+            method: 'PATCH'
+        };
+
+        fetch(`/order/decline?idOrder=${idOrder}`, options)
+            .then((response) => {
+                window.location.reload();
+            });
+    };
+
     setClassName = (str, oldName) => {
         if (str === window.location.hash)
             return oldName + "active";
@@ -915,8 +937,8 @@ class Profile extends Component {
                             {/*<td>{paymentTypeToString(order.paymentType)}</td>*/}
                             <td>{statusToString(order.status)}</td>
                             <td>{order.sum}</td>
-                            <td><MDBBtn color="success" > Approve </MDBBtn></td>
-                            <td><MDBBtn color="danger" > Decline </MDBBtn></td>
+                            <td><MDBBtn color="success" onClick={() => this.approveOrder(order.idOrder)} > Approve </MDBBtn></td>
+                            <td><MDBBtn color="danger" onClick={() => this.declineOrder(order.idOrder)}> Decline </MDBBtn></td>
                         </tr>
                     ))}
                     </tbody>
