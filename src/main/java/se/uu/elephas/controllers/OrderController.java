@@ -292,4 +292,12 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order));
     }
 
+    @RequestMapping(value = "/inProgressOrdersSize", method = {RequestMethod.GET})
+    public ResponseEntity<Integer> findInProgressOrdersSize() {
+
+        int ordersSize = orderService.getPendingOrdersSize();
+
+        return ResponseEntity.status(HttpStatus.OK).body(ordersSize);
+    }
+
 }

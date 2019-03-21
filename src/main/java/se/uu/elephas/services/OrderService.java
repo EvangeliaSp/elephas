@@ -37,4 +37,5 @@ public interface OrderService {
 
     Order declineInProgressOrder(Long idOrder);
 
+    int getPendingOrdersSize();
 }

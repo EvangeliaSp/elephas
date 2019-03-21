@@ -15,12 +15,17 @@ class Header extends Component {
         super();
         this.state = {
             cartSize: this.getBasketSize,
-            invisible: true
+            invisible: true,
+            pendingOrdersSize: this.getPendingOrdersSize,
+            invisiblePending: true
         };
     }
 
     componentDidMount() {
-        this.getBasketSize()
+        this.getBasketSize();
+        if (localStorage.getItem("email") === "admin@elephas.com") {
+            this.getPendingOrdersSize()
+        }
     }
 
     getBasketSize = () => {
@@ -28,7 +33,6 @@ class Header extends Component {
             this.setState({invisible: true})
         } else {
             this.setState({invisible: false});
-            // this.props.match.params;
             fetch(`/order/cartSize/${localStorage.getItem("idUser")}`)
                 .then(response => response.json())
                 .then(data => {
@@ -37,6 +41,25 @@ class Header extends Component {
                     })
                 })
         }
+    };
+
+    getPendingOrdersSize = () => {
+        fetch(`/order/inProgressOrdersSize`)
+            .then(response => response.json())
+            .then(data => {
+                if (data === 0) {
+                    this.setState({
+                        pendingOrdersSize: data,
+                        invisiblePending: true
+                    })
+                } else {
+                    this.setState({
+                        pendingOrdersSize: data,
+                        invisiblePending: false
+                    })
+                }
+
+            })
     };
 
     userDropDownMenu = () => {
@@ -155,7 +178,7 @@ class Header extends Component {
                             <div className="bell">
                                 <a href="/user/profile#pendingOrders" className={this.setClassNamePath(window.location.pathname, "/user/profile#pendingOrders", "")}>
                                     <i className="fas fa-bell" rel="stylesheet"></i>
-                                    <Badge badgeContent={this.state.cartSize} invisible={this.state.invisible} color="secondary" variant="dot" style={{paddingTop: "100%"}}/>
+                                    <Badge invisible={this.state.invisiblePending} color="secondary" variant="dot" style={{paddingTop: "100%"}}/>
                                 </a>
                             </div>
                             <div className="user">

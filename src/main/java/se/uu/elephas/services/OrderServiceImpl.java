@@ -12,6 +12,7 @@ import se.uu.elephas.repository.ProductRepository;
 import se.uu.elephas.repository.UserRepository;
 
 import java.sql.Timestamp;
+import java.util.Collection;
 import java.util.Optional;
 
 import static se.uu.elephas.model.Status.*;
@@ -197,5 +198,13 @@ public class OrderServiceImpl implements OrderService {
         }
 
         return null;
+    }
+
+    public int getPendingOrdersSize() {
+        Iterable<Order> orders =  orderRepository.findByConfirmAndStatus(true, IN_PROGRESS.getValue());
+        if (orders instanceof Collection<?>) {
+            return ((Collection<?>)orders).size();
+        }
+        return 0;
     }
 }
