@@ -146,8 +146,7 @@ class ShowCart extends Component {
         }
 
         if (proceedRedirect) {
-            const { to } = {to: {pathname: '/'}};
-            return <Redirect to={ to }/>
+            window.location.href=`/`;
         }
 
         if (items.length===0)
@@ -190,10 +189,10 @@ class ShowCart extends Component {
                             <tbody>
                             <br/>
                             {items.map(item => (
-                                <tr key={item.id}>
+                                <tr key={item.idProduct}>
                                     <td><img src={item.url} alt={item.name} width="200" height="150"/>  </td>
                                     <td>{item.name}</td>
-                                    <td>{item.price} kr</td>
+                                    <td>{item.finalPrice} kr</td>
                                     <td>
                                         <ButtonToolbar>
                                             <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleDecrease(item.id) } }>-</MDBBtn>
@@ -201,7 +200,7 @@ class ShowCart extends Component {
                                             <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleIncrease(item.id) } }>+</MDBBtn>
                                         </ButtonToolbar>
                                     </td>
-                                    <td><b>{item.quantity*item.price} kr</b></td>
+                                    <td><b>{item.quantity*item.finalPrice} kr</b></td>
                                     <td><MDBBtn color={"danger"} variant="primary" onClick={() => { this.handleDelete(item.id) } } >Remove</MDBBtn></td>
                                 </tr>
                             ))}

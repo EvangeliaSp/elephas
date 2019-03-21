@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
         Iterable<OrderItem> orderItems = getOrderItemsByOrderId(orderId);
         if (orderItems != null) {
             for (OrderItem orderItem : orderItems) {
-                if (orderItem.getProduct().getIdProduct() == productId)
+                if (orderItem.getProduct().getIdProduct().longValue() == productId.longValue())
                 return orderItem;
             }
         }
@@ -153,18 +153,18 @@ public class OrderServiceImpl implements OrderService {
         return mycounter;
     }
 
-    public Order increaseOrderSum(Order basket, float price) {
-        basket.setSum(basket.getSum() + price);
+    public Order increaseOrderSum(Order basket, float price, float discount) {
+        basket.setSum(basket.getSum() + (price - price*discount/100));
         return orderRepository.save(basket);
     }
 
-    public Order decreaseOrderSum(Order basket, float price) {
-        basket.setSum(basket.getSum() - price);
+    public Order decreaseOrderSum(Order basket, float price, float discount) {
+        basket.setSum(basket.getSum() - (price - price*discount/100));
         return orderRepository.save(basket);
     }
 
     public Order decreaseOrderSumWhenRemove(Order basket, OrderItem orderItem) {
-        basket.setSum(basket.getSum() - orderItem.getQuantity()*orderItem.getProduct().getPrice());
+        basket.setSum(basket.getSum() - orderItem.getQuantity()*(orderItem.getProduct().getPrice()-orderItem.getProduct().getPrice()*orderItem.getProduct().getDiscount()/100));
         return orderRepository.save(basket);
     }
 
