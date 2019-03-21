@@ -268,7 +268,7 @@ public class OrderController {
 
     @RequestMapping(value = "/approve", method = {RequestMethod.PATCH})
     public ResponseEntity<String> approveOrder(
-            @RequestParam("idUser") @Valid Long idOrder)
+            @RequestParam("idOrder") @Valid Long idOrder)
             throws JsonProcessingException {
 
         Order order = orderService.approveInProgressOrder(idOrder);
@@ -281,7 +281,7 @@ public class OrderController {
 
     @RequestMapping(value = "/decline", method = {RequestMethod.PATCH})
     public ResponseEntity<String> declineOrder(
-            @RequestParam("idUser") @Valid Long idOrder)
+            @RequestParam("idOrder") @Valid Long idOrder)
             throws JsonProcessingException {
 
         Order order = orderService.declineInProgressOrder(idOrder);
