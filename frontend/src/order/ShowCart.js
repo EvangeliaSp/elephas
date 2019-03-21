@@ -144,8 +144,7 @@ class ShowCart extends Component {
         }
 
         if (proceedRedirect) {
-            const { to } = {to: {pathname: '/'}};
-            return <Redirect to={ to }/>
+            window.location.href=`/`;
         }
 
         if (items.length===0)
