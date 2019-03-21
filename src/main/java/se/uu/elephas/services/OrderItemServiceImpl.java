@@ -107,20 +107,35 @@ public class OrderItemServiceImpl implements OrderItemService {
         List<BasketItem> basketItems = new ArrayList<>();
 
         for (OrderItem orderItem: orderItems) {
-
-            BasketItem basketItem = new BasketItem(
-                    orderItem.getIdOrderItem(),
-                    orderItem.getProduct().getName(),
-                    orderItem.getProduct().getUrl(),
-                    orderItem.getQuantity(),
-                    orderItem.getProduct().getPrice(),
-                    orderItem.getProduct().getDiscount());
-
-            basketItems.add(basketItem);
+            Long idProduct = orderItem.getProduct().getIdProduct();
+            if (!this.existBasketItem(idProduct, basketItems)) {
+                BasketItem basketItem = new BasketItem(
+                        orderItem.getIdOrderItem(),
+                        orderItem.getProduct().getIdProduct(),
+                        orderItem.getProduct().getName(),
+                        orderItem.getProduct().getUrl(),
+                        orderItem.getQuantity(),
+                        orderItem.getProduct().getPrice(),
+                        orderItem.getProduct().getDiscount());
+                basketItems.add(basketItem);
+            } else {
+                for (BasketItem basketItem: basketItems) {
+                    if (idProduct == basketItem.getIdProduct())
+                        basketItem.setQuantity(basketItem.getQuantity()+1);
+                }
+            }
         }
 
         return basketItems;
 
+    }
+
+    private boolean existBasketItem(Long idProduct, List<BasketItem> basketItems) {
+        for (BasketItem basketItem: basketItems) {
+            if (idProduct == basketItem.getIdProduct())
+                return true;
+        }
+        return false;
     }
 
     public int getTotalCost(Long idOrder) {

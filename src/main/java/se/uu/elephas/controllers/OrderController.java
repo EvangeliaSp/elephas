@@ -99,7 +99,7 @@ public class OrderController {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot increase quantity of orderItem.");
         }
 
-        if (orderService.increaseOrderSum(basket, item.getProduct().getPrice()) == null)
+        if (orderService.increaseOrderSum(basket, item.getProduct().getPrice(), item.getProduct().getDiscount()) == null)
             return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Not changed the total sum of the basket-order, adding the product with id " + idProduct);
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(item));
@@ -184,7 +184,7 @@ public class OrderController {
         if (orderItem == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Not found order item with id " + idItem);
 
-        if (orderService.increaseOrderSum(basket, orderItem.getProduct().getPrice()) == null)
+        if (orderService.increaseOrderSum(basket, orderItem.getProduct().getPrice(), orderItem.getProduct().getDiscount()) == null)
             return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Not changed the total sum of the basket-order, adding the item with id " + idItem);
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orderItem));
@@ -206,7 +206,7 @@ public class OrderController {
         if (orderItem == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cannot find item with id " + idItem + ".");
         }
-        if (orderService.decreaseOrderSum(basket, orderItem.getProduct().getPrice()) == null)
+        if (orderService.decreaseOrderSum(basket, orderItem.getProduct().getPrice(), orderItem.getProduct().getDiscount()) == null)
             return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body("Not changed the total sum of the basket-order, removing the item with id " + idItem);
 
         orderItem = orderItemService.decreaseOrderItemQuantity(basket.getIdOrder(), idItem);
@@ -245,9 +245,8 @@ public class OrderController {
         if (basket == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Basket of user with id " + idUser + " not found.");
 
-        int total = orderItemService.getTotalCost(basket.getIdOrder());
-        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(total));
-        }
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(basket.getSum()));
+    }
 
     @RequestMapping(value = "/cartSize/{idUser}", method = {RequestMethod.GET})
     public ResponseEntity<Integer> getCartSize(

@@ -25,9 +25,9 @@ public interface OrderService {
 
     int sizeCart(Long idOrder);
 
-    Order increaseOrderSum(Order order, float price);
+    Order increaseOrderSum(Order order, float price, float discount);
 
-    Order decreaseOrderSum(Order basket, float price);
+    Order decreaseOrderSum(Order basket, float price, float discount);
 
     Order decreaseOrderSumWhenRemove(Order basket, OrderItem orderItem);
 
