@@ -811,6 +811,7 @@ class Profile extends Component {
     usersOrderList(orders) {
         return (
             <Container id="orders" className={this.setClassName("#orders", "tab-pane")}>
+                <tHeader><h3 align="left"><b>My orders</b></h3></tHeader>
                 <table className="table table-striped ">
                     <thead>
                     <tr>
@@ -844,6 +845,7 @@ class Profile extends Component {
     usersList(users) {
         return (
             <Container id="users" className={this.setClassName("#users", "tab-pane")}>
+                <tHeader><h3 align="left"><b>Users</b></h3></tHeader>
                 <table className="table table-striped ">
                     <thead>
                     <tr>
@@ -874,8 +876,8 @@ class Profile extends Component {
         if (pendingOrders.length===0) {
             return (
                 <Container id="pendingOrders" className={this.setClassName("#pendingOrders", "tab-pane")}>
+                    <tHeader><h3 align="left"><b>Pending orders</b></h3></tHeader>
                     <table className="table table-striped ">
-                        <tHeader><h3 align="center"><b>Pending orders</b></h3></tHeader>
                         <tbody>
                         <br/><br/>
                         <tr>
@@ -926,6 +928,7 @@ class Profile extends Component {
     productsList(products) {
         return (
             <Container id="products" className={this.setClassName("#products", "tab-pane")}>
+                <tHeader><h3 align="left"><b>Products</b></h3></tHeader>
                 <MDBRow>
                     <MDBCol md="10" className="mb-10"/>
                     <MDBCol md="2" className="mb-2">
