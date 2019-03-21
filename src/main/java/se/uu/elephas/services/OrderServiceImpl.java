@@ -4,16 +4,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import se.uu.elephas.model.Order;
 import se.uu.elephas.model.OrderItem;
-import se.uu.elephas.model.User;
 import se.uu.elephas.model.Product;
+import se.uu.elephas.model.User;
+import se.uu.elephas.repository.OrderItemRepository;
 import se.uu.elephas.repository.OrderRepository;
 import se.uu.elephas.repository.ProductRepository;
-import se.uu.elephas.repository.OrderItemRepository;
 import se.uu.elephas.repository.UserRepository;
 
-
-import java.util.Optional;
 import java.sql.Timestamp;
+import java.util.Optional;
+
+import static se.uu.elephas.model.Status.IN_PROGRESS;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -132,7 +133,7 @@ public class OrderServiceImpl implements OrderService {
             User user = optionalUser.get();
             Order order = orderRepository.findByOrderUserAndConfirm(user, false).iterator().next();
             order.setConfirm(true);
-            order.setStatus(4); // status 4 = IN_PROGRESS
+            order.setStatus(IN_PROGRESS); // status 4 = IN_PROGRESS
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
             order.setDate(currentTime);
             orderRepository.save(order);
