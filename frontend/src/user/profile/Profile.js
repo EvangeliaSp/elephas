@@ -370,14 +370,18 @@ class Profile extends Component {
                             Profile
                         </Link>
                     </li>
-
                     <li className={this.setClassName("#users", "")}>
                         <Link data-toggle="tab" to="#users">
                             <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
                             Users
                         </Link>
                     </li>
-
+                    <li className={this.setClassName("#pendingOrders", "")}>
+                        <Link data-toggle="tab" to="#pendingOrders">
+                            <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
+                            Pending orders
+                        </Link>
+                    </li>
                     <li className={this.setClassName("#products", "")}>
                         <Link data-toggle="tab" to="#products">
                             <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
