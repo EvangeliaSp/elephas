@@ -165,7 +165,7 @@ class Test extends React.Component {
         //Telephone
         if (!fields["telephone"]) {
             formIsValid = false;
-            errors["telephone"] = "Please enter your mobile no.";
+            errors["telephone"] = "Please enter your phone number.";
         }
 
         if (typeof fields["telephone"] !== "undefined") {
