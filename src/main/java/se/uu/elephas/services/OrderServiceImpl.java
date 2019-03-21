@@ -14,7 +14,7 @@ import se.uu.elephas.repository.UserRepository;
 import java.sql.Timestamp;
 import java.util.Optional;
 
-import static se.uu.elephas.model.Status.IN_PROGRESS;
+import static se.uu.elephas.model.Status.*;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -173,4 +173,29 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.findByConfirmAndStatus(true, IN_PROGRESS.getValue());
     }
 
+    public Order approveInProgressOrder(Long idOrder) {
+        Optional<Order> optionalOrder = orderRepository.findByIdOrder(idOrder);
+
+        if (optionalOrder.isPresent()) {
+            Order order = optionalOrder.get();
+            order.setStatus(COMPLETED);
+            orderRepository.save(order);
+            return order;
+        }
+
+        return null;
+    }
+
+    public Order declineInProgressOrder(Long idOrder) {
+        Optional<Order> optionalOrder = orderRepository.findByIdOrder(idOrder);
+
+        if (optionalOrder.isPresent()) {
+            Order order = optionalOrder.get();
+            order.setStatus(CANCELLED);
+            orderRepository.save(order);
+            return order;
+        }
+
+        return null;
+    }
 }

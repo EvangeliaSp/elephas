@@ -266,4 +266,30 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
     }
 
+    @RequestMapping(value = "/approve", method = {RequestMethod.PATCH})
+    public ResponseEntity<String> approveOrder(
+            @RequestParam("idUser") @Valid Long idOrder)
+            throws JsonProcessingException {
+
+        Order order = orderService.approveInProgressOrder(idOrder);
+
+        if (order == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order with id " + idOrder + " not found.");
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order));
+    }
+
+    @RequestMapping(value = "/decline", method = {RequestMethod.PATCH})
+    public ResponseEntity<String> declineOrder(
+            @RequestParam("idUser") @Valid Long idOrder)
+            throws JsonProcessingException {
+
+        Order order = orderService.declineInProgressOrder(idOrder);
+
+        if (order == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order with id " + idOrder + " not found.");
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order));
+    }
+
 }

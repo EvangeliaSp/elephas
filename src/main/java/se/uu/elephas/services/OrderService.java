@@ -31,4 +31,10 @@ public interface OrderService {
 
     Order decreaseOrderSumWhenRemove(Order basket, OrderItem orderItem);
 
+    Iterable<Order> getPendingOrders();
+
+    Order approveInProgressOrder(Long idOrder);
+
+    Order declineInProgressOrder(Long idOrder);
+
 }
