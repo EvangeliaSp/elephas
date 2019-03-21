@@ -24,6 +24,7 @@ class Profile extends Component {
         this.state = {
             orders: [],
             users: [],
+            pendingOrders: [],
             products: [],
             user: {
                 idUser: localStorage.getItem("idUser"),
@@ -202,6 +203,7 @@ class Profile extends Component {
         this.loadOrdersFromServer();
         if (localStorage.getItem("email") === "admin@elephas.com") {
             this.loadUsersFromServer();
+            this.loadPendingOrdersFromServer();
             this.loadProductsFromServer()
         }
     }
@@ -216,6 +218,12 @@ class Profile extends Component {
         fetch('/user/all')
             .then(response => response.json())
             .then(data => this.setState({users: data}))
+    };
+
+    loadPendingOrdersFromServer = () => {
+        fetch(`/order/inProgressOrders`)
+            .then(response => response.json())
+            .then(data => this.setState({pendingOrders: data}))
     };
 
     loadProductsFromServer = () => {
@@ -862,6 +870,59 @@ class Profile extends Component {
         );
     }
 
+    pendingOrderList(pendingOrders) {
+        if (pendingOrders.length===0) {
+            return (
+                <Container id="pendingOrders" className={this.setClassName("#pendingOrders", "tab-pane")}>
+                    <table className="table table-striped ">
+                        <tHeader><h3 align="center"><b>Pending orders</b></h3></tHeader>
+                        <tbody>
+                        <br/><br/>
+                        <tr>
+                            <h4><b>There aren't any pending orders.</b></h4>
+                        </tr>
+                        <br/>
+                        </tbody>
+                    </table>
+                </Container>
+            );
+        }
+        return (
+            // TODO: Future work is the payment things
+            <Container id="pendingOrders" className={this.setClassName("#pendingOrders", "tab-pane")}>
+                <tHeader><h3 align="left"><b>Pending orders</b></h3></tHeader>
+                <table className="table table-striped ">
+                    <thead>
+                    <tr>
+                        {/*<th scope="col">Confirm</th>*/}
+                        <th scope="col">Date</th>
+                        {/*<th scope="col">Payment Status</th>*/}
+                        {/*<th scope="col">Payment Type</th>*/}
+                        <th scope="col">Status</th>
+                        <th scope="col">Sum</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {pendingOrders.map(order => (
+                        <tr key={order.idOrder}>
+                            {/*<td>{confirmToString(order.confirm)}</td>*/}
+                            <td>{(new Date(order.date)).toLocaleString()}</td>
+                            {/*<td>{paymentStatusToString(order.paymentStatus)}</td>*/}
+                            {/*<td>{paymentTypeToString(order.paymentType)}</td>*/}
+                            <td>{statusToString(order.status)}</td>
+                            <td>{order.sum}</td>
+                            <td><MDBBtn color="success" > Approve </MDBBtn></td>
+                            <td><MDBBtn color="danger" > Decline </MDBBtn></td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </Container>
+        );
+    }
+
     productsList(products) {
         return (
             <Container id="products" className={this.setClassName("#products", "tab-pane")}>
@@ -1294,7 +1355,7 @@ class Profile extends Component {
     }
 
     render() {
-        const  {user, orders, users, products} = this.state;
+        const  {user, orders, pendingOrders, users, products} = this.state;
 
         if (user.idUser === 'undefined' || localStorage.getItem("idUser") == null) {
             return (<img className="center" src={notAvailable} alt="Not available"/>);
@@ -1310,6 +1371,7 @@ class Profile extends Component {
                             <div className="tab-content no-border padding-24" style={{marginBottom: "7rem"}}>
                                 {this.profileInfo(user)}
                                 {this.usersList(users)}
+                                {this.pendingOrderList(pendingOrders)}
                                 {this.productsList(products)}
                             </div>
 

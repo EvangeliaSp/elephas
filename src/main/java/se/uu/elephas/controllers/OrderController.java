@@ -257,4 +257,13 @@ public class OrderController {
 
     }
 
+    @RequestMapping(value = "/inProgressOrders", method = {RequestMethod.GET})
+    public ResponseEntity<String> findInProgressOrders()
+            throws JsonProcessingException {
+
+        Iterable<Order> orders = orderService.getPendingOrders();
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
+    }
+
 }

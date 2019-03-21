@@ -13,7 +13,7 @@ public enum Status {
         this.value = value;
     }
 
-    protected int getValue() {
+    public int getValue() {
         return this.value;
     }
 

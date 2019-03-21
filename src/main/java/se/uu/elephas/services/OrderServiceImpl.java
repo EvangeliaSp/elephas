@@ -169,4 +169,8 @@ public class OrderServiceImpl implements OrderService {
         return orderRepository.save(basket);
     }
 
+    public Iterable<Order> getPendingOrders() {
+        return orderRepository.findByConfirmAndStatus(true, IN_PROGRESS.getValue());
+    }
+
 }
