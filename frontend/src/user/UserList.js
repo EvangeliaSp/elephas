@@ -31,7 +31,7 @@ class UserList extends Component {
     render() {
         const  {users, isLoading} = this.state
 
-        if (localStorage.getItem("email") !== 'admin@gmail.com' && localStorage.getItem("idUser") != null) {
+        if (localStorage.getItem("email") !== 'admin@elephas.com' && localStorage.getItem("idUser") != null) {
             return (<img className="center" src={notAvailable} alt={"Not available"}/>);
         }
 

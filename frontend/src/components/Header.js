@@ -40,7 +40,7 @@ class Header extends Component {
     };
 
     userDropDownMenu = () => {
-        if (localStorage.getItem("email") === 'admin@gmail.com' && localStorage.getItem("idUser") != null)
+        if (localStorage.getItem("email") === 'admin@elephas.com' && localStorage.getItem("idUser") != null)
             return(
                 <NavDropdown
                     title={<Avatar src={adminIcon} round size={"35"}/>}
@@ -129,7 +129,7 @@ class Header extends Component {
     };
 
     render() {
-        if (localStorage.getItem("email") === 'admin@gmail.com' && localStorage.getItem("idUser") != null) {
+        if (localStorage.getItem("email") === 'admin@elephas.com' && localStorage.getItem("idUser") != null) {
             return (
                 <div>
                     <Navbar className="header" style={{marginBottom: '3rem'}}>

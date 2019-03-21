@@ -200,7 +200,7 @@ class Profile extends Component {
 
     componentDidMount() {
         this.loadOrdersFromServer();
-        if (localStorage.getItem("email") === "admin@gmail.com") {
+        if (localStorage.getItem("email") === "admin@elephas.com") {
             this.loadUsersFromServer();
             this.loadProductsFromServer()
         }
@@ -361,7 +361,7 @@ class Profile extends Component {
     };
 
     tabMenu() {
-        if (localStorage.getItem("email") === 'admin@gmail.com') {
+        if (localStorage.getItem("email") === 'admin@elephas.com') {
             return (
                 <ul className="nav nav-tabs padding-18">
                     <li className={this.setClassName("#profile", "")}>
@@ -1300,7 +1300,7 @@ class Profile extends Component {
             return (<img className="center" src={notAvailable} alt="Not available"/>);
         }
 
-        if (user.email === "admin@gmail.com") {
+        if (user.email === "admin@elephas.com") {
             return(
                 <div>
                     <div id="user-profile-2" className="user-profile">
