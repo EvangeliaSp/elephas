@@ -81,7 +81,7 @@ class ProductGrid extends Component {
                     </Card.Body>
                     <Card.Footer>
                         {product.price} kr
-                        <Button variant="primary" onClick={() => myBasket(product.idProduct)} style={{float: 'right'}}>Add to basket</Button>
+                        <Button variant="primary" onClick={() => myBasket(product.idProduct)} style={{float: 'right'}}>Add to Cart</Button>
                     </Card.Footer>
                 </Card>
             </div>

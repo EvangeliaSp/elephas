@@ -140,7 +140,6 @@ class Header extends Component {
                             <NavLink to="/product#necklaces" className={this.setClassName("#necklaces", "")}>Necklaces</NavLink>
                             <NavLink to="/product#earrings" className={this.setClassName("#earrings", "")}>Earrings</NavLink>
 
-                            <NavLink to="#contact" className={this.setClassName("#contact", "")}>Contact</NavLink>
                             <NavLink to="/about" className={this.setClassName("#about", "")}>About</NavLink>
                         </Nav>
 

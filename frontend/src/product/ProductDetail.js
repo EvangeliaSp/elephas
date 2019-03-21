@@ -45,7 +45,7 @@ class ProductDetail extends Component {
                 </Card.Body>
                 <Card.Footer>
                 {product.price} kr
-                <Button variant="primary" href="#addToBasket" style={{float:'right'}}>Add to basket</Button>
+                <Button variant="primary" href="#addToBasket" style={{float:'right'}}>Add to Cart</Button>
                 </Card.Footer>
             </Card>
             </div>
