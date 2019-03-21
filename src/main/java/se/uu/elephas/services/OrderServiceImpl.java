@@ -66,7 +66,7 @@ public class OrderServiceImpl implements OrderService {
         Iterable<OrderItem> orderItems = getOrderItemsByOrderId(orderId);
         if (orderItems != null) {
             for (OrderItem orderItem : orderItems) {
-                if (orderItem.getProduct().getIdProduct() == productId)
+                if (orderItem.getProduct().getIdProduct().longValue() == productId.longValue())
                 return orderItem;
             }
         }
