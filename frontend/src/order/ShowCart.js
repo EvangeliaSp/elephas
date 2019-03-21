@@ -136,7 +136,9 @@ class ShowCart extends Component {
         }
 
         if (isLoading)
-            return (<p>Loading...</p>);
+            return <div className="loading">
+                <div className="loader"></div>
+            </div>
 
         if (continueRedirect) {
             const { to } = {to: {pathname: '/product'}};
@@ -188,7 +190,7 @@ class ShowCart extends Component {
                             <br/>
                             {items.map(item => (
                                 <tr key={item.idProduct}>
-                                    <td><img src={item.url} alt={item.name} width="200" height="100"/>  </td>
+                                    <td><img src={item.url} alt={item.name} width="200" height="150"/>  </td>
                                     <td>{item.name}</td>
                                     <td>{item.finalPrice} kr</td>
                                     <td>

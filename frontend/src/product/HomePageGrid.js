@@ -42,7 +42,7 @@ class HomePageGrid extends Component {
                     <Card.Body>
                         <Card.Title>
                             <a href={"/product/findById/" + product.idProduct} style={{color: "black"}}>
-                                {product.discount == 0 ? product.name : <div>{product.name}<span className="redtext">{" (Discount:" + product.discount + "%)"}</span></div>}
+                                {product.discount === 0 ? product.name : <div>{product.name}<span className="redtext">{" (Discount:" + product.discount + "%)"}</span></div>}
                             </a>
                         </Card.Title>
                         <Card.Text>
@@ -50,8 +50,8 @@ class HomePageGrid extends Component {
                         </Card.Text>
                     </Card.Body>
                     <Card.Footer>
-                        {product.discount == 0 ? product.price+"kr": <div><del>{product.price}</del><b className="redtext">{" " + (product.price-product.discount*product.price/100) + "kr"}</b></div>}
-                        <Button variant="primary" onClick={() => myBasket(product.idProduct)} style={{float: 'right'}}>Add to basket</Button>
+                        {product.discount === 0 ? product.price+"kr": <div><del>{product.price}</del><b className="redtext">{" " + (product.price-product.discount*product.price/100) + "kr"}</b></div>}
+                        <Button variant="primary" onClick={() => myBasket(product.idProduct)} style={{float: 'right'}}>Add to Cart</Button>
                     </Card.Footer>
                 </Card>
             </div>

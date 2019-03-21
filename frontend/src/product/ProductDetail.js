@@ -34,7 +34,7 @@ class ProductDetail extends Component {
 
 
     ProductDetailCard(product) {
-        if( product.discount != 0) {
+        if( product.discount !== 0) {
             return(
                 <div key={product.idProduct} className="col-sm-12 col-lg-8 mx-auto">
                     <Card style={{ marginBottom: '2rem'}}>
@@ -48,7 +48,7 @@ class ProductDetail extends Component {
                         </Card.Body>
                         <Card.Footer>
                             <del>{product.price} kr</del><b className="redtext">{" " + (product.price-product.discount*product.price/100) + "kr"}</b>
-                            <Button variant="primary" onClick={() => myBasket(product.idProduct)} style={{float:'right'}}>Add to basket</Button>
+                            <Button variant="primary" onClick={() => myBasket(product.idProduct)} style={{float:'right'}}>Add to Cart</Button>
                         </Card.Footer>
                     </Card>
                 </div>
