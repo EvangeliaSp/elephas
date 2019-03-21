@@ -1,6 +1,6 @@
 import React from 'react';
-import '/home/mikaela/elephas/frontend/src/user/register.css';
-import ReactDOM from 'react-dom';
+import './register.css';
+import {Container} from "mdbreact";
 
 
 class Test extends React.Component {
@@ -10,8 +10,7 @@ class Test extends React.Component {
         this.state = {
             fields: {},
             errors: {}
-        }
-
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.submituserRegistrationForm = this.submituserRegistrationForm.bind(this);
@@ -20,38 +19,30 @@ class Test extends React.Component {
 
     submituserRegistrationForm(e) {
         e.preventDefault();
-        if (this.validateForm()) {
-            let fields = {};
-            fields["firstname"] = "";
-            fields["lastname"] = "";
-            fields["password"] = "";
-            fields["email"] = "";
-            fields["streetName"] = "";
-            fields["streetNumber"] = "";
-            fields["country"] = "";
-            fields["city"] = "";
-            fields["zipCode"] = "";
-            fields["telephone"] = "";
-            this.setState({fields:fields});
-            alert("Form submitted");
+
+        if (this.handleValidation()) {
+            const options = {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                method: 'POST',
+                body: JSON.stringify(this.state.fields),
+                redirect: 'follow'
+            };
+            fetch('/user/create', options)
+                .then(response => {
+                    if (response.ok) {
+                        alert("Form submitted");
+                        window.location.href = `/user/login`;
+                    }
+                })
+
         }
-        const options = {
-            headers: {
-                "Content-Type": "application/json",
-            },
-            method: 'POST',
-            body: JSON.stringify(this.state),
-            redirect: 'follow'
-        };
-        fetch('/user/create', options)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data);
-
-                window.location.href=`/user/login`;
-            })
-
+        else {
+            alert("Form has errors.")
+        }
     }
+
 
     handleValidation(){
         let fields = this.state.fields;
@@ -194,15 +185,6 @@ class Test extends React.Component {
         return formIsValid;
     }
 
-    contactSubmit(e){
-        if(this.handleValidation()){
-            alert("Form submitted");
-        }else{
-            alert("Form has errors.")
-        }
-
-    }
-
     handleChange(field, e){
         let fields = this.state.fields;
         fields[field] = e.target.value;
@@ -211,10 +193,10 @@ class Test extends React.Component {
 
     render(){
         return (
-            <div>
+            <Container>
                 <div className="container">
-                <form name="contactform" className="contactform" onSubmit= {this.contactSubmit.bind(this)}>
-                    <div className="col-md-6">
+                <form name="contactform" className="contactform" onSubmit = {this.submituserRegistrationForm}>
+                    <div className="col-md-12">
                         <fieldset>
                             <input ref="firstname" type="text" size="30" placeholder="Name" onChange={this.handleChange.bind(this, "firstname")} value={this.state.fields["firstname"]}/>
                             <span className="error">{this.state.errors["firstname"]}</span>
@@ -222,7 +204,7 @@ class Test extends React.Component {
                             <input ref="lastname" type="text" size="30" placeholder="Surname" onChange={this.handleChange.bind(this, "lastname")} value={this.state.fields["lastname"]}/>
                             <span className="error">{this.state.errors["lastname"]}</span>
                             <br/>
-                            <input ref="password" type="text" size="30" placeholder="Password" onChange={this.handleChange.bind(this, "password")} value={this.state.fields["password"]}/>
+                            <input ref="password" type="password" size="30" placeholder="Password" onChange={this.handleChange.bind(this, "password")} value={this.state.fields["password"]}/>
                             <span className="error">{this.state.errors["password"]}</span>
                             <br/>
                             <input refs="email" type="text" size="30" placeholder="Email" onChange={this.handleChange.bind(this, "email")} value={this.state.fields["email"]}/>
@@ -252,15 +234,23 @@ class Test extends React.Component {
                     <div className="col-md-12">
                         <fieldset>
                             <button className="btn btn-lg pro" id="submit" value="Submit">Submit</button>
+
                         </fieldset>
                     </div>
+                    <br/>
+                    <br/>
+
+                    <br/>  <br/>
+                    <br/>
+
+                    <br/>
                 </form>
+
                 </div>
 
-            </div>
+            </Container>
         )
     }
 }
 
-//ReactDOM.render(<Test />, document.querySelector("#app"))
 export default Test
