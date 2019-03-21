@@ -120,7 +120,7 @@ class Test extends React.Component {
         //Street Number
         if (!fields["streetNumber"]) {
             formIsValid = false;
-            errors["streetNumber"] = "*Please enter your street number.";
+            errors["streetNumber"] = "Please enter your street number.";
         }
 
         if (typeof fields["streetNumber"] !== "undefined") {
