@@ -94,23 +94,18 @@ class ProductGrid extends Component {
     }
 
     handleChange = (e, value, element) => {
-        console.log(value);
-        console.log(e.target.checked);
         if (value != 0 && e.target.checked == true) {
             const {products} = this.state;
             const hash = this.props.location.hash;
             const filt = this.filterProductsType(hash, products);
             const mpla = this.filterProductsColor(value, filt, element);
-            console.log("filtered final"+mpla)
+            console.log("filtered final" + mpla)
             this.setState({currentProducts: mpla});
-        }
-        else if (e.target.checked==false){
+        } else if (e.target.checked == false) {
             const {products} = this.state;
             const hash = this.props.location.hash;
-            const filt = this.filterProductsType(hash, products);
+            const filt = this.filterProductsType(hash, products)+
             this.setState({currentProducts: filt});
-
-
         }
 
     }
@@ -183,9 +178,7 @@ class ProductGrid extends Component {
             <div>
 
                 <div className="skata">
-                        <div className="squaredThree">
-                            <input type="checkbox" value="None" id="squaredThree" name="check" />Dot
-                        </div>
+
                     <input type="checkbox"
                            onClickCapture={(e) => this.handleChange(e, 1, "color")}/>Black
                     <input type="checkbox" name="color"
