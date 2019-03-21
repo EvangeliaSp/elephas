@@ -214,7 +214,7 @@ class Header extends Component {
                         <div className="cart">
                             <a href="/order/cart" className={this.setClassNamePath(window.location.pathname, "/order/cart", "")}>
                                 <i className="fas fa-shopping-cart" rel="stylesheet"></i>
-                                <Badge badgeContent={this.state.cartSize} invisible={this.state.invisible} color="secondary" />
+                                <Badge badgeContent={this.state.cartSize} invisible={this.state.invisible} color="secondary" style={{paddingTop: "100%"}} />
                             </a>
                         </div>
                         <div className="user">
