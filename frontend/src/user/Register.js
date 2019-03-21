@@ -85,7 +85,7 @@ class Test extends React.Component {
             let lastAtPos = fields["email"].lastIndexOf('@');
             let lastDotPos = fields["email"].lastIndexOf('.');
 
-            if (!(lastAtPos < lastDotPos && lastAtPos > 0 && fields["email"].indexOf('@@') == -1 && lastDotPos > 2 && (fields["email"].length - lastDotPos) > 2)) {
+            if (!(lastAtPos < lastDotPos && lastAtPos > 0 && fields["email"].indexOf('@@') === -1 && lastDotPos > 2 && (fields["email"].length - lastDotPos) > 2)) {
                 formIsValid = false;
                 errors["email"] = "Email is not valid";
             }
@@ -107,13 +107,13 @@ class Test extends React.Component {
         //Password
         if (!fields["password"]) {
             formIsValid = false;
-            errors["password"] = "*Please enter your password.";
+            errors["password"] = "Please enter your password.";
         }
 
         if (typeof fields["password"] !== "undefined") {
             if (!fields["password"].match(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/)) {
                 formIsValid = false;
-                errors["password"] = "*Please enter secure and strong password.";
+                errors["password"] = "Password must be at least 8 characters long, contain upper and lowercase letters, one or more numbers and one or more special characters";
             }
         }
 
@@ -126,7 +126,7 @@ class Test extends React.Component {
         if (typeof fields["streetNumber"] !== "undefined") {
             if (!fields["streetNumber"].match(/^([0-9]*)$/)) {
                 formIsValid = false;
-                errors["streetNumber"] = "*Please enter a correct street number.";
+                errors["streetNumber"] = "Please enter a correct street number.";
             }
         }
         //Country
@@ -158,26 +158,20 @@ class Test extends React.Component {
         //Zip Code
         if (!fields["zipCode"]) {
             formIsValid = false;
-            errors["streetNumber"] = "*Please enter your street number.";
+            errors["zipCode"] = "Cannot be empty.";
         }
 
-        if (typeof fields["zipCode"] !== "undefined") {
-            if (!fields["zipCode"].match(/^([0-9]*)$/)) {
-                formIsValid = false;
-                errors["zipCode"] = "*Please enter a correct street number.";
-            }
-        }
 
         //Telephone
         if (!fields["telephone"]) {
             formIsValid = false;
-            errors["telephone"] = "*Please enter your mobile no.";
+            errors["telephone"] = "Please enter your mobile no.";
         }
 
         if (typeof fields["telephone"] !== "undefined") {
             if (!fields["telephone"].match(/^[0-9]{10}$/)) {
                 formIsValid = false;
-                errors["telephone"] = "*Please enter valid mobile no.";
+                errors["telephone"] = "Please enter valid phone number.";
             }
         }
 
@@ -195,45 +189,66 @@ class Test extends React.Component {
         return (
             <Container>
                 <div className="container">
-                <form name="contactform" className="contactform" onSubmit = {this.submituserRegistrationForm}>
+                    <h4>Registration form</h4>
+                <form name="form input" className="form input" onSubmit = {this.submituserRegistrationForm}>
                     <div className="col-md-12">
                         <fieldset>
-                            <input ref="firstname" type="text" size="30" placeholder="Name" onChange={this.handleChange.bind(this, "firstname")} value={this.state.fields["firstname"]}/>
-                            <span className="error">{this.state.errors["firstname"]}</span>
+                            <label>Name</label>
+                            <input type="text" size="30" placeholder="Name" onChange={this.handleChange.bind(this, "firstname")} value={this.state.fields["firstname"]}/>
+                            <span className="errorMsg">{this.state.errors["firstname"]}</span>
                             <br/>
-                            <input ref="lastname" type="text" size="30" placeholder="Surname" onChange={this.handleChange.bind(this, "lastname")} value={this.state.fields["lastname"]}/>
-                            <span className="error">{this.state.errors["lastname"]}</span>
                             <br/>
-                            <input ref="password" type="password" size="30" placeholder="Password" onChange={this.handleChange.bind(this, "password")} value={this.state.fields["password"]}/>
-                            <span className="error">{this.state.errors["password"]}</span>
+                            <label>Surname</label>
+                            <input type="text" size="30" placeholder="Surname" onChange={this.handleChange.bind(this, "lastname")} value={this.state.fields["lastname"]}/>
+                            <span className="errorMsg">{this.state.errors["lastname"]}</span>
                             <br/>
-                            <input refs="email" type="text" size="30" placeholder="Email" onChange={this.handleChange.bind(this, "email")} value={this.state.fields["email"]}/>
-                            <span className="error">{this.state.errors["email"]}</span>
                             <br/>
-                            <input ref="streetName" type="text" size="30" placeholder="St. Name" onChange={this.handleChange.bind(this, "streetName")} value={this.state.fields["streetName"]}/>
-                            <span className="error">{this.state.errors["streetName"]}</span>
+                            <label>Password</label>
+                            <input type="password" size="30" placeholder="Password" onChange={this.handleChange.bind(this, "password")} value={this.state.fields["password"]}/>
+                            <span className="errorMsg">{this.state.errors["password"]}</span>
                             <br/>
-                            <input ref="streetNumber" type="text" size="30" placeholder="St. Number" onChange={this.handleChange.bind(this, "streetNumber")} value={this.state.fields["streetNumber"]}/>
-                            <span className="error">{this.state.errors["streetNumber"]}</span>
                             <br/>
-                            <input ref="country" type="text" size="30" placeholder="Country" onChange={this.handleChange.bind(this, "country")} value={this.state.fields["country"]}/>
-                            <span className="error">{this.state.errors["country"]}</span>
+                            <label>Email</label>
+                            <input type="text" size="30" placeholder="Email" onChange={this.handleChange.bind(this, "email")} value={this.state.fields["email"]}/>
+                            <span className="errorMsg">{this.state.errors["email"]}</span>
                             <br/>
-                            <input ref="city" type="text" size="30" placeholder="City" onChange={this.handleChange.bind(this, "city")} value={this.state.fields["city"]}/>
-                            <span className="error">{this.state.errors["city"]}</span>
                             <br/>
-                            <input ref="zipCode" type="text" size="30" placeholder="zip code" onChange={this.handleChange.bind(this, "zipCode")} value={this.state.fields["zipCode"]}/>
-                            <span className="error">{this.state.errors["zipCode"]}</span>
+                            <label>Street name</label>
+                            <input type="text" size="30" placeholder="St. Name" onChange={this.handleChange.bind(this, "streetName")} value={this.state.fields["streetName"]}/>
+                            <span className="errorMsg">{this.state.errors["streetName"]}</span>
                             <br/>
-                            <input refs="telephone" type="text" size="30" placeholder="Phone" onChange={this.handleChange.bind(this, "telephone")} value={this.state.fields["telephone"]}/>
-                            <span className="error">{this.state.errors["telephone"]}</span>
+                            <br/>
+                            <label>Street number</label>
+                            <input type="text" size="30" placeholder="St. Number" onChange={this.handleChange.bind(this, "streetNumber")} value={this.state.fields["streetNumber"]}/>
+                            <span className="errorMsg">{this.state.errors["streetNumber"]}</span>
+                            <br/>
+                            <br/>
+                            <label>Country</label>
+                            <input type="text" size="30" placeholder="Country" onChange={this.handleChange.bind(this, "country")} value={this.state.fields["country"]}/>
+                            <span className="errorMsg">{this.state.errors["country"]}</span>
+                            <br/>
+                            <br/>
+                            <label>City</label>
+                            <input type="text" size="30" placeholder="City" onChange={this.handleChange.bind(this, "city")} value={this.state.fields["city"]}/>
+                            <span className="errorMsg">{this.state.errors["city"]}</span>
+                            <br/>
+                            <br/>
+                            <label>zip code</label>
+                            <input type="text" size="30" placeholder="zip code" onChange={this.handleChange.bind(this, "zipCode")} value={this.state.fields["zipCode"]}/>
+                            <span className="errorMsg">{this.state.errors["zipCode"]}</span>
+                            <br/>
+                            <br/>
+                            <label>Phone</label>
+                            <input type="text" size="30" placeholder="Phone" onChange={this.handleChange.bind(this, "telephone")} value={this.state.fields["telephone"]}/>
+                            <span className="errorMsg">{this.state.errors["telephone"]}</span>
+                            <br/>
                             <br/>
 
                         </fieldset>
                     </div>
                     <div className="col-md-12">
                         <fieldset>
-                            <button className="btn btn-lg pro" id="submit" value="Submit">Submit</button>
+                            <button className="button" id="submit" value="Submit">Submit</button>
 
                         </fieldset>
                     </div>
