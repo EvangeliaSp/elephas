@@ -4,6 +4,8 @@ public class BasketItem {
 
     private Long id;
 
+    private Long idProduct;
+
     private String name;
 
     private String url;
@@ -14,13 +16,17 @@ public class BasketItem {
 
     private float discount;
 
-    public BasketItem(Long id, String name, String url, int quantity, float price, float discount) {
+    private float finalPrice;
+
+    public BasketItem(Long id, Long idProduct, String name, String url, int quantity, float price, float discount) {
         this.id = id;
+        this.idProduct = idProduct;
         this.name = name;
         this.url = url;
         this.quantity = quantity;
         this.price = price;
         this.discount = discount;
+        this.finalPrice = price - price*discount/100;
     }
 
     public Long getId() {
@@ -29,6 +35,14 @@ public class BasketItem {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Long getIdProduct() {
+        return idProduct;
+    }
+
+    public void setIdProduct(Long idProduct) {
+        this.idProduct = idProduct;
     }
 
     public String getName() {
@@ -69,5 +83,13 @@ public class BasketItem {
 
     public void setDiscount(float discount) {
         this.discount = discount;
+    }
+
+    public float getFinalPrice() {
+        return finalPrice;
+    }
+
+    public void setFinalPrice(float finalPrice) {
+        this.finalPrice = finalPrice;
     }
 }
