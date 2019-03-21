@@ -40,7 +40,7 @@ class ProductDetail extends Component {
                     <Card style={{ marginBottom: '2rem'}}>
                         <Card.Img variant="top" src={product.url} />
                         <Card.Body>
-                                <Card.Title>{product.name}<b className="redtext">{" (Discount:" + product.discount + "%)"}</b></Card.Title>
+                                <Card.Title>{product.name}<span className="redtext">{" (Discount:" + product.discount + "%)"}</span></Card.Title>
                             <Card.Text>
                                 {product.description}<br/>
                                 Made of: {getMaterial(product.material)}
