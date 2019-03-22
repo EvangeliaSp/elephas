@@ -14,6 +14,7 @@ import {
     paymentTypeToString,
     statusToString
 } from '../../Translations';
+import TypeChart from "../TypeChart";
 
 class Profile extends Component {
 
@@ -416,6 +417,12 @@ class Profile extends Component {
                         <Link data-toggle="tab" to="#products">
                             <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
                             Products
+                        </Link>
+                    </li>
+                    <li className={this.setClassName("#statistics", "")}>
+                        <Link data-toggle="tab" to="#statistics">
+                            <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
+                            Statistics
                         </Link>
                     </li>
                 </ul>
@@ -871,21 +878,25 @@ class Profile extends Component {
                 <table className="table table-striped ">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Avatar</th>
                         <th scope="col">Firstname</th>
                         <th scope="col">Lastname</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">Address</th>
+                        <th scope="col">Telephone</th>
                     </tr>
                     </thead>
                     <tbody>
                     {users.map(user => (
                         <tr key={user.id}>
-                            <th scope="row">{user.idUser}</th>
                             <td><Avatar name={user.firstname+" "+user.lastname} round size="35" /></td>
                             <td>{user.firstname}</td>
                             <td>{user.lastname}</td>
                             <td>{user.email}</td>
+                            <td>{user.city+", "+user.country}</td>
+                            <td>{user.streetName+", "+user.streetNumber+", "+user.zipCode}</td>
+                            <td>{user.telephone}</td>
                         </tr>
                     ))}
                     </tbody>
@@ -1379,6 +1390,21 @@ class Profile extends Component {
         );
     }
 
+    typeStatistics() {
+        return (
+            <Container id="statistics" className={this.setClassName("#statistics", "tab-pane")}>
+                <tHeader>
+                    <h3 align="center"><b>Most Purchased Product Types</b></h3>
+                    <p align="center">based on a survey of <b>{this.state.users.length-1}</b> users, who have made at least one complete order. The products in the chart </p>
+                    <p align="center">are those that these customers preferred mostly to buy.</p>
+                    <h4 align="center"><b>March 2019</b></h4>
+                    <br/><br/>
+                </tHeader>
+                <TypeChart/>
+            </Container>
+        );
+    }
+
     render() {
         const  {user, orders, pendingOrders, users, products} = this.state;
 
@@ -1398,6 +1424,7 @@ class Profile extends Component {
                                 {this.usersList(users)}
                                 {this.pendingOrderList(pendingOrders)}
                                 {this.productsList(products)}
+                                {this.typeStatistics()}
                             </div>
 
                         </div>

@@ -207,4 +207,21 @@ public class OrderServiceImpl implements OrderService {
         }
         return 0;
     }
+
+    public int getOrderItemsByType(int type) {
+        int counter = 0;
+        Iterable<Order> orders = orderRepository.findAll();
+        if (orders == null)
+            return counter;
+        for (Order order : orders) {
+            if ((order.getStatus() == COMPLETED)) {
+                for (OrderItem orderItem : order.getOrderItems()) {
+                    if (orderItem.getProduct().getType() == type) {
+                        counter += orderItem.getQuantity();
+                    }
+                }
+            }
+        }
+        return counter;
+    }
 }

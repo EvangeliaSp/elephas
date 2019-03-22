@@ -18,6 +18,4 @@ public interface OrderItemService {
 
     List<BasketItem> getCartOrderItems(Long idOrder);
 
-    int getTotalCost(Long idOrder);
-
 }
