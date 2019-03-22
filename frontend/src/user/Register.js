@@ -3,6 +3,7 @@ import './register.css';
 import {Container} from "mdbreact";
 
 
+
 class Test extends React.Component {
     constructor(props) {
         super(props);
@@ -116,6 +117,8 @@ class Test extends React.Component {
                 errors["password"] = "Password must be at least 8 characters long, contain upper and lowercase letters, one or more numbers and one or more special characters";
             }
         }
+
+
 
         //Street Number
         if (!fields["streetNumber"]) {
@@ -241,6 +244,10 @@ class Test extends React.Component {
                             <label>Phone</label>
                             <input type="text" size="30" placeholder="Phone" onChange={this.handleChange.bind(this, "telephone")} value={this.state.fields["telephone"]}/>
                             <span className="errorMsg">{this.state.errors["telephone"]}</span>
+                            <div className="custom-control custom-checkbox my-1 mr-sm-2">
+                                <input type="checkbox" className="custom-control-input" id="customControlInline" required/>
+                                    <label className="custom-control-label" htmlFor="customControlInline">Agree to terms and conditions</label>
+                            </div>
                             <br/>
                             <br/>
 
@@ -260,7 +267,6 @@ class Test extends React.Component {
 
                     <br/>
                 </form>
-
                 </div>
 
             </Container>
