@@ -257,4 +257,47 @@ public class OrderController {
 
     }
 
+    @RequestMapping(value = "/inProgressOrders", method = {RequestMethod.GET})
+    public ResponseEntity<String> findInProgressOrders()
+            throws JsonProcessingException {
+
+        Iterable<Order> orders = orderService.getPendingOrders();
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(orders));
+    }
+
+    @RequestMapping(value = "/approve", method = {RequestMethod.PATCH})
+    public ResponseEntity<String> approveOrder(
+            @RequestParam("idOrder") @Valid Long idOrder)
+            throws JsonProcessingException {
+
+        Order order = orderService.approveInProgressOrder(idOrder);
+
+        if (order == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order with id " + idOrder + " not found.");
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order));
+    }
+
+    @RequestMapping(value = "/decline", method = {RequestMethod.PATCH})
+    public ResponseEntity<String> declineOrder(
+            @RequestParam("idOrder") @Valid Long idOrder)
+            throws JsonProcessingException {
+
+        Order order = orderService.declineInProgressOrder(idOrder);
+
+        if (order == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order with id " + idOrder + " not found.");
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(order));
+    }
+
+    @RequestMapping(value = "/inProgressOrdersSize", method = {RequestMethod.GET})
+    public ResponseEntity<Integer> findInProgressOrdersSize() {
+
+        int ordersSize = orderService.getPendingOrdersSize();
+
+        return ResponseEntity.status(HttpStatus.OK).body(ordersSize);
+    }
+
 }

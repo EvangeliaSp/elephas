@@ -62,9 +62,6 @@ public class OrderItemServiceImpl implements OrderItemService {
             orderItemRepository.save(orderItem);
 
             return orderItem;
-
-//            if (orderItem.getQuantity() == 0)
-//                orderItemRepository.deleteById(idItem);
         }
 
         return null;

@@ -24,6 +24,7 @@ class Profile extends Component {
         this.state = {
             orders: [],
             users: [],
+            pendingOrders: [],
             products: [],
             user: {
                 idUser: localStorage.getItem("idUser"),
@@ -200,8 +201,9 @@ class Profile extends Component {
 
     componentDidMount() {
         this.loadOrdersFromServer();
-        if (localStorage.getItem("email") === "admin@gmail.com") {
+        if (localStorage.getItem("email") === "admin@elephas.com") {
             this.loadUsersFromServer();
+            this.loadPendingOrdersFromServer();
             this.loadProductsFromServer()
         }
     }
@@ -216,6 +218,12 @@ class Profile extends Component {
         fetch('/user/all')
             .then(response => response.json())
             .then(data => this.setState({users: data}))
+    };
+
+    loadPendingOrdersFromServer = () => {
+        fetch(`/order/inProgressOrders`)
+            .then(response => response.json())
+            .then(data => this.setState({pendingOrders: data}))
     };
 
     loadProductsFromServer = () => {
@@ -354,6 +362,28 @@ class Profile extends Component {
             })
     };
 
+    approveOrder = (idOrder) => {
+        const options = {
+            method: 'PATCH'
+        };
+
+        fetch(`/order/approve?idOrder=${idOrder}`, options)
+            .then((response) => {
+                window.location.reload();
+            });
+    };
+
+    declineOrder = (idOrder) => {
+        const options = {
+            method: 'PATCH'
+        };
+
+        fetch(`/order/decline?idOrder=${idOrder}`, options)
+            .then((response) => {
+                window.location.reload();
+            });
+    };
+
     setClassName = (str, oldName) => {
         if (str === window.location.hash)
             return oldName + "active";
@@ -361,7 +391,7 @@ class Profile extends Component {
     };
 
     tabMenu() {
-        if (localStorage.getItem("email") === 'admin@gmail.com') {
+        if (localStorage.getItem("email") === 'admin@elephas.com') {
             return (
                 <ul className="nav nav-tabs padding-18">
                     <li className={this.setClassName("#profile", "")}>
@@ -370,14 +400,18 @@ class Profile extends Component {
                             Profile
                         </Link>
                     </li>
-
                     <li className={this.setClassName("#users", "")}>
                         <Link data-toggle="tab" to="#users">
                             <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
                             Users
                         </Link>
                     </li>
-
+                    <li className={this.setClassName("#pendingOrders", "")}>
+                        <Link data-toggle="tab" to="#pendingOrders">
+                            <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
+                            Pending orders
+                        </Link>
+                    </li>
                     <li className={this.setClassName("#products", "")}>
                         <Link data-toggle="tab" to="#products">
                             <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
@@ -799,6 +833,7 @@ class Profile extends Component {
     usersOrderList(orders) {
         return (
             <Container id="orders" className={this.setClassName("#orders", "tab-pane")}>
+                <tHeader><h3 align="left"><b>My orders</b></h3></tHeader>
                 <table className="table table-striped ">
                     <thead>
                     <tr>
@@ -832,6 +867,7 @@ class Profile extends Component {
     usersList(users) {
         return (
             <Container id="users" className={this.setClassName("#users", "tab-pane")}>
+                <tHeader><h3 align="left"><b>Users</b></h3></tHeader>
                 <table className="table table-striped ">
                     <thead>
                     <tr>
@@ -858,9 +894,63 @@ class Profile extends Component {
         );
     }
 
+    pendingOrderList(pendingOrders) {
+        if (pendingOrders.length===0) {
+            return (
+                <Container id="pendingOrders" className={this.setClassName("#pendingOrders", "tab-pane")}>
+                    <tHeader><h3 align="left"><b>Pending orders</b></h3></tHeader>
+                    <table className="table table-striped ">
+                        <tbody>
+                        <br/><br/>
+                        <tr>
+                            <h4><b>There aren't any pending orders.</b></h4>
+                        </tr>
+                        <br/>
+                        </tbody>
+                    </table>
+                </Container>
+            );
+        }
+        return (
+            // TODO: Future work is the payment things
+            <Container id="pendingOrders" className={this.setClassName("#pendingOrders", "tab-pane")}>
+                <tHeader><h3 align="left"><b>Pending orders</b></h3></tHeader>
+                <table className="table table-striped ">
+                    <thead>
+                    <tr>
+                        {/*<th scope="col">Confirm</th>*/}
+                        <th scope="col">Date</th>
+                        {/*<th scope="col">Payment Status</th>*/}
+                        {/*<th scope="col">Payment Type</th>*/}
+                        <th scope="col">Status</th>
+                        <th scope="col">Sum</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {pendingOrders.map(order => (
+                        <tr key={order.idOrder}>
+                            {/*<td>{confirmToString(order.confirm)}</td>*/}
+                            <td>{(new Date(order.date)).toLocaleString()}</td>
+                            {/*<td>{paymentStatusToString(order.paymentStatus)}</td>*/}
+                            {/*<td>{paymentTypeToString(order.paymentType)}</td>*/}
+                            <td>{statusToString(order.status)}</td>
+                            <td>{order.sum}</td>
+                            <td><MDBBtn color="success" onClick={() => this.approveOrder(order.idOrder)} > Approve </MDBBtn></td>
+                            <td><MDBBtn color="danger" onClick={() => this.declineOrder(order.idOrder)}> Decline </MDBBtn></td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </Container>
+        );
+    }
+
     productsList(products) {
         return (
             <Container id="products" className={this.setClassName("#products", "tab-pane")}>
+                <tHeader><h3 align="left"><b>Products</b></h3></tHeader>
                 <MDBRow>
                     <MDBCol md="10" className="mb-10"/>
                     <MDBCol md="2" className="mb-2">
@@ -1290,13 +1380,13 @@ class Profile extends Component {
     }
 
     render() {
-        const  {user, orders, users, products} = this.state;
+        const  {user, orders, pendingOrders, users, products} = this.state;
 
         if (user.idUser === 'undefined' || localStorage.getItem("idUser") == null) {
             return (<img className="center" src={notAvailable} alt="Not available"/>);
         }
 
-        if (user.email === "admin@gmail.com") {
+        if (user.email === "admin@elephas.com") {
             return(
                 <div>
                     <div id="user-profile-2" className="user-profile">
@@ -1306,6 +1396,7 @@ class Profile extends Component {
                             <div className="tab-content no-border padding-24" style={{marginBottom: "7rem"}}>
                                 {this.profileInfo(user)}
                                 {this.usersList(users)}
+                                {this.pendingOrderList(pendingOrders)}
                                 {this.productsList(products)}
                             </div>
 
