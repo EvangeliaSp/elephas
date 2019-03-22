@@ -5,12 +5,15 @@ import org.springframework.stereotype.Service;
 import se.uu.elephas.model.BasketItem;
 import se.uu.elephas.model.Order;
 import se.uu.elephas.model.OrderItem;
+import se.uu.elephas.model.Status;
 import se.uu.elephas.repository.OrderItemRepository;
 import se.uu.elephas.repository.OrderRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import static se.uu.elephas.model.Status.COMPLETED;
 
 @Service
 public class OrderItemServiceImpl implements OrderItemService {
@@ -144,5 +147,17 @@ public class OrderItemServiceImpl implements OrderItemService {
         }
 
         return total;
+    }
+
+    public int getOrderItemsByType(int type) {
+        int counter = 0;
+        Iterable<OrderItem> orderItems = orderItemRepository.findAll();
+        if (orderItems == null)
+            return counter;
+        for (OrderItem orderItem : orderItems) {
+            if ((orderItem.getSourceOrder().getStatus() == COMPLETED) && (orderItem.getProduct().getType() == type))
+                counter ++;
+        }
+        return counter;
     }
 }

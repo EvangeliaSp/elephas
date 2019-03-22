@@ -281,8 +281,8 @@ public class OrderController {
 
     @RequestMapping(value = "/decline", method = {RequestMethod.PATCH})
     public ResponseEntity<String> declineOrder(
-            @RequestParam("idOrder") @Valid Long idOrder)
-            throws JsonProcessingException {
+            @RequestParam("idOrder") @Valid Long idOrder
+    ) throws JsonProcessingException {
 
         Order order = orderService.declineInProgressOrder(idOrder);
 
@@ -298,6 +298,16 @@ public class OrderController {
         int ordersSize = orderService.getPendingOrdersSize();
 
         return ResponseEntity.status(HttpStatus.OK).body(ordersSize);
+    }
+
+    @RequestMapping(value = "/orderItemsSizeByType", method = {RequestMethod.GET})
+    public ResponseEntity<Integer> findOrderItemsSizeByType(
+            @RequestParam("type") @Valid Integer type
+    ) {
+
+        int counter = orderService.getOrderItemsByType(type);
+
+        return ResponseEntity.status(HttpStatus.OK).body(counter);
     }
 
 }

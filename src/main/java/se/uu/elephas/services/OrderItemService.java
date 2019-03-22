@@ -20,4 +20,6 @@ public interface OrderItemService {
 
     int getTotalCost(Long idOrder);
 
+    int getOrderItemsByType(int type);
+
 }
