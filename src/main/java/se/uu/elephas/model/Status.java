@@ -1,6 +1,6 @@
 package se.uu.elephas.model;
 
-enum Status {
+public enum Status {
     COMPLETED (1),
     CANCELLED(2),
     SHIPPED(3),
@@ -13,7 +13,7 @@ enum Status {
         this.value = value;
     }
 
-    protected int getValue() {
+    public int getValue() {
         return this.value;
     }
 

@@ -5,6 +5,7 @@ import {NavLink} from "react-router-dom";
 import {Nav, Navbar, NavDropdown} from 'react-bootstrap';
 import {logout} from '../user/login-logout/Logout';
 import Badge from '@material-ui/core/Badge';
+import adminIcon from "../adminIcon3.png"
 
 class Header extends Component {
 
@@ -14,12 +15,17 @@ class Header extends Component {
         super();
         this.state = {
             cartSize: this.getBasketSize,
-            invisible: true
+            invisible: true,
+            pendingOrdersSize: this.getPendingOrdersSize,
+            invisiblePending: true
         };
     }
 
     componentDidMount() {
-        this.getBasketSize()
+        this.getBasketSize();
+        if (localStorage.getItem("email") === "admin@elephas.com") {
+            this.getPendingOrdersSize()
+        }
     }
 
     getBasketSize = () => {
@@ -27,7 +33,6 @@ class Header extends Component {
             this.setState({invisible: true})
         } else {
             this.setState({invisible: false});
-            // this.props.match.params;
             fetch(`/order/cartSize/${localStorage.getItem("idUser")}`)
                 .then(response => response.json())
                 .then(data => {
@@ -38,11 +43,30 @@ class Header extends Component {
         }
     };
 
+    getPendingOrdersSize = () => {
+        fetch(`/order/inProgressOrdersSize`)
+            .then(response => response.json())
+            .then(data => {
+                if (data === 0) {
+                    this.setState({
+                        pendingOrdersSize: data,
+                        invisiblePending: true
+                    })
+                } else {
+                    this.setState({
+                        pendingOrdersSize: data,
+                        invisiblePending: false
+                    })
+                }
+
+            })
+    };
+
     userDropDownMenu = () => {
-        if (localStorage.getItem("email") === 'admin@gmail.com' && localStorage.getItem("idUser") != null)
+        if (localStorage.getItem("email") === 'admin@elephas.com' && localStorage.getItem("idUser") != null)
             return(
                 <NavDropdown
-                    title={<i className="fas fa-user"></i>}
+                    title={<Avatar src={adminIcon} round size={"35"}/>}
                     id="Dropdown"
                     style={{position:"absolute"}}
                 >
@@ -58,6 +82,9 @@ class Header extends Component {
                     </NavDropdown.Item>
                     <NavDropdown.Item href="/user/profile#users" className="text-left">
                         <div style={{marginLeft:"10px"}}>View users</div>
+                    </NavDropdown.Item>
+                    <NavDropdown.Item href="/user/profile#pendingOrders" className="text-left">
+                        <div style={{marginLeft:"10px"}}>View orders</div>
                     </NavDropdown.Item>
                     <NavDropdown.Item href="/user/profile#products" className="text-left">
                         <div style={{marginLeft:"10px"}}>View products</div>
@@ -125,6 +152,43 @@ class Header extends Component {
     };
 
     render() {
+        if (localStorage.getItem("email") === 'admin@elephas.com' && localStorage.getItem("idUser") != null) {
+            return (
+                <div>
+                    <Navbar className="header" style={{marginBottom: '3rem'}}>
+                        <a href="/" className="logo"> <img src={logo} alt="Logo"
+                                                           style={{width: "46px", height: "60px"}}/>
+                        </a>
+
+                        <div className="header-right">
+                            <Nav>
+                                <NavLink exact to="/" >Home</NavLink>
+                                <NavLink to="/product#bracelets" className={this.setClassName("#bracelets", "")}>Bracelets</NavLink>
+                                <NavLink to="/product#rings" className={this.setClassName("#rings", "")}>Rings</NavLink>
+                                <NavLink to="/product#necklaces" className={this.setClassName("#necklaces", "")}>Necklaces</NavLink>
+                                <NavLink to="/product#earrings" className={this.setClassName("#earrings", "")}>Earrings</NavLink>
+
+                                <NavLink to="/about" className={this.setClassName("#about", "")}>About</NavLink>
+                            </Nav>
+
+                            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+                                  integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+                                  crossOrigin="anonymous"/>
+
+                            <div className="bell">
+                                <a href="/user/profile#pendingOrders" className={this.setClassNamePath(window.location.pathname, "/user/profile#pendingOrders", "")}>
+                                    <i className="fas fa-bell" rel="stylesheet"></i>
+                                    <Badge invisible={this.state.invisiblePending} color="secondary" variant="dot" style={{paddingTop: "100%"}}/>
+                                </a>
+                            </div>
+                            <div className="user">
+                                {this.userDropDownMenu()}
+                            </div>
+                        </div>
+                    </Navbar>
+                </div>
+            );
+        }
         return (
             <div>
                 <Navbar className="header" style={{marginBottom: '3rem'}}>
@@ -150,7 +214,7 @@ class Header extends Component {
                         <div className="cart">
                             <a href="/order/cart" className={this.setClassNamePath(window.location.pathname, "/order/cart", "")}>
                                 <i className="fas fa-shopping-cart" rel="stylesheet"></i>
-                                <Badge badgeContent={this.state.cartSize} invisible={this.state.invisible} color="secondary" />
+                                <Badge badgeContent={this.state.cartSize} invisible={this.state.invisible} color="secondary" style={{paddingTop: "100%"}} />
                             </a>
                         </div>
                         <div className="user">
