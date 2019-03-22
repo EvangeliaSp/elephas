@@ -14,7 +14,7 @@ import {
     paymentTypeToString,
     statusToString
 } from '../../Translations';
-import Example from "../TypeChart";
+import TypeChart from "../TypeChart";
 
 class Profile extends Component {
 
@@ -1389,8 +1389,14 @@ class Profile extends Component {
     typeStatistics() {
         return (
             <Container id="statistics" className={this.setClassName("#statistics", "tab-pane")}>
-                <tHeader><h3 align="left"><b>Order type statistics</b></h3></tHeader>
-                <Example/>
+                <tHeader>
+                    <h3 align="center"><b>Most Purchased Product Types</b></h3>
+                    <p align="center">based on a survey of <b>{this.state.users.length-1}</b> users, who have made at least one complete order. The products in the chart </p>
+                    <p align="center">are those that these customers preferred mostly to buy.</p>
+                    <h4 align="center"><b>March 2019</b></h4>
+                    <br/><br/>
+                </tHeader>
+                <TypeChart/>
             </Container>
         );
     }

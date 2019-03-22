@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import BarChart from 'react-bar-chart';
 
-class Example extends Component {
+class TypeChart extends Component {
 
     state = {};
 
@@ -96,4 +96,4 @@ class Example extends Component {
     };
 
 }
-export default Example;
+export default TypeChart;
