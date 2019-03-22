@@ -9,16 +9,6 @@ class Login extends Component{
         password: ''
     };
 
-    // handleRedirect(response) {
-    //     if (response.ok) {
-    //         console.log(`User ${this.state.email} logged in successfully.`);
-    //         return (<Redirect to='/user/all'/>)
-    //
-    //     } else {
-    //         console.log(`User ${this.state.email} CANNOT log in.`);
-    //     }
-    // };
-
     submitHandler = event => {
         var formData = new FormData();
         formData.append("email", this.state.email);
