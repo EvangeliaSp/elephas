@@ -141,25 +141,20 @@
     right: 0;
 }
 
-.squaredThree a{
-    width: 20px;
-    position: relative;
-    margin: 20px auto;
+.bitch {
+    padding-left: 30%;
+    color: #92af75;
+    text-align: center;
+    padding: 0.188em;
+    margin-bottom: 1%;
+    margin-top: -2.6%;
+    font-size: 18px;
 }
-
-.squaredThree a:checked {
-    width: 9px;
-    height: 5px;
-    position: absolute;
-    top: 4px;
-    left: 4px;
-    border: 3px solid red;
-    border-top: none;
-    border-right: none;
-    background: transparent;
-    opacity: 0;
+.choosefilter{
+    font-family: 'Brush Script MT';
+    color: darkolivegreen;
+    font-size: 1.4em;
 }
-
 
 
 /* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
