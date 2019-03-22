@@ -14,6 +14,7 @@ import {
     paymentTypeToString,
     statusToString
 } from '../../Translations';
+import Example from "../TypeChart";
 
 class Profile extends Component {
 
@@ -416,6 +417,12 @@ class Profile extends Component {
                         <Link data-toggle="tab" to="#products">
                             <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
                             Products
+                        </Link>
+                    </li>
+                    <li className={this.setClassName("#statistics", "")}>
+                        <Link data-toggle="tab" to="#statistics">
+                            <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
+                            Statistics
                         </Link>
                     </li>
                 </ul>
@@ -1379,6 +1386,15 @@ class Profile extends Component {
         );
     }
 
+    typeStatistics() {
+        return (
+            <Container id="statistics" className={this.setClassName("#statistics", "tab-pane")}>
+                <tHeader><h3 align="left"><b>Order type statistics</b></h3></tHeader>
+                <Example/>
+            </Container>
+        );
+    }
+
     render() {
         const  {user, orders, pendingOrders, users, products} = this.state;
 
@@ -1398,6 +1414,7 @@ class Profile extends Component {
                                 {this.usersList(users)}
                                 {this.pendingOrderList(pendingOrders)}
                                 {this.productsList(products)}
+                                {this.typeStatistics()}
                             </div>
 
                         </div>
