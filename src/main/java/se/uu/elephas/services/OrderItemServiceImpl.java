@@ -138,26 +138,4 @@ public class OrderItemServiceImpl implements OrderItemService {
         return false;
     }
 
-    public int getTotalCost(Long idOrder) {
-        int total = 0;
-        List<BasketItem> basketItems = this.getCartOrderItems(idOrder);
-
-        for (BasketItem basketItem: basketItems) {
-            total += basketItem.getQuantity()*basketItem.getPrice();
-        }
-
-        return total;
-    }
-
-    public int getOrderItemsByType(int type) {
-        int counter = 0;
-        Iterable<OrderItem> orderItems = orderItemRepository.findAll();
-        if (orderItems == null)
-            return counter;
-        for (OrderItem orderItem : orderItems) {
-            if ((orderItem.getSourceOrder().getStatus() == COMPLETED) && (orderItem.getProduct().getType() == type))
-                counter ++;
-        }
-        return counter;
-    }
 }
