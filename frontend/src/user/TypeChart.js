@@ -21,10 +21,7 @@ class TypeChart extends Component {
     margin = {top: 20, right: 20, bottom: 30, left: 40};
 
     componentDidMount () {
-        this.loadTypeDataFromServer();
-        window.onresize = () => {
-            this.setState({width: this.refs.root.offsetWidth});
-        };
+        this.loadTypeDataFromServer()
     }
 
     loadTypeDataFromServer = () => {
