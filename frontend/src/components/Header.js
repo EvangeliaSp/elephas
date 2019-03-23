@@ -22,9 +22,11 @@ class Header extends Component {
     }
 
     componentDidMount() {
-        this.getBasketSize();
+
         if (localStorage.getItem("email") === "admin@elephas.com") {
             this.getPendingOrdersSize()
+        } else if (localStorage.getItem("idUser") !== 'undefined' && localStorage.getItem("idUser") !== null) {
+            this.getBasketSize();
         }
     }
 
