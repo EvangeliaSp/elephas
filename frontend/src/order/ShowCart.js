@@ -45,7 +45,6 @@ class ShowCart extends Component {
             .then((response) => {
                 window.location.reload();
             });
-
     };
 
     handleIncrease = (idItem) => {
@@ -138,7 +137,7 @@ class ShowCart extends Component {
         if (isLoading)
             return <div className="loading">
                 <div className="loader"></div>
-            </div>
+            </div>;
 
         if (continueRedirect) {
             const { to } = {to: {pathname: '/product'}};
@@ -157,7 +156,6 @@ class ShowCart extends Component {
                         <div>
                             <table className="table table-striped ">
                                 <tHeader><h3 align="center"><b>Shopping cart</b></h3></tHeader>
-
                                 <tbody>
                                 <br/><br/>
                                 <tr>
@@ -185,7 +183,6 @@ class ShowCart extends Component {
                     <div>
                         <table className="table table-striped ">
                             <tHeader><h3 align="center"><b>Shopping cart</b></h3></tHeader>
-
                             <tbody>
                             <br/>
                             {items.map(item => (
@@ -195,7 +192,11 @@ class ShowCart extends Component {
                                     <td>{item.finalPrice} kr</td>
                                     <td>
                                         <ButtonToolbar>
-                                            <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleDecrease(item.id) } }>-</MDBBtn>
+                                            {item.quantity==1 ? (
+                                                <MDBBtn disabled bsStyle="primary" color="info">-</MDBBtn>
+                                            ) : (
+                                                <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleDecrease(item.id) } }>-</MDBBtn>
+                                            )}
                                             <ListGroupItem>{item.quantity}</ListGroupItem>
                                             <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleIncrease(item.id) } }>+</MDBBtn>
                                         </ButtonToolbar>
