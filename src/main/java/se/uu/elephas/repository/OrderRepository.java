@@ -21,4 +21,6 @@ public interface OrderRepository extends CrudRepository<Order, Long> {
 
     Iterable<Order> findByConfirmAndStatus(Boolean confirm, int status);
 
+    Iterable<Order> findByStatus(int status);
+
 }

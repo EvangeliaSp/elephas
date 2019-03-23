@@ -310,4 +310,14 @@ public class OrderController {
         return ResponseEntity.status(HttpStatus.OK).body(counter);
     }
 
+    @RequestMapping(value = "/ordersSize", method = {RequestMethod.GET})
+    public ResponseEntity<Integer> getOrdersSizeByStatus(
+            @RequestParam("status") @Valid Integer status
+    ) {
+
+        int counter = orderService.getSizeOfOrdersByStatus(status);
+
+        return ResponseEntity.status(HttpStatus.OK).body(counter);
+    }
+
 }

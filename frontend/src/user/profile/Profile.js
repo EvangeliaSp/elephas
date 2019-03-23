@@ -12,7 +12,8 @@ import {
     getType,
     paymentStatusToString,
     paymentTypeToString,
-    statusToString
+    statusToString,
+    statusStringToCode
 } from '../../Translations';
 import TypeChart from "../TypeChart";
 
@@ -26,6 +27,7 @@ class Profile extends Component {
             orders: [],
             users: [],
             pendingOrders: [],
+            completeOrdersSize: '',
             products: [],
             user: {
                 idUser: localStorage.getItem("idUser"),
@@ -205,9 +207,16 @@ class Profile extends Component {
         if (localStorage.getItem("email") === "admin@elephas.com") {
             this.loadUsersFromServer();
             this.loadPendingOrdersFromServer();
-            this.loadProductsFromServer()
+            this.loadProductsFromServer();
+            this.loadCompleteOrdersSizeFromServer()
         }
     }
+
+    loadCompleteOrdersSizeFromServer = () => {
+        fetch(`/order/ordersSize?status=${statusStringToCode("COMPLETED")}`)
+            .then(response => response.json())
+            .then(data => this.setState({completeOrdersSize: data}))
+    };
 
     loadOrdersFromServer = () => {
         fetch(`/order/userOrders?idUser=${this.state.user.idUser}`)
@@ -1395,7 +1404,7 @@ class Profile extends Component {
             <Container id="statistics" className={this.setClassName("#statistics", "tab-pane")}>
                 <tHeader>
                     <h3 align="center"><b>Most Purchased Product Types</b></h3>
-                    <p align="center">based on a survey of <b>{this.state.users.length-1}</b> users, who have made at least one complete order. The products in the chart </p>
+                    <p align="center">based on a survey of <b>{this.state.completeOrdersSize}</b> users, who have made at least one complete order. The products in the chart </p>
                     <p align="center">are those that these customers preferred mostly to buy.</p>
                     <h4 align="center"><b>March 2019</b></h4>
                     <br/><br/>
