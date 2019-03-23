@@ -57,3 +57,12 @@ export const statusToString = status => {
     }
     return status;
 };
+
+export const statusStringToCode = statusString => {
+    switch(statusString) {
+        case "COMPLETED": return 1;
+        case "CANCELLED": return 2;
+        case "SHIPPED": return 3;
+        default: return 4;  // IN_PROGRESS
+    }
+};
