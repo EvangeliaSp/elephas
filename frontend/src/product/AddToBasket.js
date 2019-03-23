@@ -1,5 +1,3 @@
-import React from "react";
-
 export const myBasket = (idItem) => {
     const idUser = localStorage.getItem('idUser');
     

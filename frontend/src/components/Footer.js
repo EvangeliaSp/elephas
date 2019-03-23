@@ -15,11 +15,11 @@ class Footer extends Component {
                     Konstantina Manousaki
                 </div>
 
-                <div><a href="https://www.instagram.com/elephas_heart_made_jewelry/" target="_blank"> <i
+                <div><a href="https://www.instagram.com/elephas_heart_made_jewelry/" target="_blank" rel="noopener noreferrer"> <i
                     className="fab fa-instagram" style={{color: "#92af75"}}></i></a>
                     &nbsp;
                     &nbsp;
-                    <a href="https://www.facebook.com/elephasjewelry/" target="_blank"><i className="fab fa-facebook-f"
+                    <a href="https://www.facebook.com/elephasjewelry/" target="_blank" rel="noopener noreferrer"><i className="fab fa-facebook-f"
                                                                                           style={{color: "#92af75"}}></i>
                     </a>
                 </div>

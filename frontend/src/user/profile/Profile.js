@@ -1169,7 +1169,6 @@ class Profile extends Component {
                                     onChange={this.createProductHandler}
                                     type="text"
                                     className="form-control"
-                                    placeholder="Product description"
                                 />
                             </MDBCol>
                         </MDBRow>
@@ -1337,7 +1336,6 @@ class Profile extends Component {
                                 </label>
                                 <textarea
                                     value={this.state.product.description}
-                                    placeholder="No description."
                                     name="description"
                                     onChange={this.createProductHandler}
                                     type="text"
