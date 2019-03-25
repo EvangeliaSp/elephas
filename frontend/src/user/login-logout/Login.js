@@ -115,7 +115,7 @@ class Login extends Component{
                         <p className="font-small grey-text d-flex justify-content-end">
                             Forgot
                             <a
-                                href="#!"
+                                href='/user/login/resetPassword'
                                 className="dark-grey-text font-weight-bold ml-1"
                             >
                                 Password?
