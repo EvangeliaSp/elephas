@@ -31,33 +31,26 @@ public class ProductServiceimpl implements ProductService {
     public Iterable<Product> getByParam(List<Integer> type, List<Integer> material, List<Integer> color) {
 
         if (type==null && material==null && color==null) {
-            return productRepository.findAll();
+            return productRepository.findByCustom(false);
         }
-
         else if (type==null && material==null) {
             return productRepository.findByColorInAndCustom(color, false);
         }
-
         else if (type==null && color==null) {
             return productRepository.findByMaterialInAndCustom(material, false);
         }
-
         else if (material==null && color==null) {
             return productRepository.findByTypeInAndCustom(type, false);
         }
-
         else if (type==null) {
             return(productRepository.findByMaterialInAndColorInAndCustom(material, color, false));
         }
-
         else if (material==null) {
             return(productRepository.findByTypeInAndColorInAndCustom(type, color, false));
         }
-
         else if (color==null) {
             return(productRepository.findByTypeInAndMaterialInAndCustom(type, material, false));
         }
-
         else {
             return(productRepository.findByTypeInAndMaterialInAndColorInAndCustom(type, material, color, false));
         }
