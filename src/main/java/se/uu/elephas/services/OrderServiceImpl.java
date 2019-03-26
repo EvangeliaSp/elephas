@@ -224,4 +224,12 @@ public class OrderServiceImpl implements OrderService {
         }
         return counter;
     }
+
+    public int getSizeOfOrdersByStatus(int status) {
+        Iterable<Order> orders = this.orderRepository.findByStatus(status);
+        if (orders instanceof Collection<?>) {
+            return ((Collection<?>)orders).size();
+        }
+        return 0;
+    }
 }

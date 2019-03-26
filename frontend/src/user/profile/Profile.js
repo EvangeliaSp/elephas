@@ -12,7 +12,8 @@ import {
     getType,
     paymentStatusToString,
     paymentTypeToString,
-    statusToString
+    statusToString,
+    statusStringToCode
 } from '../../Translations';
 import TypeChart from "../TypeChart";
 
@@ -26,6 +27,7 @@ class Profile extends Component {
             orders: [],
             users: [],
             pendingOrders: [],
+            completeOrdersSize: 0,
             products: [],
             user: {
                 idUser: localStorage.getItem("idUser"),
@@ -83,6 +85,16 @@ class Profile extends Component {
         this.closeDeleteProductModal = this.closeDeleteProductModal.bind(this);
         this.openCreateProductModal = this.openCreateProductModal.bind(this);
         this.closeCreateProductModal = this.closeCreateProductModal.bind(this)
+    }
+
+    componentDidMount() {
+        this.loadOrdersFromServer();
+        if (localStorage.getItem("email") === "admin@elephas.com") {
+            this.loadUsersFromServer();
+            this.loadPendingOrdersFromServer();
+            this.loadProductsFromServer();
+            this.loadCompleteOrdersSizeFromServer()
+        }
     }
 
     openModal (){
@@ -200,14 +212,17 @@ class Profile extends Component {
             })
     };
 
-    componentDidMount() {
-        this.loadOrdersFromServer();
-        if (localStorage.getItem("email") === "admin@elephas.com") {
-            this.loadUsersFromServer();
-            this.loadPendingOrdersFromServer();
-            this.loadProductsFromServer()
-        }
-    }
+    loadCompleteOrdersSizeFromServer = () => {
+        const options = {
+            method: 'GET'
+        };
+        fetch(`/order/ordersSize?status=${statusStringToCode("COMPLETED")}`, options)
+            .then(response => response.json())
+            .then(data => {
+                console.log("Found "+data.toString()+" complete orders.");
+                this.setState({completeOrdersSize: data})
+            })
+    };
 
     loadOrdersFromServer = () => {
         fetch(`/order/userOrders?idUser=${this.state.user.idUser}`)
@@ -1160,7 +1175,6 @@ class Profile extends Component {
                                     onChange={this.createProductHandler}
                                     type="text"
                                     className="form-control"
-                                    placeholder="Product description"
                                 />
                             </MDBCol>
                         </MDBRow>
@@ -1328,7 +1342,6 @@ class Profile extends Component {
                                 </label>
                                 <textarea
                                     value={this.state.product.description}
-                                    placeholder="No description."
                                     name="description"
                                     onChange={this.createProductHandler}
                                     type="text"
@@ -1394,9 +1407,9 @@ class Profile extends Component {
         return (
             <Container id="statistics" className={this.setClassName("#statistics", "tab-pane")}>
                 <tHeader>
-                    <h3 align="center"><b>Most Purchased Product Types</b></h3>
-                    <p align="center">based on a survey of <b>{this.state.users.length-1}</b> users, who have made at least one complete order. The products in the chart </p>
-                    <p align="center">are those that these customers preferred mostly to buy.</p>
+                    <h3 align="center"><b>Most Popular Product Types</b></h3>
+                    <p align="center">Based on statistics of <b>{this.state.completeOrdersSize}</b> completed orders. </p>
+                    <p align="center"></p>
                     <h4 align="center"><b>March 2019</b></h4>
                     <br/><br/>
                 </tHeader>

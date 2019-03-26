@@ -14,14 +14,17 @@ class ShowCart extends Component {
         this.state = {
             items: [],
             isLoading: true,
-            total: this.totalCost(),
+            total: '',
             continueRedirect: false,
             proceedRedirect: false
         }
     }
 
     componentDidMount() {
-        this.loadCartFromServer()
+        if (localStorage.getItem("idUser") !== 'undefined' && localStorage.getItem("idUser") !== null) {
+            this.loadCartFromServer();
+            this.totalCost()
+        }
     }
 
     loadCartFromServer = () => {

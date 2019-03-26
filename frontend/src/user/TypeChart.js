@@ -21,10 +21,7 @@ class TypeChart extends Component {
     margin = {top: 20, right: 20, bottom: 30, left: 40};
 
     componentDidMount () {
-        this.loadTypeDataFromServer();
-        window.onresize = () => {
-            this.setState({width: this.refs.root.offsetWidth});
-        };
+        this.loadTypeDataFromServer()
     }
 
     loadTypeDataFromServer = () => {
@@ -52,17 +49,15 @@ class TypeChart extends Component {
                                         this.setState({
                                             necklaces: data
                                         });
-                                        this.state.data = [
-                                            {text: 'Bracelets', value: this.state.bracelets},
-                                            {text: 'Rings', value: this.state.rings},
-                                            {text: 'Necklaces', value: this.state.necklaces},
-                                            {text: 'Earrings', value: this.state.earrings}
-                                        ];
-                                        this.setState({isLoading: false})
+                                        this.setState({data: [
+                                                {text: 'Bracelets', value: this.state.bracelets},
+                                                {text: 'Rings', value: this.state.rings},
+                                                {text: 'Necklaces', value: this.state.necklaces},
+                                                {text: 'Earrings', value: this.state.earrings}
+                                            ], isLoading: false})
                                     })
                             });
                     });
-
             });
     };
 
