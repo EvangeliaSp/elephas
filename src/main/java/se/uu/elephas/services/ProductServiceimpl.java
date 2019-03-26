@@ -35,31 +35,31 @@ public class ProductServiceimpl implements ProductService {
         }
 
         else if (type==null && material==null) {
-            return productRepository.findByColorIn(color);
+            return productRepository.findByColorInAndCustom(color, false);
         }
 
         else if (type==null && color==null) {
-            return productRepository.findByMaterialIn(material);
+            return productRepository.findByMaterialInAndCustom(material, false);
         }
 
         else if (material==null && color==null) {
-            return productRepository.findByTypeIn(type);
+            return productRepository.findByTypeInAndCustom(type, false);
         }
 
         else if (type==null) {
-            return(productRepository.findByMaterialInAndColorIn(material, color));
+            return(productRepository.findByMaterialInAndColorInAndCustom(material, color, false));
         }
 
         else if (material==null) {
-            return(productRepository.findByTypeInAndColorIn(type, color));
+            return(productRepository.findByTypeInAndColorInAndCustom(type, color, false));
         }
 
         else if (color==null) {
-            return(productRepository.findByTypeInAndMaterialIn(type, material));
+            return(productRepository.findByTypeInAndMaterialInAndCustom(type, material, false));
         }
 
         else {
-            return(productRepository.findByTypeInAndMaterialInAndColorIn(type, material, color));
+            return(productRepository.findByTypeInAndMaterialInAndColorInAndCustom(type, material, color, false));
         }
     }
 
