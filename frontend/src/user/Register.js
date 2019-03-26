@@ -1,6 +1,6 @@
 import React from 'react';
 import './register.css';
-import {Container} from "mdbreact";
+import {Container, MDBRow} from "mdbreact";
 
 
 
@@ -192,7 +192,10 @@ class Test extends React.Component {
         return (
             <Container>
                 <div className="container">
-                    <h4>Registration form</h4>
+                    <MDBRow>
+                        <h3 style={{color: '#3e3a3a'}}><b>Registration form</b></h3>
+                    </MDBRow>
+                    <br/>
                 <form name="form input" className="form input" onSubmit = {this.submituserRegistrationForm}>
                     <div className="col-md-12">
                         <fieldset>
