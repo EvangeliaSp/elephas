@@ -56,6 +56,9 @@ public class User {
     @JsonIgnore
     private List<Order> orders;
 
+    @OneToMany(mappedBy = "customOwner")
+    private List<Product> customProducts;
+
 
     public User() {
 
@@ -178,5 +181,13 @@ public class User {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public List<Product> getCustomProducts() {
+        return customProducts;
+    }
+
+    public void setCustomProducts(List<Product> customProducts) {
+        this.customProducts = customProducts;
     }
 }
