@@ -38,22 +38,22 @@ public class Product {
     @Column(columnDefinition="varchar(511)")
     private String url;
 
-    @Column(nullable = false)
     private Boolean custom;
 
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private List<OrderItem> orderItems;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User customOwner;
+    private Long idUser;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User customOwner;
 
     public Product() {
 
     }
 
-    public Product(int type, int material, int color, String description, float price, float discount, String name, String url, Boolean custom, User user) {
+    public Product(int type, int material, int color, String description, float price, float discount, String name, String url, Boolean custom) {
         this.type = type;
         this.material = material;
         this.color = color;
@@ -63,7 +63,19 @@ public class Product {
         this.name = name;
         this.url = url;
         this.custom = custom;
-        this.customOwner = user;
+    }
+
+    public Product(int type, int material, int color, String description, float price, float discount, String name, String url, Boolean custom, Long idUser) {
+        this.type = type;
+        this.material = material;
+        this.color = color;
+        this.description = description;
+        this.price = price;
+        this.discount = discount;
+        this.name = name;
+        this.url = url;
+        this.custom = custom;
+        this.idUser = idUser;
     }
 
     public Long getIdProduct() {
@@ -126,11 +138,11 @@ public class Product {
         this.orderItems = orderItems;
     }
 
-    public User getCustomOwner() {
-        return customOwner;
+    public Long getIdUser() {
+        return idUser;
     }
 
-    public void setCustomOwner(User customOwner) {
-        this.customOwner = customOwner;
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 }
