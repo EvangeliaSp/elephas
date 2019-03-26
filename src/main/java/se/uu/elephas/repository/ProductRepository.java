@@ -17,6 +17,8 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
     Iterable<Product> findByCustom(Boolean custom);
 
+    Iterable<Product> findByCustomAndIdUser(Boolean custom, Long idUser);
+
     Iterable<Product> findByTypeInAndMaterialInAndColorInAndCustom(List<Integer> type, List<Integer> material, List<Integer> color, Boolean custom);
 
     Iterable<Product> findByMaterialInAndColorInAndCustom(List<Integer> material, List<Integer> color, Boolean custom);

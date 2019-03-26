@@ -61,8 +61,6 @@ public class ProductController {
         Iterable<Product> products = productService.getByParam(type, material, color);
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(products));
-
-
     }
 
     @RequestMapping(value = "/allMaterials", method = {RequestMethod.GET})
@@ -88,7 +86,6 @@ public class ProductController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(updatedProduct));
-
     }
 
     @RequestMapping(value = "/delete/{idProduct}", method = {RequestMethod.DELETE})
@@ -102,6 +99,15 @@ public class ProductController {
         }
 
         return ResponseEntity.status(HttpStatus.OK).body("Product with id " + idProduct + " deleted successfully.");
+    }
 
+    @RequestMapping(value = "/creations", method = {RequestMethod.GET})
+    public ResponseEntity<String> findCreations(
+            @RequestParam("idUser") @Valid Long idUser
+    ) throws JsonProcessingException {
+
+        Iterable<Product> productCreations = productService.getCreationsByUser(idUser);
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(productCreations));
     }
 }

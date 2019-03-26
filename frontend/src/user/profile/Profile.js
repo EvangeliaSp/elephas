@@ -29,6 +29,7 @@ class Profile extends Component {
             pendingOrders: [],
             completeOrdersSize: 0,
             products: [],
+            creations: [],
             user: {
                 idUser: localStorage.getItem("idUser"),
                 email: localStorage.getItem("email"),
@@ -88,12 +89,14 @@ class Profile extends Component {
     }
 
     componentDidMount() {
-        this.loadOrdersFromServer();
         if (localStorage.getItem("email") === "admin@elephas.com") {
             this.loadUsersFromServer();
             this.loadPendingOrdersFromServer();
             this.loadProductsFromServer();
             this.loadCompleteOrdersSizeFromServer()
+        } else if (localStorage.getItem("idUser") !== 'undefined' && localStorage.getItem("idUser") != null) {
+            this.loadOrdersFromServer();
+            this.loadCreationsFromServer()
         }
     }
 
@@ -246,6 +249,15 @@ class Profile extends Component {
         fetch(`/product/findBy`)
             .then(response => response.json())
             .then(data => this.setState({products: data}))
+    };
+
+    loadCreationsFromServer = () => {
+        const options = {
+            method: 'GET'
+        };
+        fetch(`/product/creations?idUser=${localStorage.getItem("idUser")}`, options)
+            .then(response => response.json())
+            .then(data => this.setState({creations: data}))
     };
 
     changeHandler = event => {
@@ -451,11 +463,16 @@ class Profile extends Component {
                         Profile
                     </Link>
                 </li>
-
                 <li className={this.setClassName("#orders", "")}>
                     <Link data-toggle="tab" to="#orders">
                         <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
                         Orders
+                    </Link>
+                </li>
+                <li className={this.setClassName("#creations", "")}>
+                    <Link data-toggle="tab" to="#creations">
+                        <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
+                        My creations
                     </Link>
                 </li>
             </ul>
@@ -880,6 +897,46 @@ class Profile extends Component {
                         <td>{order.sum}</td>
                     </tr>
                 ))}
+                    </tbody>
+                </table>
+            </Container>
+        );
+    }
+
+    userCreationList(creations) {
+        return (
+            <Container id="creations" className={this.setClassName("#creations", "tab-pane")}>
+                <tHeader><h3 align="left"><b>My creations</b></h3></tHeader>
+                <table className="table table-striped ">
+                    <thead>
+                    <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Material</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price (kr)</th>
+                        <th scope="col">Discount (%)</th>
+                        <th scope="col">Final price (kr)</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {creations.map(product => (
+                        <tr key={product.idProduct}>
+                            <td><img src={product.url} alt={product.name} width="100" height="100"/></td>
+                            <td>{product.name}</td>
+                            <td>{getType(product.type)}</td>
+                            <td>{getMaterial(product.material)}</td>
+                            <td>{getColor(product.color)}</td>
+                            <td>{product.description}</td>
+                            <td>{product.price}</td>
+                            <td>{product.discount}</td>
+                            <td>{product.price - product.price*product.discount/100}</td>
+                        </tr>
+                    ))}
                     </tbody>
                 </table>
             </Container>
@@ -1419,7 +1476,7 @@ class Profile extends Component {
     }
 
     render() {
-        const  {user, orders, pendingOrders, users, products} = this.state;
+        const  {user, orders, pendingOrders, users, products, creations} = this.state;
 
         if (user.idUser === 'undefined' || localStorage.getItem("idUser") == null) {
             return (<img className="center" src={notAvailable} alt="Not available"/>);
@@ -1431,7 +1488,6 @@ class Profile extends Component {
                     <div id="user-profile-2" className="user-profile">
                         <div className="tabbable">
                             {this.tabMenu()}
-
                             <div className="tab-content no-border padding-24" style={{marginBottom: "7rem"}}>
                                 {this.profileInfo(user)}
                                 {this.usersList(users)}
@@ -1439,7 +1495,6 @@ class Profile extends Component {
                                 {this.productsList(products)}
                                 {this.typeStatistics()}
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -1455,6 +1510,7 @@ class Profile extends Component {
                     <div className="tab-content no-border padding-24" style={{marginBottom: "7rem"}}>
                         {this.profileInfo(user)}
                         {this.usersOrderList(orders)}
+                        {this.userCreationList(creations)}
                     </div>
 
                 </div>
