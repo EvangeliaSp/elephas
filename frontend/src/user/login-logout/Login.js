@@ -62,6 +62,10 @@ class Login extends Component{
                     noValidate
                 >
                     <MDBContainer>
+                        <MDBRow>
+                            <h3 style={{color: '#3e3a3a'}}><b>Login Form</b></h3>
+                        </MDBRow>
+                        <br/>
                     <MDBRow>
                         <MDBCol md="4" className="mb-3">
                             <label
@@ -115,7 +119,7 @@ class Login extends Component{
                         <p className="font-small grey-text d-flex justify-content-end">
                             Forgot
                             <a
-                                href="#!"
+                                href='/user/login/resetPassword'
                                 className="dark-grey-text font-weight-bold ml-1"
                             >
                                 Password?
