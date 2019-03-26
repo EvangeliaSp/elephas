@@ -38,16 +38,22 @@ public class Product {
     @Column(columnDefinition="varchar(511)")
     private String url;
 
+    private Boolean custom;
+
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private List<OrderItem> orderItems;
 
+    private Long idUser;
+//    @ManyToOne
+//    @JoinColumn(name = "user_id")
+//    private User customOwner;
 
     public Product() {
 
     }
 
-    public Product(int type, int material, int color, String description, float price, float discount, String name, String url) {
+    public Product(int type, int material, int color, String description, float price, float discount, String name, String url, Boolean custom) {
         this.type = type;
         this.material = material;
         this.color = color;
@@ -55,7 +61,21 @@ public class Product {
         this.price = price;
         this.discount = discount;
         this.name = name;
-        this.name = url;
+        this.url = url;
+        this.custom = custom;
+    }
+
+    public Product(int type, int material, int color, String description, float price, float discount, String name, String url, Boolean custom, Long idUser) {
+        this.type = type;
+        this.material = material;
+        this.color = color;
+        this.description = description;
+        this.price = price;
+        this.discount = discount;
+        this.name = name;
+        this.url = url;
+        this.custom = custom;
+        this.idUser = idUser;
     }
 
     public Long getIdProduct() {
@@ -102,11 +122,27 @@ public class Product {
 
     public void setUrl(String url) { this.url = url; }
 
+    public Boolean getCustom() {
+        return custom;
+    }
+
+    public void setCustom(Boolean custom) {
+        this.custom = custom;
+    }
+
     public List<OrderItem> getOrderItems() {
         return orderItems;
     }
 
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
+    }
+
+    public Long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(Long idUser) {
+        this.idUser = idUser;
     }
 }
