@@ -73,8 +73,12 @@ class Profile extends Component {
             openUpdateProduct: false,
             openDeleteProduct: false,
             openCreateProduct: false,
+            openConfirmCustom: false,
+            openRejectCustom: false,
             productName: '',
-            productId: ''
+            productId: '',
+            customProductName: '',
+            customProductId: ''
         };
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
@@ -87,7 +91,11 @@ class Profile extends Component {
         this.openDeleteProductModal = this.openDeleteProductModal.bind(this);
         this.closeDeleteProductModal = this.closeDeleteProductModal.bind(this);
         this.openCreateProductModal = this.openCreateProductModal.bind(this);
-        this.closeCreateProductModal = this.closeCreateProductModal.bind(this)
+        this.closeCreateProductModal = this.closeCreateProductModal.bind(this);
+        this.openConfirmCustomModal = this.openConfirmCustomModal.bind(this);
+        this.closeConfirmCustomModal = this.closeConfirmCustomModal.bind(this);
+        this.openRejectCustomModal = this.openRejectCustomModal.bind(this);
+        this.closeRejectCustomModal = this.closeRejectCustomModal.bind(this)
     }
 
     componentDidMount() {
@@ -160,6 +168,22 @@ class Profile extends Component {
         this.setState({ openCreateProduct: false})
     }
 
+    openConfirmCustomModal () {
+        this.setState({openConfirmCustom: true})
+    }
+
+    closeConfirmCustomModal () {
+        this.setState({openConfirmCustom: false})
+    }
+
+    openRejectCustomModal (idValue) {
+        this.setState({openRejectCustom: true, customProductId: idValue })
+    }
+
+    closeRejectCustomModal () {
+        this.setState({openRejectCustom: false})
+    }
+
     updateProduct (productId) {
         const options = {
             headers: {
@@ -195,6 +219,23 @@ class Profile extends Component {
                 } else {
                     console.log(`Product with id=${this.state.productId} and name=${this.state.productName} does not exist.`)
                     alert("Cannot delete this product! Please, try again.");
+                }
+            });
+    }
+
+    rejectCustomProduct (customProductId) {
+        const options = {
+            method: 'PATCH',
+        };
+        fetch(`/customProduct/updateStatus?idCustom=${customProductId}&status=3`, options)
+            .then(response => {
+                if (response.ok) {
+                    console.log(`Custom product with id=${customProductId} is rejected.`);
+                    this.closeRejectCustomModal();
+                    window.location.reload();
+                } else {
+                    console.log(`Custom product with id=${customProductId} cannot be found.`)
+                    alert("Cannot reject this product! Please, try again.");
                 }
             });
     }
@@ -1076,7 +1117,7 @@ class Profile extends Component {
                     </thead>
                     <tbody>
                     {customCreations.map(product => (
-                        <tr key={product.idProduct}>
+                        <tr key={product.idCustomProduct}>
                             <td><img src={product.image} alt={product.name} width="100" height="100"/></td>
                             <td>{product.name}</td>
                             <td>{getType(product.type)}</td>
@@ -1088,12 +1129,48 @@ class Profile extends Component {
                             <td>{product.quantity}</td>
                             <td>{product.price - product.price*product.discount/100}</td>
                             <td>{customProductStatusToString(product.status)}</td>
-                            <td><MDBBtn color="success" > Edit </MDBBtn></td>
-                            <td><MDBBtn color="danger" > &times; </MDBBtn></td>
+                            <td>
+                                {product.status === 1 ? <MDBBtn color="success" > Confirm </MDBBtn> : <div></div>}
+                            </td>
+                            <td>
+                                {product.status === 1 ? <MDBBtn color="danger" onClick={() => this.openRejectCustomModal(product.idCustomProduct)}> Reject </MDBBtn> : <div></div>}
+                            </td>
                         </tr>
                     ))}
                     </tbody>
                 </table>
+                {/* Popup modal for custom product rejection */}
+                <Popup open={this.state.openRejectCustom} modal onClose={this.closeRejectCustomModal}>
+                    <div className="container">
+                        <MDBRow>
+                            <MDBCol md="6" className="mb-6">
+                                <h3><b>Delete product</b></h3>
+                            </MDBCol>
+                            <MDBCol md="5" className="mb-5"/>
+                            <MDBCol md="1" className="mb-1">
+                                <button onClick={() => this.closeRejectCustomModal()}> &times; </button>
+                            </MDBCol>
+                        </MDBRow>
+                        <hr/>
+                        <MDBRow>
+                            <MDBCol md="12" className="mb-12">
+                                <div><b>Are you sure you do NOT want to create this product?</b>
+                                </div>
+                            </MDBCol>
+                        </MDBRow>
+                        <hr/>
+                        <MDBRow>
+                            <MDBCol md="4" className="mb-4"/>
+                            <MDBCol md="2" className="mb-2">
+                                <MDBBtn color="danger" onClick={() => this.closeRejectCustomModal()}> No </MDBBtn>
+                            </MDBCol>
+                            <MDBCol md="2" className="mb-2">
+                                <MDBBtn color="success" onClick={() => this.rejectCustomProduct(this.state.customProductId)} > Yes </MDBBtn>
+                            </MDBCol>
+                            <MDBCol md="4" className="mb-4"/>
+                        </MDBRow>
+                    </div>
+                </Popup>
             </Container>
         );
     }

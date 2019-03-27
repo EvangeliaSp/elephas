@@ -31,6 +31,21 @@ public class CustomProductController {
 
     }
 
+    @RequestMapping(value = "/updateStatus", method = {RequestMethod.PATCH})
+    public ResponseEntity<String> updateStatus(
+            @RequestParam("idCustom") @Valid Long idCustom,
+            @RequestParam("status") @Valid int status
+    ) throws com.fasterxml.jackson.core.JsonProcessingException {
+
+        CustomProduct customProduct = (CustomProduct) customProductService.update(idCustom, status);
+
+        if (customProduct == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Custom product with id " + idCustom + " not found.");
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(customProduct));
+
+    }
+
     @RequestMapping(value = "/customCreations", method = {RequestMethod.GET})
     public ResponseEntity<String> findCreations() throws JsonProcessingException {
 
