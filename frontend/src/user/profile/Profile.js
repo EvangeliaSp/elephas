@@ -262,7 +262,7 @@ class Profile extends Component {
             .then(response => {
                 if (response.ok) {
                     console.log(`Status of custom product with id=${customProductId} is updated.`);
-                    if (status == 3) {
+                    if (status === 3) {
                         this.closeRejectCustomModal();
                     }
                     window.location.reload();
