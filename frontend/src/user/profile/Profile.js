@@ -254,15 +254,17 @@ class Profile extends Component {
             });
     }
 
-    rejectCustomProduct (customProductId) {
+    updateCustomProductStatus (customProductId, status) {
         const options = {
             method: 'PATCH',
         };
-        fetch(`/customProduct/updateStatus?idCustom=${customProductId}&status=3`, options)
+        fetch(`/customProduct/updateStatus?idCustom=${customProductId}&status=${status}`, options)
             .then(response => {
                 if (response.ok) {
-                    console.log(`Custom product with id=${customProductId} is rejected.`);
-                    this.closeRejectCustomModal();
+                    console.log(`Status of custom product with id=${customProductId} is updated.`);
+                    if (status == 3) {
+                        this.closeRejectCustomModal();
+                    }
                     window.location.reload();
                 } else {
                     console.log(`Custom product with id=${customProductId} cannot be found.`)
@@ -1033,8 +1035,14 @@ class Profile extends Component {
                             <td>{product.price}</td>
                             <td>{product.discount}</td>
                             <td>{product.quantity}</td>
-                            <td>{product.price - product.price*product.discount/100}</td>
+                            <td>{product.quantity * (product.price - product.price*product.discount/100)}</td>
                             <td>{customProductStatusToString(product.status)}</td>
+                            <td>
+                                {product.status === 2 ? <MDBBtn color="success" onClick={() => this.updateCustomProductStatus(product.idCustomProduct, 4)}> Pay </MDBBtn> : <div></div>}
+                            </td>
+                            <td>
+                                {product.status === 2 ? <MDBBtn color="danger" onClick={() => this.updateCustomProductStatus(product.idCustomProduct, 5)}> Decline </MDBBtn> : <div></div>}
+                            </td>
                         </tr>
                     ))}
                     </tbody>
@@ -1272,7 +1280,7 @@ class Profile extends Component {
                                 <MDBBtn color="danger" onClick={() => this.closeRejectCustomModal()}> No </MDBBtn>
                             </MDBCol>
                             <MDBCol md="2" className="mb-2">
-                                <MDBBtn color="success" onClick={() => this.rejectCustomProduct(this.state.customProductId)} > Yes </MDBBtn>
+                                <MDBBtn color="success" onClick={() => this.updateCustomProductStatus(this.state.customProductId, 3)} > Yes </MDBBtn>
                             </MDBCol>
                             <MDBCol md="4" className="mb-4"/>
                         </MDBRow>
