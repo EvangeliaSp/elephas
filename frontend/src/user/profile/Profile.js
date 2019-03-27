@@ -1164,7 +1164,7 @@ class Profile extends Component {
                             <td>{product.price}</td>
                             <td>{product.discount}</td>
                             <td>{product.quantity}</td>
-                            <td>{product.price - product.price*product.discount/100}</td>
+                            <td>{product.quantity*(product.price - product.price*product.discount/100)}</td>
                             <td>{customProductStatusToString(product.status)}</td>
                             <td>
                                 {product.status === 1 ? <MDBBtn color="success" onClick={() => this.openConfirmCustomModal(product.idCustomProduct)}> Confirm </MDBBtn> : <div></div>}
