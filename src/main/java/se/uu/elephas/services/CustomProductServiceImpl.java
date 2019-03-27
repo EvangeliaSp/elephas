@@ -20,6 +20,10 @@ public class CustomProductServiceImpl implements CustomProductService {
         return(customProductRepository.save(product));
     }
 
+    public Iterable<CustomProduct> getAllCustomCreations() {
+        return customProductRepository.findAll();
+    }
+
     public Iterable<CustomProduct> getCreationsByUser(Long idUser) {
         return customProductRepository.findByIdUser(idUser);
     }

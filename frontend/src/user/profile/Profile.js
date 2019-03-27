@@ -31,6 +31,7 @@ class Profile extends Component {
             completeOrdersSize: 0,
             products: [],
             creations: [],
+            customCreations: [],
             user: {
                 idUser: localStorage.getItem("idUser"),
                 email: localStorage.getItem("email"),
@@ -93,6 +94,7 @@ class Profile extends Component {
         if (localStorage.getItem("email") === "admin@elephas.com") {
             this.loadUsersFromServer();
             this.loadPendingOrdersFromServer();
+            this.loadCustomCreationsFromServer();
             this.loadProductsFromServer();
             this.loadCompleteOrdersSizeFromServer()
         } else if (localStorage.getItem("idUser") !== 'undefined' && localStorage.getItem("idUser") != null) {
@@ -259,6 +261,15 @@ class Profile extends Component {
         fetch(`/customProduct/creations?idUser=${localStorage.getItem("idUser")}`, options)
             .then(response => response.json())
             .then(data => this.setState({creations: data}))
+    };
+
+    loadCustomCreationsFromServer = () => {
+        const options = {
+            method: 'GET'
+        };
+        fetch(`/customProduct/customCreations`, options)
+            .then(response => response.json())
+            .then(data => this.setState({customCreations: data}))
     };
 
     changeHandler = event => {
@@ -439,6 +450,12 @@ class Profile extends Component {
                         <Link data-toggle="tab" to="#pendingOrders">
                             <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
                             Pending orders
+                        </Link>
+                    </li>
+                    <li className={this.setClassName("#customCreations", "")}>
+                        <Link data-toggle="tab" to="#customCreations">
+                            <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
+                            Custom products
                         </Link>
                     </li>
                     <li className={this.setClassName("#products", "")}>
@@ -1035,6 +1052,52 @@ class Profile extends Component {
         );
     }
 
+    creationList(customCreations) {
+        return (
+            <Container id="customCreations" className={this.setClassName("#customCreations", "tab-pane")}>
+                <tHeader><h3 align="left"><b>Products to create</b></h3></tHeader>
+                <table className="table table-striped ">
+                    <thead>
+                    <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Material</th>
+                        <th scope="col">Color</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price (kr)</th>
+                        <th scope="col">Discount (%)</th>
+                        <th scope="col">Quantity</th>
+                        <th scope="col">Final price (kr)</th>
+                        <th scope="col">Status</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {customCreations.map(product => (
+                        <tr key={product.idProduct}>
+                            <td><img src={product.image} alt={product.name} width="100" height="100"/></td>
+                            <td>{product.name}</td>
+                            <td>{getType(product.type)}</td>
+                            <td>{getMaterial(product.material)}</td>
+                            <td>{getColor(product.color)}</td>
+                            <td>{product.description}</td>
+                            <td>{product.price}</td>
+                            <td>{product.discount}</td>
+                            <td>{product.quantity}</td>
+                            <td>{product.price - product.price*product.discount/100}</td>
+                            <td>{customProductStatusToString(product.status)}</td>
+                            <td><MDBBtn color="success" > Edit </MDBBtn></td>
+                            <td><MDBBtn color="danger" > &times; </MDBBtn></td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </table>
+            </Container>
+        );
+    }
+
     productsList(products) {
         return (
             <Container id="products" className={this.setClassName("#products", "tab-pane")}>
@@ -1481,7 +1544,7 @@ class Profile extends Component {
     }
 
     render() {
-        const  {user, orders, pendingOrders, users, products, creations} = this.state;
+        const  {user, orders, pendingOrders, users, products, creations, customCreations} = this.state;
 
         if (user.idUser === 'undefined' || localStorage.getItem("idUser") == null) {
             return (<img className="center" src={notAvailable} alt="Not available"/>);
@@ -1497,6 +1560,7 @@ class Profile extends Component {
                                 {this.profileInfo(user)}
                                 {this.usersList(users)}
                                 {this.pendingOrderList(pendingOrders)}
+                                {this.creationList(customCreations)}
                                 {this.productsList(products)}
                                 {this.typeStatistics()}
                             </div>

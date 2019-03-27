@@ -6,6 +6,8 @@ public interface CustomProductService {
 
     Object create(CustomProduct product);
 
+    Iterable<CustomProduct> getAllCustomCreations();
+
     Iterable<CustomProduct> getCreationsByUser(Long idUser);
 
 }
