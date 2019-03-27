@@ -532,12 +532,6 @@ class Profile extends Component {
                             Pending orders
                         </Link>
                     </li>
-                    <li className={this.setClassName("#customCreations", "")}>
-                        <Link data-toggle="tab" to="#customCreations">
-                            <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
-                            Custom products
-                        </Link>
-                    </li>
                     <li className={this.setClassName("#products", "")}>
                         <Link data-toggle="tab" to="#products">
                             <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
@@ -548,6 +542,12 @@ class Profile extends Component {
                         <Link data-toggle="tab" to="#statistics">
                             <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
                             Statistics
+                        </Link>
+                    </li>
+                    <li className={this.setClassName("#customCreations", "")}>
+                        <Link data-toggle="tab" to="#customCreations">
+                            <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
+                            Custom orders
                         </Link>
                     </li>
                 </ul>
@@ -1141,7 +1141,7 @@ class Profile extends Component {
     creationList(customCreations) {
         return (
             <Container id="customCreations" className={this.setClassName("#customCreations", "tab-pane")}>
-                <tHeader><h3 align="left"><b>Products to create</b></h3></tHeader>
+                <tHeader><h3 align="left"><b>Items for construction</b></h3></tHeader>
                 <table className="table table-striped ">
                     <thead>
                     <tr>
@@ -1757,9 +1757,9 @@ class Profile extends Component {
                                 {this.profileInfo(user)}
                                 {this.usersList(users)}
                                 {this.pendingOrderList(pendingOrders)}
-                                {this.creationList(customCreations)}
                                 {this.productsList(products)}
                                 {this.typeStatistics()}
+                                {this.creationList(customCreations)}
                             </div>
                         </div>
                     </div>
