@@ -17,14 +17,16 @@ class Header extends Component {
             cartSize: 0,
             invisible: true,
             pendingOrdersSize: 0,
-            invisiblePending: true
+            customOrdersSize: 0,
+            invisiblePending: true,
+            invisibleCustom: true
         };
     }
 
     componentDidMount() {
-
         if (localStorage.getItem("email") === "admin@elephas.com") {
-            this.getPendingOrdersSize()
+            this.getPendingOrdersSize();
+            this.getCustomOrdersSize()
         } else if (localStorage.getItem("idUser") !== 'undefined' && localStorage.getItem("idUser") !== null) {
             this.getBasketSize();
         }
@@ -38,6 +40,7 @@ class Header extends Component {
             fetch(`/order/cartSize/${localStorage.getItem("idUser")}`)
                 .then(response => response.json())
                 .then(data => {
+                    console.log(`Found ${data.toString()} products in cart.`);
                     this.setState({
                         cartSize: data
                     })
@@ -49,6 +52,7 @@ class Header extends Component {
         fetch(`/order/inProgressOrdersSize`)
             .then(response => response.json())
             .then(data => {
+                console.log(`Found ${data.toString()} pending orders.`);
                 if (data === 0) {
                     this.setState({
                         pendingOrdersSize: data,
@@ -58,6 +62,26 @@ class Header extends Component {
                     this.setState({
                         pendingOrdersSize: data,
                         invisiblePending: false
+                    })
+                }
+
+            })
+    };
+
+    getCustomOrdersSize = () => {
+        fetch(`/customProduct/orders`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(`Found ${data.toString()} custom orders.`);
+                if (data === 0) {
+                    this.setState({
+                        customOrdersSize: data,
+                        invisibleCustom: true
+                    })
+                } else {
+                    this.setState({
+                        customOrdersSize: data,
+                        invisibleCustom: false
                     })
                 }
 
@@ -209,7 +233,6 @@ class Header extends Component {
                         <a href="/" className="logo"> <img src={logo} alt="Logo"
                                                            style={{width: "46px", height: "60px"}}/>
                         </a>
-
                         <div className="header-right">
                             <Nav>
                                 <NavLink exact to="/" >Home</NavLink>
@@ -217,19 +240,24 @@ class Header extends Component {
                                 <NavLink to="/product#rings" className={this.setClassName("#rings", "")}>Rings</NavLink>
                                 <NavLink to="/product#necklaces" className={this.setClassName("#necklaces", "")}>Necklaces</NavLink>
                                 <NavLink to="/product#earrings" className={this.setClassName("#earrings", "")}>Earrings</NavLink>
-
                                 <NavLink to="/about" className={this.setClassName("#about", "")}>About</NavLink>
                             </Nav>
-
                             <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
                                   integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
                                   crossOrigin="anonymous"/>
-
                             <div className="bell">
-                                <a href="/user/profile#pendingOrders" className={this.setClassNamePath(window.location.pathname, "/user/profile#pendingOrders", "")}>
-                                    <i className="fas fa-bell" rel="stylesheet"></i>
-                                    <Badge invisible={this.state.invisiblePending} color="secondary" variant="dot" style={{paddingTop: "100%"}}/>
-                                </a>
+                                {
+                                    (!this.state.invisiblePending) ?
+                                        <a href="/user/profile#pendingOrders" className={this.setClassNamePath(window.location.pathname, "/user/profile#pendingOrders", "")}>
+                                            <i className="fas fa-bell" rel="stylesheet"></i>
+                                            <Badge invisible={this.state.invisiblePending} color="secondary" variant="dot" style={{paddingTop: "100%"}}/>
+                                        </a> :
+                                        <a href="/user/profile#customCreations" className={this.setClassNamePath(window.location.pathname, "/user/profile#customCreations", "")}>
+                                            <i className="fas fa-bell" rel="stylesheet"></i>
+                                            <Badge invisible={this.state.invisibleCustom} color="secondary" variant="dot" style={{paddingTop: "100%"}}/>
+                                        </a>
+                                }
+
                             </div>
                             <div className="user">
                                 {this.userDropDownMenu()}

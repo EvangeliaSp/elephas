@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.uu.elephas.model.CustomProduct;
-import se.uu.elephas.model.Product;
 import se.uu.elephas.model.UpdateCustomProduct;
 import se.uu.elephas.services.CustomProductServiceImpl;
 
@@ -77,6 +76,14 @@ public class CustomProductController {
         Iterable<CustomProduct> productCreations = customProductService.getCreationsByUser(idUser);
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(productCreations));
+    }
+
+    @RequestMapping(value = "/orders", method = {RequestMethod.GET})
+    public ResponseEntity<Integer> findUncompletedOrders() {
+
+        int counter = customProductService.getAllUncompletedOrderSize();
+
+        return ResponseEntity.status(HttpStatus.OK).body(counter);
     }
 
 }

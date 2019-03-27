@@ -15,4 +15,6 @@ public interface CustomProductService {
 
     Iterable<CustomProduct> getCreationsByUser(Long idUser);
 
+    int getAllUncompletedOrderSize();
+
 }

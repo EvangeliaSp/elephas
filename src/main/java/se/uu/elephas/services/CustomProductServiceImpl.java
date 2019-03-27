@@ -6,6 +6,7 @@ import se.uu.elephas.model.CustomProduct;
 import se.uu.elephas.model.UpdateCustomProduct;
 import se.uu.elephas.repository.CustomProductRepository;
 
+import java.util.Collection;
 import java.util.Optional;
 
 @Service
@@ -54,6 +55,27 @@ public class CustomProductServiceImpl implements CustomProductService {
 
     public Iterable<CustomProduct> getCreationsByUser(Long idUser) {
         return customProductRepository.findByIdUser(idUser);
+    }
+
+    public int getAllUncompletedOrderSize() {
+        int counter = 0;
+
+        Iterable<CustomProduct> pendingCustomProducts = customProductRepository.findByStatus(1);
+        if (pendingCustomProducts instanceof Collection<?>) {
+            counter += ((Collection<?>)pendingCustomProducts).size();
+        }
+
+        Iterable<CustomProduct> paidCustomProducts = customProductRepository.findByStatus(4);
+        if (paidCustomProducts instanceof Collection<?>) {
+            counter += ((Collection<?>)paidCustomProducts).size();
+        }
+
+        Iterable<CustomProduct> declinedCustomProducts = customProductRepository.findByStatus(5);
+        if (declinedCustomProducts instanceof Collection<?>) {
+            counter += ((Collection<?>)declinedCustomProducts).size();
+        }
+
+        return counter;
     }
 
 }
