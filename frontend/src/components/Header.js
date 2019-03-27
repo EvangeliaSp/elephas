@@ -134,10 +134,14 @@ class Header extends Component {
                     <NavDropdown.Divider/>
                 </NavDropdown.Item>
                 <NavDropdown.Item href="/user/profile#profile" className="text-left">
-                    <div style={{marginLeft:"10px"}}>View profile</div>
+                    <div style={{marginLeft:"10px"}}>My profile</div>
                 </NavDropdown.Item>
                 <NavDropdown.Item href="/user/profile#orders" className="text-left">
-                    <div style={{marginLeft:"10px"}}>View orders</div>
+                    <div style={{marginLeft:"10px"}}>My orders</div>
+                </NavDropdown.Item>
+                <NavDropdown.Item href="/user/profile#creations" className="text-left">
+                    <div style={{marginLeft:"10px"}}>My creations</div>
+                    <NavDropdown.Divider/>
                 </NavDropdown.Item>
                 <NavDropdown.Item onClick={logout} className="text-left">
                     <div style={{marginLeft:"10px"}}>Sign out</div>
