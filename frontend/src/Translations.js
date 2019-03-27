@@ -66,3 +66,12 @@ export const statusStringToCode = statusString => {
         default: return 4;  // IN_PROGRESS
     }
 };
+
+export const customProductStatusToString = customProductStatus => {
+    switch(customProductStatus) {
+        case 1: return "PENDING";
+        case 2: return "IN PROGRESS";
+        case 3: return "COMPLETED";
+        default: return "none";
+    }
+};

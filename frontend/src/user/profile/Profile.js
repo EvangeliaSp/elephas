@@ -13,7 +13,8 @@ import {
     paymentStatusToString,
     paymentTypeToString,
     statusToString,
-    statusStringToCode
+    statusStringToCode,
+    customProductStatusToString
 } from '../../Translations';
 import TypeChart from "../TypeChart";
 
@@ -255,7 +256,7 @@ class Profile extends Component {
         const options = {
             method: 'GET'
         };
-        fetch(`/product/creations?idUser=${localStorage.getItem("idUser")}`, options)
+        fetch(`/customProduct/creations?idUser=${localStorage.getItem("idUser")}`, options)
             .then(response => response.json())
             .then(data => this.setState({creations: data}))
     };
@@ -918,7 +919,9 @@ class Profile extends Component {
                         <th scope="col">Description</th>
                         <th scope="col">Price (kr)</th>
                         <th scope="col">Discount (%)</th>
+                        <th scope="col">Quantity</th>
                         <th scope="col">Final price (kr)</th>
+                        <th scope="col">Status</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                     </tr>
@@ -926,7 +929,7 @@ class Profile extends Component {
                     <tbody>
                     {creations.map(product => (
                         <tr key={product.idProduct}>
-                            <td><img src={product.url} alt={product.name} width="100" height="100"/></td>
+                            <td><img src={product.image} alt={product.name} width="100" height="100"/></td>
                             <td>{product.name}</td>
                             <td>{getType(product.type)}</td>
                             <td>{getMaterial(product.material)}</td>
@@ -934,7 +937,9 @@ class Profile extends Component {
                             <td>{product.description}</td>
                             <td>{product.price}</td>
                             <td>{product.discount}</td>
+                            <td>{product.quantity}</td>
                             <td>{product.price - product.price*product.discount/100}</td>
+                            <td>{customProductStatusToString(product.status)}</td>
                         </tr>
                     ))}
                     </tbody>
