@@ -1069,7 +1069,7 @@ class Profile extends Component {
                     </thead>
                     <tbody>
                     {users.map(user => (
-                        <tr key={user.id}>
+                        <tr key={user.idUser}>
                             <td><Avatar name={user.firstname+" "+user.lastname} round size="35" /></td>
                             <td>{user.firstname}</td>
                             <td>{user.lastname}</td>
