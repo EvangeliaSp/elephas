@@ -14,9 +14,9 @@ class Header extends Component {
     constructor() {
         super();
         this.state = {
-            cartSize: this.getBasketSize,
+            cartSize: 0,
             invisible: true,
-            pendingOrdersSize: this.getPendingOrdersSize,
+            pendingOrdersSize: 0,
             invisiblePending: true
         };
     }
@@ -165,6 +165,43 @@ class Header extends Component {
     };
 
     render() {
+        if (localStorage.getItem("idUser") === 'undefined' || localStorage.getItem("idUser") === null) {
+            return (
+                <div>
+                    <Navbar className="header" style={{marginBottom: '3rem'}}>
+                        <a href="/" className="logo"> <img src={logo} alt="Logo"
+                                                           style={{width: "46px", height: "60px"}}/>
+                        </a>
+
+                        <div className="header-right">
+                            <Nav>
+                                <NavLink exact to="/" >Home</NavLink>
+                                <NavLink to="/product#bracelets" className={this.setClassName("#bracelets", "")}>Bracelets</NavLink>
+                                <NavLink to="/product#rings" className={this.setClassName("#rings", "")}>Rings</NavLink>
+                                <NavLink to="/product#necklaces" className={this.setClassName("#necklaces", "")}>Necklaces</NavLink>
+                                <NavLink to="/product#earrings" className={this.setClassName("#earrings", "")}>Earrings</NavLink>
+
+                                <NavLink to="/about" className={this.setClassName("#about", "")}>About</NavLink>
+                            </Nav>
+
+                            <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css"
+                                  integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ"
+                                  crossOrigin="anonymous"/>
+
+                            <div className="cart">
+                                <a href="/order/cart" className={this.setClassNamePath(window.location.pathname, "/order/cart", "")}>
+                                    <i className="fas fa-shopping-cart" rel="stylesheet"></i>
+                                </a>
+                            </div>
+                            <div className="user">
+                                {this.userDropDownMenu()}
+                            </div>
+                        </div>
+                    </Navbar>
+                </div>
+            );
+        }
+
         if (localStorage.getItem("email") === 'admin@elephas.com' && localStorage.getItem("idUser") != null) {
             return (
                 <div>
@@ -202,6 +239,7 @@ class Header extends Component {
                 </div>
             );
         }
+
         return (
             <div>
                 <Navbar className="header" style={{marginBottom: '3rem'}}>
