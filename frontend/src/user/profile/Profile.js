@@ -64,6 +64,12 @@ class Profile extends Component {
                 color: 0,
                 description: ''
             },
+            customProduct: {
+                id: '',
+                price: 0,
+                discount: 0,
+                status: 1
+            },
             oldPassword: '',
             newPassword: '',
             confirmPassword: '',
@@ -77,7 +83,6 @@ class Profile extends Component {
             openRejectCustom: false,
             productName: '',
             productId: '',
-            customProductName: '',
             customProductId: ''
         };
         this.openModal = this.openModal.bind(this);
@@ -168,8 +173,8 @@ class Profile extends Component {
         this.setState({ openCreateProduct: false})
     }
 
-    openConfirmCustomModal () {
-        this.setState({openConfirmCustom: true})
+    openConfirmCustomModal (idValue) {
+        this.setState({openConfirmCustom: true, customProductId: idValue })
     }
 
     closeConfirmCustomModal () {
@@ -219,6 +224,32 @@ class Profile extends Component {
                 } else {
                     console.log(`Product with id=${this.state.productId} and name=${this.state.productName} does not exist.`)
                     alert("Cannot delete this product! Please, try again.");
+                }
+            });
+    }
+
+    confirmCustomProduct (customProductId) {
+        let customProduct = this.state.customProduct;
+        customProduct["id"] = customProductId;
+        customProduct["status"] = 2;
+        this.setState({customProduct: customProduct})
+        const options = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: 'PATCH',
+            body: JSON.stringify(this.state.customProduct),
+            redirect: 'follow'
+        };
+        fetch(`/customProduct/update?idCustom=${customProductId}`, options)
+            .then(response => {
+                if (response.ok) {
+                    console.log(`Custom product with id=${customProductId} is confirmed.`);
+                    this.closeConfirmCustomModal();
+                    window.location.reload();
+                } else {
+                    console.log(`Custom product with id=${customProductId} cannot be found.`)
+                    alert("Cannot confirm this product! Please, try again.");
                 }
             });
     }
@@ -411,6 +442,12 @@ class Profile extends Component {
         this.closePasswordSucceedModal();
         localStorage.clear();
         window.location.href=`/user/login`;
+    };
+
+    updateCustomProductHandler = event => {
+        let customProduct = this.state.customProduct;
+        customProduct[event.target.name] = event.target.value;
+        this.setState({customProduct: customProduct})
     };
 
     updateHandler = (event) => {
@@ -1130,7 +1167,7 @@ class Profile extends Component {
                             <td>{product.price - product.price*product.discount/100}</td>
                             <td>{customProductStatusToString(product.status)}</td>
                             <td>
-                                {product.status === 1 ? <MDBBtn color="success" > Confirm </MDBBtn> : <div></div>}
+                                {product.status === 1 ? <MDBBtn color="success" onClick={() => this.openConfirmCustomModal(product.idCustomProduct)}> Confirm </MDBBtn> : <div></div>}
                             </td>
                             <td>
                                 {product.status === 1 ? <MDBBtn color="danger" onClick={() => this.openRejectCustomModal(product.idCustomProduct)}> Reject </MDBBtn> : <div></div>}
@@ -1139,6 +1176,76 @@ class Profile extends Component {
                     ))}
                     </tbody>
                 </table>
+                {/* Popup modal for custom product confirmation */}
+                <Popup open={this.state.openConfirmCustom} modal onClose={this.closeConfirmCustomModal}>
+                    <div className="container">
+                        <MDBRow>
+                            <MDBCol md="6" className="mb-6">
+                                <h3><b>Confirm product</b></h3>
+                            </MDBCol>
+                            <MDBCol md="5" className="mb-5"/>
+                            <MDBCol md="1" className="mb-1">
+                                <button onClick={() => this.closeConfirmCustomModal()}> &times; </button>
+                            </MDBCol>
+                        </MDBRow>
+                        <MDBRow>
+                            <h5><b>In order to confirm the order of this custom product, you must first set a price and a possible discount.</b></h5>
+                        </MDBRow>
+                        <hr/>
+                        <MDBRow>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterNameEx"
+                                    className="grey-text"
+                                >
+                                    Price (kr)
+                                </label>
+                                <input
+                                    value={this.state.customProduct.price}
+                                    name="price"
+                                    onChange={this.updateCustomProductHandler}
+                                    type="number"
+                                    step="0.1"
+                                    min='0'
+                                    className="form-control"
+                                    placeholder={this.state.customProduct.price}
+                                />
+                            </MDBCol>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterSurnameEx2"
+                                    className="grey-text"
+                                >
+                                    Discount (%)
+                                </label>
+                                <input
+                                    value={this.state.customProduct.discount}
+                                    name="discount"
+                                    defaultValue={0}
+                                    onChange={this.updateCustomProductHandler}
+                                    type="number"
+                                    min='0'
+                                    className="form-control"
+                                    placeholder={this.state.customProduct.discount}
+                                />
+                            </MDBCol>
+                        </MDBRow>
+                        <br/>
+                        <hr/>
+                        <MDBRow>
+                            <MDBCol md="2" className="mb-2"/>
+                            <MDBCol md="2" className="mb-2"/>
+                            <MDBCol md="2" className="mb-2"/>
+                            <MDBCol md="2" className="mb-2"/>
+                            <MDBCol md="2" className="mb-2">
+                                <MDBBtn color="danger" onClick={() => this.closeConfirmCustomModal()}> Cancel </MDBBtn>
+                            </MDBCol>
+                            <MDBCol md="2" className="mb-2">
+                                <MDBBtn color="success" onClick={() => this.confirmCustomProduct(this.state.customProductId)}> Confirm </MDBBtn>
+                            </MDBCol>
+                        </MDBRow>
+                    </div>
+                </Popup>
                 {/* Popup modal for custom product rejection */}
                 <Popup open={this.state.openRejectCustom} modal onClose={this.closeRejectCustomModal}>
                     <div className="container">

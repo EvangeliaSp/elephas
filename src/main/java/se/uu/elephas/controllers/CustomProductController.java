@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.uu.elephas.model.CustomProduct;
 import se.uu.elephas.model.Product;
+import se.uu.elephas.model.UpdateCustomProduct;
 import se.uu.elephas.services.CustomProductServiceImpl;
 
 import javax.validation.Valid;
@@ -31,13 +32,27 @@ public class CustomProductController {
 
     }
 
+    @RequestMapping(value = "/update", method = {RequestMethod.PATCH})
+    public ResponseEntity<String> update(
+            @RequestBody UpdateCustomProduct customProduct
+    ) throws com.fasterxml.jackson.core.JsonProcessingException {
+
+        CustomProduct updatedCustomProduct = customProductService.update(customProduct);
+
+        if (updatedCustomProduct == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Custom product with id " + customProduct.getId() + " not found.");
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(updatedCustomProduct));
+
+    }
+
     @RequestMapping(value = "/updateStatus", method = {RequestMethod.PATCH})
     public ResponseEntity<String> updateStatus(
             @RequestParam("idCustom") @Valid Long idCustom,
             @RequestParam("status") @Valid int status
     ) throws com.fasterxml.jackson.core.JsonProcessingException {
 
-        CustomProduct customProduct = (CustomProduct) customProductService.update(idCustom, status);
+        CustomProduct customProduct = customProductService.update(idCustom, status);
 
         if (customProduct == null)
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Custom product with id " + idCustom + " not found.");
