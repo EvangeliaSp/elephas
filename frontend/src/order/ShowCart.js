@@ -195,7 +195,7 @@ class ShowCart extends Component {
                                     <td>{item.finalPrice} kr</td>
                                     <td>
                                         <ButtonToolbar>
-                                            {item.quantity==1 ? (
+                                            {item.quantity===1 ? (
                                                 <MDBBtn disabled bsStyle="primary" color="info">-</MDBBtn>
                                             ) : (
                                                 <MDBBtn bsStyle="primary" color="info" onClick={() => { this.handleDecrease(item.id) } }>-</MDBBtn>
