@@ -101,13 +101,13 @@ public class ProductController {
         return ResponseEntity.status(HttpStatus.OK).body("Product with id " + idProduct + " deleted successfully.");
     }
 
-    @RequestMapping(value = "/creations", method = {RequestMethod.GET})
-    public ResponseEntity<String> findCreations(
-            @RequestParam("idUser") @Valid Long idUser
-    ) throws JsonProcessingException {
-
-        Iterable<Product> productCreations = productService.getCreationsByUser(idUser);
-
-        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(productCreations));
-    }
+//    @RequestMapping(value = "/creations", method = {RequestMethod.GET})
+//    public ResponseEntity<String> findCreations(
+//            @RequestParam("idUser") @Valid Long idUser
+//    ) throws JsonProcessingException {
+//
+//        Iterable<Product> productCreations = productService.getCreationsByUser(idUser);
+//
+//        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(productCreations));
+//    }
 }

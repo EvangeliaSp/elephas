@@ -20,6 +20,6 @@ public interface ProductService {
 
     void delete(Long idProduct);
 
-    Iterable<Product> getCreationsByUser(Long idUser);
+//    Iterable<Product> getCreationsByUser(Long idUser);
 
 }

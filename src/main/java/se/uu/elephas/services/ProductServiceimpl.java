@@ -69,7 +69,7 @@ public class ProductServiceimpl implements ProductService {
         productRepository.deleteById(idProduct);
     }
 
-    public Iterable<Product> getCreationsByUser(Long idUser) {
-        return productRepository.findByCustomAndIdUser(true, idUser);
-    }
+//    public Iterable<Product> getCreationsByUser(Long idUser) {
+//        return productRepository.findByCustomAndIdUser(true, idUser);
+//    }
 }
