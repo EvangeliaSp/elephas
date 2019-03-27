@@ -1175,10 +1175,17 @@ class Profile extends Component {
                             <td>{product.quantity*(product.price - product.price*product.discount/100)}</td>
                             <td>{customProductStatusToString(product.status)}</td>
                             <td>
-                                {product.status === 1 ? <MDBBtn color="success" onClick={() => this.openConfirmCustomModal(product.idCustomProduct)}> Confirm </MDBBtn> : <div></div>}
+                                {product.status === 1
+                                    ? <MDBBtn color="success" onClick={() => this.openConfirmCustomModal(product.idCustomProduct)}> Confirm </MDBBtn>
+                                    : <div></div>}
+                                {product.status === 4
+                                    ? <MDBBtn color="info" onClick={() => this.updateCustomProductStatus(product.idCustomProduct, 6)}> Ship </MDBBtn>
+                                    : <div></div>}
                             </td>
                             <td>
-                                {product.status === 1 ? <MDBBtn color="danger" onClick={() => this.openRejectCustomModal(product.idCustomProduct)}> Reject </MDBBtn> : <div></div>}
+                                {product.status === 1 ?
+                                    <MDBBtn color="danger" onClick={() => this.openRejectCustomModal(product.idCustomProduct)}> Reject </MDBBtn> :
+                                    <div></div>}
                             </td>
                         </tr>
                     ))}
@@ -1303,7 +1310,6 @@ class Profile extends Component {
                 <table className="table table-striped ">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Image</th>
                         <th scope="col">Name</th>
                         <th scope="col">Type</th>
@@ -1320,7 +1326,6 @@ class Profile extends Component {
                     <tbody>
                     {products.map(product => (
                         <tr key={product.idProduct}>
-                            <th scope="row">{product.idProduct}</th>
                             <td><img src={product.url} alt={product.name} width="100" height="100"/></td>
                             <td>{product.name}</td>
                             <td>{getType(product.type)}</td>

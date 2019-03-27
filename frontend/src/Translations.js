@@ -74,7 +74,7 @@ export const customProductStatusToString = customProductStatus => {
         case 3: return "REJECTED";
         case 4: return "PAID";
         case 5: return "DECLINED";
-        case 6: return "COMPLETED";
+        case 6: return "SHIPPED";
         default: return "none";
     }
 };
