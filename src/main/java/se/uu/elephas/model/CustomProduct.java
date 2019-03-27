@@ -33,11 +33,11 @@ public class CustomProduct {
     @Column(columnDefinition="varchar(511)")
     private String image;
 
-    int status;
+    private int status;
 
-    int quantity;
+    private int quantity;
 
-    int delivery;
+    private int delivery;
 
     private Long idUser;
 
