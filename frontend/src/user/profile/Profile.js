@@ -64,6 +64,12 @@ class Profile extends Component {
                 color: 0,
                 description: ''
             },
+            customProduct: {
+                id: '',
+                price: 0,
+                discount: 0,
+                status: 1
+            },
             oldPassword: '',
             newPassword: '',
             confirmPassword: '',
@@ -73,8 +79,11 @@ class Profile extends Component {
             openUpdateProduct: false,
             openDeleteProduct: false,
             openCreateProduct: false,
+            openConfirmCustom: false,
+            openRejectCustom: false,
             productName: '',
-            productId: ''
+            productId: '',
+            customProductId: ''
         };
         this.openModal = this.openModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
@@ -87,7 +96,11 @@ class Profile extends Component {
         this.openDeleteProductModal = this.openDeleteProductModal.bind(this);
         this.closeDeleteProductModal = this.closeDeleteProductModal.bind(this);
         this.openCreateProductModal = this.openCreateProductModal.bind(this);
-        this.closeCreateProductModal = this.closeCreateProductModal.bind(this)
+        this.closeCreateProductModal = this.closeCreateProductModal.bind(this);
+        this.openConfirmCustomModal = this.openConfirmCustomModal.bind(this);
+        this.closeConfirmCustomModal = this.closeConfirmCustomModal.bind(this);
+        this.openRejectCustomModal = this.openRejectCustomModal.bind(this);
+        this.closeRejectCustomModal = this.closeRejectCustomModal.bind(this)
     }
 
     componentDidMount() {
@@ -160,6 +173,22 @@ class Profile extends Component {
         this.setState({ openCreateProduct: false})
     }
 
+    openConfirmCustomModal (idValue) {
+        this.setState({openConfirmCustom: true, customProductId: idValue })
+    }
+
+    closeConfirmCustomModal () {
+        this.setState({openConfirmCustom: false})
+    }
+
+    openRejectCustomModal (idValue) {
+        this.setState({openRejectCustom: true, customProductId: idValue })
+    }
+
+    closeRejectCustomModal () {
+        this.setState({openRejectCustom: false})
+    }
+
     updateProduct (productId) {
         const options = {
             headers: {
@@ -195,6 +224,51 @@ class Profile extends Component {
                 } else {
                     console.log(`Product with id=${this.state.productId} and name=${this.state.productName} does not exist.`)
                     alert("Cannot delete this product! Please, try again.");
+                }
+            });
+    }
+
+    confirmCustomProduct (customProductId) {
+        let customProduct = this.state.customProduct;
+        customProduct["id"] = customProductId;
+        customProduct["status"] = 2;
+        this.setState({customProduct: customProduct})
+        const options = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: 'PATCH',
+            body: JSON.stringify(this.state.customProduct),
+            redirect: 'follow'
+        };
+        fetch(`/customProduct/update?idCustom=${customProductId}`, options)
+            .then(response => {
+                if (response.ok) {
+                    console.log(`Custom product with id=${customProductId} is confirmed.`);
+                    this.closeConfirmCustomModal();
+                    window.location.reload();
+                } else {
+                    console.log(`Custom product with id=${customProductId} cannot be found.`)
+                    alert("Cannot confirm this product! Please, try again.");
+                }
+            });
+    }
+
+    updateCustomProductStatus (customProductId, status) {
+        const options = {
+            method: 'PATCH',
+        };
+        fetch(`/customProduct/updateStatus?idCustom=${customProductId}&status=${status}`, options)
+            .then(response => {
+                if (response.ok) {
+                    console.log(`Status of custom product with id=${customProductId} is updated.`);
+                    if (status === 3) {
+                        this.closeRejectCustomModal();
+                    }
+                    window.location.reload();
+                } else {
+                    console.log(`Custom product with id=${customProductId} cannot be found.`)
+                    alert("Cannot reject this product! Please, try again.");
                 }
             });
     }
@@ -372,6 +446,12 @@ class Profile extends Component {
         window.location.href=`/user/login`;
     };
 
+    updateCustomProductHandler = event => {
+        let customProduct = this.state.customProduct;
+        customProduct[event.target.name] = event.target.value;
+        this.setState({customProduct: customProduct})
+    };
+
     updateHandler = (event) => {
         const options = {
             headers: {
@@ -452,12 +532,6 @@ class Profile extends Component {
                             Pending orders
                         </Link>
                     </li>
-                    <li className={this.setClassName("#customCreations", "")}>
-                        <Link data-toggle="tab" to="#customCreations">
-                            <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
-                            Custom products
-                        </Link>
-                    </li>
                     <li className={this.setClassName("#products", "")}>
                         <Link data-toggle="tab" to="#products">
                             <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
@@ -468,6 +542,12 @@ class Profile extends Component {
                         <Link data-toggle="tab" to="#statistics">
                             <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
                             Statistics
+                        </Link>
+                    </li>
+                    <li className={this.setClassName("#customCreations", "")}>
+                        <Link data-toggle="tab" to="#customCreations">
+                            <i className="pink ace-icon fa fa-picture-o bigger-120"></i>
+                            Custom orders
                         </Link>
                     </li>
                 </ul>
@@ -955,8 +1035,14 @@ class Profile extends Component {
                             <td>{product.price}</td>
                             <td>{product.discount}</td>
                             <td>{product.quantity}</td>
-                            <td>{product.price - product.price*product.discount/100}</td>
+                            <td>{product.quantity * (product.price - product.price*product.discount/100)}</td>
                             <td>{customProductStatusToString(product.status)}</td>
+                            <td>
+                                {product.status === 2 ? <MDBBtn color="success" onClick={() => this.updateCustomProductStatus(product.idCustomProduct, 4)}> Pay </MDBBtn> : <div></div>}
+                            </td>
+                            <td>
+                                {product.status === 2 ? <MDBBtn color="danger" onClick={() => this.updateCustomProductStatus(product.idCustomProduct, 5)}> Decline </MDBBtn> : <div></div>}
+                            </td>
                         </tr>
                     ))}
                     </tbody>
@@ -983,7 +1069,7 @@ class Profile extends Component {
                     </thead>
                     <tbody>
                     {users.map(user => (
-                        <tr key={user.id}>
+                        <tr key={user.idUser}>
                             <td><Avatar name={user.firstname+" "+user.lastname} round size="35" /></td>
                             <td>{user.firstname}</td>
                             <td>{user.lastname}</td>
@@ -1055,7 +1141,7 @@ class Profile extends Component {
     creationList(customCreations) {
         return (
             <Container id="customCreations" className={this.setClassName("#customCreations", "tab-pane")}>
-                <tHeader><h3 align="left"><b>Products to create</b></h3></tHeader>
+                <tHeader><h3 align="left"><b>Items for construction</b></h3></tHeader>
                 <table className="table table-striped ">
                     <thead>
                     <tr>
@@ -1076,7 +1162,7 @@ class Profile extends Component {
                     </thead>
                     <tbody>
                     {customCreations.map(product => (
-                        <tr key={product.idProduct}>
+                        <tr key={product.idCustomProduct}>
                             <td><img src={product.image} alt={product.name} width="100" height="100"/></td>
                             <td>{product.name}</td>
                             <td>{getType(product.type)}</td>
@@ -1086,14 +1172,127 @@ class Profile extends Component {
                             <td>{product.price}</td>
                             <td>{product.discount}</td>
                             <td>{product.quantity}</td>
-                            <td>{product.price - product.price*product.discount/100}</td>
+                            <td>{product.quantity*(product.price - product.price*product.discount/100)}</td>
                             <td>{customProductStatusToString(product.status)}</td>
-                            <td><MDBBtn color="success" > Edit </MDBBtn></td>
-                            <td><MDBBtn color="danger" > &times; </MDBBtn></td>
+                            <td>
+                                {product.status === 1
+                                    ? <MDBBtn color="success" onClick={() => this.openConfirmCustomModal(product.idCustomProduct)}> Confirm </MDBBtn>
+                                    : <div></div>}
+                                {product.status === 4
+                                    ? <MDBBtn color="info" onClick={() => this.updateCustomProductStatus(product.idCustomProduct, 6)}> Ship </MDBBtn>
+                                    : <div></div>}
+                            </td>
+                            <td>
+                                {product.status === 1 ?
+                                    <MDBBtn color="danger" onClick={() => this.openRejectCustomModal(product.idCustomProduct)}> Reject </MDBBtn> :
+                                    <div></div>}
+                            </td>
                         </tr>
                     ))}
                     </tbody>
                 </table>
+                {/* Popup modal for custom product confirmation */}
+                <Popup open={this.state.openConfirmCustom} modal onClose={this.closeConfirmCustomModal}>
+                    <div className="container">
+                        <MDBRow>
+                            <MDBCol md="6" className="mb-6">
+                                <h3><b>Confirm product</b></h3>
+                            </MDBCol>
+                            <MDBCol md="5" className="mb-5"/>
+                            <MDBCol md="1" className="mb-1">
+                                <button onClick={() => this.closeConfirmCustomModal()}> &times; </button>
+                            </MDBCol>
+                        </MDBRow>
+                        <MDBRow>
+                            <h5><b>In order to confirm the order of this custom product, you must first set a price and a possible discount.</b></h5>
+                        </MDBRow>
+                        <hr/>
+                        <MDBRow>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterNameEx"
+                                    className="grey-text"
+                                >
+                                    Price (kr)
+                                </label>
+                                <input
+                                    value={this.state.customProduct.price}
+                                    name="price"
+                                    onChange={this.updateCustomProductHandler}
+                                    type="number"
+                                    step="0.1"
+                                    min='0'
+                                    className="form-control"
+                                    placeholder={this.state.customProduct.price}
+                                />
+                            </MDBCol>
+                            <MDBCol md="6" className="mb-6">
+                                <label
+                                    htmlFor="defaultFormRegisterSurnameEx2"
+                                    className="grey-text"
+                                >
+                                    Discount (%)
+                                </label>
+                                <input
+                                    value={this.state.customProduct.discount}
+                                    name="discount"
+                                    defaultValue={0}
+                                    onChange={this.updateCustomProductHandler}
+                                    type="number"
+                                    min='0'
+                                    className="form-control"
+                                    placeholder={this.state.customProduct.discount}
+                                />
+                            </MDBCol>
+                        </MDBRow>
+                        <br/>
+                        <hr/>
+                        <MDBRow>
+                            <MDBCol md="2" className="mb-2"/>
+                            <MDBCol md="2" className="mb-2"/>
+                            <MDBCol md="2" className="mb-2"/>
+                            <MDBCol md="2" className="mb-2"/>
+                            <MDBCol md="2" className="mb-2">
+                                <MDBBtn color="danger" onClick={() => this.closeConfirmCustomModal()}> Cancel </MDBBtn>
+                            </MDBCol>
+                            <MDBCol md="2" className="mb-2">
+                                <MDBBtn color="success" onClick={() => this.confirmCustomProduct(this.state.customProductId)}> Confirm </MDBBtn>
+                            </MDBCol>
+                        </MDBRow>
+                    </div>
+                </Popup>
+                {/* Popup modal for custom product rejection */}
+                <Popup open={this.state.openRejectCustom} modal onClose={this.closeRejectCustomModal}>
+                    <div className="container">
+                        <MDBRow>
+                            <MDBCol md="6" className="mb-6">
+                                <h3><b>Delete product</b></h3>
+                            </MDBCol>
+                            <MDBCol md="5" className="mb-5"/>
+                            <MDBCol md="1" className="mb-1">
+                                <button onClick={() => this.closeRejectCustomModal()}> &times; </button>
+                            </MDBCol>
+                        </MDBRow>
+                        <hr/>
+                        <MDBRow>
+                            <MDBCol md="12" className="mb-12">
+                                <div><b>Are you sure you do NOT want to create this product?</b>
+                                </div>
+                            </MDBCol>
+                        </MDBRow>
+                        <hr/>
+                        <MDBRow>
+                            <MDBCol md="4" className="mb-4"/>
+                            <MDBCol md="2" className="mb-2">
+                                <MDBBtn color="danger" onClick={() => this.closeRejectCustomModal()}> No </MDBBtn>
+                            </MDBCol>
+                            <MDBCol md="2" className="mb-2">
+                                <MDBBtn color="success" onClick={() => this.updateCustomProductStatus(this.state.customProductId, 3)} > Yes </MDBBtn>
+                            </MDBCol>
+                            <MDBCol md="4" className="mb-4"/>
+                        </MDBRow>
+                    </div>
+                </Popup>
             </Container>
         );
     }
@@ -1111,7 +1310,6 @@ class Profile extends Component {
                 <table className="table table-striped ">
                     <thead>
                     <tr>
-                        <th scope="col">#</th>
                         <th scope="col">Image</th>
                         <th scope="col">Name</th>
                         <th scope="col">Type</th>
@@ -1128,7 +1326,6 @@ class Profile extends Component {
                     <tbody>
                     {products.map(product => (
                         <tr key={product.idProduct}>
-                            <th scope="row">{product.idProduct}</th>
                             <td><img src={product.url} alt={product.name} width="100" height="100"/></td>
                             <td>{product.name}</td>
                             <td>{getType(product.type)}</td>
@@ -1560,9 +1757,9 @@ class Profile extends Component {
                                 {this.profileInfo(user)}
                                 {this.usersList(users)}
                                 {this.pendingOrderList(pendingOrders)}
-                                {this.creationList(customCreations)}
                                 {this.productsList(products)}
                                 {this.typeStatistics()}
+                                {this.creationList(customCreations)}
                             </div>
                         </div>
                     </div>

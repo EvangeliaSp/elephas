@@ -76,7 +76,7 @@ class ProductGrid extends Component {
                         </Card.Text>
                     </Card.Body>
                     <Card.Footer>
-                        {product.discount === 0 ? product.price+"kr": <div><del>{product.price}</del><b className="redtext">{" " + (product.price-product.discount*product.price/100) + "kr"}</b></div>}
+                        {product.discount === 0 ? product.price+"kr": <div style={{float: "left"}}><del>{product.price}</del><b className="redtext">{" " + (product.price-product.discount*product.price/100) + "kr"}</b></div>}
                         <Button variant="primary" onClick={() => myBasket(product.idProduct)} style={{float: 'right'}}>Add to Cart</Button>
                     </Card.Footer>
                 </Card>
