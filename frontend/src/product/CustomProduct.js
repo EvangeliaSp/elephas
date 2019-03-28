@@ -40,7 +40,7 @@ class CustomProduct extends Component {
             .then(response => {
                 if (response.ok) {
                     alert("Your request has been submitted");
-                    window.location.href = `/`;
+                    window.location.href = `/user/profile#creations`;
                 }
             })
 
