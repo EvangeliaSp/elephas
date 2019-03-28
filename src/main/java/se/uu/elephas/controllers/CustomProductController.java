@@ -7,7 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.uu.elephas.model.CustomProduct;
-import se.uu.elephas.model.Product;
+import se.uu.elephas.model.UpdateCustomProduct;
 import se.uu.elephas.services.CustomProductServiceImpl;
 
 import javax.validation.Valid;
@@ -31,6 +31,35 @@ public class CustomProductController {
 
     }
 
+    @RequestMapping(value = "/update", method = {RequestMethod.PATCH})
+    public ResponseEntity<String> update(
+            @RequestBody UpdateCustomProduct customProduct
+    ) throws com.fasterxml.jackson.core.JsonProcessingException {
+
+        CustomProduct updatedCustomProduct = customProductService.update(customProduct);
+
+        if (updatedCustomProduct == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Custom product with id " + customProduct.getId() + " not found.");
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(updatedCustomProduct));
+
+    }
+
+    @RequestMapping(value = "/updateStatus", method = {RequestMethod.PATCH})
+    public ResponseEntity<String> updateStatus(
+            @RequestParam("idCustom") @Valid Long idCustom,
+            @RequestParam("status") @Valid int status
+    ) throws com.fasterxml.jackson.core.JsonProcessingException {
+
+        CustomProduct customProduct = customProductService.update(idCustom, status);
+
+        if (customProduct == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Custom product with id " + idCustom + " not found.");
+
+        return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(customProduct));
+
+    }
+
     @RequestMapping(value = "/customCreations", method = {RequestMethod.GET})
     public ResponseEntity<String> findCreations() throws JsonProcessingException {
 
@@ -47,6 +76,14 @@ public class CustomProductController {
         Iterable<CustomProduct> productCreations = customProductService.getCreationsByUser(idUser);
 
         return ResponseEntity.status(HttpStatus.OK).body(new ObjectMapper().writerWithDefaultPrettyPrinter().writeValueAsString(productCreations));
+    }
+
+    @RequestMapping(value = "/orders", method = {RequestMethod.GET})
+    public ResponseEntity<Integer> findUncompletedOrders() {
+
+        int counter = customProductService.getAllUncompletedOrderSize();
+
+        return ResponseEntity.status(HttpStatus.OK).body(counter);
     }
 
 }
