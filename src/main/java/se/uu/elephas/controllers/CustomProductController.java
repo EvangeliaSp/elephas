@@ -7,7 +7,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import se.uu.elephas.model.CustomProduct;
-import se.uu.elephas.model.Product;
 import se.uu.elephas.services.CustomProductServiceImpl;
 
 import javax.validation.Valid;
