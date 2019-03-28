@@ -78,10 +78,8 @@ class CustomProduct extends Component {
                 <MDBRow>
                     <h3 style={{color: '#3e3a3a'}}><b>Custom Product form</b></h3>
                 </MDBRow>
-
                 <div className="container">
                     <br/>
-
                     <MDBRow>
                         <MDBCol md="6" className="mb-6">
                             <label
@@ -202,7 +200,6 @@ class CustomProduct extends Component {
                             >
                                 Description
                             </label>
-
                             <textarea
                                 value={this.state.product.description}
                                 placeholder="Give description of the product you want"
@@ -212,15 +209,16 @@ class CustomProduct extends Component {
                                 className="form-control"
                             />
                         </MDBCol>
+
+                    </MDBRow>
+                    <br/>
+                    <MDBRow>
+                        <MDBCol md="5" className="mb-5"/>
+                        <MDBCol md="1" className="mb-1">
+                            <MDBBtn color="danger" onClick={()=>window.location.href = `/`}> Cancel </MDBBtn>
+                        </MDBCol>
                         <MDBCol md="2" className="mb-2">
                             <MDBBtn color="success" onClick={() => this.submitCustomProduct()}> Submit </MDBBtn>
-                        </MDBCol>
-                    </MDBRow>
-
-                    <MDBRow>
-                        <MDBCol md="8" className="mb-8"/>
-                        <MDBCol md="2" className="mb-2">
-                            {/*<MDBBtn color="danger" onClick={()=>window.location.href = `/custom`}> Cancel </MDBBtn>*/}
                         </MDBCol>
 
                     </MDBRow>
