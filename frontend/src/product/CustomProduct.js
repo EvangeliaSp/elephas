@@ -78,11 +78,10 @@ class CustomProduct extends Component {
                 <MDBRow>
                     <h3 style={{color: '#3e3a3a'}}><b>Custom Product form</b></h3>
                 </MDBRow>
-                <br/>
 
                 <div className="container">
+                    <br/>
 
-                    <hr/>
                     <MDBRow>
                         <MDBCol md="6" className="mb-6">
                             <label
@@ -196,7 +195,7 @@ class CustomProduct extends Component {
                     </MDBRow>
                     <br/>
                     <MDBRow>
-                    <MDBCol md="6" className="mb-6">
+                        <MDBCol md="6" className="mb-6">
                             <label
                                 htmlFor="defaultFormRegisterSurnameEx2"
                                 className="grey-text"
@@ -213,6 +212,9 @@ class CustomProduct extends Component {
                                 className="form-control"
                             />
                         </MDBCol>
+                        <MDBCol md="2" className="mb-2">
+                            <MDBBtn color="success" onClick={() => this.submitCustomProduct()}> Submit </MDBBtn>
+                        </MDBCol>
                     </MDBRow>
 
                     <MDBRow>
@@ -220,9 +222,7 @@ class CustomProduct extends Component {
                         <MDBCol md="2" className="mb-2">
                             {/*<MDBBtn color="danger" onClick={()=>window.location.href = `/custom`}> Cancel </MDBBtn>*/}
                         </MDBCol>
-                        <MDBCol md="2" className="mb-2">
-                            <MDBBtn color="success" onClick={() => this.submitCustomProduct()}> Submit </MDBBtn>
-                        </MDBCol>
+
                     </MDBRow>
                 </div>
 
