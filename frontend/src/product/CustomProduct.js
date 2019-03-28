@@ -15,9 +15,9 @@ class CustomProduct extends Component {
                 image: '',
                 price: 0,
                 discount: 0,
-                type: 0,
-                material: 0,
-                color: 0,
+                type: 1,
+                material: 1,
+                color: 1,
                 description: '',
                 quantity: 1,
                 status: 1
