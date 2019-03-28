@@ -22,11 +22,9 @@ public class Product {
     @Column(nullable = false)
     private int color;
 
-//    @Lob
     @Column(length = 6000, columnDefinition = "Text")
     private String description;
 
-    //@Column(columnDefinition="Decimal(10,2) default '100.00'")
     @Column(columnDefinition="Decimal(10,2)")
     private float price;
 
@@ -38,22 +36,15 @@ public class Product {
     @Column(columnDefinition="varchar(511)")
     private String url;
 
-    private Boolean custom;
-
     @OneToMany(mappedBy = "product")
     @JsonIgnore
     private List<OrderItem> orderItems;
-
-    private Long idUser;
-//    @ManyToOne
-//    @JoinColumn(name = "user_id")
-//    private User customOwner;
 
     public Product() {
 
     }
 
-    public Product(int type, int material, int color, String description, float price, float discount, String name, String url, Boolean custom) {
+    public Product(int type, int material, int color, String description, float price, float discount, String name, String url) {
         this.type = type;
         this.material = material;
         this.color = color;
@@ -62,20 +53,6 @@ public class Product {
         this.discount = discount;
         this.name = name;
         this.url = url;
-        this.custom = custom;
-    }
-
-    public Product(int type, int material, int color, String description, float price, float discount, String name, String url, Boolean custom, Long idUser) {
-        this.type = type;
-        this.material = material;
-        this.color = color;
-        this.description = description;
-        this.price = price;
-        this.discount = discount;
-        this.name = name;
-        this.url = url;
-        this.custom = custom;
-        this.idUser = idUser;
     }
 
     public Long getIdProduct() {
@@ -122,14 +99,6 @@ public class Product {
 
     public void setUrl(String url) { this.url = url; }
 
-    public Boolean getCustom() {
-        return custom;
-    }
-
-    public void setCustom(Boolean custom) {
-        this.custom = custom;
-    }
-
     public List<OrderItem> getOrderItems() {
         return orderItems;
     }
@@ -138,11 +107,4 @@ public class Product {
         this.orderItems = orderItems;
     }
 
-    public Long getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(Long idUser) {
-        this.idUser = idUser;
-    }
 }

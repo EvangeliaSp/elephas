@@ -70,8 +70,11 @@ export const statusStringToCode = statusString => {
 export const customProductStatusToString = customProductStatus => {
     switch(customProductStatus) {
         case 1: return "PENDING";
-        case 2: return "IN PROGRESS";
-        case 3: return "COMPLETED";
+        case 2: return "CONFIRMED";
+        case 3: return "REJECTED";
+        case 4: return "PAID";
+        case 5: return "DECLINED";
+        case 6: return "SHIPPED";
         default: return "none";
     }
 };

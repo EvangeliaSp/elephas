@@ -31,28 +31,28 @@ public class ProductServiceimpl implements ProductService {
     public Iterable<Product> getByParam(List<Integer> type, List<Integer> material, List<Integer> color) {
 
         if (type==null && material==null && color==null) {
-            return productRepository.findByCustom(false);
+            return productRepository.findAll();
         }
         else if (type==null && material==null) {
-            return productRepository.findByColorInAndCustom(color, false);
+            return productRepository.findByColorIn(color);
         }
         else if (type==null && color==null) {
-            return productRepository.findByMaterialInAndCustom(material, false);
+            return productRepository.findByMaterialIn(material);
         }
         else if (material==null && color==null) {
-            return productRepository.findByTypeInAndCustom(type, false);
+            return productRepository.findByTypeIn(type);
         }
         else if (type==null) {
-            return(productRepository.findByMaterialInAndColorInAndCustom(material, color, false));
+            return(productRepository.findByMaterialInAndColorIn(material, color));
         }
         else if (material==null) {
-            return(productRepository.findByTypeInAndColorInAndCustom(type, color, false));
+            return(productRepository.findByTypeInAndColorIn(type, color));
         }
         else if (color==null) {
-            return(productRepository.findByTypeInAndMaterialInAndCustom(type, material, false));
+            return(productRepository.findByTypeInAndMaterialIn(type, material));
         }
         else {
-            return(productRepository.findByTypeInAndMaterialInAndColorInAndCustom(type, material, color, false));
+            return(productRepository.findByTypeInAndMaterialInAndColorIn(type, material, color));
         }
     }
 
@@ -69,7 +69,4 @@ public class ProductServiceimpl implements ProductService {
         productRepository.deleteById(idProduct);
     }
 
-//    public Iterable<Product> getCreationsByUser(Long idUser) {
-//        return productRepository.findByCustomAndIdUser(true, idUser);
-//    }
 }

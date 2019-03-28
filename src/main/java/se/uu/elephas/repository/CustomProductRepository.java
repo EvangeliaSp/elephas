@@ -9,4 +9,6 @@ public interface CustomProductRepository extends CrudRepository<CustomProduct, L
 
     Iterable<CustomProduct> findByIdUser(Long idUser);
 
+    Iterable<CustomProduct> findByStatus(int status);
+
 }

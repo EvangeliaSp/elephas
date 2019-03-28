@@ -2,10 +2,12 @@ package se.uu.elephas.model;
 
 public enum CustomProductStatus {
 
-    COMPLETED (1),
-    CANCELLED(2),
-    SHIPPED(3),
-    IN_PROGRESS(4)
+    PENDING (1),
+    CONFIRMED(2),
+    REJECTED(3),
+    PAID(4),
+    DECLINED(5),
+    COMPLETED(6)
     ;
 
     private final int value;
