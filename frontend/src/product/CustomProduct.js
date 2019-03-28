@@ -3,12 +3,71 @@ import {Container, MDBRow} from "mdbreact";
 
 
 class CustomProduct extends Component {
-    state = {};
+    constructor(props) {
+        super(props);
 
+        this.state = {
+            fields: {},
+            errors: {}
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.submitCustomProduct = this.submitCustomProduct.bind(this);
+
+    };
+
+    submitCustomProduct(e) {
+        e.preventDefault();
+
+        if (this.handleValidation()) {
+            const options = {
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                method: 'POST',
+                body: JSON.stringify(this.state.fields),
+                redirect: 'follow'
+            };
+            fetch('//customProduct/create', options)
+                .then(response => {
+                    if (response.ok) {
+                        alert("Your request has been submitted");
+                        window.location.href = `/custom`;
+                    }
+                })
+
+        }
+        else {
+            alert("Form has errors.")
+        }
+    }
 
     changeHandler = event => {
         this.setState({[event.target.name]: event.target.value});
     };
+
+    handleValidation() {
+        let fields = this.state.fields;
+        let errors = {};
+        let formIsValid = true;
+
+
+        //Description
+        if (!fields["description"]) {
+            formIsValid = false;
+            errors["description"] = "Cannot be empty.";
+        }
+
+
+        this.setState({errors: errors});
+        return formIsValid;
+    }
+
+    handleChange(field, e){
+        let fields = this.state.fields;
+        fields[field] = e.target.value;
+        this.setState({fields});
+    }
 
     render() {
         return (
@@ -18,7 +77,7 @@ class CustomProduct extends Component {
                         <h3 style={{color: '#3e3a3a'}}><b>Custom Product form</b></h3>
                     </MDBRow>
                     <br/>
-                    <form name="form input" className="form input" onSubmit={this.submituserRegistrationForm}>
+                    <form name="form input" className="form input" onSubmit={this.submitCustomProduct}>
                         <div className="col-md-12">
                             <fieldset>
                                 <label>Type</label>
