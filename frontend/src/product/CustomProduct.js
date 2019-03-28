@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Container, MDBRow} from "mdbreact";
+import {Container, MDBBtn, MDBCol, MDBRow} from "mdbreact";
 
 
 class CustomProduct extends Component {
@@ -8,152 +8,227 @@ class CustomProduct extends Component {
 
         this.state = {
             fields: {},
-            errors: {}
+            errors: {},
+            product: {
+                idUser: localStorage.getItem("idUser"),
+                name: '',
+                image: '',
+                price: 0,
+                discount: 0,
+                type: 0,
+                material: 0,
+                color: 0,
+                description: '',
+                quantity: 1,
+                status: 1
+            }
         };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.submitCustomProduct = this.submitCustomProduct.bind(this);
 
     };
 
-    submitCustomProduct(e) {
-        e.preventDefault();
+    submitCustomProduct() {
+        const options = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+            method: 'POST',
+            body: JSON.stringify(this.state.product),
+            redirect: 'follow'
+        };
+        fetch('/customProduct/create', options)
+            .then(response => {
+                if (response.ok) {
+                    alert("Your request has been submitted");
+                    window.location.href = `/`;
+                }
+            })
 
-        if (this.handleValidation()) {
-            const options = {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                method: 'POST',
-                body: JSON.stringify(this.state.fields),
-                redirect: 'follow'
-            };
-            fetch('//customProduct/create', options)
-                .then(response => {
-                    if (response.ok) {
-                        alert("Your request has been submitted");
-                        window.location.href = `/custom`;
-                    }
-                })
 
-        }
-        else {
-            alert("Form has errors.")
-        }
     }
 
-    changeHandler = event => {
-        this.setState({[event.target.name]: event.target.value});
+    createProductHandler = event => {
+        let product = this.state.product;
+        product[event.target.name] = event.target.value;
+        this.setState({product: product})
     };
 
-    handleValidation() {
-        let fields = this.state.fields;
-        let errors = {};
-        let formIsValid = true;
+    createProductTypeHandler = event => {
+        let product = this.state.product;
+        product.type = event.target.value;
+        this.setState({product: product})
+    };
 
+    createProductMaterialHandler = event => {
+        let product = this.state.product;
+        product.material = event.target.value;
+        this.setState({product: product})
+    };
 
-        //Description
-        if (!fields["description"]) {
-            formIsValid = false;
-            errors["description"] = "Cannot be empty.";
-        }
+    createProductColorHandler = event => {
+        let product = this.state.product;
+        product.color = event.target.value;
+        this.setState({product: product})
+    };
 
-
-        this.setState({errors: errors});
-        return formIsValid;
-    }
-
-    handleChange(field, e){
-        let fields = this.state.fields;
-        fields[field] = e.target.value;
-        this.setState({fields});
-    }
 
     render() {
         return (
             <Container>
+                <MDBRow>
+                    <h3 style={{color: '#3e3a3a'}}><b>Custom Product form</b></h3>
+                </MDBRow>
+                <br/>
+
                 <div className="container">
+
+                    <hr/>
                     <MDBRow>
-                        <h3 style={{color: '#3e3a3a'}}><b>Custom Product form</b></h3>
+                        <MDBCol md="6" className="mb-6">
+                            <label
+                                htmlFor="defaultFormRegisterNameEx"
+                                className="grey-text"
+                            >
+                                Name
+                            </label>
+                            <input
+                                value={this.state.product.name}
+                                name="name"
+                                onChange={this.createProductHandler}
+                                type="text"
+                                className="form-control"
+                                placeholder="Name of the Product"
+                            />
+                        </MDBCol>
+                        <MDBCol md="6" className="mb-6">
+                            <label
+                                htmlFor="defaultFormRegisterSurnameEx2"
+                                className="grey-text"
+                            >
+                                Image
+                            </label>
+                            <input
+                                value={this.state.product.image}
+                                name="image"
+                                onChange={this.createProductHandler}
+                                type="text"
+                                className="form-control"
+                                placeholder="Image"
+                            />
+                        </MDBCol>
                     </MDBRow>
                     <br/>
-                    <form name="form input" className="form input" onSubmit={this.submitCustomProduct}>
-                        <div className="col-md-12">
-                            <fieldset>
-                                <label>Type</label>
-                                <select name="Type">
+                    <MDBRow>
+                        <MDBCol md="6" className="mb-6">
+                            <label
+                                htmlFor="defaultFormRegisterNameEx"
+                                className="grey-text"
+                            >
+                                Type
+                            </label>
+                            <select
+                                value={this.state.product.type}
+                                onChange={this.createProductTypeHandler}
+                                className="form-control">
+                                <option value={1}>Bracelet</option>
+                                <option value={2}>Ring</option>
+                                <option value={3}>Earring</option>
+                                <option value={4}>Necklace</option>
+                            </select>
+                        </MDBCol>
+                        <MDBCol md="6" className="mb-6">
+                            <label
+                                htmlFor="defaultFormRegisterSurnameEx2"
+                                className="grey-text"
+                            >
+                                Material
+                            </label>
+                            <select
+                                value={this.state.product.material}
+                                onChange={this.createProductMaterialHandler}
+                                className="form-control">
+                                <option value={1}>Steel</option>
+                                <option value={2}>Silver</option>
+                                <option value={3}>Gold</option>
+                            </select>
+                        </MDBCol>
+                    </MDBRow>
+                    <br/>
+                    <MDBRow>
+                        <MDBCol md="6" className="mb-6">
+                            <label
+                                htmlFor="defaultFormRegisterNameEx"
+                                className="grey-text"
+                            >
+                                Color
+                            </label>
+                            <select
+                                value={this.state.product.color}
+                                onChange={this.createProductColorHandler}
+                                className="form-control">
+                                <option value={1}>Black</option>
+                                <option value={2}>White</option>
+                                <option value={3}>Grey</option>
+                                <option value={4}>Brown</option>
+                                <option value={5}>Red</option>
+                            </select>
+                        </MDBCol>
+                        <MDBCol md="6" className="mb-6">
+                            <label
+                                htmlFor="defaultFormRegisterNameEx"
+                                className="grey-text"
+                            >
+                                Quantity
+                            </label>
+                            <input
+                                value={this.state.product.quantity}
+                                name="quantity"
+                                onChange={this.createProductHandler}
+                                type="number"
+                                step="1"
+                                min='1'
+                                max='10'
+                                className="form-control"
+                                placeholder={this.state.product.quantity}
+                            />
+                        </MDBCol>
 
-                                    <option value="1">Bracelet</option>
-                                    <option value="2">Ring</option>
-                                    <option value="3">Earrings</option>
-                                    <option value="4">Necklace</option>
-                                </select> <br/>
-                                <br/>
-                                <label>Material</label>
-                                <select name="Material">
+                    </MDBRow>
+                    <br/>
+                    <MDBRow>
+                    <MDBCol md="6" className="mb-6">
+                            <label
+                                htmlFor="defaultFormRegisterSurnameEx2"
+                                className="grey-text"
+                            >
+                                Description
+                            </label>
 
-                                    <option value="1">Silver</option>
-                                    <option value="2">Gold</option>
-                                    <option value="3">Steel</option>
-                                    <option value="4">Wool</option>
-                                </select> <br/>
-                                <br/>
-                                <label>Color</label>
-                                <select name="Color">
+                            <textarea
+                                value={this.state.product.description}
+                                placeholder="Give description of the product you want"
+                                name="description"
+                                onChange={this.createProductHandler}
+                                type="text"
+                                className="form-control"
+                            />
+                        </MDBCol>
+                    </MDBRow>
 
-                                    <option value="1">Black</option>
-                                    <option value="2">White</option>
-                                    <option value="3">Red</option>
-                                    <option value="4">Brown</option>
-                                </select> <br/>
-                                <br/>
-                                <label>Quantity</label>
-                                <select name="Quantity">
-
-                                    <option value="1">1</option>
-                                    <option value="2">2</option>
-                                    <option value="3">3</option>
-                                    <option value="4">4</option>
-                                    <option value="5">5</option>
-                                    <option value="6">6</option>
-                                    <option value="7">7</option>
-                                    <option value="8">8</option>
-                                    <option value="9">9</option>
-                                    <option value="10">10</option>
-
-
-                                </select> <br/>
-                                <br/>
-                                <label>Description</label>
-                                <input type="text" size="3000"
-                                       placeholder="Description of the product you want to order"
-
-                                    // onChange={this.handleChange.bind(this, "streetName")}
-                                    // value={this.state.fields["streetName"]}
-                                />
-                                <br/>
-                                <br/>
-
-
-                            </fieldset>
-                        </div>
-                        <div className="col-md-12">
-                            <fieldset>
-                                <button className="button" id="submit" value="Submit">Submit</button>
-
-                            </fieldset>
-                        </div>
-                        <br/>
-                        <br/>
-
-                        <br/> <br/>
-                        <br/>
-
-                        <br/>
-                    </form>
+                    <MDBRow>
+                        <MDBCol md="8" className="mb-8"/>
+                        <MDBCol md="2" className="mb-2">
+                            {/*<MDBBtn color="danger" onClick={()=>window.location.href = `/custom`}> Cancel </MDBBtn>*/}
+                        </MDBCol>
+                        <MDBCol md="2" className="mb-2">
+                            <MDBBtn color="success" onClick={() => this.submitCustomProduct()}> Submit </MDBBtn>
+                        </MDBCol>
+                    </MDBRow>
                 </div>
 
             </Container>
+
+
         )
     }
 
