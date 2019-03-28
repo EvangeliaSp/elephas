@@ -17,6 +17,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ShowCart from "./order/ShowCart";
 import ResetPassword from "./user/login-logout/ResetPassword";
+import CustomProduct from "./product/CustomProduct"
 
 
 ReactDOM.render(
@@ -34,6 +35,8 @@ ReactDOM.render(
                     <Route path='/user/register' component={Register}/>
                     <Route path='/order/cart' component={ShowCart}/>
                     <Route path='/about' component={About}/>
+                    <Route path='/custom' component={CustomProduct}/>
+
                     <Route path='/user/login/resetPassword' component={ResetPassword}/>
                 <Footer/>
                 </div>

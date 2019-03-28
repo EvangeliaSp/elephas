@@ -204,6 +204,7 @@ class Header extends Component {
                                 <NavLink to="/product#rings" className={this.setClassName("#rings", "")}>Rings</NavLink>
                                 <NavLink to="/product#necklaces" className={this.setClassName("#necklaces", "")}>Necklaces</NavLink>
                                 <NavLink to="/product#earrings" className={this.setClassName("#earrings", "")}>Earrings</NavLink>
+                                <NavLink to="/custom" className={this.setClassName("#custom", "")}>Custom Creations</NavLink>
 
                                 <NavLink to="/about" className={this.setClassName("#about", "")}>About</NavLink>
                             </Nav>
@@ -282,7 +283,7 @@ class Header extends Component {
                             <NavLink to="/product#rings" className={this.setClassName("#rings", "")}>Rings</NavLink>
                             <NavLink to="/product#necklaces" className={this.setClassName("#necklaces", "")}>Necklaces</NavLink>
                             <NavLink to="/product#earrings" className={this.setClassName("#earrings", "")}>Earrings</NavLink>
-
+                            <NavLink to="/custom" className={this.setClassName("#custom", "")}>Custom Creations</NavLink>
                             <NavLink to="/about" className={this.setClassName("#about", "")}>About</NavLink>
                         </Nav>
 

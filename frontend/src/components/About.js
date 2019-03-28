@@ -26,7 +26,7 @@ class About extends Component {
 
 
                     <div className="intro">About Konstantina</div>
-                    <div className="words">Konstantina is Marketing Coordinator in one of the biggest translaring
+                    <div className="words">Konstantina is Marketing Coordinator in one of the biggest translating
                         companies
                         in Greece.
                         <p>She is completing her Master's in Operations Research and Information Engineering. In 2016
@@ -37,7 +37,7 @@ class About extends Component {
                             she started
                             jewelry making classes.</p>
                         <img src={konstantina} alt="Konstantina Manousaki"/>
-                        <p> She lives happily in Piraeus with her companion.</p>
+                        <p> She lives happily in Piraeus with her partner.</p>
                     </div>
 
                     <br/>
