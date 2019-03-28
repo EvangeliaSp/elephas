@@ -15,22 +15,18 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
 
     Optional<Product> findById(Long idProduct);
 
-    Iterable<Product> findByCustom(Boolean custom);
+    Iterable<Product> findByTypeInAndMaterialInAndColorIn(List<Integer> type, List<Integer> material, List<Integer> color);
 
-    Iterable<Product> findByCustomAndIdUser(Boolean custom, Long idUser);
+    Iterable<Product> findByMaterialInAndColorIn(List<Integer> material, List<Integer> color);
 
-    Iterable<Product> findByTypeInAndMaterialInAndColorInAndCustom(List<Integer> type, List<Integer> material, List<Integer> color, Boolean custom);
+    Iterable<Product> findByTypeInAndMaterialIn(List<Integer> type, List<Integer> material);
 
-    Iterable<Product> findByMaterialInAndColorInAndCustom(List<Integer> material, List<Integer> color, Boolean custom);
+    Iterable<Product> findByTypeInAndColorIn(List<Integer> type, List<Integer> color);
 
-    Iterable<Product> findByTypeInAndMaterialInAndCustom(List<Integer> type, List<Integer> material, Boolean custom);
+    Iterable<Product> findByTypeIn(List<Integer> type);
 
-    Iterable<Product> findByTypeInAndColorInAndCustom(List<Integer> type, List<Integer> color, Boolean custom);
+    Iterable<Product> findByColorIn(List<Integer> color);
 
-    Iterable<Product> findByTypeInAndCustom(List<Integer> type, Boolean custom);
-
-    Iterable<Product> findByColorInAndCustom(List<Integer> color, Boolean custom);
-
-    Iterable<Product> findByMaterialInAndCustom(List<Integer> material, Boolean custom);
+    Iterable<Product> findByMaterialIn(List<Integer> material);
 
 }
