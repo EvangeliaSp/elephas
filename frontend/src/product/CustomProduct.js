@@ -134,6 +134,7 @@ class CustomProduct extends Component {
                                 name="image"
                                 onChange={this.uploadImageHandler}
                                 type="file"
+                                accept="image/*"
                                 className="form-control"
                                 placeholder={this.state.product.image}
                             />
