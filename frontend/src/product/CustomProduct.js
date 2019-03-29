@@ -7,8 +7,10 @@ class CustomProduct extends Component {
         super(props);
 
         this.state = {
+            imageFolder: 'uploadedImages/',
             fields: {},
             errors: {},
+            uploadedFiles: [],
             product: {
                 idUser: localStorage.getItem("idUser"),
                 name: '',
@@ -28,6 +30,28 @@ class CustomProduct extends Component {
     };
 
     submitCustomProduct() {
+        var formData  = new FormData();
+        const uploadedFiles = this.state.uploadedFiles[0];
+        formData.append("file", uploadedFiles);
+        
+        const imageOptions = {
+            method: 'POST',
+            body: formData,
+            redirect: 'follow'
+        }
+        /*
+        var product = this.state.product;
+        product.image = this.state.imageFolder + product.image;
+        this.setState({product: product});
+        */
+        
+        fetch('/customProduct/uploadImage', imageOptions)
+            .then(response => {
+                if (response.ok) {
+                    console.log("Your image has been uploaded");
+                }
+            })
+
         const options = {
             headers: {
                 "Content-Type": "application/json",
@@ -40,7 +64,7 @@ class CustomProduct extends Component {
             .then(response => {
                 if (response.ok) {
                     alert("Your request has been submitted");
-                    window.location.href = `/user/profile#creations`;
+                    //window.location.href = `/user/profile#creations`;
                 }
             })
 
@@ -71,6 +95,15 @@ class CustomProduct extends Component {
         this.setState({product: product})
     };
 
+    uploadImageHandler = event => {
+        let product = this.state.product;
+        let files = this.state.uploadedFiles;
+        files = event.target.files;
+        product.image = files[0].name;
+        console.log("event.target.files: ", files)
+        console.log("name: ", files[0].name);
+        this.setState({product: product, uploadedFiles: files})
+    }
 
     render() {
         return (
@@ -78,7 +111,8 @@ class CustomProduct extends Component {
                 <MDBRow>
                     <h3 style={{color: '#3e3a3a'}}><b>Custom Product form</b></h3>
                 </MDBRow>
-                <div className="container">
+                <div className="container" style={{marginBottom: "7em"}}>
+
                     <br/>
                     <MDBRow>
                         <MDBCol md="6" className="mb-6">
@@ -105,12 +139,11 @@ class CustomProduct extends Component {
                                 Image
                             </label>
                             <input
-                                value={this.state.product.image}
                                 name="image"
-                                onChange={this.createProductHandler}
-                                type="text"
+                                onChange={this.uploadImageHandler}
+                                type="file"
                                 className="form-control"
-                                placeholder="Image"
+                                placeholder={this.state.product.image}
                             />
                         </MDBCol>
                     </MDBRow>
