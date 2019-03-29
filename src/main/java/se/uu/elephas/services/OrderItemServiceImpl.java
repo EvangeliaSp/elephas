@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import se.uu.elephas.model.BasketItem;
 import se.uu.elephas.model.Order;
 import se.uu.elephas.model.OrderItem;
-import se.uu.elephas.model.Status;
 import se.uu.elephas.repository.OrderItemRepository;
 import se.uu.elephas.repository.OrderRepository;
 
@@ -13,7 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static se.uu.elephas.model.Status.COMPLETED;
 
 @Service
 public class OrderItemServiceImpl implements OrderItemService {
