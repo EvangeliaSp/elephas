@@ -7,7 +7,6 @@ class CustomProduct extends Component {
         super(props);
 
         this.state = {
-            imageFolder: 'uploadedImages/',
             fields: {},
             errors: {},
             uploadedFiles: [],
@@ -39,11 +38,6 @@ class CustomProduct extends Component {
             body: formData,
             redirect: 'follow'
         }
-        /*
-        var product = this.state.product;
-        product.image = this.state.imageFolder + product.image;
-        this.setState({product: product});
-        */
         
         fetch('/customProduct/uploadImage', imageOptions)
             .then(response => {
