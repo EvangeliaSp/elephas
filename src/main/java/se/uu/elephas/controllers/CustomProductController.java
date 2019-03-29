@@ -117,7 +117,7 @@ public class CustomProductController {
 
 
 
-
+    /*
     @GetMapping("/xxxx")
     public String listUploadedFiles(Model model) throws IOException {
 
@@ -128,7 +128,7 @@ public class CustomProductController {
 
         return "uploadForm";
     }
-
+*/
     @GetMapping("/files/{filename:.+}")
     @ResponseBody
     public ResponseEntity<Resource> serveFile(@PathVariable String filename) {
@@ -143,7 +143,6 @@ public class CustomProductController {
             RedirectAttributes redirectAttributes) {
 
         storageService.store(file);
-        System.out.println("uploaded image?");
         redirectAttributes.addFlashAttribute("message",
                 "You successfully uploaded " + file.getOriginalFilename() + "!");
 

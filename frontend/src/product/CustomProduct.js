@@ -64,7 +64,7 @@ class CustomProduct extends Component {
             .then(response => {
                 if (response.ok) {
                     alert("Your request has been submitted");
-                    //window.location.href = `/user/profile#creations`;
+                    window.location.href = `/user/profile#creations`;
                 }
             })
 
@@ -100,8 +100,6 @@ class CustomProduct extends Component {
         let files = this.state.uploadedFiles;
         files = event.target.files;
         product.image = files[0].name;
-        console.log("event.target.files: ", files)
-        console.log("name: ", files[0].name);
         this.setState({product: product, uploadedFiles: files})
     }
 
