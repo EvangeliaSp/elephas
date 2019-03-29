@@ -2,20 +2,16 @@ package se.uu.elephas.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import se.uu.elephas.model.User;
 import se.uu.elephas.repository.UserRepository;
 
 import javax.xml.bind.DatatypeConverter;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
-import java.util.List;
 import java.util.Optional;
 
 @Service//("userService")
-//@Transactional
 public class UserServiceImpl implements UserService {
 
     public UserServiceImpl() {

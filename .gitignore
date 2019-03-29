@@ -1,5 +1,6 @@
 .idea/
 target/
+uploadedImages/
 *.iml
 
 # for visual studio code

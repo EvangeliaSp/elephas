@@ -9,6 +9,7 @@ class CustomProduct extends Component {
         this.state = {
             fields: {},
             errors: {},
+            uploadedFiles: [],
             product: {
                 idUser: localStorage.getItem("idUser"),
                 name: '',
@@ -28,6 +29,23 @@ class CustomProduct extends Component {
     };
 
     submitCustomProduct() {
+        var formData  = new FormData();
+        const uploadedFiles = this.state.uploadedFiles[0];
+        formData.append("file", uploadedFiles);
+        
+        const imageOptions = {
+            method: 'POST',
+            body: formData,
+            redirect: 'follow'
+        }
+        
+        fetch('/customProduct/uploadImage', imageOptions)
+            .then(response => {
+                if (response.ok) {
+                    console.log("Your image has been uploaded");
+                }
+            })
+
         const options = {
             headers: {
                 "Content-Type": "application/json",
@@ -71,6 +89,13 @@ class CustomProduct extends Component {
         this.setState({product: product})
     };
 
+    uploadImageHandler = event => {
+        let product = this.state.product;
+        let files = this.state.uploadedFiles;
+        files = event.target.files;
+        product.image = files[0].name;
+        this.setState({product: product, uploadedFiles: files})
+    }
 
     render() {
         return (
@@ -78,7 +103,8 @@ class CustomProduct extends Component {
                 <MDBRow>
                     <h3 style={{color: '#3e3a3a'}}><b>Custom Product form</b></h3>
                 </MDBRow>
-                <div className="container">
+                <div className="container" style={{marginBottom: "7em"}}>
+
                     <br/>
                     <MDBRow>
                         <MDBCol md="6" className="mb-6">
@@ -105,12 +131,12 @@ class CustomProduct extends Component {
                                 Image
                             </label>
                             <input
-                                value={this.state.product.image}
                                 name="image"
-                                onChange={this.createProductHandler}
-                                type="text"
+                                onChange={this.uploadImageHandler}
+                                type="file"
+                                accept="image/*"
                                 className="form-control"
-                                placeholder="Image"
+                                placeholder={this.state.product.image}
                             />
                         </MDBCol>
                     </MDBRow>
