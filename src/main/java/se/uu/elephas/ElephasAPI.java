@@ -13,35 +13,7 @@ import se.uu.elephas.services.StorageService;
 
 @SpringBootApplication
 @ComponentScan({"se.uu.elephas.controllers", "se.uu.elephas.services"})
-//@EntityScan({"se.uu.elephas.services"})
-//@EnableJpaRepositories("se.uu.elephas.repository")
 public class ElephasAPI extends SpringBootServletInitializer {
-
-//    @Bean
-//    public Docket bidderApi() {
-//        return new Docket(DocumentationType.SWAGGER_2)
-//                .apiInfo(apiInfo())
-//                .select()
-//                .paths(PathSelectors.regex("/.*"))
-//                .build();
-//    }
-//
-//    private ApiInfo apiInfo() {
-//        return new ApiInfoBuilder()
-//                .title("Elephas API")
-//                .description("")
-//                .termsOfServiceUrl("")
-//                .contact("")
-//                .license("")
-//                .licenseUrl("")
-//                .version("0.9")
-//                .build();
-//    }
-
-    //    @Bean
-//    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
 
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
@@ -55,8 +27,6 @@ public class ElephasAPI extends SpringBootServletInitializer {
     @Bean
     CommandLineRunner init(StorageService storageService) {
         return (args) -> {
-            // deletes all current images in the folder
-            // storageService.deleteAll();
             storageService.init();
         };
     }
