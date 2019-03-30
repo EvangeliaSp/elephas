@@ -1163,7 +1163,7 @@ class Profile extends Component {
                     <tbody>
                     {customCreations.map(product => (
                         <tr key={product.idCustomProduct}>
-                            <td><img src={product.image} alt={product.name} width="100" height="100"/></td>
+                            <td><img src={"/customProduct/files/" + product.image} alt={product.name} width="100" height="100"/></td>
                             <td>{product.name}</td>
                             <td>{getType(product.type)}</td>
                             <td>{getMaterial(product.material)}</td>
